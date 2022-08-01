@@ -1,4 +1,4 @@
-package controller;
+package com.mealkit.member;
 
 import java.io.IOException;
 import javax.servlet.RequestDispatcher;
@@ -9,102 +9,72 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-import model.dto.MemberDTO;
-import model.service.MemberService;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 
-public class MemberController extends HttpServlet{    
 
-    private static final long serialVersionUID = 1L;
-    
+@Controller
+public class MemberController{    
+
+    @Autowired
     MemberService memberService;
 
-    public void init(ServletConfig config) throws ServletException{
-        
-    	memberService = MemberService.getInstance();     
+    @RequestMapping(value="/login")
+    public String login() {
+        return "login";
     }
     
-    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        doHandler(request, response);
+    @RequestMapping(value="/submitLogin", method=RequestMethod.POST)
+    public String submitLogin(HttpSession session, MemberDTO member, HttpServletRequest request) {
+           
+        MemberDTO loginData;
+        loginData = memberService.submitLogin(member);
+        if(loginData != null)
+            session.setAttribute("member", loginData);
+        else {
+            request.setAttribute("msg", "로그인 오류! ID와 비밀번호를 확인해주세요~!!");
+            request.setAttribute("url", "login"); 
+            return "alert";
+        }                  
+        return "/";
     }
-
-    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        doHandler(request, response);
+    
+    @RequestMapping(value="/logout")
+    public String logout(HttpSession session) {        
+        session.invalidate();
+        return "/";
+    }
+    
+    @RequestMapping(value="/signUp")
+    public String signUp() {
+        return "signUp";
+    }
+    
+    @RequestMapping(value="/submitSignUp")
+    public String submitSignUp(MemberDTO member, HttpSession session, HttpServletRequest request) {
+        memberService.submitSignUp(member);    
+        request.setAttribute("msg", "회원가입되었습니다. 환영합니다~~~~");
+        request.setAttribute("url", "/");    
+        return "alert";
+    }
+    
+    @RequestMapping(value="/checkUniqueId")
+    public String checkUniqueId(String inputedId, HttpServletRequest request) {
+        boolean result = memberService.checkUniqueId(inputedId);
+        request.setAttribute("result", result);
+        return "alert";
     }
  
+    @RequestMapping(value="/forgetPassword")
+    public String forgetPassword() {
+        return "forgetPassword";
+    }
     
-    private void doHandler(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-   
-      
-        String fromPath = request.getRequestURI().substring(request.getContextPath().length());
-        String toPath = null;
-        
-        if(fromPath.equals("/login.do")) {            
-            toPath = "WEB-INF/view/login.jsp";
-            
-        }else if(fromPath.equals("/submitLogin.do")){	
-	    	
-	    	MemberDTO member = new MemberDTO();
-	    	HttpSession session = request.getSession();
-	    	
-	    	String id = request.getParameter("mId");
-	    	String pw = request.getParameter("pw");    
-	    	
-	    	member = memberService.submitLogin(id, pw);	    	
-	    	if(member != null) {	    		
-	    		session.setAttribute("member", member);		    	
-		    	toPath = "WEB-INF/view/index.jsp";
-	    	}else{
-	    		request.setAttribute("msg", "로그인 오류!! 아디와 비번 확인해주세요~!");
-                request.setAttribute("url", "login.do");               
-	    		toPath = "WEB-INF/view/alert.jsp";
-	    	}	  	
-	    	
-	    }else if(fromPath.equals("/logout.do")) {
-	    	HttpSession session = request.getSession();
-    		session.invalidate();
-            toPath = "WEB-INF/view/index.jsp";   
-            
-	    }else if(fromPath.equals("/signUp.do")) {
-            toPath = "WEB-INF/view/signUp.jsp";   
-            
-	    }else if(fromPath.equals("/submitSignUp.do")) {
-	    	
-	    	MemberDTO member = new MemberDTO();
-	    	
-	    	member.setmId(request.getParameter("mId"));
-	    	member.setPw(request.getParameter("pw"));
-	    	member.setmName(request.getParameter("mName"));
-	    	member.setEmail(request.getParameter("email"));
-	    	member.setPhone(request.getParameter("phone"));
-	    	member.setAddress(request.getParameter("address"));
-	    	
-	    	memberService.submitSignUp(member);
-	    	
-	    	request.setAttribute("msg", "회원가입되었습니다. 환영합니다~~~~");
-            request.setAttribute("url", "home");    
-            
-            // 회원가입됬으면 로그인도 해주자.
-    		toPath = "WEB-INF/view/alert.jsp";
-            
-	    }else if(fromPath.equals("/checkUniqueId.do")) {
-	    	
-	    	String inputedId = request.getParameter("mId");
-	    	boolean result = memberService.checkUniqueId(inputedId);
-	    	
-	    	//System.out.println("결과 나왔니 : " + result);
-	    	request.setAttribute("result", result);
-	    	
-	    }else if(fromPath.equals("/forget-password.do")) {
-            toPath = "WEB-INF/view/forget-password.jsp";   
-            
-	    }else if(fromPath.equals("/changePwd.do")) {
-            toPath = "WEB-INF/view/changePwd.jsp";   
-            
-	    }else {
-            toPath = "WEB-INF/view/error.jsp";
-        }
-                
-        RequestDispatcher dispatcher = request.getRequestDispatcher(toPath);
-        dispatcher.forward(request, response);
-    }    
+    @RequestMapping(value="/changePwd")
+    public String changePwd() {
+        return "changePwd";
+    }   
+  
 }
