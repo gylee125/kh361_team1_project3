@@ -1,4 +1,4 @@
-package model.dao;
+package com.mealkit.member;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -6,6 +6,9 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 
 import model.dto.MemberDTO;
+
+// 쿼리문 빼서 매퍼.xml 파일 만들기
+// dao는 연동만 하는 걸로 수정
 
 public class MemberDAO {
 	
@@ -17,22 +20,6 @@ private static MemberDAO memberDAO = new MemberDAO();
 	
 	private MemberDAO() {}
 	
-	private MemberDTO makeMemberFromResultSet(ResultSet rs) throws SQLException {
-		
-	    MemberDTO memberDTO = new MemberDTO();
-        
-	    memberDTO.setmNo(rs.getInt("mNo"));
-	    memberDTO.setmId(rs.getString("mId"));
-	    memberDTO.setPw(rs.getString("pw"));
-	    memberDTO.setmName(rs.getString("mName"));
-	    memberDTO.setPhone(rs.getString("phone"));
-	    memberDTO.setAddress(rs.getString("address"));
-	    memberDTO.setEmail(rs.getString("email"));
-	    memberDTO.setRegDate(rs.getDate("regDate"));
-	    memberDTO.setmLevel(rs.getInt("mLevel"));	   
-        
-        return memberDTO;
-    }
 
     public MemberDTO submitLogin(Connection conn, String id, String pw) throws SQLException {
         
