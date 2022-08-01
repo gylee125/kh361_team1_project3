@@ -19,7 +19,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 public class MemberController{    
 
     @Autowired
-    MemberService memberService;
+    MemberServiceBackUp memberServiceBackUp;
 
     @RequestMapping(value="/login")
     public String login() {
@@ -30,7 +30,7 @@ public class MemberController{
     public String submitLogin(HttpSession session, MemberDTO member, HttpServletRequest request) {
            
         MemberDTO loginData;
-        loginData = memberService.submitLogin(member);
+        loginData = memberServiceBackUp.submitLogin(member);
         if(loginData != null)
             session.setAttribute("member", loginData);
         else {
@@ -54,7 +54,7 @@ public class MemberController{
     
     @RequestMapping(value="/submitSignUp")
     public String submitSignUp(MemberDTO member, HttpSession session, HttpServletRequest request) {
-        memberService.submitSignUp(member);    
+        memberServiceBackUp.submitSignUp(member);    
         request.setAttribute("msg", "회원가입되었습니다. 환영합니다~~~~");
         request.setAttribute("url", "/");    
         return "alert";
@@ -62,7 +62,7 @@ public class MemberController{
     
     @RequestMapping(value="/checkUniqueId")
     public String checkUniqueId(String inputedId, HttpServletRequest request) {
-        boolean result = memberService.checkUniqueId(inputedId);
+        boolean result = memberServiceBackUp.checkUniqueId(inputedId);
         request.setAttribute("result", result);
         return "alert";
     }
