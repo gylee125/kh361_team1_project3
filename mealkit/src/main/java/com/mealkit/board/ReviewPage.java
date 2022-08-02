@@ -4,7 +4,11 @@ import java.util.Date;
 import java.util.List;
 
 import com.mealkit.member.MemberPage;
+<<<<<<< HEAD
 import com.mealkit.board.CommentVO;
+=======
+import com.mealkit.board.CommentDTO;
+>>>>>>> branch 'csw_board_review' of https://github.com/gylee125/kh361_team1_project3.git
 
 public class ReviewPage {
 	

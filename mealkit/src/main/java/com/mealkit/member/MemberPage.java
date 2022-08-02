@@ -2,7 +2,11 @@ package com.mealkit.member;
 
 import java.util.List;
 
+<<<<<<< HEAD
 import com.mealkit.board.CommentDaoOld;
+=======
+import com.mealkit.board.CommentDao;
+>>>>>>> branch 'csw_board_review' of https://github.com/gylee125/kh361_team1_project3.git
 
 public class MemberPage {
 

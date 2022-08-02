@@ -3,7 +3,6 @@ package com.mealkit.board;
 import java.sql.Connection;
 import java.util.Date;
 
-import com.mealkit.board.CommentDaoOld;
 import com.mealkit.board.CommentVO;
 import jdbc.JdbcUtil;
 import jdbc.connection.ConnectionProvider;

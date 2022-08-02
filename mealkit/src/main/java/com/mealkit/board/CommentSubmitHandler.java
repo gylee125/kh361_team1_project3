@@ -11,7 +11,11 @@ import javax.servlet.http.HttpServletResponse;
 import com.mealkit.member.MemberPage;
 import com.mealkit.board.CommentSubmitPage;
 import com.mealkit.board.CommentWriteService;
+<<<<<<< HEAD
 import com.mealkit.board.CommentVO;
+=======
+import com.mealkit.board.CommentDTO;
+>>>>>>> branch 'csw_board_review' of https://github.com/gylee125/kh361_team1_project3.git
 import com.mealkit.member.MemberDTO;
 import com.mealkit.main.CommandHandler;
 

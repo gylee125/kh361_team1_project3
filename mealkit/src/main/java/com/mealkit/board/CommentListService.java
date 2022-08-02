@@ -5,7 +5,6 @@ import java.sql.SQLException;
 import java.util.List;
 
 import com.mealkit.member.MemberPage;
-import com.mealkit.board.CommentDaoOld;
 import com.mealkit.board.CommentVO;
 import jdbc.connection.ConnectionProvider;
 

@@ -14,7 +14,6 @@ import javax.servlet.http.HttpSession;
 
 import com.mealkit.board.CommentListService;
 import com.mealkit.board.ReviewPage;
-import com.mealkit.board.CommentDaoOld;
 import com.mealkit.board.CommentVO;
 import jdbc.JdbcUtil;
 import jdbc.connection.ConnectionProvider;
