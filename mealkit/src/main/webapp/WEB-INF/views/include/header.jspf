@@ -7,9 +7,9 @@ THEME: Aviato | E-commerce template
 VERSION: 1.0.0
 AUTHOR: Themefisher
 
-HOMEPAGE: https://themefisher.com/products/aviato-e-commerce-template/
-DEMO: https://demo.themefisher.com/aviato/
-GITHUB: https://github.com/themefisher/Aviato-E-Commerce-Template/
+HOMEPAGE: https://themefisher.com/products/resources-e-commerce-template/
+DEMO: https://demo.themefisher.com/resources/
+GITHUB: https://github.com/themefisher/resources-E-Commerce-Template/
 
 WEBSITE: https://themefisher.com
 TWITTER: https://twitter.com/themefisher
@@ -41,19 +41,19 @@ FACEBOOK: https://www.facebook.com/themefisher
 
 <!-- Themefisher Icon font -->
 <link rel="stylesheet"
-	href="<%=request.getContextPath()%>/aviato/plugins/themefisher-font/style.css">
+	href="<%=request.getContextPath()%>/resources/plugins/themefisher-font/style.css">
 <!-- bootstrap.min css -->
 <link rel="stylesheet"
-	href="<%=request.getContextPath()%>/aviato/plugins/bootstrap/css/bootstrap.min.css">
+	href="<%=request.getContextPath()%>/resources/plugins/bootstrap/css/bootstrap.min.css">
 
 <!-- Animate css -->
-<link rel="stylesheet" href="<%=request.getContextPath()%>/aviato/plugins/animate/animate.css">
+<link rel="stylesheet" href="<%=request.getContextPath()%>/resources/plugins/animate/animate.css">
 <!-- Slick Carousel -->
-<link rel="stylesheet" href="<%=request.getContextPath()%>/aviato/plugins/slick/slick.css">
-<link rel="stylesheet" href="<%=request.getContextPath()%>/aviato/plugins/slick/slick-theme.css">
+<link rel="stylesheet" href="<%=request.getContextPath()%>/resources/plugins/slick/slick.css">
+<link rel="stylesheet" href="<%=request.getContextPath()%>/resources/plugins/slick/slick-theme.css">
 
 <!-- Main Stylesheet -->
-<link rel="stylesheet" href="<%=request.getContextPath()%>/aviato/css/style.css">
+<link rel="stylesheet" href="<%=request.getContextPath()%>/resources/css/style.css">
 
 </head>
 
@@ -106,7 +106,7 @@ FACEBOOK: https://www.facebook.com/themefisher
 						<c:if test="${member != null}">
 							<!-- 로그인 정보가 있을 때 -->
 							<li class="dropdown cart-nav dropdown-slide"><a
-								href="<%=request.getContextPath()%>/cart.do?mId=${member.mId}"
+								href="<%=request.getContextPath()%>/cart.do?MId=${ member.MId }"
 								class="dropdown-toggle"><i class="tf-ion-android-cart"></i>Cart</a>
 							</li>
 						</c:if>
@@ -117,7 +117,7 @@ FACEBOOK: https://www.facebook.com/themefisher
 								<!-- Cart Item -->
 								<!--<div class="media">
 									<a class="pull-left" href="#!"> <img class="media-object"
-										src="<%=request.getContextPath()%>/aviato/images/shop/cart/cart-1.jpg"
+										src="<%=request.getContextPath()%>/resources/images/shop/cart/cart-1.jpg"
 										alt="image" />
 									</a>
 									<div class="media-body">
@@ -137,7 +137,7 @@ FACEBOOK: https://www.facebook.com/themefisher
 								<!-- Cart Item -->
 								<!--<div class="media">
 									<a class="pull-left" href="#!"> <img class="media-object"
-										src="<%=request.getContextPath()%>/aviato/images/shop/cart/cart-2.jpg"
+										src="<%=request.getContextPath()%>/resources/images/shop/cart/cart-2.jpg"
 										alt="image" />
 									</a>
 									<div class="media-body">
@@ -180,7 +180,7 @@ FACEBOOK: https://www.facebook.com/themefisher
 						<c:if test="${member != null}">
 							<!-- 로그인 정보가 있을 때 -->
 							<li class="dropdown cart-nav dropdown-slide"><a
-								href="<%=request.getContextPath()%>/order.do?mId=${member.mId}"
+								href="<%=request.getContextPath()%>/order.do?MId=${member.MId}"
 								class="dropdown-toggle">Order</a>
 							</li>
 						</c:if>
@@ -217,8 +217,8 @@ FACEBOOK: https://www.facebook.com/themefisher
 									<li><a href="<%=request.getContextPath()%>/signUp.do">signUp</a></li>
 								</c:if>
 								<c:if test="${member != null}">
-									<li>${member.mName} 님께서 로그인 중입니다.</li>
-									<li><a href="<%=request.getContextPath()%>/checkPwd.do">MyPage</a></li>
+									<li>${member.MName} 님께서 로그인 중입니다.</li>
+									<li><a href="<%=request.getContextPath()%>/myPage.do?mId=${member.MId}">MyPage</a></li>
 									<li><a href="logout.do">Logout</a></li>
 								</c:if>
 							</ul></li>

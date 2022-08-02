@@ -15,38 +15,38 @@ public class MemberController{
     @Autowired
     MemberService memberService;
 
-    @RequestMapping(value="/login")
+    @RequestMapping(value="/login.do")
     public String login() {
-        return "login";
+        return "member/login";
     }
     
-    @RequestMapping(value="/submitLogin", method=RequestMethod.POST)
+    @RequestMapping(value="/submitLogin.do", method=RequestMethod.POST)
     public String submitLogin(HttpSession session, MemberDTO member, HttpServletRequest request) throws Exception {
            
         MemberDTO loginData;
         loginData = memberService.submitLogin(member);
-        if(loginData != null)
-            session.setAttribute("member", loginData);
+        if(loginData != null)         	
+            session.setAttribute("member", loginData);        
         else {
             request.setAttribute("msg", "로그인 오류! ID와 비밀번호를 확인해주세요~!!");
-            request.setAttribute("url", "login"); 
+            request.setAttribute("url", "login.do"); 
             return "alert";
         }                  
-        return "/";
+        return "redirect:/";
     }
     
-    @RequestMapping(value="/logout")
+    @RequestMapping(value="/logout.do")
     public String logout(HttpSession session) {        
         session.invalidate();
-        return "/";
+        return "redirect:/";
     }
     
-    @RequestMapping(value="/signUp")
+    @RequestMapping(value="/signUp.do")
     public String signUp() {
-        return "signUp";
+        return "member/signUp";
     }
     
-    @RequestMapping(value="/submitSignUp")
+    @RequestMapping(value="/submitSignUp.do")
     public String submitSignUp(MemberDTO member, HttpSession session, HttpServletRequest request) throws Exception {
         memberService.submitSignUp(member);    
         request.setAttribute("msg", "회원가입되었습니다. 환영합니다~~~~");
@@ -54,21 +54,26 @@ public class MemberController{
         return "alert";
     }
     
-    @RequestMapping(value="/checkUniqueId")
+    @RequestMapping(value="/checkUniqueId.do")
     public String checkUniqueId(String inputedId, HttpServletRequest request) throws Exception {
         boolean result = memberService.checkUniqueId(inputedId);
         request.setAttribute("result", result);
-        return "alert";
+        return "member/alert";
     }
  
-    @RequestMapping(value="/forgetPassword")
-    public String forgetPassword() {
-        return "forgetPassword";
+    @RequestMapping(value="/forgetPwd.do")
+    public String forgetPwd() {
+        return "member/forgetPwd";
     }
     
-    @RequestMapping(value="/changePwd")
-    public String changePwd() {
-        return "changePwd";
+    @RequestMapping(value="/myPage.do")
+    public String myPage() {
+        return "member/myPage";
+    }   
+    
+    @RequestMapping(value="/confirmDelete.do")
+    public String confirmDelete() {
+        return "member/confirmDelete";
     }   
   
 }

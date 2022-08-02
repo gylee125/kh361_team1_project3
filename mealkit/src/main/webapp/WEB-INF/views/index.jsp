@@ -6,7 +6,7 @@
 <div class="hero-slider">
 
 	<div class="slider-item th-fullpage hero-area"
-		style="background-image: url(<%=request.getContextPath()%>/aviato/images/slider/korean.jpg);">
+		style="background-image: url(<%=request.getContextPath()%>/resources/images/slider/korean.jpg);">
 		<div class="container">
 			<div class="row">
 				<div class="col-lg-8 text-center">
@@ -26,7 +26,7 @@
 		</div>
 	</div>
 	<div class="slider-item th-fullpage hero-area"
-		style="background-image: url(<%=request.getContextPath()%>/aviato/images/slider/western.jpg);">
+		style="background-image: url(<%=request.getContextPath()%>/resources/images/slider/western.jpg);">
 		<div class="container">
 			<div class="row">
 				<div class="col-lg-8 text-left">
@@ -46,7 +46,7 @@
 		</div>
 	</div>
 	<div class="slider-item th-fullpage hero-area"
-		style="background-image: url(<%=request.getContextPath()%>/aviato/images/slider/chinese.jpg);">
+		style="background-image: url(<%=request.getContextPath()%>/resources/images/slider/chinese.jpg);">
 		<div class="container">
 			<div class="row">
 				<div class="col-lg-8 text-right">
@@ -77,7 +77,7 @@
 			<div class="col-md-6">
 				<div class="category-box">
 					<a href="#!">
-						<img src="<%=request.getContextPath()%>/aviato/images/shop/category/category-1.jpg" alt="" />
+						<img src="<%=request.getContextPath()%>/resources/images/shop/category/category-1.jpg" alt="" />
 						<div class="content">
 							<h3>Clothes Sales</h3>
 							<p>Shop New Season Clothing</p>
@@ -86,7 +86,7 @@
 				</div>
 				<div class="category-box">
 					<a href="#!">
-						<img src="<%=request.getContextPath()%>/aviato/images/shop/category/category-2.jpg" alt="" />
+						<img src="<%=request.getContextPath()%>/resources/images/shop/category/category-2.jpg" alt="" />
 						<div class="content">
 							<h3>Smart Casuals</h3>
 							<p>Get Wide Range Selection</p>
@@ -97,7 +97,7 @@
 			<div class="col-md-6">
 				<div class="category-box category-box-2">
 					<a href="#!">
-						<img src="<%=request.getContextPath()%>/aviato/images/shop/category/category-3.jpg" alt="" />
+						<img src="<%=request.getContextPath()%>/resources/images/shop/category/category-3.jpg" alt="" />
 						<div class="content">
 							<h3>Jewellery</h3>
 							<p>Special Design Comes First</p>
