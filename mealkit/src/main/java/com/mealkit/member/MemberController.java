@@ -21,7 +21,7 @@ public class MemberController{
     }
     
     @RequestMapping(value="/submitLogin", method=RequestMethod.POST)
-    public String submitLogin(HttpSession session, MemberDTO member, HttpServletRequest request) {
+    public String submitLogin(HttpSession session, MemberDTO member, HttpServletRequest request) throws Exception {
            
         MemberDTO loginData;
         loginData = memberService.submitLogin(member);
@@ -47,7 +47,7 @@ public class MemberController{
     }
     
     @RequestMapping(value="/submitSignUp")
-    public String submitSignUp(MemberDTO member, HttpSession session, HttpServletRequest request) {
+    public String submitSignUp(MemberDTO member, HttpSession session, HttpServletRequest request) throws Exception {
         memberService.submitSignUp(member);    
         request.setAttribute("msg", "회원가입되었습니다. 환영합니다~~~~");
         request.setAttribute("url", "/");    
@@ -55,7 +55,7 @@ public class MemberController{
     }
     
     @RequestMapping(value="/checkUniqueId")
-    public String checkUniqueId(String inputedId, HttpServletRequest request) {
+    public String checkUniqueId(String inputedId, HttpServletRequest request) throws Exception {
         boolean result = memberService.checkUniqueId(inputedId);
         request.setAttribute("result", result);
         return "alert";

@@ -3,45 +3,47 @@ package com.mealkit.member;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.mealkit.mapper.MemberMapper;
+
 @Service
 public class MemberServiceImpl implements MemberService {
     
     @Autowired
-    MemberDAO memberDAO;
+    MemberMapper memberMapper;
 
     @Override
     public MemberDTO submitLogin(MemberDTO member) throws Exception {
-        return memberDAO.submitLogin(member);
+        return memberMapper.submitLogin(member);
     }
 
     @Override
     public void submitSignUp(MemberDTO member) throws Exception {
-        memberDAO.submitSignUp(member);        
+        memberMapper.submitSignUp(member);        
     }
 
     @Override
     public boolean checkUniqueId(String inputedId) throws Exception {
-        return memberDAO.checkUniqueId(inputedId);
+        return memberMapper.checkUniqueId(inputedId);
     }
 
     @Override
     public boolean checkUniqueEmail(String inputedEmail) throws Exception {
-        return memberDAO.checkUniqueEmail(inputedEmail);
+        return memberMapper.checkUniqueEmail(inputedEmail);
     }
 
     @Override
     public MemberDTO checkEmail(String mId) throws Exception {
-        return memberDAO.checkEmail(mId);
+        return memberMapper.checkEmail(mId);
     }
 
     @Override
     public void changePwd(String mId, String pw) throws Exception {
-        memberDAO.changePwd(mId, pw);        
+        memberMapper.changePwd(mId, pw);        
     }
 
     @Override
     public void deleteAccount(String mId) throws Exception {
-        memberDAO.deleteAccount(mId);
+        memberMapper.deleteAccount(mId);
     }
 
 }
