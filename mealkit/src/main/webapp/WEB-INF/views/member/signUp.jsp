@@ -43,8 +43,8 @@ span{
           <h2 class="text-center">계정을 만드세요</h2>
           <form class="text-left clearfix" id="submitSignUp" name="submitSignUp" action="submitSignUp.do" method="post">
             <div class="form-group">
-              <input type="text" name="mId" id="mId" class="form-control"  placeholder="ID" onInput="resetWhenChangeId();">
-              <button type="button" class="gradient-btn" onclick="checkUniqueId();">중복 확인</button>
+              <input type="text" name="mId" id="mId" class="form-control"  placeholder="ID">
+              <button type="button" class="gradient-btn">중복 확인</button>
               <span id="idCheckText">ID 중복확인이 필요합니다.</span> 
             </div>
             <div class="form-group">
@@ -57,7 +57,8 @@ span{
               <input type="text" name="mName" class="form-control"  placeholder="이름">
             </div>
             <div class="form-group">
-			<input type="email" name="email" id="email" class="form-control"  placeholder="이메일" onInput="resetWhenChangeEmail();">                <button type="button" class="gradient-btn" onclick="checkUniqueEmail();">중복 확인</button>
+			<input type="email" name="email" id="email" class="form-control"  placeholder="이메일">                
+			<button type="button" class="gradient-btn">중복 확인</button>
               <span id="emailCheckText">이메일 중복확인이 필요합니다.</span>   
             </div>
             <div class="form-group">
@@ -73,7 +74,7 @@ span{
               <button type="button" class="btn btn-main text-center" onclick="checkSignupForm();">회원가입</button>
             </div>
           </form>
-          <p class="mt-20">이미 계정이 있으신가요☞<a href="login.do"> 로그인</a></p>    
+          <p class="mt-20">이미 계정이 있으신가요☞<a href="login.do">로그인</a></p>    
         </div>
       </div>
     </div>
@@ -83,38 +84,82 @@ span{
 <script type="text/javascript">
 
 	let submitSignUpForm = document.getElementById("submitSignUp");	
-	let idCheckText = document.getElementById("idCheckText");
-	let emailCheckText = document.getElementById("emailCheckText");
-
+	let checkUniqueId = false;
+	let checkUniqueEmail = false;
 	
-	function checkUniqueId() {		// 다음 프로젝트 때 제이쿼리+ajax로 수정예정, 나중에 정규표현식도 넣기			
-		var mId = document.getElementById("mId");
-		if (mId.value == "") {
-			alert("ID를 입력하세요!!");
-			mId.focus();
+	$('#mId').focusout(function(){
+		let mId = $('#mId').val();
+		let isId = /^[a-z]+[a-z0-9]{3,19}$/g;
+		
+		if(mId == ""){
+			$("#idCheckText").html('ID를 입력해주세요.');
+			checkUniqueId= false;
+			return false;		
+		}	
+		if(!isId.test(submitSignUpForm.mId.value)){			
+			$("#idCheckText").html('ID는 영문자로 시작하는, 4~20자 영어 혹은 숫자이어야 합니다;');
+			checkUniqueId= false;
 			return false;
 		}
-		window.open('checkUniqueId.do?mId=' + mId.value, '중복확인', 'width=300, height=120');
-	}
+		$.ajax({
+			url : "/checkUniqueId.do",
+			type : "get",
+			data : 'mId=' + $('#mId').val(),
+			datatype : 'json',
+			success : function(result){
+				if(result == 0){
+					$("#idCheckText").html('사용할 수 있는 ID입니다.');
+					checkUniqueId = true;
+				}else{
+					$("#idCheckText").html('사용할 수 없는 ID입니다.');	
+					checkUniqueId = false;
+				}
+			},
+			error : function(a, b, c){
+				alert("(아이디중복검사)서버 요청 실패...", a, b, c);
+			}
+		})
+	});
 	
-	
-	function checkUniqueEmail() {		// 다음 프로젝트 때 제이쿼리+ajax로 수정예정. 나중에 정규표현식도 넣기		
-		var email = document.getElementById("email");
-		if (email.value == "") {
-			alert("이메일을 입력하세요!!");
-			email.focus();
+	$('#email').focusout(function(){
+		let email = $('#email').val();
+		let isEmail = /^[a-zA-Z0-9+-\_.]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$/;
+		
+		if(email == ""){
+			$("#emailCheckText").html('이메일을 입력해주세요.');
+			checkUniqueEmail= false;
+			return false;		
+		}	
+		if(!isEmail.test(submitSignUpForm.email.value)){
+			$("#emailCheckText").html('이메일 양식을 확인해주세요.');
+			checkUniqueEmail= false;
 			return false;
-		}
-		window.open('checkUniqueEmail.do?email=' + email.value, '중벅확인', 'width=300, height=120');
-	}
+		}	
+		$.ajax({
+			url : "/checkUniqueEmail.do",
+			type : "get",
+			data : 'email=' + $('#email').val(),
+			datatype : 'json',
+			success : function(result){
+				if(result == 0){
+					$("#emailCheckText").html('사용할 수 있는 이메일입니다.');
+					checkUniqueEmail = true;
+				}else{
+					$("#emailCheckText").html('사용할 수 없는 이메일입니다.');	
+					checkUniqueEmail = false;
+				}
+			},
+			error : function(a, b, c){
+				alert("(이멜 중복검사)서버 요청 실패...", a, b, c);
+			}
+		})
+	});
+	
 	
 	function checkSignupForm() {
+		
+		let isPassword = /\S{4,}/;
 			
-		if (submitSignUpForm.mId.value == "") {
-			alert("ID를 입력하세요!!");
-			submitSignUpForm.mId.focus();
-			return false;
-		}
 		if (submitSignUpForm.pw.value == "") {
 			alert("비밀번호를 입력하세요!!");
 			submitSignUpForm.pw.focus();
@@ -130,40 +175,29 @@ span{
 			submitSignUpForm.pw.focus();
 			return false;
 		}
+		if(!isPassword.test(submitSignUpForm.pw.value)){
+			alert("비밀번호는 4자리 이상이어야 합니다;");
+			submitSignUpForm.pw.focus();
+			return false;
+		}
 		if (submitSignUpForm.mName.value == "") {
 			alert("이름을 입력하세요!!");
 			submitSignUpForm.mName.focus();
 			return false;
 		}
-		if (submitSignUpForm.email.value == "") {
-			alert("이메일을 입력하세요!!");
-			submitSignUpForm.email.focus();
-			return false;
-		}
-		if (submitSignUpForm.isUniqueId.value != 'true') { 			
-			alert("아이디 중복 확인해야 합니다.");
+		if (checkUniqueId != true) { 			
+			alert("ID 입력 잘 했는지 확인해주세요!!");
 			submitSignUpForm.mId.focus();
 			return false;
 		}		
-		if (submitSignUpForm.isUniqueEmail.value != 'true') { 			
-			alert("이메일 중복 확인해야 합니다.");
+		if (checkUniqueEmail != true) { 			
+			alert("이메일 입력 다시 확인해주세요!!");
 			submitSignUpForm.email.focus();
 			return false;
 		}
 		submitSignUpForm.submit();
 	}
-	
-	function resetWhenChangeId(){
-		submitSignUpForm.isUniqueId.value = false;
-		emailCheckText.innerHTML = "아이디 중복확인이 필요합니다.";
-	}
-	
-	function resetWhenChangeEmail(){
-		submitSignUpForm.isUniqueEmail.value = false;
-		emailCheckText.innerHTML = "이메일 중복확인이 필요합니다.";
-	}
-	
-	
+
 </script>
 
 <%@ include file="../include/footer.jspf"%>
