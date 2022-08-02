@@ -1,4 +1,4 @@
-package controller;
+package com.mealkit.member;
 
 import java.io.IOException;
 import javax.servlet.RequestDispatcher;
@@ -9,8 +9,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-import model.dto.MemberDTO;
-import model.service.MemberService;
+import com.mealkit.member.MemberDTO;
+import com.mealkit.member.MemberService;
 
 public class MemberController extends HttpServlet{    
 

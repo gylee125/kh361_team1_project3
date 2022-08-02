@@ -1,4 +1,4 @@
-package Handler;
+package com.mealkit.board;
 
 import java.io.IOException;
 import java.sql.Connection;
@@ -12,20 +12,20 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-import model.service.CommentListService;
-import model.service.ReviewPage;
-import model.dao.CommentDao;
-import model.dto.CommentDTO;
+import com.mealkit.board.CommentListService;
+import com.mealkit.board.ReviewPage;
+import com.mealkit.board.CommentDaoOld;
+import com.mealkit.board.CommentVO;
 import jdbc.JdbcUtil;
 import jdbc.connection.ConnectionProvider;
-import model.dto.MemberDTO;
-import mvc.command.CommandHandler;
+import com.mealkit.member.MemberDTO;
+import com.mealkit.main.CommandHandler;
 
 public class CommentModifyHandler implements CommandHandler {
 
 	private static final String FORM_VIEW = "/shop/detail.do?pId=\"+pId";
 
-	private CommentDao commentDao = new CommentDao();
+	private CommentDaoOld commentDao = new CommentDaoOld();
 	private CommentListService listService = new CommentListService();
 
 	@Override
@@ -41,7 +41,7 @@ public class CommentModifyHandler implements CommandHandler {
 		}
 	}
 
-	private boolean canModify(CommentDTO commentdto, MemberDTO authMember) {
+	private boolean canModify(CommentVO commentdto, MemberDTO authMember) {
 		// troubleshooting
 		System.out.println(authMember.getmId() + "and" + commentdto.getmId());
 		return authMember.getmId().equals(commentdto.getmId());
@@ -84,7 +84,7 @@ public class CommentModifyHandler implements CommandHandler {
 
 		Date date = new Date();
 
-		CommentDTO commentdto = new CommentDTO(no, authMember.getmId(), req.getParameter("contentmodify"), date);
+		CommentVO commentdto = new CommentVO(no, authMember.getmId(), req.getParameter("contentmodify"), date);
 		req.setAttribute("errors", errors);
 
 		//jsp page에서 error 체크처리후 작성
@@ -107,7 +107,7 @@ public class CommentModifyHandler implements CommandHandler {
 
 	}
 
-	public void modifyProcess(CommentDTO dto, MemberDTO authMember) {
+	public void modifyProcess(CommentVO dto, MemberDTO authMember) {
 		Connection conn = null;
 
 		try {
@@ -115,7 +115,7 @@ public class CommentModifyHandler implements CommandHandler {
 			conn = ConnectionProvider.getConnection();
 			conn.setAutoCommit(false);
 
-			CommentDTO commentdto = commentDao.selectById(conn, (int) dto.getrNo());
+			CommentVO commentdto = commentDao.selectById(conn, (int) dto.getrNo());
 			if (commentdto == null) {
 				throw new RuntimeException();
 			}
@@ -133,7 +133,7 @@ public class CommentModifyHandler implements CommandHandler {
 
 	}
 
-	public int modify(Connection conn, CommentDTO dto) throws SQLException {
+	public int modify(Connection conn, CommentVO dto) throws SQLException {
 		
 		System.out.println(dto.getContent());
 		

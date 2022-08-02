@@ -1,12 +1,12 @@
-package mvc.command;
+package com.mealkit.order;
 
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import model.dto.OrderDTO;
-import model.dto.CartDTO;
-import model.service.OrderService;
+import com.mealkit.order.OrderDTO;
+import com.mealkit.order.CartDTO;
+import com.mealkit.order.OrderService;
 
 public class OrderHandler implements CommandHandler {
 

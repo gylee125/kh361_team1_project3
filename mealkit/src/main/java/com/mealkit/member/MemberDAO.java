@@ -1,11 +1,11 @@
-package model.dao;
+package com.mealkit.member;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
-import model.dto.MemberDTO;
+import com.mealkit.member.MemberDTO;
 
 public class MemberDAO {
 	

@@ -1,4 +1,4 @@
-package mvc.command;
+package com.mealkit.product;
 
 import java.util.List;
 
@@ -6,13 +6,16 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-import model.service.CommentListService;
+import com.mealkit.board.CommentListService;
 
-import model.service.ReviewPage;
-import model.dto.MemberDTO;
-import model.dto.ProductDTO;
-import model.dto.ProductDetailDTO;
-import model.service.ProductService;
+import com.mealkit.board.ReviewPage;
+
+import com.mealkit.member.MemberDTO;
+import com.mealkit.product.ProductDTO;
+import com.mealkit.product.ProductDetailDTO;
+import com.mealkit.product.ProductService;
+
+import com.mealkit.main.CommandHandler;
 
 public class ProductHandler implements CommandHandler {
 

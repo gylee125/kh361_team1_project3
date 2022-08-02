@@ -1,7 +1,8 @@
-package mvc.command;
+package com.mealkit.member;
 
 import java.util.Properties;
 import java.util.Random;
+
 
 import javax.mail.Message;
 import javax.mail.PasswordAuthentication;
@@ -14,8 +15,10 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-import model.dto.MemberDTO;
-import model.service.MemberService;
+import com.mealkit.member.MemberDTO;
+import com.mealkit.member.MemberService;
+
+import com.mealkit.main.CommandHandler;
 
 public class MemberHandler implements CommandHandler {
 	

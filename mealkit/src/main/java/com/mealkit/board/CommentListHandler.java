@@ -1,13 +1,13 @@
-package Handler;
+package com.mealkit.board;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import Member.MemberPage;
-import model.service.CommentListService;
-import model.service.ReviewPage;
-import model.dto.CommentDTO;
-import mvc.command.CommandHandler;
+import com.mealkit.member.MemberPage;
+import com.mealkit.board.CommentListService;
+import com.mealkit.board.ReviewPage;
+import com.mealkit.board.CommentVO;
+import com.mealkit.main.CommandHandler;
 
 public class CommentListHandler implements CommandHandler{
 	

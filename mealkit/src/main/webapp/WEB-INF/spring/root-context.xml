@@ -36,5 +36,7 @@
 		<!-- <property name="mapperLocations" value="classpath:mappers/**/*Mapper.xml"></property> -->
 	</bean>
 	
+	<mybatis-spring:scan base-package="com.mealkit.mapper" />
+	
 	
 </beans>

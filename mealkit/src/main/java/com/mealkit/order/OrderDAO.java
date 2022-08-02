@@ -1,4 +1,4 @@
-package model.dao;
+package com.mealkit.order;
 
 import java.sql.Connection;
 import java.sql.Date;
@@ -11,8 +11,8 @@ import java.util.Collections;
 import java.util.List;
 
 import jdbc.JdbcUtil;
-import model.dto.OrderDTO;
-import model.dto.CartDTO;
+import com.mealkit.order.OrderDTO;
+import com.mealkit.order.CartDTO;
 
 public class OrderDAO {
 	

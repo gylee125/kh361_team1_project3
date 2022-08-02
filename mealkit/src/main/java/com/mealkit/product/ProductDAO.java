@@ -1,4 +1,4 @@
-package model.dao;
+package com.mealkit.product;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -7,8 +7,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.sql.SQLException;
 
-import model.dto.ProductDTO;
-import model.dto.ProductDetailDTO;
+import com.mealkit.product.ProductDTO;
+import com.mealkit.product.ProductDetailDTO;
 
 public class ProductDAO {
 

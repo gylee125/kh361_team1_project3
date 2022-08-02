@@ -1,25 +1,25 @@
-package model.service;
+package com.mealkit.board;
 
 import java.sql.Connection;
 import java.util.Date;
 
-import model.dao.CommentDao;
-import model.dto.CommentDTO;
+import com.mealkit.board.CommentDaoOld;
+import com.mealkit.board.CommentVO;
 import jdbc.JdbcUtil;
 import jdbc.connection.ConnectionProvider;
 
 public class CommentWriteService {
 
-	private CommentDao commentDao = new CommentDao();
+	private CommentDaoOld commentDao = new CommentDaoOld();
 
-	public Integer submit(CommentDTO commentDTO,int pId) {
+	public Integer submit(CommentVO commentDTO,int pId) {
 		Connection conn = null;
 		
 		try {
 			conn = ConnectionProvider.getConnection();
 			conn.setAutoCommit(false);
 			
-			CommentDTO cCommentDTO= toPage(commentDTO);
+			CommentVO cCommentDTO= toPage(commentDTO);
 			//CommentSubmitPage cexecution = commentDao.insert(conn, member);
 			
 			
@@ -27,7 +27,7 @@ public class CommentWriteService {
 				throw new RuntimeException("fail to insert");
 			}
 			
-			CommentDTO savedContent = commentDao.insert(conn, cCommentDTO,pId);
+			CommentVO savedContent = commentDao.insert(conn, cCommentDTO,pId);
 			if(savedContent == null) {
 				throw new RuntimeException("fail to insert");
 			}
@@ -44,8 +44,8 @@ public class CommentWriteService {
 
 	}
 	
-	private CommentDTO toPage(CommentDTO commentDTO) {
+	private CommentVO toPage(CommentVO commentDTO) {
 		Date nowDate = new Date();
-		return new CommentDTO(commentDTO.getmId(),commentDTO.getContent(),nowDate);
+		return new CommentVO(commentDTO.getmId(),commentDTO.getContent(),nowDate);
 	}
 }

@@ -1,10 +1,10 @@
-package model.service;
+package com.mealkit.board;
 
 import java.util.Date;
 import java.util.List;
 
-import Member.MemberPage;
-import model.dto.CommentDTO;
+import com.mealkit.member.MemberPage;
+import com.mealkit.board.CommentVO;
 
 public class ReviewPage {
 	
@@ -44,10 +44,10 @@ public class ReviewPage {
 	public void setEndPage(int endPage) {
 		this.endPage = endPage;
 	}
-	public List<CommentDTO> getCommentdto() {
+	public List<CommentVO> getCommentdto() {
 		return commentdto;
 	}
-	public void setCommentdto(List<CommentDTO> commentdto) {
+	public void setCommentdto(List<CommentVO> commentdto) {
 		this.commentdto = commentdto;
 	}
 
@@ -55,7 +55,7 @@ public class ReviewPage {
 	private int total;
 	private int currentPage;
 	private List<MemberPage> member;
-	private List<CommentDTO> commentdto;
+	private List<CommentVO> commentdto;
 	private int totalPages;
 	private int startPage;
 	private int endPage;
@@ -104,7 +104,7 @@ public class ReviewPage {
 		this.comment = comment;
 	}
 	
-	public ReviewPage(List<CommentDTO> commentdto) {
+	public ReviewPage(List<CommentVO> commentdto) {
 		this.commentdto = commentdto;
 	}
 

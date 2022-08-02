@@ -1,24 +1,24 @@
-package model.service;
+package com.mealkit.board;
 
 import java.sql.Connection;
 import java.sql.SQLException;
 import java.util.List;
 
-import Member.MemberPage;
-import model.dao.CommentDao;
-import model.dto.CommentDTO;
+import com.mealkit.member.MemberPage;
+import com.mealkit.board.CommentDaoOld;
+import com.mealkit.board.CommentVO;
 import jdbc.connection.ConnectionProvider;
 
 public class CommentListService {
 
-	private CommentDao commentDao = new CommentDao();
+	private CommentDaoOld commentDao = new CommentDaoOld();
 	
 	public ReviewPage getReviewPage(int pId) {
 		try(Connection conn = ConnectionProvider.getConnection()){
 			
 			System.out.println("commentListService-handlercalled pid is:"+pId);
 			
-			List<CommentDTO> commentdto = commentDao.select(conn,pId);
+			List<CommentVO> commentdto = commentDao.select(conn,pId);
 			//List<MemberPage> member = commentDao.select(conn);
 			return new ReviewPage(commentdto);
 		}catch(SQLException e) {
@@ -26,9 +26,9 @@ public class CommentListService {
 		}
 	}
 	
-	public CommentDTO getCommentDTO(int reviewNum) {
+	public CommentVO getCommentDTO(int reviewNum) {
 		try (Connection conn = ConnectionProvider.getConnection()){
-			CommentDTO commentdto = commentDao.selectById(conn, reviewNum);
+			CommentVO commentdto = commentDao.selectById(conn, reviewNum);
 			if(commentdto == null) {
 				throw new SQLException();
 			}

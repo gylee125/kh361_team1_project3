@@ -1,4 +1,4 @@
-package Handler;
+package com.mealkit.board;
 
 import java.io.IOException;
 import java.util.Date;
@@ -8,12 +8,12 @@ import java.util.Map;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import Member.MemberPage;
-import model.service.CommentSubmitPage;
-import model.service.CommentWriteService;
-import model.dto.CommentDTO;
-import model.dto.MemberDTO;
-import mvc.command.CommandHandler;
+import com.mealkit.member.MemberPage;
+import com.mealkit.board.CommentSubmitPage;
+import com.mealkit.board.CommentWriteService;
+import com.mealkit.board.CommentVO;
+import com.mealkit.member.MemberDTO;
+import com.mealkit.main.CommandHandler;
 
 public class CommentSubmitHandler implements CommandHandler {
 
@@ -76,7 +76,7 @@ public class CommentSubmitHandler implements CommandHandler {
 //		req.setAttribute("mId", mId);
 		System.out.println(member.getmId()+"CommentSubmitHandlerCheck");//troubleshooting1.
 		
-		CommentDTO submitReq = createSubmitRequest(member, req);
+		CommentVO submitReq = createSubmitRequest(member, req);
 		
 		submitReq.validate(errors);
 		
@@ -93,12 +93,12 @@ public class CommentSubmitHandler implements CommandHandler {
 //		return FORM_VIEW + pId;//urlString
 	}
 
-	private CommentDTO createSubmitRequest(MemberDTO memberdto, HttpServletRequest req) {
+	private CommentVO createSubmitRequest(MemberDTO memberdto, HttpServletRequest req) {
 
 		Date date = new Date();
 		System.out.println(memberdto.getmId()+req.getParameter("reviews")+"createSubmitRequestCheck");//troubleshooting2
 
-		return new CommentDTO(memberdto, req.getParameter("reviews"), date);
+		return new CommentVO(memberdto, req.getParameter("reviews"), date);
 		
 	}
 
