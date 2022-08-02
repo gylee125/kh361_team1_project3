@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 
 @Controller
@@ -49,16 +50,22 @@ public class MemberController{
     @RequestMapping(value="/submitSignUp.do")
     public String submitSignUp(MemberDTO member, HttpSession session, HttpServletRequest request) throws Exception {
         memberService.submitSignUp(member);    
+        session.setAttribute("member", member); 
         request.setAttribute("msg", "회원가입되었습니다. 환영합니다~~~~");
         request.setAttribute("url", "/");    
         return "alert";
     }
     
     @RequestMapping(value="/checkUniqueId.do")
-    public String checkUniqueId(String inputedId, HttpServletRequest request) throws Exception {
-        boolean result = memberService.checkUniqueId(inputedId);
-        request.setAttribute("result", result);
-        return "member/alert";
+    @ResponseBody
+    public int checkUniqueId(String mId) throws Exception { 
+        return memberService.checkUniqueId(mId);
+    }
+    
+    @RequestMapping(value="/checkUniqueEmail.do")
+    @ResponseBody
+    public int checkUniqueEmail(String email) throws Exception {        
+        return memberService.checkUniqueEmail(email);
     }
  
     @RequestMapping(value="/forgetPwd.do")

@@ -8,9 +8,9 @@ public interface MemberMapper {
     
     public void submitSignUp(MemberDTO member) throws Exception;
     
-    public boolean checkUniqueId(String inputedId) throws Exception;
+    public int checkUniqueId(String inputedId) throws Exception;
     
-    public boolean checkUniqueEmail(String inputedEmail) throws Exception;
+    public int checkUniqueEmail(String inputedEmail) throws Exception;
     
     public MemberDTO checkEmail(String mId) throws Exception;
     

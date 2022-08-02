@@ -22,12 +22,12 @@ public class MemberServiceImpl implements MemberService {
     }
 
     @Override
-    public boolean checkUniqueId(String inputedId) throws Exception {
+    public int checkUniqueId(String inputedId) throws Exception {
         return memberMapper.checkUniqueId(inputedId);
     }
 
     @Override
-    public boolean checkUniqueEmail(String inputedEmail) throws Exception {
+    public int checkUniqueEmail(String inputedEmail) throws Exception {
         return memberMapper.checkUniqueEmail(inputedEmail);
     }
 
