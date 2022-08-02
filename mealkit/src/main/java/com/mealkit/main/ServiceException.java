@@ -1,4 +1,4 @@
-package model.service;
+package com.mealkit.main;
 
 public class ServiceException extends RuntimeException {
 

@@ -1,7 +1,7 @@
-package model.dto;
+package com.mealkit.order;
 
+import com.mealkit.product.ProductDTO;
 
-import model.dto.ProductDTO;
 public class CartDTO {
 		private int ucId;
 		private String mId;

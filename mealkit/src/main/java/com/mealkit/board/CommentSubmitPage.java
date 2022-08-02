@@ -1,10 +1,10 @@
-package model.service;
+package com.mealkit.board;
 
 import java.util.Date;
 import java.util.Map;
 
-import Member.MemberPage;
-import model.dto.MemberDTO;
+import com.mealkit.member.MemberPage;
+import com.mealkit.member.MemberDTO;
 
 public class CommentSubmitPage {
 

@@ -1,4 +1,4 @@
-package Handler;
+package com.mealkit.board;
 
 import java.io.IOException;
 import java.util.Date;
@@ -8,12 +8,12 @@ import java.util.Map;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import Member.MemberPage;
-import model.service.CommentSubmitPage;
-import model.service.CommentWriteService;
-import model.dto.CommentDTO;
-import model.dto.MemberDTO;
-import mvc.command.CommandHandler;
+import com.mealkit.member.MemberPage;
+import com.mealkit.board.CommentSubmitPage;
+import com.mealkit.board.CommentWriteService;
+import com.mealkit.board.CommentDTO;
+import com.mealkit.member.MemberDTO;
+import com.mealkit.main.CommandHandler;
 
 public class CommentSubmitHandler implements CommandHandler {
 

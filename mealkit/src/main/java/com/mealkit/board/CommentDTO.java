@@ -1,10 +1,10 @@
-package model.dto;
+package com.mealkit.board;
 
 import java.util.Date;
 import java.util.List;
 import java.util.Map;
 
-import model.dto.MemberDTO;
+import com.mealkit.member.MemberDTO;
 
 public class CommentDTO {
 

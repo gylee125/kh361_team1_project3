@@ -1,4 +1,4 @@
-package model.dto;
+package com.mealkit.order;
 
 //서브 파일이다 원본파일이랑 구분 잘해라!!!
 

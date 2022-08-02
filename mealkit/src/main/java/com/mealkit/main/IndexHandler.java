@@ -1,12 +1,12 @@
-package mvc.command;
+package com.mealkit.main;
 
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import model.dto.ProductDTO;
-import model.service.ProductService;
+import com.mealkit.product.ProductDTO;
+import com.mealkit.product.ProductService;
 
 public class IndexHandler implements CommandHandler {
 	ProductService productService = ProductService.getInstance();

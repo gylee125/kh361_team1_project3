@@ -1,4 +1,4 @@
-package model.dto;
+package com.mealkit.product;
 
 public class ProductTypeDTO {
 

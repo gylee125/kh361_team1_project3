@@ -1,8 +1,8 @@
-package Member;
+package com.mealkit.member;
 
 import java.util.List;
 
-import model.dao.CommentDao;
+import com.mealkit.board.CommentDao;
 
 public class MemberPage {
 

@@ -1,4 +1,4 @@
-package model.service;
+package com.mealkit.order;
 
 import java.sql.Connection;
 import java.sql.SQLException;
@@ -6,8 +6,8 @@ import java.util.*;
 
 import jdbc.JdbcUtil;
 import jdbc.connection.ConnectionProvider;
-import model.dao.CartDAO;
-import model.dto.CartDTO;
+import com.mealkit.order.CartDAO;
+import com.mealkit.order.CartDTO;
 
 public class CartService {
 

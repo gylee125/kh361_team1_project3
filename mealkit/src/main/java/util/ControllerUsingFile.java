@@ -1,4 +1,4 @@
-package mvc.controller;
+package util;
 
 import java.io.FileReader;
 import java.io.IOException;
@@ -13,8 +13,8 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import mvc.command.CommandHandler;
-import mvc.command.NullHandler;
+import com.mealkit.main.CommandHandler;
+import com.mealkit.main.NullHandler;
 
 // Servlet class: http 통신을 할 수 있는 클래스(doget,post)
 public class ControllerUsingFile extends HttpServlet {

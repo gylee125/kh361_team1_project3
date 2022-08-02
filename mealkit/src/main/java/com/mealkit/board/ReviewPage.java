@@ -1,10 +1,10 @@
-package model.service;
+package com.mealkit.board;
 
 import java.util.Date;
 import java.util.List;
 
-import Member.MemberPage;
-import model.dto.CommentDTO;
+import com.mealkit.member.MemberPage;
+import com.mealkit.board.CommentDTO;
 
 public class ReviewPage {
 	

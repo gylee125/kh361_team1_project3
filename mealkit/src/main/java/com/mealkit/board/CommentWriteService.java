@@ -1,10 +1,10 @@
-package model.service;
+package com.mealkit.board;
 
 import java.sql.Connection;
 import java.util.Date;
 
-import model.dao.CommentDao;
-import model.dto.CommentDTO;
+import com.mealkit.board.CommentDao;
+import com.mealkit.board.CommentDTO;
 import jdbc.JdbcUtil;
 import jdbc.connection.ConnectionProvider;
 

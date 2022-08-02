@@ -1,4 +1,4 @@
-package model.service;
+package com.mealkit.order;
 
 import java.sql.Connection;
 import java.sql.SQLException;
@@ -6,9 +6,9 @@ import java.util.List;
 
 import jdbc.JdbcUtil;
 import jdbc.connection.ConnectionProvider;
-import model.dao.OrderDAO;
-import model.dto.OrderDTO;
-import model.dto.CartDTO;
+import com.mealkit.order.OrderDAO;
+import com.mealkit.order.OrderDTO;
+import com.mealkit.order.CartDTO;
 
 
 

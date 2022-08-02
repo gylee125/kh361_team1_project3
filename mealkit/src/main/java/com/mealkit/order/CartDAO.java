@@ -1,4 +1,4 @@
-package model.dao;
+package com.mealkit.order;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -10,9 +10,9 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
-import model.dto.CommentDTO;
+import com.mealkit.board.CommentDTO;
 import jdbc.JdbcUtil;
-import model.dto.CartDTO;
+import com.mealkit.order.CartDTO;
 
 public class CartDAO {
 	Connection conn = null;

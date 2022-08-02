@@ -1,12 +1,12 @@
-package model.service;
+package com.mealkit.board;
 
 import java.sql.Connection;
 import java.sql.SQLException;
 import java.util.List;
 
-import Member.MemberPage;
-import model.dao.CommentDao;
-import model.dto.CommentDTO;
+import com.mealkit.member.MemberPage;
+import com.mealkit.board.CommentDao;
+import com.mealkit.board.CommentDTO;
 import jdbc.connection.ConnectionProvider;
 
 public class CommentListService {

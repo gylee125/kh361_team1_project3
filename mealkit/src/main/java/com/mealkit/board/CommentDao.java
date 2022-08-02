@@ -1,4 +1,4 @@
-package model.dao;
+package com.mealkit.board;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -9,8 +9,8 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
-import Member.MemberPage;
-import model.dto.CommentDTO;
+import com.mealkit.member.MemberPage;
+import com.mealkit.board.CommentDTO;
 import jdbc.JdbcUtil;
 
 public class CommentDao {

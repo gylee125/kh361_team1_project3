@@ -1,12 +1,12 @@
-package model.service;
+package com.mealkit.member;
 
 import java.sql.Connection;
 import java.sql.SQLException;
 
 import jdbc.JdbcUtil;
 import jdbc.connection.ConnectionProvider;
-import model.dao.MemberDAO;
-import model.dto.MemberDTO;
+import com.mealkit.member.MemberDAO;
+import com.mealkit.member.MemberDTO;
 
 
 // 커밋 테스트 뭐가 이리 불편하노

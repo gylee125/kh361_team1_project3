@@ -1,4 +1,4 @@
-package Handler;
+package com.mealkit.board;
 
 import java.io.IOException;
 import java.sql.Connection;
@@ -12,14 +12,14 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-import model.service.CommentListService;
-import model.service.ReviewPage;
-import model.dao.CommentDao;
-import model.dto.CommentDTO;
+import com.mealkit.board.CommentListService;
+import com.mealkit.board.ReviewPage;
+import com.mealkit.board.CommentDao;
+import com.mealkit.board.CommentDTO;
 import jdbc.JdbcUtil;
 import jdbc.connection.ConnectionProvider;
-import model.dto.MemberDTO;
-import mvc.command.CommandHandler;
+import com.mealkit.member.MemberDTO;
+import com.mealkit.main.CommandHandler;
 
 public class CommentModifyHandler implements CommandHandler {
 

@@ -1,14 +1,14 @@
-package model.service;
+package com.mealkit.product;
 
 import java.sql.Connection;
 import java.sql.SQLException;
 import java.util.List;
 
 import jdbc.JdbcUtil;
-import jdbc.connection.ConnectionProvider;
-import model.dao.ProductDAO;
-import model.dto.ProductDTO;
-import model.dto.ProductDetailDTO;
+import jdbc.ConnectionProvider;
+import com.mealkit.product.ProductDAO;
+import com.mealkit.product.ProductDTO;
+import com.mealkit.product.ProductDetailDTO;
 
 public class ProductService {
 

@@ -1,4 +1,4 @@
-package model.dto;
+package com.mealkit.order;
 
 //비회원 장바구니
 public class NuserCartDTO {
