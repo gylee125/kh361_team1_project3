@@ -124,11 +124,15 @@
 					return year + "/" + month + "/" + date;
 				});
 				//date type변환
+				
+				
 				</script>
+				
+				
 				
 				<script id = "reviews" class = "tab-pane fade">				
 				{{#each .}}
-		    	<ul class="media-list comments-list m-bot-50 clearlist">
+				<ul class="media-list comments-list m-bot-50 clearlist">
 				  <div class="media-body">
 				    <li class="media">
 				        <a class="pull-left" href="#!">
@@ -136,6 +140,33 @@
 				        </a>
 				            <div class="comment-info">
 				                <h4 class="comment-author">
+				                    <a href="#!">${review.mId} </a>
+				                </h4>
+				                <a><fmt:formatDate value='${review.regDate}' type='date' pattern='yy.MM.dd'></fmt:formatDate></a>
+				                <a class="comment-button" href="#!"><i class="tf-ion-chatbubbles"></i>Reply</a>
+				              <c:if test="${sessionScope.mId == review.mId}">
+				                <a class="pull-right" style="cursor:pointer;"  data-toggle="collapse" data-target="#commentupdate${review.rNo}" onClick="hideReviewText(${review.rNo})"><i class="tf-ion-chatbubbles"></i>Update</a>
+				                <div id="commentupdate${review.rNo}" class="collapse">
+				                <form class="text-left clearfix" action="<%=request.getContextPath()%>/update.do?rNo=${review.rNo}" method="post">
+								<div class="form-group">
+		    						<input type="text" name = "contentmodify" class="form-control" value="${review.content}"  placeholder="CommentUpdate">
+		           			    <div class="text-center">
+	  	    						<button type="submit" class="btn btn-main text-center">Update Comment</button>
+								</div>
+		   							</div>
+								</form>
+				                </div>
+				                  <br>
+				                  <a class="pull-right" style="cursor:pointer;" onClick="deleteReview(${review.rNo})" <%-- 취소시에도 redirect될경우 user응답과 무관하게 삭제됨 href사용시 npe에러 // href="delete.test?rNo=${review.rNo}" onClick="deleteReview()" --%>><i class="tf-ion-chatbubbles"></i>Delete</a>
+				              </c:if>
+				            </div>
+				            <p id="reviewContent${review.rNo}">
+				               ${review.content}
+				            </p>
+				        </div>
+				    </li>
+				   
+			</ul>
 				
 				
 				</script>
