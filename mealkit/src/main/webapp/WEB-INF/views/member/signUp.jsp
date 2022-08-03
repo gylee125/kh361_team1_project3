@@ -44,7 +44,7 @@ span{
           <form class="text-left clearfix" id="submitSignUp" name="submitSignUp" action="submitSignUp.do" method="post">
             <div class="form-group">
               <input type="text" name="mId" id="mId" class="form-control"  placeholder="ID">
-              <button type="button" class="gradient-btn">중복 확인</button>
+              <button type="button" class="gradient-btn">확인 내용</button>
               <span id="idCheckText">ID 중복확인이 필요합니다.</span> 
             </div>
             <div class="form-group">
@@ -58,7 +58,7 @@ span{
             </div>
             <div class="form-group">
 			<input type="email" name="email" id="email" class="form-control"  placeholder="이메일">                
-			<button type="button" class="gradient-btn">중복 확인</button>
+			<button type="button" class="gradient-btn">확인 내용</button>
               <span id="emailCheckText">이메일 중복확인이 필요합니다.</span>   
             </div>
             <div class="form-group">
@@ -186,12 +186,12 @@ span{
 			return false;
 		}
 		if (checkUniqueId != true) { 			
-			alert("ID 입력 잘 했는지 확인해주세요!!");
+			alert("ID 입력 다시 확인해주세요~");
 			submitSignUpForm.mId.focus();
 			return false;
 		}		
 		if (checkUniqueEmail != true) { 			
-			alert("이메일 입력 다시 확인해주세요!!");
+			alert("이메일 입력 다시 확인해주세요~");
 			submitSignUpForm.email.focus();
 			return false;
 		}
