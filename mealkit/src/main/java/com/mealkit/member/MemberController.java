@@ -1,7 +1,9 @@
 package com.mealkit.member;
 
 
+import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -23,13 +25,23 @@ public class MemberController{
     }
     
     @RequestMapping(value="/submitLogin.do", method=RequestMethod.POST)
-    public String submitLogin(HttpSession session, MemberDTO member, HttpServletRequest request) throws Exception {
-           
+    public String submitLogin(HttpSession session, MemberDTO member, HttpServletRequest request, HttpServletResponse response) throws Exception {
+        
+        String saveId = request.getParameter("saveId");
         MemberDTO loginData;
+        
         loginData = memberService.submitLogin(member);
-        if(loginData != null)         	
-            session.setAttribute("member", loginData);        
-        else {
+        if(loginData != null) {            
+            session.setAttribute("member", loginData);
+            
+            // 아이디 저장 기능
+            if(saveId != null) {                
+                Cookie cookieSaveId = new Cookie("saveId",loginData.getMId());                  
+                cookieSaveId.setMaxAge(60*60*24*7); //(초단위 입력 = 7일)
+                response.addCookie(cookieSaveId);                    
+            }
+            
+        }else {
             request.setAttribute("msg", "로그인 오류! ID와 비밀번호를 확인해주세요~!!");
             request.setAttribute("url", "login.do"); 
             return "alert";
@@ -49,12 +61,12 @@ public class MemberController{
     }
     
     @RequestMapping(value="/submitSignUp.do")
-    public String submitSignUp(MemberDTO member, HttpSession session, HttpServletRequest request) throws Exception {
+    public String submitSignUp(MemberDTO member, HttpSession session, Model model) throws Exception {
         memberService.submitSignUp(member);  
         memberService.earnPointForNewMember(member.getMId()); // 3000포인트 증정. 코드 정리 필요(3000변수가 xml파일에 바로 들어가있음)
         session.setAttribute("member", member); 
-        request.setAttribute("msg", "회원가입되었습니다. 환영합니다~신규 가입 프로모션으로 3000포인트 증정!");
-        request.setAttribute("url", "/");    
+        model.addAttribute("msg", "회원가입되었습니다. 환영합니다~신규 가입 프로모션으로 3000포인트 증정!");
+        model.addAttribute("url", "/");    
         return "alert";
     }
     
