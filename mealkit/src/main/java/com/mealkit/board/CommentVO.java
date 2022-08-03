@@ -10,46 +10,9 @@ public class CommentVO {
 
 	@Override
 	public String toString() {
-		return "CommentVO [memberDTO=" + memberDTO + ", rno=" + rno + ", mId=" + mId + ", pid=" + pid + ", content="
-				+ content + ", regDate=" + regDate + ", updatedate=" + updatedate + "]";
+		return "CommentVO [rno=" + rno + ", mId=" + mId + ", pid=" + pid + ", content=" + content + ", regDate="
+				+ regDate + ", updatedate=" + updatedate + "]";
 	}
-
-
-
-
-
-	public MemberDTO getMemberDTO() {
-		return memberDTO;
-	}
-
-
-
-
-
-	public void setMemberDTO(MemberDTO memberDTO) {
-		this.memberDTO = memberDTO;
-	}
-
-
-
-
-
-
-
-
-	public String getmId() {
-		return mId;
-	}
-
-
-
-
-
-	public void setmId(String mId) {
-		this.mId = mId;
-	}
-
-
 
 
 
@@ -59,13 +22,21 @@ public class CommentVO {
 
 
 
-
-
 	public void setRno(Number rno) {
 		this.rno = rno;
 	}
 
 
+
+	public String getmId() {
+		return mId;
+	}
+
+
+
+	public void setmId(String mId) {
+		this.mId = mId;
+	}
 
 
 
@@ -75,31 +46,9 @@ public class CommentVO {
 
 
 
-
-
 	public void setPid(String pid) {
 		this.pid = pid;
 	}
-
-
-
-
-
-	public Date getUpdatedate() {
-		return updatedate;
-	}
-
-
-
-
-
-	public void setUpdatedate(Date updatedate) {
-		this.updatedate = updatedate;
-	}
-
-
-
-
 
 
 
@@ -109,13 +58,9 @@ public class CommentVO {
 
 
 
-
-
 	public void setContent(String content) {
 		this.content = content;
 	}
-
-
 
 
 
@@ -125,56 +70,49 @@ public class CommentVO {
 
 
 
-
-
 	public void setRegDate(Date regDate) {
 		this.regDate = regDate;
 	}
 
 
 
+	public Date getUpdatedate() {
+		return updatedate;
+	}
 
 
-	private MemberDTO memberDTO;
-	
+
+	public void setUpdatedate(Date updatedate) {
+		this.updatedate = updatedate;
+	}
+
+
+
 	private Number rno;
 	private String mId;
 	private String pid;
 	private String content;
 	private Date regDate;
 	private Date updatedate;
-	
-	
-	public CommentVO(Number rno,String mId,String content,Date regDate) {
-		this.rno = rno;
-		this.mId = mId;
-		this.content = content;
-		this.regDate = regDate;
-	}
-	
-	public CommentVO(String mId,String pid,String content,Date regDate) {
-		this.mId = mId;
-		this.pid = pid;
-		this.content = content;
-		this.regDate = regDate;
-	}
-	
-	public CommentVO(String mId,String content,Date regDate) {
-		this.mId = mId;
-		this.content = content;
-		this.regDate = regDate;
-	}//pid없음
-
-	public CommentVO(MemberDTO memberDTO,String content,Date regDate) {
-		this.mId = memberDTO.getmId();
-		this.content = content;
-		this.regDate = regDate;
-	}
-	
-	public CommentVO(String mId,String content) {
-		this.mId = mId;
-		this.content = content;
-	}
+	/*
+	 * 
+	 * public CommentVO(Number rno,String mId,String content,Date regDate) {
+	 * this.rno = rno; this.mId = mId; this.content = content; this.regDate =
+	 * regDate; }
+	 * 
+	 * public CommentVO(String mId,String pid,String content,Date regDate) {
+	 * this.mId = mId; this.pid = pid; this.content = content; this.regDate =
+	 * regDate; }
+	 * 
+	 * public CommentVO(String mId,String content,Date regDate) { this.mId = mId;
+	 * this.content = content; this.regDate = regDate; }//pid없음
+	 * 
+	 * public CommentVO(MemberDTO memberDTO,String content,Date regDate) { this.mId
+	 * = memberDTO.getmId(); this.content = content; this.regDate = regDate; }
+	 * 
+	 * public CommentVO(String mId,String content) { this.mId = mId; this.content =
+	 * content; }
+	 */
 	
 
 	

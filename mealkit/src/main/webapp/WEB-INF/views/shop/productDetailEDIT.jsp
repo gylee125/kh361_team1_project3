@@ -113,7 +113,7 @@
 				</div>
 				
 				
-				<!-- COMMENT-SCRIPT-SECTION -->
+			
 				
 				<script>
 				Handlebars.registerHelper("prettifyDate", function(timeValue) {
@@ -129,7 +129,7 @@
 				</script>
 				
 				
-				
+				<!-- COMMENT-SCRIPT-SECTION -->
 				<script id = "reviews" class = "tab-pane fade">				
 				{{#each .}}
 				<ul class="media-list comments-list m-bot-50 clearlist">
@@ -165,10 +165,8 @@
 				            </p>
 				        </div>
 				    </li>
-				   
 			</ul>
-				
-				
+			{{/each}}	
 				</script>
 				
 				
