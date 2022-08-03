@@ -22,7 +22,7 @@ public class CommentVO {
 
 
 
-	public void setRno(Number rno) {
+	public void setRno(Integer rno) {
 		this.rno = rno;
 	}
 
@@ -88,7 +88,7 @@ public class CommentVO {
 
 
 
-	private Number rno;
+	private Integer rno;
 	private String mId;
 	private String pid;
 	private String content;
@@ -115,15 +115,10 @@ public class CommentVO {
 	 */
 	
 
-	
-	public boolean equals(Object o) {
-		if(o instanceof CommentVO) {
-			CommentVO c = (CommentVO)o;
-			return rno == c.rno;
-		}
-		return false;
-	}
-
+	/*
+	 * public boolean equals(Object o) { if(o instanceof CommentVO) { CommentVO c =
+	 * (CommentVO)o; return rno == c.rno; } return false; }
+	 */
 
 
 	public void validate(Map<String, Boolean> errors) {
