@@ -6,7 +6,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 <mapper namespace="com.mealkit.mapper.ProductMapper">
 
 	<select id="selectProductList" resultType="com.mealkit.product.ProductVO">>
-		select * from product order by pId DESC
+		SELECT * FROM product ORDER BY pId DESC
 	</select>
 	
 	<select id="selectJoinByPId" resultType="com.mealkit.product.ProductDetailVO">
@@ -34,7 +34,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	</select>
 	
 	<insert id="insert">
-		insert into product(pId, typeCode, pName, price, stock, brand, description, thumbnail, )
+		insert into product(pId, typeCode, pName, price, stock, brand, description, thumbnail, image)
 			values(pIdSeq.NEXTVAL, #{pId}, #{typeCode}, #{pName}, #{price}, #{stock}, #{brand}, #{description}, #{thumbnail}, #{image})")
 	</insert>
 	

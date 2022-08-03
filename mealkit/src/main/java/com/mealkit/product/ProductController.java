@@ -25,6 +25,8 @@ public class ProductController{
 	
 	@Inject
 	private ProductServiceImpl productService;
+	
+	//@Inject
 	private CommentListService commentService;
 	
 	
@@ -70,16 +72,22 @@ public class ProductController{
         request.setAttribute("reviewPage", reviewPage); 
 	}
 	
-	@RequestMapping(value = "/insert", method=RequestMethod.POST)
-	public String insert(HttpServletRequest request, ProductVO product) throws Exception {
-		// insert 제출이랑 메소드 분리해야되나? 아니면 get이랑 post로? 테스트 필요
-		logger.info("// /product/insert");
+	@RequestMapping(value = "/register", method=RequestMethod.GET)
+	public void registerGET(ProductVO product, Model model) throws Exception {
+		logger.info("// /product/register get호출");
+		
+	}
+	
+	
+	@RequestMapping(value = "/register", method=RequestMethod.POST)
+	public String registerPost(HttpServletRequest request, ProductVO product) throws Exception {
+		logger.info("// /product/register post호출");
 		
 		productService.insert(product);
 		logger.info("// product.toString()=" + product.toString());
 		
 		request.setAttribute("msg", "상품등록 완료");
-        request.setAttribute("url", "/"); 
+        request.setAttribute("url", "index"); 
         
 		return "alert";
 		

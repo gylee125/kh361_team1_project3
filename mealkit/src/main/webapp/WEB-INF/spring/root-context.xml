@@ -40,6 +40,7 @@
 		<constructor-arg name="sqlSessionFactory" ref="sqlSessionFactory"></constructor-arg>
 	</bean>
 	
+	
 	<mybatis-spring:scan base-package="com.mealkit.mapper" />
 
 	

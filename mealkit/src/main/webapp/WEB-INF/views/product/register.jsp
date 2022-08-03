@@ -34,21 +34,21 @@ FACEBOOK: https://www.facebook.com/themefisher
 <meta name="generator" content="Themefisher Constra HTML Template v1.0">
 
 <!-- Favicon -->
-<link rel="shortcut icon" type="image/x-icon" href="<%=request.getContextPath()%>/aviato/images/favicon.png" />
+<link rel="shortcut icon" type="image/x-icon" href="<%=request.getContextPath()%>/resources/images/favicon.png" />
 
 <!-- Themefisher Icon font -->
-<link rel="stylesheet" href="<%=request.getContextPath()%>/aviato/plugins/themefisher-font/style.css">
+<link rel="stylesheet" href="<%=request.getContextPath()%>/resources/plugins/themefisher-font/style.css">
 <!-- bootstrap.min css -->
-<link rel="stylesheet" href="<%=request.getContextPath()%>/aviato/plugins/bootstrap/css/bootstrap.min.css">
+<link rel="stylesheet" href="<%=request.getContextPath()%>/resources/plugins/bootstrap/css/bootstrap.min.css">
 
 <!-- Animate css -->
-<link rel="stylesheet" href="<%=request.getContextPath()%>/aviato/plugins/animate/animate.css">
+<link rel="stylesheet" href="<%=request.getContextPath()%>/resources/plugins/animate/animate.css">
 <!-- Slick Carousel -->
-<link rel="stylesheet" href="<%=request.getContextPath()%>/aviato/plugins/slick/slick.css">
-<link rel="stylesheet" href="<%=request.getContextPath()%>/aviato/plugins/slick/slick-theme.css">
+<link rel="stylesheet" href="<%=request.getContextPath()%>/resources/plugins/slick/slick.css">
+<link rel="stylesheet" href="<%=request.getContextPath()%>/resources/plugins/slick/slick-theme.css">
 
 <!-- Main Stylesheet -->
-<link rel="stylesheet" href="<%=request.getContextPath()%>/aviato/css/style.css">
+<link rel="stylesheet" href="<%=request.getContextPath()%>/resources/css/style.css">
 
 </head>
 
@@ -61,7 +61,7 @@ FACEBOOK: https://www.facebook.com/themefisher
 					<div class="block text-center">
 						<h2 class="text-center">상품 등록</h2>
 						<form class="text-left clearfix" id="insertProduct"
-							name="insertProduct" action="<%=request.getContextPath()%>/submitInsert.do" method="post">
+							name="insertProduct" role="form" method="post">
 							<div class="form-group">
 								<span style="font-size: 8px;">*은 필수 입력사항</span>
 								<input type="text" class="form-control" placeholder=" *상품분류코드"
@@ -134,30 +134,30 @@ FACEBOOK: https://www.facebook.com/themefisher
     =====================================-->
 
 	<!-- Main jQuery -->
-	<script src="<%=request.getContextPath()%>/aviato/plugins/jquery/dist/jquery.min.js"></script>
+	<script src="<%=request.getContextPath()%>/resources/plugins/jquery/dist/jquery.min.js"></script>
 	<!-- Bootstrap 3.1 -->
-	<script src="<%=request.getContextPath()%>/aviato/plugins/bootstrap/js/bootstrap.min.js"></script>
+	<script src="<%=request.getContextPath()%>/resources/plugins/bootstrap/js/bootstrap.min.js"></script>
 	<!-- Bootstrap Touchpin -->
 	<script
-		src="<%=request.getContextPath()%>/aviato/plugins/bootstrap-touchspin/dist/jquery.bootstrap-touchspin.min.js"></script>
+		src="<%=request.getContextPath()%>/resources/plugins/bootstrap-touchspin/dist/jquery.bootstrap-touchspin.min.js"></script>
 	<!-- Instagram Feed Js -->
-	<script src="<%=request.getContextPath()%>/aviato/plugins/instafeed/instafeed.min.js"></script>
+	<script src="<%=request.getContextPath()%>/resources/plugins/instafeed/instafeed.min.js"></script>
 	<!-- Video Lightbox Plugin -->
-	<script src="<%=request.getContextPath()%>/aviato/plugins/ekko-lightbox/dist/ekko-lightbox.min.js"></script>
+	<script src="<%=request.getContextPath()%>/resources/plugins/ekko-lightbox/dist/ekko-lightbox.min.js"></script>
 	<!-- Count Down Js -->
-	<script src="<%=request.getContextPath()%>/aviato/plugins/syo-timer/build/jquery.syotimer.min.js"></script>
+	<script src="<%=request.getContextPath()%>/resources/plugins/syo-timer/build/jquery.syotimer.min.js"></script>
 
 	<!-- slick Carousel -->
-	<script src="<%=request.getContextPath()%>/aviato/plugins/slick/slick.min.js"></script>
-	<script src="<%=request.getContextPath()%>/aviato/plugins/slick/slick-animation.min.js"></script>
+	<script src="<%=request.getContextPath()%>/resources/plugins/slick/slick.min.js"></script>
+	<script src="<%=request.getContextPath()%>/resources/plugins/slick/slick-animation.min.js"></script>
 
 	<!-- Google Mapl -->
 	<script
 		src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCC72vZw-6tGqFyRhhg5CkF2fqfILn2Tsw"></script>
-	<script type="text/javascript" src="<%=request.getContextPath()%>/aviato/plugins/google-map/gmap.js"></script>
+	<script type="text/javascript" src="<%=request.getContextPath()%>/resources/plugins/google-map/gmap.js"></script>
 
 	<!-- Main Js File -->
-	<script src="<%=request.getContextPath()%>/aviato/js/script.js"></script>
+	<script src="<%=request.getContextPath()%>/resources/js/script.js"></script>
 
 
 

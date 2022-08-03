@@ -2,9 +2,9 @@ package com.mealkit.product;
 
 import java.util.List;
 
+import org.apache.ibatis.session.SqlSession;
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Repository;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -17,9 +17,6 @@ public class ProductServiceImpl implements ProductService {
 	
 	@Autowired
 	private ProductMapper productMapper;
-	
-	@Autowired
-	private SqlSessionTemplate sqlSession;
 
 	@Override
 	@Transactional

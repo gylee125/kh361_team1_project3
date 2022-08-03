@@ -271,15 +271,15 @@ FACEBOOK: https://www.facebook.com/themefisher
 										<ul class="dropdown-menu">
 											<li><a href="<%=request.getContextPath()%>/shop/all.do">all</a></li>
 											<li><a
-												href="<%=request.getContextPath()%>/shop/type.do?typeCode=1">korean</a></li>
+												href="<%=request.getContextPath()%>/product/listType?typeCode=1">korean</a></li>
 											<li><a
-												href="<%=request.getContextPath()%>/shop/type.do?typeCode=2">western</a></li>
+												href="<%=request.getContextPath()%>/product/listType?typeCode=2">western</a></li>
 											<li><a
-												href="<%=request.getContextPath()%>/shop/type.do?typeCode=3">chinese</a></li>
+												href="<%=request.getContextPath()%>/product/listType?typeCode=3">chinese</a></li>
 											<li><a
-												href="<%=request.getContextPath()%>/shop/type.do?typeCode=4">japanese</a></li>
+												href="<%=request.getContextPath()%>/product/listType?typeCode=4">japanese</a></li>
 											<li><a
-												href="<%=request.getContextPath()%>/shop/type.do?typeCode=5">etc</a></li>
+												href="<%=request.getContextPath()%>/product/listType?typeCode=5">etc</a></li>
 
 										</ul></li>
 									<!-- / shop -->
