@@ -5,6 +5,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -49,9 +50,10 @@ public class MemberController{
     
     @RequestMapping(value="/submitSignUp.do")
     public String submitSignUp(MemberDTO member, HttpSession session, HttpServletRequest request) throws Exception {
-        memberService.submitSignUp(member);    
+        memberService.submitSignUp(member);  
+        memberService.earnPointForNewMember(member.getMId()); // 3000포인트 증정. 코드 정리 필요(3000변수가 xml파일에 바로 들어가있음)
         session.setAttribute("member", member); 
-        request.setAttribute("msg", "회원가입되었습니다. 환영합니다~~~~");
+        request.setAttribute("msg", "회원가입되었습니다. 환영합니다~신규 가입 프로모션으로 3000포인트 증정!");
         request.setAttribute("url", "/");    
         return "alert";
     }
@@ -74,7 +76,9 @@ public class MemberController{
     }
     
     @RequestMapping(value="/myPage.do")
-    public String myPage() {
+    public String myPage(Model model, String mId) throws Exception {
+        PointDTO point = memberService.showPoint(mId);
+        model.addAttribute("point", point);        
         return "member/myPage";
     }   
     
@@ -82,5 +86,13 @@ public class MemberController{
     public String confirmDelete() {
         return "member/confirmDelete";
     }   
+    
+    @RequestMapping(value="/deleteAccount.do", method=RequestMethod.POST)
+    public String deleteAccount(String mId, HttpSession session) throws Exception {        
+        memberService.deleteAccount(mId); // 30일 보관내용 어떻게 처리할지 의논하기
+        // 관련해서 아이디 삭제시 묶인 내용들(외래키관련) 어떻게 할지?(지금은 외래키 걸려있으면 오류뜸)
+        session.invalidate(); // 로그아웃하고 db삭제
+        return "member/deleteAccount";
+    }  
   
 }

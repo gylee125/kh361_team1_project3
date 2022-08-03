@@ -35,5 +35,15 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	<delete id="deleteAccount">
 		delete from member where mId=#{mId}
 	</delete>
+	
+	<insert id="earnPointForNewMember">
+		insert into point
+			values(#{mId}, 3000, sysdate)			
+	</insert>
+	
+	<select id="showPoint" resultType="com.mealkit.member.PointDTO">
+		select * from point 
+			where mId=#{mId}
+	</select>
 
 </mapper>

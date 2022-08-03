@@ -45,5 +45,17 @@ public class MemberServiceImpl implements MemberService {
     public void deleteAccount(String mId) throws Exception {
         memberMapper.deleteAccount(mId);
     }
+    
+
+    @Override
+    public void earnPointForNewMember(String mId) throws Exception {
+        System.out.println("포인트 최초적립시 아이디 확인 : " + mId);
+        memberMapper.earnPointForNewMember(mId);        
+    }
+
+    @Override
+    public PointDTO showPoint(String mId) throws Exception {       
+        return memberMapper.showPoint(mId);
+    }
 
 }

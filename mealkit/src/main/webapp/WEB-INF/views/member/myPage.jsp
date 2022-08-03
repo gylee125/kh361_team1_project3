@@ -110,7 +110,7 @@
                      <div class="media product-card">
                      <div class="summary-total">
                         <span>Total</span>
-                        <span>250P</span>
+                        <span> ${point.currentPoint} </span>
                      </div>
                   </div>
                </div>
