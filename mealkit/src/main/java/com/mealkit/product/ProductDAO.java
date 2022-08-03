@@ -18,9 +18,9 @@ public class ProductDAO {
 	private ProductDAO() {
 	}
 
-	private ProductDTO makeProductDTOFromRS(ResultSet rs) throws SQLException {
+	private ProductVO makeProductDTOFromRS(ResultSet rs) throws SQLException {
 
-		ProductDTO productDTO = new ProductDTO();
+		ProductVO productDTO = new ProductVO();
 
 		productDTO.setpId(rs.getInt("pId"));
 		productDTO.setTypeCode(rs.getString("typeCode"));
@@ -35,26 +35,26 @@ public class ProductDAO {
 		return productDTO;
 	}
 
-	private ProductDetailDTO makeDetailDTOFromRS(ResultSet rs) throws SQLException {
+	private ProductDetailVO makeDetailDTOFromRS(ResultSet rs) throws SQLException {
 
-		ProductDetailDTO productDetailDTO = new ProductDetailDTO();
+		ProductDetailVO productDetailVO = new ProductDetailVO();
 
-		productDetailDTO.setpId(rs.getInt("pId"));
-		productDetailDTO.setTypeCode(rs.getString("typeCode"));
-		productDetailDTO.setpName(rs.getString("pName"));
-		productDetailDTO.setPrice(rs.getInt("price"));
-		productDetailDTO.setStock(rs.getInt("stock"));
-		productDetailDTO.setBrand(rs.getString("brand"));
-		productDetailDTO.setDescription(rs.getString("description"));
-		productDetailDTO.setThumbnail(rs.getString("thumbnail"));
-		productDetailDTO.setImage(rs.getString("image"));
-		productDetailDTO.settName(rs.getString("tName"));
-		productDetailDTO.settNameEng(rs.getString("tNameEng"));
+		productDetailVO.setpId(rs.getInt("pId"));
+		productDetailVO.setTypeCode(rs.getString("typeCode"));
+		productDetailVO.setpName(rs.getString("pName"));
+		productDetailVO.setPrice(rs.getInt("price"));
+		productDetailVO.setStock(rs.getInt("stock"));
+		productDetailVO.setBrand(rs.getString("brand"));
+		productDetailVO.setDescription(rs.getString("description"));
+		productDetailVO.setThumbnail(rs.getString("thumbnail"));
+		productDetailVO.setImage(rs.getString("image"));
+		productDetailVO.settName(rs.getString("tName"));
+		productDetailVO.settNameEng(rs.getString("tNameEng"));
 
-		return productDetailDTO;
+		return productDetailVO;
 	}
 	
-	public ProductDetailDTO selectJoinByPId(Connection conn, int pId) throws SQLException {
+	public ProductDetailVO selectJoinByPId(Connection conn, int pId) throws SQLException {
 
         ResultSet rs = null;
         PreparedStatement pstmt = null;
@@ -71,7 +71,7 @@ public class ProductDAO {
             return null;
     }
 
-	public List<ProductDTO> selectProductList(Connection conn) throws SQLException {
+	public List<ProductVO> selectProductList(Connection conn) throws SQLException {
 
 		ResultSet rs = null;
 		PreparedStatement pstmt = null;
@@ -79,7 +79,7 @@ public class ProductDAO {
 		pstmt = conn.prepareStatement("SELECT * FROM product ORDER BY pId DESC");
 		rs = pstmt.executeQuery();
 
-		List<ProductDTO> list = new ArrayList<>();
+		List<ProductVO> list = new ArrayList<>();
 
 		while (rs.next()) {
 			list.add(makeProductDTOFromRS(rs));
@@ -87,7 +87,7 @@ public class ProductDAO {
 		return list;
 	}
 	
-	public List<ProductDTO> select6ProductList(Connection conn) throws SQLException {
+	public List<ProductVO> select6ProductList(Connection conn) throws SQLException {
 
 		ResultSet rs = null;
 		PreparedStatement pstmt = null;
@@ -95,7 +95,7 @@ public class ProductDAO {
 		pstmt = conn.prepareStatement("SELECT * FROM (SELECT ROWNUM RNUM, PRODUCT.* FROM PRODUCT ORDER BY pId DESC) WHERE RNUM <= 6");
 		rs = pstmt.executeQuery();
 
-		List<ProductDTO> list = new ArrayList<>();
+		List<ProductVO> list = new ArrayList<>();
 
 		while (rs.next()) {
 			list.add(makeProductDTOFromRS(rs));
@@ -103,7 +103,7 @@ public class ProductDAO {
 		return list;
 	}
 
-	public List<ProductDTO> showRelatedList(Connection conn, int pId) throws SQLException {
+	public List<ProductVO> showRelatedList(Connection conn, int pId) throws SQLException {
 
 		ResultSet rs = null;
 		PreparedStatement pstmt = null;
@@ -113,7 +113,7 @@ public class ProductDAO {
 		pstmt.setInt(1, pId);
 		rs = pstmt.executeQuery();
 
-		List<ProductDTO> list = new ArrayList<>();
+		List<ProductVO> list = new ArrayList<>();
 
 		while (rs.next()) {
 			list.add(makeProductDTOFromRS(rs));
@@ -121,7 +121,7 @@ public class ProductDAO {
 		return list;
 	}
 
-	public ProductDTO selectByPId(Connection conn, int pId) throws SQLException {
+	public ProductVO selectByPId(Connection conn, int pId) throws SQLException {
 
 		ResultSet rs = null;
 		PreparedStatement pstmt = null;
@@ -138,7 +138,7 @@ public class ProductDAO {
 			return null;
 	}
 
-	public List<ProductDTO> selectByTypeCode(Connection conn, String typeCode) throws SQLException {
+	public List<ProductVO> selectByTypeCode(Connection conn, String typeCode) throws SQLException {
 
 		ResultSet rs = null;
 		PreparedStatement pstmt = null;
@@ -147,7 +147,7 @@ public class ProductDAO {
 		pstmt.setString(1, typeCode);
 		rs = pstmt.executeQuery();
 
-		List<ProductDTO> list = new ArrayList<>();
+		List<ProductVO> list = new ArrayList<>();
 
 		while (rs.next()) {
 			list.add(makeProductDTOFromRS(rs));
@@ -156,7 +156,7 @@ public class ProductDAO {
 
 	}
 
-	public List<ProductDTO> searchProduct(Connection conn, String keyword) throws SQLException {
+	public List<ProductVO> searchProduct(Connection conn, String keyword) throws SQLException {
 
 		ResultSet rs = null;
 		PreparedStatement pstmt = null;
@@ -166,7 +166,7 @@ public class ProductDAO {
 		pstmt.setString(1, getKeyword);
 		rs = pstmt.executeQuery();
 
-		List<ProductDTO> list = new ArrayList<>();
+		List<ProductVO> list = new ArrayList<>();
 
 		while (rs.next()) {
 			list.add(makeProductDTOFromRS(rs));
@@ -175,7 +175,7 @@ public class ProductDAO {
 
 	}
 
-	public void insert(Connection conn, ProductDTO product) throws SQLException {
+	public void insert(Connection conn, ProductVO product) throws SQLException {
 
 		PreparedStatement pstmt = null;
 

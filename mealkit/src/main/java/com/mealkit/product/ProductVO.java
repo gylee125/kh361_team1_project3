@@ -1,6 +1,6 @@
 package com.mealkit.product;
 
-public class ProductDTO {
+public class ProductVO {
 	
 	private int pId;
 	private String typeCode;
@@ -67,6 +67,11 @@ public class ProductDTO {
 		this.image = image;
 	}
 	
-	
-	
+	@Override
+	public String toString() {
+		return "ProductVO [pId=" + pId + ", typeCode=" + typeCode + ", pName=" + pName + ", price=" + price + ", stock="
+				+ stock + ", brand=" + brand + ", description=" + description + ", thumbnail=" + thumbnail + ", image="
+				+ image + "]";
+	}
+
 }

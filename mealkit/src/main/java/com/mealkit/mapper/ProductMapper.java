@@ -1,8 +1,11 @@
-package com.mealkit.product;
+package com.mealkit.mapper;
 
 import java.util.List;
 
-public interface ProductService {
+import com.mealkit.product.ProductDetailVO;
+import com.mealkit.product.ProductVO;
+
+public interface ProductMapper {
 	List<ProductVO> selectProductList() throws Exception;
 	
 	ProductDetailVO selectJoinByPId(int pId) throws Exception;
@@ -22,4 +25,5 @@ public interface ProductService {
 	int updatePrice(int pId, int price) throws Exception;
 	
 	int delete(int pId) throws Exception;
+	
 }

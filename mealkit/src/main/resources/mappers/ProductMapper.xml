@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.mealkit.mapper.ProductMapper">
+
+	<select id="selectProductList" resultType="com.mealkit.product.ProductVO">>
+		select * from product order by pId DESC
+	</select>
+	
+	<select id="selectJoinByPId" resultType="com.mealkit.product.ProductDetailVO">
+		select * from product NATURAL JOIN productType where pId=#{pId}
+	</select>	
+	
+	<select id="selectNewProductList" resultType="com.mealkit.product.ProductVO">
+	<![CDATA[
+		SELECT * FROM (SELECT ROWNUM RNUM, PRODUCT.* FROM PRODUCT ORDER BY pId DESC) WHERE RNUM <= 6
+	]]>
+	</select>	
+	
+	<select id="selectRelatedList" resultType="com.mealkit.product.ProductVO">
+	<![CDATA[
+		SELECT * FROM (SELECT ROWNUM RNUM, PRODUCT.* FROM PRODUCT WHERE pId!=#{pId} ORDER BY pId DESC) WHERE RNUM <= 4
+	]]>
+	</select>
+	
+	<select id="selectByPId" resultType="com.mealkit.product.ProductVO">
+		select * from product where pId=#{pId}
+	</select>
+	
+	<select id="selectByTypeCode" resultType="com.mealkit.product.ProductVO">
+		select * from product where typeCode=#{typeCode}
+	</select>
+	
+	<insert id="insert">
+		insert into product(pId, typeCode, pName, price, stock, brand, description, thumbnail, )
+			values(pIdSeq.NEXTVAL, #{pId}, #{typeCode}, #{pName}, #{price}, #{stock}, #{brand}, #{description}, #{thumbnail}, #{image})")
+	</insert>
+	
+	<update id="updatePName">
+		update product set pName=#{pName} where pId=#{pId}
+	</update>
+	
+	<update id="updatePrice">
+		update product set price=#{price} where pId=#{pId}
+	</update>
+	
+	<delete id="delete">
+		delete from product where pId = #{pId}
+	</delete>
+	
+</mapper>
