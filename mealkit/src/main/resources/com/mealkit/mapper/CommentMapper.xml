@@ -17,9 +17,9 @@
 	</select>
 
 	<select id="create">
-		insert into review (pid, mId, content)
+		insert into review (pid, mId, content,regdate)
 		values
-		(#{pid},#{mId},#{content})
+		(#{pid},#{mId},#{content},sysdate)
 	</select>
 	<update id="update">
 		update review set content = #{content},
@@ -37,12 +37,13 @@
 		select
 		*
 		from
-		review
+		(select rownum, review.*
+		from (select * from review
 		where
 		pid =
 		#{pid}
-		order by rno desc
-		limit #{cri.pageStart}, #{cri.perPageNum}
+		order by rno desc) review
+		where rownum #{cri.pageStart}) #{cri.perPageNum}
 	</select>
 
 	<select id="count" resultType="int">
