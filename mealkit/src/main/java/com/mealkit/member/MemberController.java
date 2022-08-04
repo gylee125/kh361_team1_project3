@@ -112,5 +112,20 @@ public class MemberController{
     public String adminPage() {
         return "member/adminPage";
     }   
+    
+    @RequestMapping(value="/adminProduct.do")
+    public String adminProduct() {
+        return "member/adminProduct";
+    }   
+    
+    @RequestMapping(value="/adminOrder.do")
+    public String adminOrder() {
+        return "member/adminOrder";
+    }   
+    
+    @RequestMapping(value="/adminBoard.do")
+    public String adminBoard() {
+        return "member/adminBoard";
+    }   
   
 }
