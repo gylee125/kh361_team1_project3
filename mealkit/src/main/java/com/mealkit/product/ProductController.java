@@ -75,9 +75,8 @@ public class ProductController{
 	}
 	
 	@RequestMapping(value = "/register", method=RequestMethod.GET)
-	public void registerGET(ProductVO product, Model model) throws Exception {
+	public void registerGET(HttpServletRequest request, ProductVO product, Model model) throws Exception {
 		logger.info("// /product/register get호출");
-		
 	}
 	
 	
@@ -89,7 +88,7 @@ public class ProductController{
 		logger.info("// product.toString()=" + product.toString());
 		
 		request.setAttribute("msg", "상품등록 완료");
-        request.setAttribute("url", "index"); 
+        request.setAttribute("url", "listAll"); 
         
 		return "alert";
 		

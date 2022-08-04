@@ -319,8 +319,42 @@ FACEBOOK: https://www.facebook.com/themefisher
 									</li>
 									<!-- / About Us -->
 
-
-
+									<!-- Admin 관리자 메뉴 -->
+									<c:if test="${member.mLevel eq 2}">
+									<li class="dropdown dropdown-slide">
+										<a href="#!" class="dropdown-toggle" data-toggle="dropdown" data-hover="dropdown" data-delay="350"
+											role="button" aria-haspopup="true" aria-expanded="false">Admin <span
+												class="tf-ion-ios-arrow-down"></span></a>
+										<div class="dropdown-menu">
+											<div class="row">
+				
+												<!-- Basic -->
+												<div class="col-lg-6 col-md-6 mb-sm-3">
+													<ul>
+														<li class="dropdown-header">Product</li>
+														<li role="separator" class="divider"></li>
+														<li><a href="<%=request.getContextPath()%>/product/register">Register</a></li>
+														<li><a href="<%=request.getContextPath()%>/product/">update / delete</a></li>
+													</ul>
+												</div>
+				
+												<!-- Layout -->
+												<div class="col-lg-6 col-md-6 mb-sm-3">
+													<ul>
+														<li class="dropdown-header">관리자메뉴 필요시 사용</li>
+														<li role="separator" class="divider"></li>
+														<li><a href="<%=request.getContextPath()%>/index">Product Details</a></li>
+														<li><a href="<%=request.getContextPath()%>/index">Shop With Sidebar</a></li>
+				
+													</ul>
+												</div>
+				
+											</div><!-- / .row -->
+										</div><!-- / .dropdown-menu -->
+									</li><!-- / Elements -->
+									</c:if>
+									<!-- / Admin -->
+									
 
 								</ul>
 								<!-- / .nav .navbar-nav -->
