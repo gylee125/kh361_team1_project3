@@ -26,7 +26,7 @@ public class JDBCTests {
 		try (Connection con = DriverManager.getConnection("jdbc:oracle:thin:@localhost:1521:xe", "MEALKIT",
 				"MEALKIT")) {
 
-			log.info("*** con="+con);
+			//log.info("*** con="+con);
 		} catch (Exception e) {
 			fail(e.getMessage());
 		}
