@@ -269,7 +269,7 @@ FACEBOOK: https://www.facebook.com/themefisher
 										aria-haspopup="true" aria-expanded="false">Shop <span
 											class="tf-ion-ios-arrow-down"></span></a>
 										<ul class="dropdown-menu">
-											<li><a href="<%=request.getContextPath()%>/shop/all.do">all</a></li>
+											<li><a href="<%=request.getContextPath()%>/product/listAll">all</a></li>
 											<li><a
 												href="<%=request.getContextPath()%>/product/listType?typeCode=1">korean</a></li>
 											<li><a

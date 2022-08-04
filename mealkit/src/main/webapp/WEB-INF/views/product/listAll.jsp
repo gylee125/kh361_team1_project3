@@ -36,7 +36,7 @@
 							<div class="preview-meta">
 								<ul>
 									<li><a
-										href="<%=request.getContextPath()%>/shop/detail.do?pId=${product.pId}"><i
+										href="<%=request.getContextPath()%>/product/detail?pId=${product.pId}"><i
 											class="tf-ion-ios-search-strong"></i></a></li>
 									<c:if test="${member == null}">
 										<!-- 로그인 정보가 없을 때 -->
@@ -59,7 +59,7 @@
 						<div class="product-content">
 							<h4>
 								<a
-									href="<%=request.getContextPath()%>/shop/detail.do?pId=${product.pId}">${product.pName}</a>
+									href="<%=request.getContextPath()%>/product/detail?pId=${product.pId}">${product.pName}</a>
 							</h4>
 							<p class="price">${product.price}원</p>
 						</div>

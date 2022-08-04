@@ -26,8 +26,8 @@ public class ProductServiceImpl implements ProductService {
 
 	@Override
 	@Transactional
-	public ProductDetailVO selectJoinByPId(int pId) throws Exception {
-		return productMapper.selectJoinByPId(pId);
+	public ProductDetailVO selectProductDetail(int pId) throws Exception {
+		return productMapper.selectProductDetail(pId);
 	}
 
 	@Override
@@ -62,14 +62,8 @@ public class ProductServiceImpl implements ProductService {
 
 	@Override
 	@Transactional
-	public int updatePName(int pId, String pName) throws Exception {
-		return productMapper.updatePName(pId, pName);
-	}
-
-	@Override
-	@Transactional
-	public int updatePrice(int pId, int price) throws Exception {
-		return productMapper.updatePrice(pId, price);
+	public void updateProduct(int pId) throws Exception {
+		productMapper.updateProduct(pId);
 	}
 
 	@Override

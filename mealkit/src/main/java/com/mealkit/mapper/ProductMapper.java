@@ -9,7 +9,7 @@ public interface ProductMapper {
 		
 	List<ProductVO> selectProductList() throws Exception;
 	
-	ProductDetailVO selectJoinByPId(int pId) throws Exception;
+	ProductDetailVO selectProductDetail(int pId) throws Exception;
 	
 	List<ProductVO> selectNewProductList() throws Exception;
 	
@@ -21,9 +21,7 @@ public interface ProductMapper {
 	
 	void insert(ProductVO product) throws Exception;
 	
-	int updatePName(int pId, String pName) throws Exception;
-	
-	int updatePrice(int pId, int price) throws Exception;
+	int updateProduct(int pId) throws Exception;
 	
 	int delete(int pId) throws Exception;
 	

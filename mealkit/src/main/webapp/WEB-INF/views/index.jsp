@@ -19,7 +19,7 @@
 					</h1>
 					<a data-duration-in=".3" data-animation-in="fadeInUp"
 						data-delay-in=".8" class="btn"
-						href="<%=request.getContextPath()%>/shop/type.do?typeCode=1">Shop
+						href="<%=request.getContextPath()%>/product/listType?typeCode=1">Shop
 						Now</a>
 				</div>
 			</div>
@@ -39,7 +39,7 @@
 					</h1>
 					<a data-duration-in=".3" data-animation-in="fadeInUp"
 						data-delay-in=".8" class="btn"
-						href="<%=request.getContextPath()%>/shop/type.do?typeCode=2">Shop
+						href="<%=request.getContextPath()%>/product/listType?typeCode=2">Shop
 						Now</a>
 				</div>
 			</div>
@@ -58,7 +58,7 @@
 					</h1>
 					<a data-duration-in=".3" data-animation-in="fadeInUp"
 						data-delay-in=".8" class="btn"
-						href="<%=request.getContextPath()%>/shop/type.do?typeCode=3">Shop
+						href="<%=request.getContextPath()%>/product/listType?typeCode=3">Shop
 						Now</a>
 				</div>
 			</div>
@@ -128,7 +128,7 @@
 							<div class="preview-meta">
 								<ul>
 									<li><a
-										href="<%=request.getContextPath()%>/shop/detail.do?pId=${productList.pId}"><i
+										href="<%=request.getContextPath()%>/product/detail?pId=${productList.pId}"><i
 											class="tf-ion-ios-search-strong"></i></a></li>
 											
 											
@@ -142,7 +142,7 @@
 									<c:if test="${member != null}">
 										<!-- 로그인 정보가 있을 때 -->
 										<input type="hidden" name=mId value="${member.mId}">
-                  						<input type="hidden" name="pId" value="${productOne.pId}">		
+                  						<input type="hidden" name="pId" value="${productList.pId}">		
 										<li><a
 											href="<%=request.getContextPath()%>/addCart.do?mId=${member.mId}&pId=${productList.pId}&cquantity=1"><i
 												class="tf-ion-android-cart"></i></a></li>
@@ -155,7 +155,7 @@
 						<div class="product-content">
 							<h4>
 								<a
-									href="<%=request.getContextPath()%>/shop/detail.do?pId=${productList.pId}">${productList.pName}</a>
+									href="<%=request.getContextPath()%>/product/detail?pId=${productList.pId}">${productList.pName}</a>
 							</h4>
 							<p class="price">${productList.price}원
 							</p>
