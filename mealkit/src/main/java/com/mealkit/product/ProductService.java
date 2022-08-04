@@ -20,4 +20,6 @@ public interface ProductService {
 	void updateProduct(int pId) throws Exception;
 	
 	int delete(int pId) throws Exception;
+	
+	List<ProductVO> search(String keyword) throws Exception;
 }

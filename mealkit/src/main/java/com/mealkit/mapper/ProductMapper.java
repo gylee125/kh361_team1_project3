@@ -25,4 +25,6 @@ public interface ProductMapper {
 	
 	int delete(int pId) throws Exception;
 	
+	List<ProductVO> search(String keyword) throws Exception;
+	
 }

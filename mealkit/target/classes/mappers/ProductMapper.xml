@@ -53,4 +53,10 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		delete from product where pId = #{pId}
 	</delete>
 	
+	<select id="search" parameterType="String" resultType="ProductVO">
+	<![CDATA[
+		select * from product where pName like CONCAT('%' || #{keyword}, '%') order by pId desc
+	]]>
+	</select>
+	
 </mapper>

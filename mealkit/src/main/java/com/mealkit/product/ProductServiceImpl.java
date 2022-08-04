@@ -72,6 +72,9 @@ public class ProductServiceImpl implements ProductService {
 		return productMapper.delete(pId);
 	}
 
-	
-
+	@Override
+	@Transactional
+	public List<ProductVO> search(String keyword) throws Exception {
+		return productMapper.search(keyword);
+	}
 }

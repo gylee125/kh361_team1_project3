@@ -53,10 +53,12 @@ public class ProductController{
 	
 	@RequestMapping(value = "/detail")
 	public void productDetail(Model model, @RequestParam(value = "pId") int pId, HttpServletRequest request) throws Exception {
-		logger.info("/product/detail");
+		logger.info("/product/detail" + pId);
 		
 		ProductDetailVO productOne = productService.selectProductDetail(pId);
 		List<ProductVO> relatedList = productService.selectRelatedList(pId);
+		
+		logger.info("// productOne.toString()=" + productOne.toString());
 		model.addAttribute("productOne", productOne);
 		model.addAttribute("relatedList", relatedList);
 		
@@ -93,17 +95,15 @@ public class ProductController{
 		
 	}
 	
-	
-	/* 검색은 좀더 찾아보고 구현
-	@RequestMapping(value = "/listSearch")
-	public void search(HttpServletRequest request, ProductVO product) throws Exception {
-		logger.info("// /product/listSearch");
+	@RequestMapping(value = "/search", method=RequestMethod.GET)
+	public void search(Model model, @RequestParam(value = "keyword") String keyword) throws Exception {
+		logger.info("/product/search -> '" + keyword + "' 검색");
 		
-		String keyword = req.getParameter("searchKeyword");
-		List<ProductVO> productList = productService.searchProduct(keyword);		
+		List<ProductVO> productList = productService.search(keyword);
+		
 		logger.info("// productList.toString()=" + productList.toString());
 		model.addAttribute("productList", productList);
-		
-	}*/
+	}
+
 
 }
