@@ -74,6 +74,16 @@ public class ProductController{
         */
 	}
 	
+	@RequestMapping(value = "/search", method=RequestMethod.GET)
+	public void search(Model model, @RequestParam(value = "keyword") String keyword) throws Exception {
+		logger.info("/product/search -> '" + keyword + "' 검색");
+		
+		List<ProductVO> productList = productService.search(keyword);
+		
+		logger.info("// productList.toString()=" + productList.toString());
+		model.addAttribute("productList", productList);
+	}
+	
 	@RequestMapping(value = "/register", method=RequestMethod.GET)
 	public void registerGET(HttpServletRequest request, ProductVO product, Model model) throws Exception {
 		logger.info("// /product/register get호출");
@@ -94,15 +104,13 @@ public class ProductController{
 		
 	}
 	
-	@RequestMapping(value = "/search", method=RequestMethod.GET)
-	public void search(Model model, @RequestParam(value = "keyword") String keyword) throws Exception {
-		logger.info("/product/search -> '" + keyword + "' 검색");
+	@RequestMapping(value = "/listAdmin")
+	public void productListAdmin(HttpServletRequest request, Model model) throws Exception {
+		logger.info("/product/listAdmin");
 		
-		List<ProductVO> productList = productService.search(keyword);
+		List<ProductVO> productList = productService.selectProductList();
 		
 		logger.info("// productList.toString()=" + productList.toString());
 		model.addAttribute("productList", productList);
 	}
-
-
 }
