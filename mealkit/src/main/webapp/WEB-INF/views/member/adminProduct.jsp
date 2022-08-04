@@ -15,7 +15,7 @@
 </style>
 </head>
 <body id="body">
-
+<!-- 취합할 때 협의해서 해당 업무 폴더로 옮기기 -->
 <%@ include file="../include/header.jspf"%>
 	
 <section class="page-header">
@@ -72,8 +72,9 @@
 										<td>3000</td>	
 									</tr>	
 									
+									
 								</tbody>
-							</table>
+							</table>						
 						</div>
 					</div>
 				</div>

@@ -1,6 +1,5 @@
 package com.mealkit.member;
 
-
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -109,23 +108,31 @@ public class MemberController{
     }  
     
     @RequestMapping(value="/adminPage.do")
-    public String adminPage() {
+    public String adminPage(Model model) throws Exception {
+        //List<MemberListDTO> list = memberService.memberList();
+        //model.addAttribute("memberList", list);
         return "member/adminPage";
     }   
     
-    @RequestMapping(value="/adminProduct.do")
+    @RequestMapping(value="/adminProduct.do") // 취합할때 상의하고, 상품쪽으로 이전
     public String adminProduct() {
         return "member/adminProduct";
     }   
     
-    @RequestMapping(value="/adminOrder.do")
+    @RequestMapping(value="/adminOrder.do")  // 취합할때 상의하고, 주문 쪽으로 이전
     public String adminOrder() {
         return "member/adminOrder";
     }   
     
-    @RequestMapping(value="/adminBoard.do")
+    @RequestMapping(value="/adminBoard.do") // 취합할때 상의하고, 게시판 쪽으로 이전
     public String adminBoard() {
         return "member/adminBoard";
     }   
+    
+    @RequestMapping(value="/showMemberDetail.do", method=RequestMethod.POST)
+    @ResponseBody
+    public MemberDTO showMemberDetail(String mId) throws Exception {        
+        return memberService.showMemberDetail(mId);
+    }
   
 }

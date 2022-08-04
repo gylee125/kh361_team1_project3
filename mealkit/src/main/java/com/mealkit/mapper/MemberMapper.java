@@ -1,6 +1,9 @@
 package com.mealkit.mapper;
 
+import java.util.List;
+
 import com.mealkit.member.MemberDTO;
+import com.mealkit.member.MemberListDTO;
 import com.mealkit.member.PointDTO;
 
 public interface MemberMapper {
@@ -21,6 +24,9 @@ public interface MemberMapper {
 
     public void earnPointForNewMember(String mId) throws Exception;
 
-    public PointDTO showPoint(String mId) throws Exception;   
+    public PointDTO showPoint(String mId) throws Exception;
 
+    public MemberDTO showMemberDetail(String mId) throws Exception;   
+
+    public List<MemberListDTO> memberList() throws Exception;
 }

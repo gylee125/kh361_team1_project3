@@ -1,5 +1,7 @@
 package com.mealkit.member;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -58,4 +60,13 @@ public class MemberServiceImpl implements MemberService {
         return memberMapper.showPoint(mId);
     }
 
+    @Override
+    public MemberDTO showMemberDetail(String mId) throws Exception {        
+        return memberMapper.showMemberDetail(mId);
+    }
+
+    @Override
+    public List<MemberListDTO> memberList() throws Exception  {
+        return memberMapper.memberList();
+    }
 }

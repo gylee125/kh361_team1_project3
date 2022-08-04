@@ -25,7 +25,7 @@
 				<div class="content">
 					<h1 class="page-name">관리자 페이지</h1>
 					<ol class="breadcrumb">
-						<li><a href="index.html">Home</a></li>
+						<li><a href="/">Home</a></li>
 						<li class="active">Admin Page</li>
 					</ol>
 				</div>
@@ -83,6 +83,29 @@
 									</tr>							
 								</tbody>
 							</table>
+							<!-- 작업용 가라 입력태그 -->
+							(테스트용)ID <input type="text" id="inputId" onfocusout="searchMember();">
+							
+							<div class="dashboard-wrapper dashboard-user-profile" id="showMemberDetail">
+								<div class="media">								
+									<div class="media-body">
+										<ul class="user-profile-list">
+											<li><span>No:</span>Johanna Doe</li>
+											<li><span>ID:</span>USA</li>
+											<li><span>Name:</span>USA</li>
+											<li><span>Password:</span>USA</li>
+											<li><span>Phone:</span>USA</li>
+											<li><span>Email:</span>USA</li>
+											<li><span>Address:</span>mail@gmail.com</li>
+											<li><span>Since:</span>+880123123</li>
+											<li><span>Level:</span>Dec , 22 ,1991</li>
+										</ul>										
+									</div>									
+								</div>
+								<br>
+								<button type="button" class="btn btn-main text-center">수정</button>
+								<button type="button" class="btn btn-main text-center">탈퇴</button>
+							</div>
 						</div>
 					</div>
 				</div>
@@ -91,8 +114,34 @@
 	</div>
 </section>
 
+<script>
+	let showMemberDetail = document.getElementById("showMemberDetail");
+	let inputId = document.getElementById("inputId");
+	
+	showMemberDetail.style.display = "none";
+	
+	alert("js테스트 : " + inputId.value);
+	
+	function searchMember(){
+		let xmlReq = new XMLHttpRequest();
+		
+		xmlReq.open('POST', '/showMemberDetail.do', true);
+		xmlReq.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
+		xmlReq.send("mId=" + inputId.value);
+		xmlReq.onload = function(){
+			if(xmlReq.status == 200){
+				alert("작동하나? ajax?" + inputId.value);
+				showMemberDetail.style.display = "block";
+				console.log(xmlReq.response);
+			}else
+				console.log("showIdMember 처리 실패");
+			}
+		}
+	
+</script>
 
 <%@ include file="../include/footer.jspf"%>
+
 
 </body>
 </html>

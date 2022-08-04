@@ -1,5 +1,7 @@
 package com.mealkit.member;
 
+import java.util.List;
+
 public interface MemberService {
 
     public MemberDTO submitLogin(MemberDTO member) throws Exception;
@@ -18,6 +20,10 @@ public interface MemberService {
 
     public void earnPointForNewMember(String mId) throws Exception;
 
-    public PointDTO showPoint(String mId) throws Exception;   
+    public PointDTO showPoint(String mId) throws Exception;
+
+    public MemberDTO showMemberDetail(String mId) throws Exception;   
+    
+    public List<MemberListDTO> memberList() throws Exception;
     
 }

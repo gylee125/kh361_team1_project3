@@ -45,5 +45,17 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		select * from point 
 			where mId=#{mId}
 	</select>
+	
+	<select id="showMemberDetail" resultType="com.mealkit.member.MemberDTO">
+		select * from member 
+			where mId=#{mId}
+	</select>
+	
+	<select id="memberList" resultType="com.mealkit.member.MemberListDTO">
+		select 
+			m.mNo, m.mId, m.mName, m.email, m.regDate, p.currentPoint
+		from member m, point p
+		order by mNo desc
+	</select>
 
 </mapper>
