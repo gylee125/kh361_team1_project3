@@ -216,9 +216,14 @@ FACEBOOK: https://www.facebook.com/themefisher
 									<li><a href="<%=request.getContextPath()%>/login.do">logIn</a></li>
 									<li><a href="<%=request.getContextPath()%>/signUp.do">signUp</a></li>
 								</c:if>
-								<c:if test="${member != null}">
+								<c:if test="${member != null and member.MLevel == 1}">
 									<li>${member.MName} 님께서 로그인 중입니다.</li>
-									<li><a href="<%=request.getContextPath()%>/myPage.do?mId=${member.MId}">MyPage</a></li>
+									<li><a href="<%=request.getContextPath()%>/myPage.do?mId=${member.MId}">My Page</a></li>
+									<li><a href="logout.do">Logout</a></li>
+								</c:if>
+								<c:if test="${member != null and member.MLevel == 2}">
+									<li>[관리자 모드]<br> ${member.MName} 님께서 로그인 중입니다.</li>
+									<li><a href="<%=request.getContextPath()%>/adminPage.do?">Admin Page</a></li>
 									<li><a href="logout.do">Logout</a></li>
 								</c:if>
 							</ul></li>

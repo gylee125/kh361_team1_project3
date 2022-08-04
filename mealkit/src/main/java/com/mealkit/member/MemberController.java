@@ -25,9 +25,10 @@ public class MemberController{
     }
     
     @RequestMapping(value="/submitLogin.do", method=RequestMethod.POST)
-    public String submitLogin(HttpSession session, MemberDTO member, HttpServletRequest request, HttpServletResponse response) throws Exception {
+    public String submitLogin(MemberDTO member, HttpServletRequest request, HttpServletResponse response) throws Exception {
         
         String saveId = request.getParameter("saveId");
+        HttpSession session = request.getSession();
         MemberDTO loginData;
         
         loginData = memberService.submitLogin(member);
@@ -60,10 +61,10 @@ public class MemberController{
         return "member/signUp";
     }
     
-    @RequestMapping(value="/submitSignUp.do")
+    @RequestMapping(value="/submitSignUp.do", method=RequestMethod.POST)
     public String submitSignUp(MemberDTO member, HttpSession session, Model model) throws Exception {
         memberService.submitSignUp(member);  
-        memberService.earnPointForNewMember(member.getMId()); // 3000포인트 증정. 코드 정리 필요(3000변수가 xml파일에 바로 들어가있음)
+        memberService.earnPointForNewMember(member.getMId()); // 3000포인트 증정. 코드 정리 필요(3000변수가 매퍼xml파일에 바로 들어가있음)
         session.setAttribute("member", member); 
         model.addAttribute("msg", "회원가입되었습니다. 환영합니다~신규 가입 프로모션으로 3000포인트 증정!");
         model.addAttribute("url", "/");    
@@ -106,5 +107,10 @@ public class MemberController{
         session.invalidate(); // 로그아웃하고 db삭제
         return "member/deleteAccount";
     }  
+    
+    @RequestMapping(value="/adminPage.do")
+    public String adminPage() {
+        return "member/adminPage";
+    }   
   
 }

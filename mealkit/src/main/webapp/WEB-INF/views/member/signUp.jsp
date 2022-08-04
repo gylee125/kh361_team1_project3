@@ -41,7 +41,7 @@ span{
       <div class="col-md-6 col-md-offset-3">
         <div class="block text-center">
           <h2 class="text-center">계정을 만드세요</h2>
-          <form class="text-left clearfix" id="submitSignUp" name="submitSignUp" action="submitSignUp.do" method="post">
+          <form action="submitSignUp.do" method="post" class="text-left clearfix" id="submitSignUp" name="submitSignUp" >
             <div class="form-group">
               <input type="text" name="mId" id="mId" class="form-control"  placeholder="ID">
               <button type="button" class="gradient-btn">확인 내용</button>
