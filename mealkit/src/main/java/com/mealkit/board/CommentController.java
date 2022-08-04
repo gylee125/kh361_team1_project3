@@ -86,6 +86,7 @@ public class CommentController {
 		return entity;
 	}
 	
+	//listed result pagination
 	@RequestMapping(value = "/{pid}/{page}", method = RequestMethod.GET)
 	public ResponseEntity<Map<String,Object>> listPage(
 			@PathVariable("pid") Integer pid,
@@ -93,7 +94,7 @@ public class CommentController {
 	{
 		ResponseEntity<Map<String,Object>> entity = null;
 		
-		System.out.println("pid="+pid + ", page=" + page);
+		//System.out.println("pid="+pid + ", page=" + page);
 		
 		try {
 			CommentCriteria cri = new CommentCriteria();
