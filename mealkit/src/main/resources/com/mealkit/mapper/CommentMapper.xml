@@ -34,16 +34,9 @@
 
 
 	<select id="listPage" resultType="CommentVO">
-		select
-		*
-		from
-		(select rownum, review.*
-		from (select * from review
-		where
-		pid =
-		#{pid}
-		order by rno desc) review
-		where rownum #{cri.pageStart}) #{cri.perPageNum}
+		select rownum, rvresult.* from 
+		(select * from review where pid = #{pid} order by rno desc) rvresult
+		where rownum &lt; 10
 	</select>
 
 	<select id="count" resultType="int">

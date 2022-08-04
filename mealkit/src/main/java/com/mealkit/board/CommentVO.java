@@ -40,13 +40,13 @@ public class CommentVO {
 
 
 
-	public String getPid() {
+	public Integer getPid() {
 		return pid;
 	}
 
 
 
-	public void setPid(String pid) {
+	public void setPid(Integer pid) {
 		this.pid = pid;
 	}
 
@@ -89,8 +89,9 @@ public class CommentVO {
 
 
 	private Integer rno;
+	private Integer pid;
+
 	private String mId;
-	private String pid;
 	private String content;
 	private Date regDate;
 	private Date updatedate;

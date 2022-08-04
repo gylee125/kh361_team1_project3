@@ -6,6 +6,7 @@ import java.util.Map;
 
 import javax.inject.Inject;
 
+import org.apache.ibatis.annotations.Param;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -86,9 +87,13 @@ public class CommentController {
 	}
 	
 	@RequestMapping(value = "/{pid}/{page}", method = RequestMethod.GET)
-	public ResponseEntity<Map<String,Object>> listPage(@PathVariable("pid") Integer pid,@PathVariable("page") Integer page)
+	public ResponseEntity<Map<String,Object>> listPage(
+			@PathVariable("pid") Integer pid,
+			@PathVariable("page") Integer page)
 	{
 		ResponseEntity<Map<String,Object>> entity = null;
+		
+		System.out.println("pid="+pid + ", page=" + page);
 		
 		try {
 			CommentCriteria cri = new CommentCriteria();
@@ -98,7 +103,14 @@ public class CommentController {
 			pageMaker.setCri(cri);
 			
 			Map<String,Object> map = new HashMap<String , Object>();
-			List<CommentVO> list = commentMapper.listPage(pid, cri);
+			
+			Map<String, Object> paramMap = new HashMap<>();
+			paramMap.put("pid", pid);
+			paramMap.put("cri", cri);
+			
+			List<CommentVO> list = commentMapper.listPage(paramMap);
+			
+			System.out.println(list.toString());
 			
 			map.put("list", list);
 			
@@ -106,7 +118,7 @@ public class CommentController {
 			pageMaker.setTotalCount(replyCount);
 			
 			map.put("pageMaker", pageMaker);
-			entity = new ResponseEntity<Map<String,Object>>(HttpStatus.OK);
+			entity = new ResponseEntity<Map<String,Object>>(map, HttpStatus.OK);
 		}catch(Exception e){
 			e.printStackTrace();
 			entity = new ResponseEntity<Map<String,Object>>(HttpStatus.BAD_REQUEST);
