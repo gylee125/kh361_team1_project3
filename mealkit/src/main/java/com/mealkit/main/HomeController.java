@@ -60,4 +60,11 @@ public class HomeController {
 		return "index";
 	}
 	
+	@RequestMapping(value = "/about")
+	public String about() throws Exception {
+		logger.info("/about");
+		
+		return "about";
+	}
+	
 }

@@ -315,7 +315,7 @@ FACEBOOK: https://www.facebook.com/themefisher
 									
 									<!-- About Us -->
 									<li class="dropdown "><a
-										href="<%=request.getContextPath()%>/about.do">About Us</a>
+										href="<%=request.getContextPath()%>/about">About Us</a>
 									</li>
 									<!-- / About Us -->
 
