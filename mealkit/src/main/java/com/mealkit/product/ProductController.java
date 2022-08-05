@@ -113,4 +113,27 @@ public class ProductController{
 		logger.info("// productList.toString()=" + productList.toString());
 		model.addAttribute("productList", productList);
 	}
+	
+	@RequestMapping(value = "/update", method=RequestMethod.GET)
+	public void updateGET(HttpServletRequest request, @RequestParam(value = "pId") int pId, Model model) throws Exception {
+		logger.info("/product/update get 호출 pId=" + pId);
+		
+		ProductDetailVO productOne = productService.selectProductDetail(pId);
+		model.addAttribute("productOne", productOne);
+	}
+	
+	@RequestMapping(value = "/update", method=RequestMethod.POST)
+	public String updatePOST(HttpServletRequest request, @RequestParam(value = "pId") int pId, Model model) throws Exception {
+		logger.info("/product/update post 호출 pId=" + pId);
+		
+		productService.updateProduct(pId);
+				
+		ProductDetailVO productOne = productService.selectProductDetail(pId);
+		logger.info("// productList.toString()=" + productOne.toString());
+		
+		request.setAttribute("msg", "상품수정 완료");
+        request.setAttribute("url", "detail?pId="+pId ); 
+        
+		return "alert";
+	}
 }
