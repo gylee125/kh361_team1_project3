@@ -45,30 +45,30 @@
 
 				<div class="col-md-7">
 					<div class="single-product-details">
-						<form id="updateProductForm">
+						<form id="updateProductForm" role="form" method="post">
 							<h2>상품 정보 수정</h2>
 							<div class="product-category">
 								<span>상품번호</span> 
 							<input type="text" class="form-control" name="pId" id="pId" value="${productOne.pId}" readonly/>
 							</div>
 							<div class="product-category">
-								<span>상품분류코드 </span>  1:한식   2:양식   3:중식   4:일식   5:기타 
-								<input type="text" class="form-control" name="typeCode" id="typeCode" value="${productOne.typeCode} : ${productOne.tName}">
+								<span>상품분류코드* </span>  1:한식 &nbsp; 2:양식 &nbsp; 3:중식 &nbsp; 4:일식 &nbsp; 5:기타 &nbsp; 
+								<input type="text" class="form-control" name="typeCode" id="typeCode" value="${productOne.typeCode}">
 							</div>
 							<div class="product-category">
-								<span>상품명</span> 
+								<span>상품명*</span> 
 								<input type="text" class="form-control" name="pName" id="pName" value="${productOne.pName}">
 							</div>
 							<div class="product-category">
-								<span>가격</span>
+								<span>가격*</span>
 								<input type="text" class="form-control" name="price" id="price" value="${productOne.price}">
 							</div>
 							<div class="product-category">
-								<span>재고수량</span> 
+								<span>재고수량*</span> 
 								<input type="text" class="form-control" name="stock" id="stock" value="${productOne.stock}">
 							</div>
 							<div class="product-category">
-								<span>브랜드</span>
+								<span>브랜드*</span>
 								<input type="text" class="form-control" name="brand" id="brand" value="${productOne.brand}">
 							</div>
 							<div class="product-category">
@@ -76,8 +76,7 @@
 								<input type="text" class="form-control" name="description" id="description" value="${productOne.description}">
 							</div>
 
-							<button type="button" class="btn btn-main mt-20" id="cartBtn"
-								onclick="checkQuantity();">UPDATE</button>
+							<button type="submit" class="btn btn-main mt-20" id="updateBtn">UPDATE</button>
 							
 
 
@@ -89,15 +88,6 @@
 				</div>
 			</div>
 
-			<script>
-	function checkQuantity() {
-		let addCartForm = document.getElementById("addCartForm");
-		if (addCartForm.cquantity.value > 0)
-			addCartForm.submit();
-		else
-			alert("수량을 하나 이상 골라주세요!!!!")
-	}
-</script>
 
 		</div>
 	</section>
