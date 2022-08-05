@@ -84,8 +84,8 @@
 								</tbody>
 							</table>
 							<!-- 작업용 가라 입력태그 -->
-							(테스트용)ID <input type="text" id="inputId" onfocusout="searchMember();">
-							
+							(테스트용)ID <input type="text" id="inputId" onfocusout="searchMember();" >
+														
 							<div class="dashboard-wrapper dashboard-user-profile" id="showMemberDetail">
 								<div class="media">								
 									<div class="media-body">
@@ -122,13 +122,26 @@
 	let inputId = document.getElementById("inputId");
 	showMemberDetail.style.display = 'none';
 	
-	alert("js테스트51 : ");
-	
-	function searchMember(){
+	alert("js 작동 테스트 1")
+		
+	function searchMember(){		
+		
+		fetch("/showMemberDetail.do", {
+			method: "POST", 			
+			body: JSON.stringify("mId" : inputId.value)
+		})
+		.then(function(response){
+			return response.json());
+		})
+		.then(function(json){
+			console.loa(json);
+		});
+		/*
 		let xmlReq = new XMLHttpRequest();		
 		xmlReq.open('POST', '/showMemberDetail.do', true);
 		xmlReq.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
 		xmlReq.send("mId=" + inputId.value);
+		
 		xmlReq.onload = function(){
 			if(xmlReq.status == 200){
 				if(xmlReq.response != ""){	
@@ -152,12 +165,14 @@
 					showMemberDetail.style.display = 'block';
 				}else{
 					showMemberDetail.style.display = 'none';
-					alert("아이디 입력 잘못한듯??");
+					alert("ID 입력 오류! 확인바랍니다~!");
 				}				
-			}else
+			}else{
 				alert("showIdMember 처리 실패");
-			}
-		}
+			}				
+		} */	
+			
+	}
 	
 	function closeMemberDetail(){
 		showMemberDetail.style.display = 'none';
