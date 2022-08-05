@@ -1,5 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>	
+	
 <%@ include file="../include/header.jspf"%>
 
 <body id="body">
@@ -26,7 +29,6 @@
 					<ul class="list-inline dashboard-menu text-center">
 						<li><a class="active" href="address.html">공지사항</a></li>
 						<li><a class="active" href="address.html">자유게시판</a></li>
-						<li><a class="active" href="address.html">문의게시판</a></li>
 					</ul>
 					<div class="dashboard-wrapper user-dashboard">
 						<div class="table-responsive">
@@ -44,10 +46,11 @@
 									<c:forEach var="CommunityVO" items="${list}">
 										<tr>
 											<td>${CommunityVO.cNo}</td>
-											<td><a href='/board/read?bno=${CommunityVO.mId}'>${CommunityVO.mId}</a></td>
-											<td>${CommunityVO.title}</td>
-											<td>${CommunityVO.regDate}</td>
-											<td>
+											<td>${CommunityVO.mId}</td>
+											<td><a href='/community/read?cNo=${CommunityVO.cNo}'>${CommunityVO.title}</a></td>
+											<td><fmt:formatDate pattern="yyyy-MM-dd HH:mm"
+													value="${CommunityVO.regDate}"/></td>
+											<!-- <td>
 												<div class="btn-group" role="group">
 													<button type="button" class="btn btn-default">
 														<i class="tf-pencil2" aria-hidden="true"></i>
@@ -56,7 +59,7 @@
 														<i class="tf-ion-close" aria-hidden="true"></i>
 													</button>
 												</div>
-											</td>
+											</td> -->
 										</tr>
 									</c:forEach>
 								</tbody>

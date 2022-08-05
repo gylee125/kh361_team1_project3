@@ -3,61 +3,81 @@
 PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
-<mapper namespace="CommnuityMapper">
+<mapper namespace="com.mealkit.mapper.CommunityMapper">
 
- <insert id="insert">
- insert into Community (cNo, mLevel, mId, title, content) 
- values(Community_seq.nextval, #{mLevel, JdbcType=VARCHAR}, #{mId}, #{title}, #{content})
- </insert>
-
- <select id="read" resultType="com.mealkit.board.CommunityVO">
+<select id="list" resultType="com.mealkit.board.CommunityVO">
+ <![CDATA[
  select 
    cNo, mId, title, content, regDate 
  from 
-   Community 
+   community 
+ order by cNo desc, regDate desc
+ ]]>  
+ </select>
+
+ <select id="read" resultType="com.mealkit.board.CommunityVO">
+ select 
+   cNo, mId, title, content
+ from 
+   community 
  where cNo = #{cNo}
  </select>
 
  <update id="update">
- update Community set title =#{title}, content =#{content} 
+ update community set title =#{title}, content =#{content} 
  where cNo = #{cNo}
  </update>
 
  <delete id="delete">
- delete from Community where cNo = #{cNo}
+ delete from community where cNo = #{cNo}
  </delete>
 
- <select id="listAll" resultType="com.mealkit.board.CommunityVO">
- <![CDATA[
- select 
-   cNo, mId, title, content, regDate  
- from 
-   Community 
- where cNo > 0 
- order by cNo desc, regDate desc
- ]]>  
- </select>
+
+
+
+
+
+
+
+
+
+
+ <!-- <insert id="create">
+ insert into board (bno, mId, title, content) 
+ values(board_seq.nextval, #{mId},#{title}, #{content})
+ </insert>
+
+
+ <update id="update">
+ update board set title =#{title}, content =#{content} 
+ where bno = #{bno}
+ </update>
+
+ <delete id="delete">
+ delete from board where bno = #{bno}
+ </delete>
+  
  
- <select id="listPage" resultType="CommunityVO">
+ <select id="listPage" resultType="BoardVO">
  <![CDATA[
  select 
-   cNo, mId, title, content, regDate  
+   bno, title, content, mId, regDate, viewcnt 
  from 
-   Community 
- where cNo > 0 
- order by cNo desc, regDate desc
+   board 
+ where bno > 0 
+ order by bno desc, regdate desc
  limit #{page}, 10
  ]]>  
  </select>
 
-  <select id="listCriteria" resultType="CommunityVO">
+  <select id="listCriteria" resultType="BoardVO">
  <![CDATA[
  select 
-    cNo, mId, title, content, regDate  
+   bno, title, content, mId, regDate, viewcnt 
  from 
-   Community 
- where cNo > 0 
- order by cNo desc, regDate desc
+   board 
+ where bno > 0 
+ order by bno desc, regdate desc
  limit #{pageStart}, #{perPageNum}
  ]]>  
  </select>
@@ -67,11 +87,11 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
  <select id="countPaging" resultType="int">
  <![CDATA[
  select 
-   count(cNo) 
+   count(bno) 
  from 
-   Community 
+   board 
  where 
-   cNo > 0 
+   bno > 0 
  ]]>
  </select>
 
@@ -104,29 +124,29 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
  </if>  
 </sql>
  
-<select id="listSearch" resultType="CommunityVO">
+<select id="listSearch" resultType="BoardVO">
 <![CDATA[  
   select * 
-  from Community 
-  where cNo > 0 
+  from board 
+  where bno > 0 
 ]]>  
 
   <include refid="search"></include>
   
 <![CDATA[    
-  order by cNo desc
+  order by bno desc
   limit #{pageStart}, #{perPageNum}
 ]]>  
 </select>
   
 <select id="listSearchCount" resultType="int">
 <![CDATA[  
-  select count(cNo) 
-  from Community 
-  where cNo > 0 
+  select count(bno) 
+  from board 
+  where bno > 0 
 ]]>
   <include refid="search"></include>
  
 </select>  
-  
+  -->
 </mapper>
