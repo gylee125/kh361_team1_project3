@@ -23,6 +23,7 @@ public class MemberController{
         return "member/login";
     }
     
+    // 코드 정리 필요
     @RequestMapping(value="/submitLogin.do", method=RequestMethod.POST)
     public String submitLogin(MemberDTO member, HttpServletRequest request, HttpServletResponse response) throws Exception {
         
@@ -131,8 +132,8 @@ public class MemberController{
     
     @RequestMapping(value="/showMemberDetail.do", method=RequestMethod.POST)
     @ResponseBody
-    public MemberDTO showMemberDetail(String mId) throws Exception {        
-        return memberService.showMemberDetail(mId);
+    public MemberDTO showMemberDetail(Model model, String mId) throws Exception {         
+        return memberService.showMemberDetail(mId);       
     }
   
 }

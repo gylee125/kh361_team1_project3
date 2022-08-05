@@ -58,7 +58,7 @@
 										<th>Name</th>	
 										<th>Email</th>										
 										<th>Since</th>
-										<th>Point</th> <!-- 테이블 따로 있어서 JOIN쿼리 쓰고 추가 작업 필요 -->
+										<th>Point</th>
 									</tr>
 								</thead>
 								<tbody>								

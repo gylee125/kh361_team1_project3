@@ -90,21 +90,22 @@
 								<div class="media">								
 									<div class="media-body">
 										<ul class="user-profile-list">
-											<li><span>No:</span>Johanna Doe</li>
-											<li><span>ID:</span>USA</li>
-											<li><span>Name:</span>USA</li>
-											<li><span>Password:</span>USA</li>
-											<li><span>Phone:</span>USA</li>
-											<li><span>Email:</span>USA</li>
-											<li><span>Address:</span>mail@gmail.com</li>
-											<li><span>Since:</span>+880123123</li>
-											<li><span>Level:</span>Dec , 22 ,1991</li>
+											<li> <span>No:</span> <span id="memberNo"></span> </li>
+											<li> <span>ID:</span> <span id="memberId"></span> </li>
+											<li> <span>Name:</span><span id="memberName"></span></li>
+											<li> <span>Password:</span><span id="memberPw"></span></li>
+											<li> <span>Phone:</span> <span id="memberPhone"></span> </li>
+											<li> <span>Email:</span> <span id="memberEmail"></span> </li>
+											<li> <span>Address:</span> <span id="memberAddress"></span> </li>
+											<li> <span>Since:</span> <span id="memberRegDate"></span> </li>
+											<li> <span>Level:</span> <span id="memberMlevel"></span> </li>
 										</ul>										
 									</div>									
 								</div>
 								<br>
 								<button type="button" class="btn btn-main text-center">수정</button>
 								<button type="button" class="btn btn-main text-center">탈퇴</button>
+								<button type="button" class="btn btn-main text-center" onclick="closeMemberDetail();">닫기</button>
 							</div>
 						</div>
 					</div>
@@ -115,33 +116,56 @@
 </section>
 
 <script>
+
 	let showMemberDetail = document.getElementById("showMemberDetail");
+	let memberNo = document.getElementById("memberNo");
 	let inputId = document.getElementById("inputId");
+	showMemberDetail.style.display = 'none';
 	
-	showMemberDetail.style.display = "none";
-	
-	alert("js테스트 : " + inputId.value);
+	alert("js테스트51 : ");
 	
 	function searchMember(){
-		let xmlReq = new XMLHttpRequest();
-		
+		let xmlReq = new XMLHttpRequest();		
 		xmlReq.open('POST', '/showMemberDetail.do', true);
 		xmlReq.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
 		xmlReq.send("mId=" + inputId.value);
 		xmlReq.onload = function(){
 			if(xmlReq.status == 200){
-				alert("작동하나? ajax?" + inputId.value);
-				showMemberDetail.style.display = "block";
-				console.log(xmlReq.response);
+				if(xmlReq.response != ""){	
+					alert("회원 비밀번호가 노출됩니다. 보안에 주의하시기 바랍니다.");
+					let showMember = JSON.parse(xmlReq.response);		
+										
+					memberNo.innerHTML = showMember.mno;
+					memberId.innerHTML = showMember.mid;
+					memberName.innerHTML = showMember.mname;
+					memberPw.innerHTML = showMember.pw;
+					memberPhone.innerHTML = showMember.phone;
+					memberEmail.innerHTML = showMember.email;
+					memberAddress.innerHTML = showMember.address;
+					memberRegDate.innerHTML = showMember.regdate;
+					
+					if(showMember.mlevel == 2)
+						memberMlevel.innerHTML = '관리자';
+					else
+						memberMlevel.innerHTML = '일반회원';
+										
+					showMemberDetail.style.display = 'block';
+				}else{
+					showMemberDetail.style.display = 'none';
+					alert("아이디 입력 잘못한듯??");
+				}				
 			}else
-				console.log("showIdMember 처리 실패");
+				alert("showIdMember 처리 실패");
 			}
 		}
+	
+	function closeMemberDetail(){
+		showMemberDetail.style.display = 'none';
+	}
 	
 </script>
 
 <%@ include file="../include/footer.jspf"%>
-
 
 </body>
 </html>
