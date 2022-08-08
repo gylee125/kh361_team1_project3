@@ -240,10 +240,6 @@
 						  %>
 						  <!--  testing code end, set switch-->
 				</div>
-				
-				
-				
-				
 			</div>
 		</div>
 	</div>
