@@ -9,6 +9,7 @@ import javax.inject.Inject;
 import org.apache.ibatis.annotations.Param;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -18,6 +19,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.mealkit.mapper.CommentMapper;
 
 @RestController
+//RestController = Controller + requestBody > returns JSON
 @RequestMapping("/reviews")
 public class CommentController {
 
@@ -25,6 +27,7 @@ public class CommentController {
 	@Inject
 	private CommentMapper commentMapper;
 	
+
 	//create
 	@RequestMapping(value = "" , method = RequestMethod.POST)
 	public ResponseEntity<String> register(@RequestBody CommentVO vo){
@@ -118,7 +121,7 @@ public class CommentController {
 			int replyCount = commentMapper.count(pid);
 			pageMaker.setTotalCount(replyCount);
 			
-			map.put("pageMaker", pageMaker);
+			map.put("commentPageMaker", pageMaker);
 			entity = new ResponseEntity<Map<String,Object>>(map, HttpStatus.OK);
 		}catch(Exception e){
 			e.printStackTrace();
