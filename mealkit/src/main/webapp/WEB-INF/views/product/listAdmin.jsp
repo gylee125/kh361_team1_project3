@@ -40,9 +40,15 @@
 									href="<%=request.getContextPath()%>/product/detail?pId=${product.pId}">${product.pName}</a>
 							</h4>
 							<ul class="list-inline mt-10">
-				                <li class="li"><a href="<%=request.getContextPath()%>/product/update?pId=${product.pId}" class="btn btn-main btn-small btn-round">Update</a></li>
-				                <li class="li"><a href="<%=request.getContextPath()%>/product/delete?pId=${product.pId}" class="btn btn-main btn-small btn-round">Delete</a></li>
-				              </ul>
+								<li class="li"><a
+									href="<%=request.getContextPath()%>/product/update?pId=${product.pId}"
+									class="btn btn-main btn-small btn-round">Update</a></li>
+								<li class="li"><a
+									href="javascript:void(0);" onclick="delCheck(${product.pId});"
+									class="btn btn-main btn-small btn-round">Delete</a></li>
+
+
+							</ul>
 						</div>
 					</div>
 				</div>
@@ -52,6 +58,15 @@
 		</div>
 	</div>
 </section>
+
+<script>
+	function delCheck(productId) {
+		var chk = confirm("정말 삭제하시겠습니까?");
+		if (chk) {
+			location.href = '<%=request.getContextPath()%>/product/delete?pId=' + productId;
+		}
+	}
+</script>
 
 
 <%@ include file="../include/footer.jspf"%>

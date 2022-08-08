@@ -123,10 +123,12 @@ public class ProductController{
 	}
 	
 	@RequestMapping(value = "/update", method=RequestMethod.POST)
-	public String updatePOST(HttpServletRequest request, @RequestParam(value = "pId") int pId, Model model) throws Exception {
-		logger.info("/product/update post 호출 pId=" + pId);
+	public String updatePOST(HttpServletRequest request, ProductVO product, Model model) throws Exception {
+		logger.info("/product/update post 호출");
 		
-		productService.updateProduct(pId);
+		int pId = product.getpId();
+		
+		productService.updateProduct(product);
 				
 		ProductDetailVO productOne = productService.selectProductDetail(pId);
 		logger.info("// productList.toString()=" + productOne.toString());
@@ -135,5 +137,18 @@ public class ProductController{
         request.setAttribute("url", "detail?pId="+pId ); 
         
 		return "alert";
+	}
+	
+	@RequestMapping(value = "/delete", method=RequestMethod.GET)
+	public String delete(HttpServletRequest request, @RequestParam(value = "pId") int pId) throws Exception {
+		logger.info("/product/delete pId=" + pId);
+		
+		request.setAttribute("msg", "상품삭제 완료");
+        request.setAttribute("url", "listAll" ); 
+        
+        productService.delete(pId);
+        
+        return "alert";
+
 	}
 }

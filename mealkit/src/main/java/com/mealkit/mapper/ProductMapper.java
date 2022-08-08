@@ -21,7 +21,7 @@ public interface ProductMapper {
 	
 	void insert(ProductVO product) throws Exception;
 	
-	int updateProduct(int pId) throws Exception;
+	int updateProduct(ProductVO product) throws Exception;
 	
 	int delete(int pId) throws Exception;
 	

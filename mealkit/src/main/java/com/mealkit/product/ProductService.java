@@ -17,7 +17,7 @@ public interface ProductService {
 	
 	void insert(ProductVO product) throws Exception;
 	
-	void updateProduct(int pId) throws Exception;
+	void updateProduct(ProductVO product) throws Exception;
 	
 	int delete(int pId) throws Exception;
 	

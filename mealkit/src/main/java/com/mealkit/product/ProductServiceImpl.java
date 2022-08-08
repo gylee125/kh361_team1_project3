@@ -62,8 +62,8 @@ public class ProductServiceImpl implements ProductService {
 
 	@Override
 	@Transactional
-	public void updateProduct(int pId) throws Exception {
-		productMapper.updateProduct(pId);
+	public void updateProduct(ProductVO product) throws Exception {
+		productMapper.updateProduct(product);
 	}
 
 	@Override
