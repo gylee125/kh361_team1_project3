@@ -2,6 +2,8 @@ package com.mealkit.member;
 
 import java.util.Date;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+
 import lombok.Data;
 
 @Data
@@ -14,6 +16,7 @@ public class MemberDTO {
 	private String phone;
 	private String address;
 	private String email;
+	@JsonFormat(pattern="yyyy-mm-dd")
 	private Date regDate;
 	private int mLevel;
 	

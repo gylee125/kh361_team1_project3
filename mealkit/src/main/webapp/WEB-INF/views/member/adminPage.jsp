@@ -103,7 +103,7 @@
 									</div>									
 								</div>
 								<br>
-								<button type="button" class="btn btn-main text-center">수정</button>
+								<button type="button" class="btn btn-main text-center" onclick="modifyMemberByAdmin();">수정</button>
 								<button type="button" class="btn btn-main text-center">탈퇴</button>
 								<button type="button" class="btn btn-main text-center" onclick="closeMemberDetail();">닫기</button>
 							</div>
@@ -118,11 +118,10 @@
 <script>
 
 	let showMemberDetail = document.getElementById("showMemberDetail");
-	let memberNo = document.getElementById("memberNo");
 	let inputId = document.getElementById("inputId");
 	showMemberDetail.style.display = 'none';
 	
-	// alert("js 작동 테스트 22")
+	// alert("js 작동 테스트 24");
 		
 	function searchMember(){		
 		
@@ -130,6 +129,7 @@
 			.then((response) => response.json())			
 			.then((data) => {
 				alert("회원 비밀번호가 노출됩니다. 보안에 주의하시기 바랍니다.");
+				console.log("json데이타 확인 : " + data);
 				memberNo.innerHTML = data.mno;
 				memberId.innerHTML = data.mid;
 				memberName.innerHTML = data.mname;
@@ -137,7 +137,7 @@
 				memberPhone.innerHTML = data.phone;
 				memberEmail.innerHTML = data.email;
 				memberAddress.innerHTML = data.address;
-				memberRegDate.innerHTML = data.regdate;				
+				memberRegDate.innerHTML = data.regDate;				
 				if(data.mlevel == 2)
 					memberMlevel.innerHTML = '관리자';
 				else
@@ -148,6 +148,10 @@
 				alert("아이디 확인바랍니다...");
 				showMemberDetail.style.display = 'none';
 			});
+	}
+	
+	function modifyMemberByAdmin(){
+		location.href='/modifyMemberByAdmin.do?mId=' + memberId.innerHTML;
 	}
 	
 	function closeMemberDetail(){

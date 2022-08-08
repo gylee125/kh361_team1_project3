@@ -135,5 +135,12 @@ public class MemberController{
     public MemberDTO showMemberDetail(Model model, String mId) throws Exception {         
         return memberService.showMemberDetail(mId);       
     }
+    
+    @RequestMapping(value="/modifyMemberByAdmin.do") // 취합할때 상의하고, 게시판 쪽으로 이전
+    public String modifyMemberByAdmin(Model model, String mId) throws Exception {
+        MemberDTO member = memberService.showMemberDetail(mId);
+        model.addAttribute("selectMember", member);
+        return "member/modifyMemberByAdmin";
+    } 
   
 }
