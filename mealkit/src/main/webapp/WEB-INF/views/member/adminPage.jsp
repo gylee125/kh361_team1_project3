@@ -122,56 +122,32 @@
 	let inputId = document.getElementById("inputId");
 	showMemberDetail.style.display = 'none';
 	
-	alert("js 작동 테스트 1")
+	// alert("js 작동 테스트 22")
 		
 	function searchMember(){		
 		
-		fetch("/showMemberDetail.do", {
-			method: "POST", 			
-			body: JSON.stringify("mId" : inputId.value)
-		})
-		.then(function(response){
-			return response.json());
-		})
-		.then(function(json){
-			console.loa(json);
-		});
-		/*
-		let xmlReq = new XMLHttpRequest();		
-		xmlReq.open('POST', '/showMemberDetail.do', true);
-		xmlReq.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
-		xmlReq.send("mId=" + inputId.value);
-		
-		xmlReq.onload = function(){
-			if(xmlReq.status == 200){
-				if(xmlReq.response != ""){	
-					alert("회원 비밀번호가 노출됩니다. 보안에 주의하시기 바랍니다.");
-					let showMember = JSON.parse(xmlReq.response);		
-										
-					memberNo.innerHTML = showMember.mno;
-					memberId.innerHTML = showMember.mid;
-					memberName.innerHTML = showMember.mname;
-					memberPw.innerHTML = showMember.pw;
-					memberPhone.innerHTML = showMember.phone;
-					memberEmail.innerHTML = showMember.email;
-					memberAddress.innerHTML = showMember.address;
-					memberRegDate.innerHTML = showMember.regdate;
-					
-					if(showMember.mlevel == 2)
-						memberMlevel.innerHTML = '관리자';
-					else
-						memberMlevel.innerHTML = '일반회원';
-										
-					showMemberDetail.style.display = 'block';
-				}else{
-					showMemberDetail.style.display = 'none';
-					alert("ID 입력 오류! 확인바랍니다~!");
-				}				
-			}else{
-				alert("showIdMember 처리 실패");
-			}				
-		} */	
-			
+		fetch("/showMemberDetail.do?mId=" + inputId.value)
+			.then((response) => response.json())			
+			.then((data) => {
+				alert("회원 비밀번호가 노출됩니다. 보안에 주의하시기 바랍니다.");
+				memberNo.innerHTML = data.mno;
+				memberId.innerHTML = data.mid;
+				memberName.innerHTML = data.mname;
+				memberPw.innerHTML = data.pw;
+				memberPhone.innerHTML = data.phone;
+				memberEmail.innerHTML = data.email;
+				memberAddress.innerHTML = data.address;
+				memberRegDate.innerHTML = data.regdate;				
+				if(data.mlevel == 2)
+					memberMlevel.innerHTML = '관리자';
+				else
+					memberMlevel.innerHTML = '일반회원';									
+				showMemberDetail.style.display = 'block';
+			})
+			.catch(function(){
+				alert("아이디 확인바랍니다...");
+				showMemberDetail.style.display = 'none';
+			});
 	}
 	
 	function closeMemberDetail(){

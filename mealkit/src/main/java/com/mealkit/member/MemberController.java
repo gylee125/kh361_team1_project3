@@ -130,7 +130,7 @@ public class MemberController{
         return "member/adminBoard";
     }   
     
-    @RequestMapping(value="/showMemberDetail.do", method=RequestMethod.POST)
+    @RequestMapping(value="/showMemberDetail.do")
     @ResponseBody
     public MemberDTO showMemberDetail(Model model, String mId) throws Exception {         
         return memberService.showMemberDetail(mId);       
