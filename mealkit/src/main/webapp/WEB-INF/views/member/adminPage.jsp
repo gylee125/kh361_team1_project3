@@ -123,7 +123,7 @@
 	let inputId = document.getElementById("inputId");
 	showMemberDetail.style.display = 'none';
 	
-	alert("js 작동 테스트 28");
+	// alert("js 작동 테스트 28");
 		
 	function searchMember(){		
 		
@@ -149,7 +149,7 @@
 				showMemberDetail.style.display = 'block';
 			})
 			.catch(function(){
-				alert("아이디 확인바랍니다...");
+				alert("ID 확인바랍니다...");
 				showMemberDetail.style.display = 'none';
 			});
 	}

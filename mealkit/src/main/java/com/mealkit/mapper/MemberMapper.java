@@ -2,6 +2,8 @@ package com.mealkit.mapper;
 
 import java.util.List;
 
+import org.apache.ibatis.annotations.Param;
+
 import com.mealkit.member.MemberDTO;
 import com.mealkit.member.MemberListDTO;
 import com.mealkit.member.PointDTO;
@@ -16,6 +18,8 @@ public interface MemberMapper {
     
     public int checkUniqueEmail(String inputedEmail) throws Exception;
     
+    public int checkUniqueEmailForModify(@Param("email")String email, @Param("mId")String mId) throws Exception;
+    
     public MemberDTO checkEmail(String mId) throws Exception;
     
     public void changePwd(String mId, String pw) throws Exception;
@@ -29,4 +33,7 @@ public interface MemberMapper {
     public MemberDTO showMemberDetail(String mId) throws Exception;   
 
     public List<MemberListDTO> memberList() throws Exception;
+
+    public void submitModifyMemberByAdmin(MemberDTO member) throws Exception;
+    
 }

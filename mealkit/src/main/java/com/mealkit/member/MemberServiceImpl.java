@@ -32,6 +32,11 @@ public class MemberServiceImpl implements MemberService {
     public int checkUniqueEmail(String inputedEmail) throws Exception {
         return memberMapper.checkUniqueEmail(inputedEmail);
     }
+    
+    @Override
+    public int checkUniqueEmailForModify(String email, String mId) throws Exception {
+        return memberMapper.checkUniqueEmailForModify(email, mId);
+    }
 
     @Override
     public MemberDTO checkEmail(String mId) throws Exception {
@@ -69,4 +74,12 @@ public class MemberServiceImpl implements MemberService {
     public List<MemberListDTO> memberList() throws Exception  {
         return memberMapper.memberList();
     }
+
+    @Override
+    public void submitModifyMemberByAdmin(MemberDTO member) throws Exception {
+        System.out.println("포인트받았는지 테스트 : " + member.getPointDTO().getCurrentPoint());
+        memberMapper.submitModifyMemberByAdmin(member);        
+    }
+
+  
 }

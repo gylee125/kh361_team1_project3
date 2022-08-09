@@ -82,6 +82,12 @@ public class MemberController{
     public int checkUniqueEmail(String email) throws Exception {        
         return memberService.checkUniqueEmail(email);
     }
+    
+    @RequestMapping(value="/checkUniqueEmailForModify.do")
+    @ResponseBody
+    public int checkUniqueEmailForModify(String email, String mId) throws Exception {        
+        return memberService.checkUniqueEmailForModify(email, mId);
+    }
  
     @RequestMapping(value="/forgetPwd.do")
     public String forgetPwd() {
@@ -139,8 +145,16 @@ public class MemberController{
     @RequestMapping(value="/modifyMemberByAdmin.do") // 취합할때 상의하고, 게시판 쪽으로 이전
     public String modifyMemberByAdmin(Model model, String mId) throws Exception {
         MemberDTO member = memberService.showMemberDetail(mId);
-        model.addAttribute("selectMember", member);
+        model.addAttribute("selectMember", member);     
         return "member/modifyMemberByAdmin";
     } 
-  
+ 
+    //submitModifyMemberByAdmin
+    
+    @RequestMapping(value="/submitModifyMemberByAdmin.do", method=RequestMethod.POST)
+    public String submitModifyMemberByAdmin(MemberDTO member, HttpSession session) throws Exception {
+        memberService.submitModifyMemberByAdmin(member);          
+        session.setAttribute("member", member); 
+        return "redirect:/adminPage.do";
+    }
 }
