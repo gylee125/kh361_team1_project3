@@ -6,58 +6,107 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 <mapper namespace="com.mealkit.mapper.ProductMapper">
 
 	<select id="selectProductList" resultType="ProductVO">
-		select * from product order by pId desc
+		select * from product
+		order by pId desc
 	</select>
-	
+
 	<select id="selectProductDetail" resultType="ProductDetailVO">
-		select * from product NATURAL JOIN productType where pId=#{pId}
-	</select>	
-	
+		select * from
+		product NATURAL JOIN productType where pId=#{pId}
+	</select>
+
 	<select id="selectNewProductList" resultType="ProductVO">
 	<![CDATA[
 		SELECT * FROM (SELECT ROWNUM RNUM, PRODUCT.* FROM PRODUCT ORDER BY pId DESC) WHERE RNUM <= 6
 	]]>
-	</select>	
-	
+	</select>
+
 	<select id="selectRelatedList" resultType="ProductVO">
 	<![CDATA[
 		SELECT * FROM (SELECT ROWNUM RNUM, PRODUCT.* FROM PRODUCT WHERE pId!=#{pId} ORDER BY pId DESC) WHERE RNUM <= 4
 	]]>
 	</select>
-	
+
 	<select id="selectByPId" resultType="ProductVO">
-		select * from product where pId=#{pId}
+		select * from product where
+		pId=#{pId}
 	</select>
-	
+
 	<select id="selectByTypeCode" resultType="ProductVO">
-		select * from product where typeCode=#{typeCode}
+		select * from product
+		where typeCode=#{typeCode}
 	</select>
-	
+
 	<insert id="insert" parameterType="ProductVO">
 		insert into product
-			values(pIdSeq.NEXTVAL, #{typeCode}, #{pName}, #{price}, #{stock}, #{brand}, #{description}, #{thumbnail}, #{image})
+		values(pIdSeq.NEXTVAL, #{typeCode}, #{pName}, #{price}, #{stock},
+		#{brand}, #{description}, #{thumbnail}, #{image})
 	</insert>
-	
+
 	<update id="updateProduct">
-		update product 
-		set 
-			typeCode=#{typeCode}
-			, pName=#{pName} 
-			, price=#{price}
-			, stock=#{stock}
-			, brand=#{brand}
-			, description=#{description}
+		update product
+		set
+		typeCode=#{typeCode}
+		, pName=#{pName}
+		, price=#{price}
+		, stock=#{stock}
+		, brand=#{brand}
+		,
+		description=#{description}
 		where pId=#{pId}
 	</update>
-	
+
 	<delete id="delete">
 		delete from product where pId = #{pId}
 	</delete>
+
+	<select id="selectListWithPaging" resultType="ProductVO">
+	<![CDATA[
+          select
+              *
+          from
+              (
+                  select /*+INDEX_DESC(product pk_product)*/
+                      rownum rn, pId, typeCode, pName, price, stock, brand, description, thumbnail, image
+                  from
+                      product
+                  where rownum <= #{page} * #{perPageNum}
+              )
+          where rn > (#{page}-1) * #{perPageNum}
+    ]]>
+	</select>
 	
-	<select id="search" parameterType="String" resultType="ProductVO">
+	<select id="selectTypeListWithPaging" resultType="ProductVO">
+	<![CDATA[
+          select
+              *
+          from
+              (
+                  select /*+INDEX_DESC(product pk_product)*/
+                      rownum rn, pId, typeCode, pName, price, stock, brand, description, thumbnail, image
+                  from
+                      product
+                  where typeCode=#{typeCode} and rownum <= #{page} * #{perPageNum}
+              )
+          where rn > (#{page}-1) * #{perPageNum}
+    ]]>
+	</select>
+
+
+	<select id="countPaging" resultType="int">
+		select
+		count(pId)
+		from
+		product
+	</select>
+
+
+
+	<select id="search" parameterType="String"
+		resultType="ProductVO">
 	<![CDATA[
 		select * from product where pName like CONCAT('%' || #{keyword}, '%') order by pId desc
 	]]>
 	</select>
-	
+
 </mapper>

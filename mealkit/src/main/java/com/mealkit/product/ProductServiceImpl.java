@@ -9,12 +9,10 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.mealkit.mapper.ProductMapper;
-import com.mealkit.product.ProductVO;
-import com.mealkit.product.ProductDetailVO;
 
 @Service
 public class ProductServiceImpl implements ProductService {
-	
+
 	@Autowired
 	private ProductMapper productMapper;
 
@@ -53,7 +51,7 @@ public class ProductServiceImpl implements ProductService {
 	public List<ProductVO> selectByTypeCode(String typeCode) throws Exception {
 		return productMapper.selectByTypeCode(typeCode);
 	}
-	
+
 	@Override
 	@Transactional
 	public void insert(ProductVO product) throws Exception {
@@ -70,6 +68,20 @@ public class ProductServiceImpl implements ProductService {
 	@Transactional
 	public int delete(int pId) throws Exception {
 		return productMapper.delete(pId);
+	}
+
+	@Override
+	@Transactional
+	public List<ProductVO> selectListWithPaging(Criteria cri) throws Exception {
+
+		return productMapper.selectListWithPaging(cri);
+	}
+
+	@Override
+	@Transactional
+	public int listCountCriteria(Criteria cri) throws Exception {
+
+		return productMapper.countPaging(cri);
 	}
 
 	@Override

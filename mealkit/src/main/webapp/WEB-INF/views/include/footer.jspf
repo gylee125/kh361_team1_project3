@@ -12,20 +12,20 @@ Start Call To Action
 			<div class="col-md-12">
 				<ul class="footer-menu text-uppercase">
 					<li>
-						<a href="<%=request.getContextPath()%>/index.do">CONTACT</a>
+						<a href="<%=request.getContextPath()%>">CONTACT</a>
 					</li>
 					<li>
-						<a href="<%=request.getContextPath()%>/shop/all.do">SHOP</a>
+						<a href="<%=request.getContextPath()%>/product/listAll">SHOP</a>
 					</li>
 					<li>
-						<a href="<%=request.getContextPath()%>/index.do">Pricing</a>
+						<a href="<%=request.getContextPath()%>">Pricing</a>
 					</li>
 					<li>
-						<a href="<%=request.getContextPath()%>/index.do">PRIVACY POLICY</a>
+						<a href="<%=request.getContextPath()%>">PRIVACY POLICY</a>
 					</li>
 				</ul>
 				<p class="copyright-text">Copyright &copy;2021, Designed &amp; Developed by <a href="https://themefisher.com/">Themefisher</a></p>
-				<a href="<%=request.getContextPath()%>/about.do"><p class="copyright-text">kh361 오후반 - Team1 PROJECT</p></a>
+				<a href="<%=request.getContextPath()%>/about"><p class="copyright-text">kh361 오후반 - Team1 PROJECT</p></a>
 
 			</div>
 		</div>

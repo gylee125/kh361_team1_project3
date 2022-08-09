@@ -11,6 +11,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -32,13 +33,18 @@ public class ProductController{
 	
 	
 	@RequestMapping(value = "/listAll")
-	public void productList(HttpServletRequest request, Model model) throws Exception {
-		logger.info("/product/listAll");
-		
-		List<ProductVO> productList = productService.selectProductList();
-		
-		logger.info("// productList.toString()=" + productList.toString());
-		model.addAttribute("productList", productList);
+	public void productListPage(@ModelAttribute("cri") Criteria cri, @RequestParam(value = "page") int page, Model model) throws Exception {
+		logger.info("/product/listPage 호출 page=" + page);
+		logger.info(cri.toString());
+
+	    model.addAttribute("productList", productService.selectListWithPaging(cri));
+	    PageMaker pageMaker = new PageMaker();
+	    pageMaker.setCri(cri);
+	    // pageMaker.setTotalCount(131);
+
+	    pageMaker.setTotalCount(productService.listCountCriteria(cri));
+
+	    model.addAttribute("pageMaker", pageMaker);
 	}
 	
 	@RequestMapping(value = "/listType")
@@ -50,6 +56,8 @@ public class ProductController{
 		logger.info("// productList.toString()=" + productList.toString());
 		model.addAttribute("productList", productList);
 	}
+	
+	
 	
 	@RequestMapping(value = "/detail")
 	public void productDetail(Model model, @RequestParam(value = "pId") int pId, HttpServletRequest request) throws Exception {

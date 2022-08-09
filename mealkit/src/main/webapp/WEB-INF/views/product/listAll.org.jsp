@@ -17,40 +17,10 @@
 				<h2>Lists of foods</h2>
 			</div>
 		</div>
-		<div class="row" id="paginationProduct">
-			<ul class="post-pagination">
-
-				<!-- href값을 페이지 번호로 대체하여 이를 자바스크립트에서 href값을 통해 form 태그 내 input hidden에 값을 대체하여 form으로 submit -->
-				<c:if test="${pageMaker.prev}">
-					<li class="paginate_button previous"><a
-						href="<%=request.getContextPath()%>/product/listAll?page=${pageMaker.startPage-1}">이전</a></li>
-				</c:if>
-
-				<c:forEach var="num" begin="${pageMaker.startPage}"
-					end="${pageMaker.endPage}">
-					<li
-						class="paginate_button ${pageMaker.cri.page == num ? 'active' :''}">
-						<a
-						href="<%=request.getContextPath()%>/product/listAll?page=${num}">${num}</a>
-					</li>
-				</c:forEach>
-
-				<c:if test="${pageMaker.next}">
-					<li class="paginate_button next"><a
-						href="<%=request.getContextPath()%>/product/listAll?page=${pageMaker.endPage+1}">다음</a></li>
-				</c:if>
-
-			</ul>
-
-
-			<form id='actionForm' action="/board/list" method='get'>
-				<input type='hidden' name='pageNum' value='${pageMaker.cri.page}'>
-				<input type='hidden' name='amount'
-					value='${pageMaker.cri.perPageNum}'>
-			</form>
-
-		</div>
 		<div class="row">
+
+
+
 
 
 			<c:forEach var="product" items="${productList}">
@@ -97,21 +67,10 @@
 				</div>
 			</c:forEach>
 
+
 		</div>
 	</div>
 </section>
-
-
-<script>
-	var actionForm = $("#acionForm");
-
-	$(".pagination_button a").on("click", function(e) {
-
-		e.preventDefault();
-		actionForm.find("input[name='page']").val($(this).attr("href"));
-		actionForm.submit();
-	});
-</script>
 
 
 <%@ include file="../include/footer.jspf"%>
