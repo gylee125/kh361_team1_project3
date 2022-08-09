@@ -75,22 +75,6 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
           where rn > (#{page}-1) * #{perPageNum}
     ]]>
 	</select>
-	
-	<select id="selectTypeListWithPaging" resultType="ProductVO">
-	<![CDATA[
-          select
-              *
-          from
-              (
-                  select /*+INDEX_DESC(product pk_product)*/
-                      rownum rn, pId, typeCode, pName, price, stock, brand, description, thumbnail, image
-                  from
-                      product
-                  where typeCode=#{typeCode} and rownum <= #{page} * #{perPageNum}
-              )
-          where rn > (#{page}-1) * #{perPageNum}
-    ]]>
-	</select>
 
 
 	<select id="countPaging" resultType="int">

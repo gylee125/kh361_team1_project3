@@ -23,7 +23,7 @@
 				<!-- href값을 페이지 번호로 대체하여 이를 자바스크립트에서 href값을 통해 form 태그 내 input hidden에 값을 대체하여 form으로 submit -->
 				<c:if test="${pageMaker.prev}">
 					<li class="paginate_button previous"><a
-						href="<%=request.getContextPath()%>/product/listAll?page=${pageMaker.startPage-1}">이전</a></li>
+						href="<%=request.getContextPath()%>/product/listAll?page=${pageMaker.startPage-1}"> prev </a></li>
 				</c:if>
 
 				<c:forEach var="num" begin="${pageMaker.startPage}"
@@ -37,7 +37,7 @@
 
 				<c:if test="${pageMaker.next}">
 					<li class="paginate_button next"><a
-						href="<%=request.getContextPath()%>/product/listAll?page=${pageMaker.endPage+1}">다음</a></li>
+						href="<%=request.getContextPath()%>/product/listAll?page=${pageMaker.endPage+1}"> next </a></li>
 				</c:if>
 
 			</ul>

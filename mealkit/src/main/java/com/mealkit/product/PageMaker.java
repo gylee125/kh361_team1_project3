@@ -11,7 +11,7 @@ public class PageMaker {
 	private boolean prev;
 	private boolean next;
 
-	private int displayPageNum = 12;
+	private int displayPageNum = 10;
 
 	private Criteria cri;
 
@@ -27,7 +27,7 @@ public class PageMaker {
 
 	private void calcData() {
 
-		endPage = (int) (Math.ceil(cri.getPage() / (double) displayPageNum) * displayPageNum);
+		endPage = (int) (Math.ceil(cri.getPage() / (double)displayPageNum) * displayPageNum);
 
 		startPage = (endPage - displayPageNum) + 1;
 
@@ -74,9 +74,16 @@ public class PageMaker {
 	public String makeQuery(int page) {
 
 		UriComponents uriComponents = UriComponentsBuilder.newInstance().queryParam("page", page)
-				.queryParam("perPageNum", cri.getPerPageNum()).build();
+				//.queryParam("perPageNum", cri.getPerPageNum())
+				.build();
 
 		return uriComponents.toUriString();
+	}
+
+	@Override
+	public String toString() {
+		return "PageMaker [totalCount=" + totalCount + ", startPage=" + startPage + ", endPage=" + endPage + ", prev="
+				+ prev + ", next=" + next + ", displayPageNum=" + displayPageNum + ", cri=" + cri + "]";
 	}
 	
 	/*

@@ -32,9 +32,9 @@ public class ProductController{
 	private CommentListService commentService;
 	
 	
-	@RequestMapping(value = "/listAll")
-	public void productListPage(@ModelAttribute("cri") Criteria cri, @RequestParam(value = "page") int page, Model model) throws Exception {
-		logger.info("/product/listPage 호출 page=" + page);
+	@RequestMapping(value = "/listAll", method = RequestMethod.GET)
+	public void productListPage(@ModelAttribute("cri") Criteria cri, Model model) throws Exception {
+		logger.info("/product/listAll");
 		logger.info(cri.toString());
 
 	    model.addAttribute("productList", productService.selectListWithPaging(cri));
@@ -43,6 +43,7 @@ public class ProductController{
 	    // pageMaker.setTotalCount(131);
 
 	    pageMaker.setTotalCount(productService.listCountCriteria(cri));
+	    logger.info(pageMaker.toString());
 
 	    model.addAttribute("pageMaker", pageMaker);
 	}
