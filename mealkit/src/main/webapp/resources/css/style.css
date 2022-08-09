@@ -409,9 +409,9 @@ input[type="email"]:focus, input[type="password"]:focus, input[type="text"]:focu
   bottom: 0;
 }
 
-.page-wrapper {
+/* .page-wrapper {
   padding: 70px 0;
-}
+} */
 
 .social-media-icons ul li {
   display: inline-block;

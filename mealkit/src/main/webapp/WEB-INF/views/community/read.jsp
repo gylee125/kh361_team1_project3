@@ -2,6 +2,34 @@
 	pageEncoding="UTF-8"%>
 
 <%@ include file="../include/header.jspf"%>
+<script src="https://code.jquery.com/jquery-3.6.0.slim.min.js"
+	integrity="sha256-u7e5khyithlIdTpu22PHhENmPcRdFiHRjhAuHcs05RI="
+	crossorigin="anonymous"></script>
+<script type="text/javascript">
+	$(document).ready(function() {
+		var formObj = $("form[name='readForm']");
+
+		// 수정 
+		$("#update").on("click", function() {
+			formObj.attr("action", "/community/update");
+			formObj.attr("method", "get");
+			formObj.submit();
+		})
+
+		// 삭제
+		$("#delete").on("click", function() {
+			formObj.attr("action", "/community/delete");
+			formObj.attr("method", "post");
+			formObj.submit();
+		})
+
+		// 취소
+		$("#list").on("click", function() {
+
+			location.href = "/community/list";
+		})
+	})
+</script>
 
 <body id="body">
 
@@ -12,61 +40,36 @@
 					<h3 class="box-title">READ BOARD</h3>
 				</div>
 
-				<form role="form" method="post">
+				<form name="readForm" role="form" method="post">
 
-					<input type='hidden' name='cNo' value="${CommunityVO.cNo}">
+					<input type='hidden' id="cNo" name="cNo" value="${CommunityVO.cNo}">
 
-
-
-					<div class="form-group">
-						<label for="mId">Writer</label> <input type="text" name='mId'
-							class="form-control" value="${CommunityVO.mId}"
-							readonly="readonly">
-					</div>
-
-					<div class="form-group">
-						<label for="title">Title</label> <input type="text" name='title'
-							class="form-control" value="${CommunityVO.title}"
-							readonly="readonly">
-					</div>
-
-					<div class="form-group">
-						<label for="content">Content</label>
-						<textarea class="form-control" name="content" rows="7"
-							readonly="readonly">${CommunityVO.content}</textarea>
-					</div>
-
-					<div class="box-footer">
-						<button type="submit" class="btn btn-main" id="update">Modify</button>
-						<button type="submit" class="btn btn-main" id="delete">REMOVE</button>
-						<button type="submit" class="btn btn-main" id="list">LIST
-							ALL</button>
-					</div>
 				</form>
-				<script>
-					$(document).ready(function() {
 
-						var formObj = $("form[role='form']");
+				<div class="form-group">
+					<label for="mId">Writer</label> <input type="text" name='mId'
+						class="form-control" value="${CommunityVO.mId}"
+						readonly="readonly">
+				</div>
 
-						console.log(formObj);
+				<div class="form-group">
+					<label for="title">Title</label> <input type="text" name='title'
+						class="form-control" value="${CommunityVO.title}"
+						readonly="readonly">
+				</div>
 
-						$(".btn-main").on("click", function() {
-							formObj.attr("action", "/board/update");
-							formObj.attr("method", "get");
-							formObj.submit();
-						});
+				<div class="form-group">
+					<label for="content">Content</label>
+					<textarea class="form-control" name="content" rows="7"
+						readonly="readonly">${CommunityVO.content}</textarea>
+				</div>
 
-						/* $(".btn btn-main1").on("click", function() {
-							formObj.attr("action", "/board/remove");
-							formObj.submit();
-						});
+				<div class="box-footer">
+					<button type="submit" class="btn btn-main" id="update">Modify</button>
+					<button type="submit" class="btn btn-main" id="delete">REMOVE</button>
+					<button type="submit" class="btn btn-main" id="list">LIST ALL</button>
+				</div>
 
-						$(".btn btn-main2").on("click", function() {
-							self.location = "/board/list";
-						}); */
-
-					});
-				</script>
 				<!-- <div class="text-center">
 								<button type="submit" class="btn btn-main text-center">Modify
 									</button>

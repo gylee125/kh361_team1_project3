@@ -5,148 +5,47 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 
 <mapper namespace="com.mealkit.mapper.CommunityMapper">
 
-<select id="list" resultType="com.mealkit.board.CommunityVO">
- <![CDATA[
- select 
-   cNo, mId, title, content, regDate 
- from 
-   community 
- order by cNo desc, regDate desc
- ]]>  
- </select>
-
- <select id="read" resultType="com.mealkit.board.CommunityVO">
- select 
-   cNo, mId, title, content
- from 
-   community 
- where cNo = #{cNo}
- </select>
-
- <update id="update">
- update community set title =#{title}, content =#{content} 
- where cNo = #{cNo}
- </update>
-
- <delete id="delete">
- delete from community where cNo = #{cNo}
- </delete>
-
-
-
-
-
-
-
-
-
-
-
- <!-- <insert id="create">
- insert into board (bno, mId, title, content) 
- values(board_seq.nextval, #{mId},#{title}, #{content})
- </insert>
-
-
- <update id="update">
- update board set title =#{title}, content =#{content} 
- where bno = #{bno}
- </update>
-
- <delete id="delete">
- delete from board where bno = #{bno}
- </delete>
-  
+	<select id="listPage" resultType="com.mealkit.board.CommunityVO">
+ 	<![CDATA[
+select cNo, mId, title, content, regDate
+ from (select cNo, mId, title, content, regDate
+ , row_number() over(order by cNo desc) as rNum
+ from community) mp
  
- <select id="listPage" resultType="BoardVO">
- <![CDATA[
- select 
-   bno, title, content, mId, regDate, viewcnt 
- from 
-   board 
- where bno > 0 
- order by bno desc, regdate desc
- limit #{page}, 10
- ]]>  
- </select>
+ where rNum between #{rowStart} and #{rowEnd}
+ order by cNo desc
+	 ]]>
+	</select>
 
-  <select id="listCriteria" resultType="BoardVO">
- <![CDATA[
- select 
-   bno, title, content, mId, regDate, viewcnt 
- from 
-   board 
- where bno > 0 
- order by bno desc, regdate desc
- limit #{pageStart}, #{perPageNum}
- ]]>  
- </select>
+	<select id="read" resultType="com.mealkit.board.CommunityVO">
+		select
+		cNo, mId, title, content
+		from
+		community
+		where cNo = #{cNo}
+	</select>
 
+	<update id="update">
+		update community set title =#{title}, content
+		=#{content}, regDate = sysdate
+		where cNo = #{cNo}
+	</update>
 
+	<delete id="delete">
+		delete from community where cNo = #{cNo}
+	</delete>
 
- <select id="countPaging" resultType="int">
- <![CDATA[
- select 
-   count(bno) 
- from 
-   board 
- where 
-   bno > 0 
- ]]>
- </select>
+	<insert id="write">
+		insert into community (cNo, mId, title, content)
+		values(Community_seq.nextval, #{mId},#{title}, #{content})
+	</insert>
 
+	<select id="listCount" resultType="int">
+	<![CDATA[
+		SELECT COUNT(cNo)
+		  FROM community
+		 WHERE cNo > 0
+	]]>
+	</select>
 
-
-<sql id="search">
- <if test="searchType != null" > 
-   <if test="searchType == 't'.toString()">
-     and title like CONCAT('%', #{keyword}, '%')
-   </if>
-   <if test="searchType == 'c'.toString()">
-     and content like CONCAT('%', #{keyword}, '%')
-   </if>
-   <if test="searchType == 'w'.toString()">
-     and writer like CONCAT('%', #{keyword}, '%')
-   </if>     
-   <if test="searchType == 'tc'.toString()">
-     and ( title like CONCAT('%', #{keyword}, '%') OR content like CONCAT('%', #{keyword}, '%'))
-   </if>        
-   <if test="searchType == 'cw'.toString()">
-     and ( content like CONCAT('%', #{keyword}, '%') OR writer like CONCAT('%', #{keyword}, '%'))
-   </if>        
-   <if test="searchType == 'tcw'.toString()">
-     and (   title like CONCAT('%', #{keyword}, '%') 
-           OR 
-             content like CONCAT('%', #{keyword}, '%') 
-           OR 
-             writer like CONCAT('%', #{keyword}, '%'))
-   </if>              
- </if>  
-</sql>
- 
-<select id="listSearch" resultType="BoardVO">
-<![CDATA[  
-  select * 
-  from board 
-  where bno > 0 
-]]>  
-
-  <include refid="search"></include>
-  
-<![CDATA[    
-  order by bno desc
-  limit #{pageStart}, #{perPageNum}
-]]>  
-</select>
-  
-<select id="listSearchCount" resultType="int">
-<![CDATA[  
-  select count(bno) 
-  from board 
-  where bno > 0 
-]]>
-  <include refid="search"></include>
- 
-</select>  
-  -->
 </mapper>

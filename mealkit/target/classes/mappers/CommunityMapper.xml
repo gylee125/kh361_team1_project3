@@ -5,128 +5,47 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 
 <mapper namespace="com.mealkit.mapper.CommunityMapper">
 
- <insert id="create">
- insert into Community (cNo, mLevel, mId, title, content, regDate) 
- values(Community_seq.nextval, #{mLevel}, #{mId}, #{title}, #{content}, #{regDate})
- </insert>
-
- <select id="read" resultType="com.mealkit.board.CommunityVO">
- select 
-   cNo, mId, title, content, regDate 
- from 
-   Community 
- where cNo = #{cNo}
- </select>
-
- <update id="update">
- update Community set title =#{title}, content =#{content} 
- where cNo = #{cNo}
- </update>
-
- <delete id="delete">
- delete from Community where cNo = #{cNo}
- </delete>
-
- <select id="listAll" resultType="com.mealkit.board.CommunityVO">
- <![CDATA[
- select 
-   cNo, mId, title, content, regDate  
- from 
-   Community 
- where cNo > 0 
- order by cNo desc, regDate desc
- ]]>  
- </select>
+	<select id="listPage" resultType="com.mealkit.board.CommunityVO">
+ 	<![CDATA[
+select cNo, mId, title, content, regDate
+ from (select cNo, mId, title, content, regDate
+ , row_number() over(order by cNo desc) as rNum
+ from community) mp
  
- <select id="listPage" resultType="CommunityVO">
- <![CDATA[
- select 
-   cNo, mId, title, content, regDate  
- from 
-   Community 
- where cNo > 0 
- order by cNo desc, regDate desc
- limit #{page}, 10
- ]]>  
- </select>
+ where rNum between #{rowStart} and #{rowEnd}
+ order by cNo desc
+	 ]]>
+	</select>
 
-  <select id="listCriteria" resultType="CommunityVO">
- <![CDATA[
- select 
-    cNo, mId, title, content, regDate  
- from 
-   Community 
- where cNo > 0 
- order by cNo desc, regDate desc
- limit #{pageStart}, #{perPageNum}
- ]]>  
- </select>
+	<select id="read" resultType="com.mealkit.board.CommunityVO">
+		select
+		cNo, mId, title, content
+		from
+		community
+		where cNo = #{cNo}
+	</select>
 
+	<update id="update">
+		update community set title =#{title}, content
+		=#{content}, regDate = sysdate
+		where cNo = #{cNo}
+	</update>
 
+	<delete id="delete">
+		delete from community where cNo = #{cNo}
+	</delete>
 
- <select id="countPaging" resultType="int">
- <![CDATA[
- select 
-   count(cNo) 
- from 
-   Community 
- where 
-   cNo > 0 
- ]]>
- </select>
+	<insert id="write">
+		insert into community (cNo, mId, title, content)
+		values(Community_seq.nextval, #{mId},#{title}, #{content})
+	</insert>
 
+	<select id="listCount" resultType="int">
+	<![CDATA[
+		SELECT COUNT(cNo)
+		  FROM community
+		 WHERE cNo > 0
+	]]>
+	</select>
 
-
-<sql id="search">
- <if test="searchType != null" > 
-   <if test="searchType == 't'.toString()">
-     and title like CONCAT('%', #{keyword}, '%')
-   </if>
-   <if test="searchType == 'c'.toString()">
-     and content like CONCAT('%', #{keyword}, '%')
-   </if>
-   <if test="searchType == 'w'.toString()">
-     and writer like CONCAT('%', #{keyword}, '%')
-   </if>     
-   <if test="searchType == 'tc'.toString()">
-     and ( title like CONCAT('%', #{keyword}, '%') OR content like CONCAT('%', #{keyword}, '%'))
-   </if>        
-   <if test="searchType == 'cw'.toString()">
-     and ( content like CONCAT('%', #{keyword}, '%') OR writer like CONCAT('%', #{keyword}, '%'))
-   </if>        
-   <if test="searchType == 'tcw'.toString()">
-     and (   title like CONCAT('%', #{keyword}, '%') 
-           OR 
-             content like CONCAT('%', #{keyword}, '%') 
-           OR 
-             writer like CONCAT('%', #{keyword}, '%'))
-   </if>              
- </if>  
-</sql>
- 
-<select id="listSearch" resultType="CommunityVO">
-<![CDATA[  
-  select * 
-  from Community 
-  where cNo > 0 
-]]>  
-
-  <include refid="search"></include>
-  
-<![CDATA[    
-  order by cNo desc
-  limit #{pageStart}, #{perPageNum}
-]]>  
-</select>
-  
-<select id="listSearchCount" resultType="int">
-<![CDATA[  
-  select count(cNo) 
-  from Community 
-  where cNo > 0 
-]]>
-  <include refid="search"></include>
- 
-</select>  
-  
 </mapper>

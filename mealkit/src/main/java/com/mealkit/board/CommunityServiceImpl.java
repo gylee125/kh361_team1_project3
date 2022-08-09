@@ -9,32 +9,38 @@ import org.springframework.stereotype.Service;
 @Service
 public class CommunityServiceImpl implements CommunityService {
 
-  @Inject
-  private CommunityDAO dao;
+	@Inject
+	private CommunityDAO dao;
 
-//  @Override
-//  public void write(CommunityVO community) throws Exception {
-//    dao.write(community);
-//  }
+	@Override
+	public void write(CommunityVO community) throws Exception {
+		dao.write(community);
+	}
 
-  @Override
-  public CommunityVO read(Integer cNo) throws Exception {
-    return dao.read(cNo);
-  }
+	@Override
+	public CommunityVO read(Integer cNo) throws Exception {
+		return dao.read(cNo);
+	}
 
-  @Override
-  public void update(CommunityVO community) throws Exception {
-    dao.update(community);
-  }
+	@Override
+	public void update(CommunityVO community) throws Exception {
+		dao.update(community);
+	}
 
-  @Override
-  public void delete(Integer cNo) throws Exception {
-    dao.delete(cNo);
-  }
+	@Override
+	public void delete(Integer cNo) throws Exception {
+		dao.delete(cNo);
+	}
 
-  @Override
-  public List<CommunityVO> list() throws Exception {
-    return dao.list();
-  }
+	@Override
+	public List<CommunityVO> list(Criteria cri) throws Exception {
+		return dao.list(cri);
+	}
+
+	@Override
+	public int listCount() throws Exception {
+		
+		return dao.listCount();
+	}
 
 }

@@ -4,7 +4,7 @@ import java.util.List;
 
 public interface CommunityDAO {
 
-//	public void write(CommunityVO vo) throws Exception;
+	public void write(CommunityVO vo) throws Exception;
 
 	public CommunityVO read(Integer cNo) throws Exception;
 
@@ -12,6 +12,7 @@ public interface CommunityDAO {
 
 	public void delete(Integer cNo) throws Exception;
 
-	public List<CommunityVO> list() throws Exception;
-
+	public List<CommunityVO> list(Criteria cri) throws Exception;
+	
+	public int listCount() throws Exception;
 }
