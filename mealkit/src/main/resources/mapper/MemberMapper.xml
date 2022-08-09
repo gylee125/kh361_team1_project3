@@ -5,6 +5,25 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 
 <mapper namespace="com.mealkit.mapper.MemberMapper">
 
+	<resultMap type="com.mealkit.member.PointDTO" id="pointDTO">		
+		<result column="mId" property="mId" />
+		<result column="currentPoint" property="currentPoint" />				
+		<result column="updateDate" property="updateDate" />				
+	</resultMap>
+
+	<resultMap type="com.mealkit.member.MemberDTO" id="memberDTO">
+		<result column="mNo" property="mNo" />
+		<result column="mId" property="mId" />
+		<result column="pw" property="pw" />
+		<result column="mName" property="mName" />
+		<result column="phone" property="phone" />
+		<result column="address" property="address" />
+		<result column="email" property="email" />
+		<result column="regDate" property="regDate" />
+		<result column="mLevel" property="mLevel" />
+		<collection property="pointDTO" resultMap="pointDTO" />
+	</resultMap>	
+	
 	<select id="submitLogin" resultType="com.mealkit.member.MemberDTO">
 		select *
 			from member 
@@ -46,10 +65,12 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 			where mId=#{mId}
 	</select>
 	
-	<select id="showMemberDetail" resultType="com.mealkit.member.MemberDTO">
-		select * from member 
-			where mId=#{mId}
-	</select>
+	<select id="showMemberDetail" resultMap="memberDTO">
+		select a.mno, a.mid, a.pw, a.mName, a.phone, a.address, a.email, a.regDate, a.mLevel, b.currentPoint, b.updateDate 
+	    	from member a, point b
+	        where a.mid=b.mid 
+	        and a.mid=#{mId}
+	</select>	
 	
 	<select id="memberList" resultType="com.mealkit.member.MemberListDTO">
 		select 

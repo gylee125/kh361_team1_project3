@@ -62,6 +62,8 @@
 											<li> <span>Phone:</span> <input type="text" name="phone" value="${selectMember.phone}"> </li>
 											<li> <span>Email:</span> <input type="email" name="email" value="${selectMember.email}"> </li>
 											<li> <span>Address:</span> <input type="text" name="address" size="100" value="${selectMember.address}"> </li>	
+											<li> <span>Point:</span> <input type="text" name="address" size="100" value="${selectMember.currentPoint}"> </li>	
+											<li> <span>Point Update:</span> <input type="text" name="address" size="100" value="${selectMember.updatedate}"> </li>	
 										</ul>										
 									</div>									
 								</div>

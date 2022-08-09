@@ -16,8 +16,10 @@ public class MemberDTO {
 	private String phone;
 	private String address;
 	private String email;
-	@JsonFormat(pattern="yyyy-mm-dd")
+	@JsonFormat(pattern="yyyy-MM-dd")
 	private Date regDate;
 	private int mLevel;
+	
+	private PointDTO pointDTO;
 	
 }

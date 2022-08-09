@@ -99,6 +99,8 @@
 											<li> <span>Address:</span> <span id="memberAddress"></span> </li>
 											<li> <span>Since:</span> <span id="memberRegDate"></span> </li>
 											<li> <span>Level:</span> <span id="memberMlevel"></span> </li>
+											<li> <span>Point:</span> <span id="memberCurrentPoint"></span> </li>
+											<li> <span>Point Update:</span> <span id="memberUpdateDate"></span> </li>
 										</ul>										
 									</div>									
 								</div>
@@ -121,15 +123,15 @@
 	let inputId = document.getElementById("inputId");
 	showMemberDetail.style.display = 'none';
 	
-	// alert("js 작동 테스트 24");
+	alert("js 작동 테스트 28");
 		
 	function searchMember(){		
 		
 		fetch("/showMemberDetail.do?mId=" + inputId.value)
 			.then((response) => response.json())			
 			.then((data) => {
-				alert("회원 비밀번호가 노출됩니다. 보안에 주의하시기 바랍니다.");
-				console.log("json데이타 확인 : " + data);
+				console.log(data);
+				alert("회원 비밀번호가 노출됩니다. 보안에 주의하시기 바랍니다.");				
 				memberNo.innerHTML = data.mno;
 				memberId.innerHTML = data.mid;
 				memberName.innerHTML = data.mname;
@@ -138,6 +140,8 @@
 				memberEmail.innerHTML = data.email;
 				memberAddress.innerHTML = data.address;
 				memberRegDate.innerHTML = data.regDate;				
+				memberCurrentPoint.innerHTML = data.pointDTO.currentPoint;				
+				memberUpdateDate.innerHTML = data.pointDTO.updateDate;				
 				if(data.mlevel == 2)
 					memberMlevel.innerHTML = '관리자';
 				else
