@@ -1,20 +1,24 @@
-package com.mealkit.member;
+package com.mealkit.mapper;
 
 import java.util.List;
 
-public interface MemberService {
+import com.mealkit.member.MemberDTO;
+import com.mealkit.member.MemberListDTO;
+import com.mealkit.member.PointDTO;
 
-    public MemberDTO submitLogin(MemberDTO member) throws Exception;
+public interface MemberMapper {
+	
+	public MemberDTO submitLogin(MemberDTO member) throws Exception;
     
     public void submitSignUp(MemberDTO member) throws Exception;
     
     public int checkUniqueId(String inputedId) throws Exception;
     
     public int checkUniqueEmail(String inputedEmail) throws Exception;
-    
+
     public void earnPointForNewMember(String mId) throws Exception;
 
-    public PointDTO showPoint(String mId) throws Exception;   
+    public PointDTO showPoint(String mId) throws Exception; 
     
     public int checkEmail(String mId, String email) throws Exception;
     
@@ -26,8 +30,6 @@ public interface MemberService {
     
     public void updatePwd(MemberDTO member) throws Exception;
 
-    public void deleteAccount(String mId) throws Exception;
-    
-    
-    
+    public void deleteAccount(String mId) throws Exception; 
+
 }
