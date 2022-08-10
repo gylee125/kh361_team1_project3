@@ -85,11 +85,14 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	</select>
 	
 	<update id="submitModifyMemberByAdmin">
-		update (select a.mId, a.pw, a.mname, a.phone, A.ADDRESS, A.EMAIL, B.currentPoint
-        	from member a, point b
-        		where a.mid=b.mid) 
-    		set pw=#{pw}, mName=#{mName}, phone=#{phone}, address=#{address}, email=#{email},
-    			currentpoint=#{pointDTO.currentPoint}
-    		where mId=#{mId}
+		update MEMBER
+		    set pw=#{pw}, mName=#{mName}, phone=#{phone}, address=#{address}, email=#{email}
+		    where mid=#{mId}
+	</update>
+	
+	<update id="submitModifyPointByAdmin">
+		update point
+		    set currentPoint=#{currentPoint}, updateDate=sysdate
+		    where mid=#{mId}
 	</update>
 </mapper>

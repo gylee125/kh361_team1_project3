@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -33,7 +34,6 @@
 		</div>
 	</div>
 </section>
-
 
 <section class="user-dashboard page-wrapper">
 	<div class="container">
@@ -73,19 +73,22 @@
 								</form>
 							</div>
 							<div class="dashboard-wrapper dashboard-user-profile" id="showMemberDetail">
-								<form action="submitModifyPointByAdmin.do" id="submitModifyPointByAdmin" method="post">
+								<form action="submitModifyPointByAdmin.do" id="submitPointForm" method="post">
 								<div class="media">								
 									<div class="media-body">
 										<ul class="user-profile-list">	
 											<li>해당 계정의 포인트를 정정 지급합니다. 상황 확인 및 고객 안내 후 진행바랍니다.</li>
-											<li> <span>Point:</span> <input type="text" name="phone" value="${selectMember.phone}"> 
+											<li> <span>Point:</span> 
+											<input type="text" name="currentPoint" id="currentPoint" value="${selectMember.pointDTO.currentPoint}"> 
 											<input type="hidden" name="mId" value="${selectMember.MId}"></li>	
-											<li> <span>Point Update:</span> <input type="text" value="${selectMember.email}" disabled> </li>	
+											<li> <span>Last Update:</span>
+											<fmt:formatDate value="${selectMember.pointDTO.updateDate}" pattern="yyyy-MM-dd"/>
+											</li>
 										</ul>										
 									</div>									
 								</div>
 								<br>
-								<button type="button" class="btn btn-main text-center" onclick="checkModifyForm();">포인트 정정 지급</button>								
+								<button type="button" class="btn btn-main text-center" onclick="checkPointForm();">포인트 정정 지급</button>								
 								<button type="button" class="btn btn-main text-center" onclick="location.href='/adminPage.do'">취소</button>
 								</form>
 							</div>
@@ -102,10 +105,10 @@
 <script type="text/javascript">
 
 	let submitModifyForm = document.getElementById("submitModifyMemberByAdmin");
-	let currentPoint = document.getElementById("currentPoint");
+	let submitPointForm = document.getElementById("submitPointForm");
 	let checkUniqueEmail = true;
 
-	alert("js테스트 15");
+	alert("js테스트 17");
 	$('#email').focusout(function(){
 		let email = $('#email').val();
 		let isEmail = /^[a-zA-Z0-9+-\_.]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$/;
@@ -164,13 +167,24 @@
 			submitModifyForm.email.focus();
 			return false;
 		}
-		if (currentPoint.value == "" || currentPoint.value < 0) {
+		alert("회원 정보를 수정합니다~!");
+		submitModifyForm.submit();
+	}
+	
+	function checkPointForm(){
+		
+		if (submitPointForm.currentPoint.value == "") {
 			alert("포인트 입력 확인해주세요!!");
-			submitModifyForm.currentPoint.focus();
+			submitPointForm.currentPoint.focus();
 			return false;
 		}
-		alert("해당 회원 정보를 수정합니다...");
-		submitModifyForm.submit();
+		if (submitPointForm.currentPoint.value < 0) {
+			alert("포인트는 0이상의 숫자만 입력 가능합니다...");
+			submitPointForm.currentPoint.focus();
+			return false;
+		}
+		alert("포인트를 정정 지급합니다.");
+		submitPointForm.submit();
 	}
 
 </script>

@@ -149,12 +149,15 @@ public class MemberController{
         return "member/modifyMemberByAdmin";
     } 
  
-    //submitModifyMemberByAdmin
-    
     @RequestMapping(value="/submitModifyMemberByAdmin.do", method=RequestMethod.POST)
-    public String submitModifyMemberByAdmin(MemberDTO member, HttpSession session) throws Exception {
+    public String submitModifyMemberByAdmin(MemberDTO member) throws Exception {
         memberService.submitModifyMemberByAdmin(member);          
-        session.setAttribute("member", member); 
+        return "redirect:/adminPage.do";
+    }
+    
+    @RequestMapping(value="/submitModifyPointByAdmin.do", method=RequestMethod.POST)
+    public String submitModifyPointByAdmin(PointDTO pointDTO) throws Exception {
+        memberService.submitModifyPointByAdmin(pointDTO);          
         return "redirect:/adminPage.do";
     }
 }

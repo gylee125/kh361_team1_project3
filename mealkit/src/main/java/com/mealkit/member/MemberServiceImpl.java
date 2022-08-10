@@ -77,8 +77,12 @@ public class MemberServiceImpl implements MemberService {
 
     @Override
     public void submitModifyMemberByAdmin(MemberDTO member) throws Exception {
-        System.out.println("포인트받았는지 테스트 : " + member.getPointDTO().getCurrentPoint());
         memberMapper.submitModifyMemberByAdmin(member);        
+    }
+
+    @Override
+    public void submitModifyPointByAdmin(PointDTO pointDTO) throws Exception {
+        memberMapper.submitModifyPointByAdmin(pointDTO);    
     }
 
   

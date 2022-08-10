@@ -96,7 +96,7 @@
 											<li> <span>Password:</span><span id="memberPw"></span></li>
 											<li> <span>Phone:</span> <span id="memberPhone"></span> </li>
 											<li> <span>Email:</span> <span id="memberEmail"></span> </li>
-											<li> <span>Address:</span> <span id="memberAddress"></span> </li>
+											<li> <span>Address:</span> <span id="memberAddress" style="width:50%;"></span> </li>
 											<li> <span>Since:</span> <span id="memberRegDate"></span> </li>
 											<li> <span>Level:</span> <span id="memberMlevel"></span> </li>
 											<li> <span>Point:</span> <span id="memberCurrentPoint"></span> </li>
@@ -123,7 +123,7 @@
 	let inputId = document.getElementById("inputId");
 	showMemberDetail.style.display = 'none';
 	
-	// alert("js 작동 테스트 28");
+	alert("js 작동 테스트 28");
 		
 	function searchMember(){		
 		

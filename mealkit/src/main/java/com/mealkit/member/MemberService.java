@@ -29,5 +29,7 @@ public interface MemberService {
     public List<MemberListDTO> memberList() throws Exception;
 
     public void submitModifyMemberByAdmin(MemberDTO member) throws Exception;
+
+    public void submitModifyPointByAdmin(PointDTO pointDTO) throws Exception;
    
 }
