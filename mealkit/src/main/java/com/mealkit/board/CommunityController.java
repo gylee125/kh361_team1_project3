@@ -42,15 +42,15 @@ public class CommunityController {
 	}
 
 	@RequestMapping(value = "/list", method = RequestMethod.GET)
-	public void list(Model model, Criteria cri) throws Exception {
+	public void list(Model model, @ModelAttribute("scri") SearchCriteria scri) throws Exception {
 
 		logger.info("show all list......................");
 
-		model.addAttribute("list", service.list(cri));
+		model.addAttribute("list", service.list(scri));
 		
 		PageMaker pageMaker = new PageMaker();
-		pageMaker.setCri(cri);
-		pageMaker.setTotalCount(service.listCount());
+		pageMaker.setCri(scri);
+		pageMaker.setTotalCount(service.listCount(scri));
 		
 		model.addAttribute("pageMaker", pageMaker);
 	}

@@ -2,8 +2,8 @@ package com.mealkit.board;
 
 public class SearchCriteria extends Criteria{
 
-	private String searchType;
-	private String keyword;
+	private String searchType = "";
+	private String keyword = "";
 	
 	public String getSearchType() {
 		return searchType;
@@ -19,9 +19,7 @@ public class SearchCriteria extends Criteria{
 	}
 	@Override
 	public String toString() {
-		return super.toString() + " SearchCriteria "
-				+ "[searchType=" + searchType + ", keyword="
-				+ keyword + "]";
+		return "SearchCriteria [searchType=" + searchType + ", keyword=" + keyword + "]";
 	}
 }
 

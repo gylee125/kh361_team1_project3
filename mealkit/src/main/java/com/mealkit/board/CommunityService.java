@@ -12,8 +12,8 @@ public interface CommunityService {
 
   public void delete(Integer cNo) throws Exception;
 
-  public List<CommunityVO> list(Criteria cri) throws Exception;
+  public List<CommunityVO> list(SearchCriteria scri) throws Exception;
   
-  public int listCount() throws Exception;
+  public int listCount(SearchCriteria scri) throws Exception;
   
 }

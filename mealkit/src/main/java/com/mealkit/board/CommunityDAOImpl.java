@@ -36,15 +36,15 @@ public class CommunityDAOImpl implements CommunityDAO {
 	}
 
 	@Override
-	public List<CommunityVO> list(Criteria cri) throws Exception {
+	public List<CommunityVO> list(SearchCriteria scri) throws Exception {
 
-		return session.selectList(namespace + ".listPage", cri);
+		return session.selectList(namespace + ".listPage", scri);
 	}
 
 	@Override
-	public int listCount() throws Exception {
+	public int listCount(SearchCriteria scri) throws Exception {
 		
-		return session.selectOne(namespace + ".listCount");
+		return session.selectOne(namespace + ".listCount", scri);
 	}
 
 }

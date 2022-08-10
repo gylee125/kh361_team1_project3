@@ -33,14 +33,14 @@ public class CommunityServiceImpl implements CommunityService {
 	}
 
 	@Override
-	public List<CommunityVO> list(Criteria cri) throws Exception {
-		return dao.list(cri);
+	public List<CommunityVO> list(SearchCriteria scri) throws Exception {
+		return dao.list(scri);
 	}
 
 	@Override
-	public int listCount() throws Exception {
+	public int listCount(SearchCriteria scri) throws Exception {
 		
-		return dao.listCount();
+		return dao.listCount(scri);
 	}
 
 }
