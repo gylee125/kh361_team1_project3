@@ -36,6 +36,18 @@ public interface MemberMapper {
 
     public void submitModifyMemberByAdmin(MemberDTO member) throws Exception;
 
-    public void submitModifyPointByAdmin(PointDTO pointDTO) throws Exception;
+    public void submitModifyPointByAdmin(PointDTO pointDTO) throws Exception; 
+    
+    public int checkEmail(String mId, String email) throws Exception;
+    
+    public int checkPwd(MemberDTO member) throws Exception;
+    
+    public MemberDTO selectMember(String mId) throws Exception;
+    
+    public void updateMyInfo(MemberDTO member) throws Exception;
+    
+    public void updatePwd(MemberDTO member) throws Exception;
+
+
     
 }

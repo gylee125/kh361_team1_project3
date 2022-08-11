@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.mealkit.mapper.MemberMapper">
+
+	<select id="submitLogin">
+		select * from member 
+			where mId=#{mId} and pw=#{pw}
+	</select>
+	
+	<insert id="submitSignUp">
+		insert into member(mNo, mId, pw, mName, phone, address, email, regDate)
+			values(mNo_seq.nextval, #{mId}, #{pw}, #{mName}, #{phone}, #{address}, #{email}, sysdate)			
+	</insert>
+	
+	<select id="checkUniqueId">
+		select count(*) from member where mId=#{mId}
+	</select>
+	
+	<select id="checkUniqueEmail">
+		select count(*) from member where email=#{email}
+	</select>
+
+	<select id="checkEmail" resultType="int">
+		select count(*) from member where mId=#{mId} and email=#{email}
+	</select>
+	
+	<select id="checkPwd" resultType="int">
+		select count(*) from member where mId=#{mId} and pw=#{pw}
+	</select>
+		
+	<select id="selectMember" resultType="com.mealkit.member.MemberDTO">
+		select * from member where mId=#{mId}
+	</select>
+	
+	<update id="updateMyInfo">
+		update member set mName=#{mName}, email=#{email}, phone=#{phone}, address=#{address}
+		where mId=#{mId}
+	</update>
+	
+	<update id="updatePwd">
+		update member set pw=#{pw} where mId=#{mId}
+	</update>
+	
+	<delete id="deleteAccount">
+		delete from member where mId=#{mId}
+	</delete>
+</mapper>

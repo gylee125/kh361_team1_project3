@@ -46,13 +46,7 @@ public class MemberServiceImpl implements MemberService {
     @Override
     public void changePwd(String mId, String pw) throws Exception {
         memberMapper.changePwd(mId, pw);        
-    }
-
-    @Override
-    public void deleteAccount(String mId) throws Exception {
-        memberMapper.deleteAccount(mId);
-    }
-    
+    } 
 
     @Override
     public void earnPointForNewMember(String mId) throws Exception {
@@ -64,7 +58,7 @@ public class MemberServiceImpl implements MemberService {
     public PointDTO showPoint(String mId) throws Exception {       
         return memberMapper.showPoint(mId);
     }
-
+    
     @Override
     public MemberDTO showMemberDetail(String mId) throws Exception {        
         return memberMapper.showMemberDetail(mId);
@@ -85,5 +79,34 @@ public class MemberServiceImpl implements MemberService {
         memberMapper.submitModifyPointByAdmin(pointDTO);    
     }
 
-  
+    @Override
+    public int checkEmail(String mId, String email) throws Exception {
+    	return memberMapper.checkEmail(mId, email);
+    }
+    
+    @Override
+    public int checkPwd(MemberDTO member) throws Exception {
+    	return memberMapper.checkPwd(member);
+    }
+    
+    @Override
+    public MemberDTO selectMember(String mId) throws Exception {
+    	return memberMapper.selectMember(mId);
+    }
+    
+    @Override
+    public void updateMyInfo(MemberDTO member) throws Exception {
+    	memberMapper.updateMyInfo(member);
+    }
+    
+    @Override
+    public void updatePwd(MemberDTO member) throws Exception {
+    	memberMapper.updatePwd(member);
+    }
+
+    @Override
+    public void deleteAccount(String mId) throws Exception {
+        memberMapper.deleteAccount(mId);
+    }
+
 }

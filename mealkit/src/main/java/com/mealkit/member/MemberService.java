@@ -17,11 +17,9 @@ public interface MemberService {
     public MemberDTO checkEmail(String mId) throws Exception;
     
     public void changePwd(String mId, String pw) throws Exception;
-    
-    public void deleteAccount(String mId) throws Exception;
-
+        
     public void earnPointForNewMember(String mId) throws Exception;
-
+    
     public PointDTO showPoint(String mId) throws Exception;
 
     public MemberDTO showMemberDetail(String mId) throws Exception;   
@@ -31,5 +29,17 @@ public interface MemberService {
     public void submitModifyMemberByAdmin(MemberDTO member) throws Exception;
 
     public void submitModifyPointByAdmin(PointDTO pointDTO) throws Exception;
-   
+     
+    public int checkEmail(String mId, String email) throws Exception;
+    
+    public int checkPwd(MemberDTO member) throws Exception;
+    
+    public MemberDTO selectMember(String mId) throws Exception;
+    
+    public void updateMyInfo(MemberDTO member) throws Exception;
+    
+    public void updatePwd(MemberDTO member) throws Exception;
+
+    public void deleteAccount(String mId) throws Exception;
+
 }
