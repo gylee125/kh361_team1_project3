@@ -44,5 +44,4 @@
 	<mybatis-spring:scan base-package="com.mealkit.mapper" />
 
 	
-	
 </beans>
