@@ -1,6 +1,5 @@
-package com.mealkit.member;
+package com.mealkit.board;
 
-// 게시판 쪽에서 만든 파일같은데 확인하고 넘겨주기
 public class MemberPage {
 
 	public Number getmNo() {
@@ -26,6 +25,8 @@ public class MemberPage {
 	private Number mNo;
 	private String mId;
 	private String pw;
+
+	
 
 	public String getReviews() {
 		return reviews;
