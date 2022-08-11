@@ -123,11 +123,11 @@
 	let inputId = document.getElementById("inputId");
 	showMemberDetail.style.display = 'none';
 	
-	alert("js 작동 테스트 28");
+	//alert("js 작동 테스트 28");
 		
 	function searchMember(){		
 		
-		fetch("/showMemberDetail.do?mId=" + inputId.value)
+		fetch("<%=request.getContextPath()%>/showMemberDetail.do?mId=" + inputId.value)
 			.then((response) => response.json())			
 			.then((data) => {
 				console.log(data);
@@ -155,7 +155,7 @@
 	}
 	
 	function modifyMemberByAdmin(){
-		location.href='/modifyMemberByAdmin.do?mId=' + memberId.innerHTML;
+		location.href='<%=request.getContextPath()%>/modifyMemberByAdmin.do?mId=' + memberId.innerHTML;
 	}
 	
 	function closeMemberDetail(){

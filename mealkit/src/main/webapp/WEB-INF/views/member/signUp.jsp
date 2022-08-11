@@ -102,7 +102,7 @@ span{
 			return false;
 		}
 		$.ajax({
-			url : "/checkUniqueId.do",
+			url : "<%=request.getContextPath()%>/checkUniqueId.do",
 			type : "get",
 			data : 'mId=' + $('#mId').val(),
 			datatype : 'json',
@@ -136,7 +136,7 @@ span{
 			return false;
 		}	
 		$.ajax({
-			url : "/checkUniqueEmail.do",
+			url : "<%=request.getContextPath()%>/checkUniqueEmail.do",
 			type : "get",
 			data : 'email=' + $('#email').val(),
 			datatype : 'json',

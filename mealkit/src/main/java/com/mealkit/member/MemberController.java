@@ -44,7 +44,7 @@ public class MemberController {
 		if (loginData != null) {
 			session.setAttribute("member", loginData);
 
-			// 아이디 저장 기능
+			// 아이디 저장 기능 - 다른 아이디로 로그인했는데, 이전 아이디 저장되는 버그있음
 			if (saveId != null) {
 				Cookie cookieSaveId = new Cookie("saveId", loginData.getMId());
 				cookieSaveId.setMaxAge(60 * 60 * 24 * 7); // (초단위 입력 = 7일)
@@ -76,7 +76,7 @@ public class MemberController {
 		memberService.earnPointForNewMember(member.getMId()); // 3000포인트 증정. 코드 정리 필요(3000변수가 매퍼xml파일에 바로 들어가있음)
 		session.setAttribute("member", member);
 		model.addAttribute("msg", "회원가입되었습니다. 환영합니다~신규 가입 프로모션으로 3000포인트 증정!");
-		model.addAttribute("url", "/");
+		model.addAttribute("url", "");
 		return "alert";
 	}
 
@@ -125,8 +125,8 @@ public class MemberController {
 	}
 
 	@RequestMapping(value = "/myPage.do", method = RequestMethod.GET)
-	public String myPage(Model model, String mId) throws Exception {
-		PointDTO point = memberService.showPoint(mId);
+	public String myPage(Model model, String MId) throws Exception {
+		PointDTO point = memberService.showPoint(MId);
 		model.addAttribute("point", point);
 		return "member/myPage";
 	}

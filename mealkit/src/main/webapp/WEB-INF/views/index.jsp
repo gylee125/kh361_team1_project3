@@ -141,10 +141,10 @@
 									</c:if>
 									<c:if test="${member != null}">
 										<!-- 로그인 정보가 있을 때 -->
-										<input type="hidden" name=mId value="${member.mId}">
+										<input type="hidden" name=MId value="${member.MId}">
                   						<input type="hidden" name="pId" value="${productList.pId}">		
 										<li><a
-											href="<%=request.getContextPath()%>/addCart.do?mId=${member.mId}&pId=${productList.pId}&cquantity=1"><i
+											href="<%=request.getContextPath()%>/addCart.do?MId=${member.MId}&pId=${productList.pId}&cquantity=1"><i
 												class="tf-ion-android-cart"></i></a></li>
 									</c:if>
 									

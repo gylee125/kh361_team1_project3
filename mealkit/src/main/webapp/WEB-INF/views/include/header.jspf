@@ -219,7 +219,7 @@ FACEBOOK: https://www.facebook.com/themefisher
 								</c:if>
 								<c:if test="${member != null and member.MLevel == 1}">
 									<li>${member.MName} 님께서 로그인 중입니다.</li>
-									<li><a href="<%=request.getContextPath()%>/myPage.do?mId=${member.MId}">My Page</a></li>
+									<li><a href="<%=request.getContextPath()%>/myPage.do?MId=${member.MId}">My Page</a></li>
 									<li><a href="logout.do">Logout</a></li>
 								</c:if>
 								<c:if test="${member != null and member.MLevel == 2}">
@@ -326,7 +326,7 @@ FACEBOOK: https://www.facebook.com/themefisher
 									<!-- / About Us -->
 
 									<!-- Admin 관리자 메뉴 -->
-									<c:if test="${member.mLevel eq 2}">관리자만 아래 메뉴보이게?? 아니면 아예 관리자페이지를 따로 만들까? 팀원들과 의논필요</c:if>
+									<c:if test="${member.MLevel eq 2}">관리자만 아래 메뉴보이게?? 아니면 아예 관리자페이지를 따로 만들까? 팀원들과 의논필요</c:if>
 									<li class="dropdown dropdown-slide">
 										<a href="#!" class="dropdown-toggle" data-toggle="dropdown" data-hover="dropdown" data-delay="350"
 											role="button" aria-haspopup="true" aria-expanded="false">Admin <span

@@ -78,12 +78,12 @@ span{
                   	 <div class="form-group">
                   	    <label>ID</label>
 
-                        <input type="text" class="form-control" name="mId" value="${member.mId}" readonly>
+                        <input type="text" class="form-control" name="mId" value="${member.MId}" readonly>
                   	 </div>
                      <div class="form-group">
                         <label>이름</label>
 
-                        <input type="text" class="form-control" name="mName" value="${member.mName}">
+                        <input type="text" class="form-control" name="mName" value="${member.MName}">
 
                      </div>
                      <div class="form-group">
