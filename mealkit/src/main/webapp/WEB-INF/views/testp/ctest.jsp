@@ -10,6 +10,10 @@
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 
 
+<%@ page import="java.text.SimpleDateFormat" %>
+<%@ page import="java.util.Date" %>
+
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -107,18 +111,19 @@
 					<div id="reviews" class="tab-pane fade">
 						<!-- comment section -->
 						<div>
-							<form id="commentform" class="text-left clearfix"
+							<%-- <form id="commentform" class="text-left clearfix"
 								action="<%=request.getContextPath()%>/comment.do?pId=${productOne.pId}"
-								method="post">
-								<div class="form-group">
-									<input type="text" name="reviews" class="form-control"
-										placeholder="Comment">
-									<div class="text-center">
-										<button type="submit" class="btn btn-main text-center">submit
-											Comment</button>
-									</div>
+								method="post"> 
+							<div class="form-group"> --%>
+								<input type="text" id="submitReviewWriter" name="reviews"
+									class="form-control" placeholder="Comment">
+								<div class="text-center">
+									<button id="submitReview" type="submit"
+										class="btn btn-main text-center">submit Comment</button>
 								</div>
-							</form>
+							
+							<!-- </div>
+							</form> -->
 						</div>
 
 						<div class="post-comments" id="post-comments"></div>
@@ -134,51 +139,6 @@
 				</div>
 			</div>
 
-
-
-			<%-- <div class="tabCommon mt-20">
-				<ul class="nav nav-tabs">
-					<li class="active"><a data-toggle="tab" href="#details"
-						aria-expanded="true">Details</a></li>
-					<li class=""><a data-toggle="tab" href="#reviews"
-						id="reviewsDiv" aria-expanded="false">Reviews</a></li>
-				</ul>
-				<div class="tab-content patternbg">
-					<div id="details" class="tab-pane fade active in">
-						<img src='<%=request.getContextPath()%>/resources/images/logo.png'>
-					</div>
-					<div id="reviews" class="tab-pane fade">
-						<div>
-							<form id="commentform" class="text-left clearfix"
-								action="<%=request.getContextPath()%>/comment.do?pId=${productOne.pId}"
-								method="post">
-								<div class="form-group">
-									<input type="text" name="reviews" class="form-control"
-										placeholder="Comment">
-									<div class="text-center">
-										<button type="submit" class="btn btn-main text-center">submit
-											Comment</button>
-									</div>
-								</div>
-							</form>
-						</div>
-
-						<div class="post-comments" id="post-comments"></div>
-
-						<div class='text-center'>
-							<ul id="pagination" class="pagination pagination-sm no-margin">
-
-							</ul>
-						</div>
-
-					</div>
-				</div>
-			</div> --%>
-
-
-
-
-
 		</div>
 	</div>
 
@@ -186,15 +146,7 @@
 	<!-- TESTSECTION -->
 
 
-	<p>testpage</p>
-
-	<ul class="timeline">
-		<li style="cursor: pointer" class="time-label" id="reviewsDiv"><span
-			class="bg-green"> reviewsListTEST </span></li>
-	</ul>
-
-
-	<script id="template" type="text/x-handlebars-template">
+<script id="template" type="text/x-handlebars-template">
 
 {{#each .}}
 <ui id="reviewreplyLi" class="replyLi" data-rno={{rno}}>
@@ -210,6 +162,7 @@
 {{/each}}
 
 </script>
+
 
 
 	<script>
@@ -289,6 +242,35 @@
 
 		});
 
+		 $("#submitReview").on("click", function() {
+			//var reviewObj = 
+			var reviewtextObj = $("#submitReviewWriter");
+			var reviewtext = reviewtextObj.val();
+			
+			//testString
+			var mId = 'admin';
+			
+			$.ajax({
+				
+				type:'post',
+				url:'/reviews/',
+				headers: {
+					"Content-Type" : "application/json",
+					"X-HTTP-Method-Override" : "POST" },
+					
+					dataType:'text',
+					data: JSON.stringify({pid:pid,mId:mId,content:reviewtext,regdate:'1659524489000'}),
+					success:function(result){
+						
+						console.log("result: " + result);
+						if(result == 'SUCCESS'){
+							alert("posted");
+							replyPage = 1;
+							getPage("/reviews/"+pid+"/"+replyPage);
+							reviewtextObj.val("");
+						}
+					}});
+				});
 
 	</script>
 
