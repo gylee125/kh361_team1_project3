@@ -33,35 +33,22 @@
 							<img class="img-responsive"
 								src="<%=request.getContextPath()%>${product.thumbnail}"
 								alt="product-img" />
-							<div class="preview-meta">
-								<ul>
-									<li><a
-										href="<%=request.getContextPath()%>/shop/detail.do?pId=${product.pId}"><i
-											class="tf-ion-ios-search-strong"></i></a></li>
-									<c:if test="${member == null}">
-										<!-- 로그인 정보가 없을 때 -->
-										<li><a
-											href="<%=request.getContextPath()%>/notLoginCart.do"
-											class="dropdown-toggle"><i class="tf-ion-android-cart"></i></a>
-										</li>
-									</c:if>
-									<c:if test="${member != null}">
-										<!-- 로그인 정보가 있을 때 -->
-										<input type="hidden" name=mId value="${member.mId}">
-										<input type="hidden" name="pId" value="${product.pId}">
-										<li><a
-											href="<%=request.getContextPath()%>/addCart.do?mId=${member.mId}&pId=${product.pId}&cquantity=1"><i
-												class="tf-ion-android-cart"></i></a></li>
-									</c:if>
-								</ul>
-							</div>
 						</div>
 						<div class="product-content">
 							<h4>
 								<a
-									href="<%=request.getContextPath()%>/shop/detail.do?pId=${product.pId}">${product.pName}</a>
+									href="<%=request.getContextPath()%>/product/detail?pId=${product.pId}">${product.pName}</a>
 							</h4>
-							<p class="price">${product.price}원</p>
+							<ul class="list-inline mt-10">
+								<li class="li"><a
+									href="<%=request.getContextPath()%>/product/update?pId=${product.pId}"
+									class="btn btn-main btn-small btn-round">Update</a></li>
+								<li class="li"><a
+									href="javascript:void(0);" onclick="delCheck(${product.pId});"
+									class="btn btn-main btn-small btn-round">Delete</a></li>
+
+
+							</ul>
 						</div>
 					</div>
 				</div>
@@ -71,6 +58,15 @@
 		</div>
 	</div>
 </section>
+
+<script>
+	function delCheck(productId) {
+		var chk = confirm("정말 삭제하시겠습니까?");
+		if (chk) {
+			location.href = '<%=request.getContextPath()%>/product/delete?pId=' + productId;
+		}
+	}
+</script>
 
 
 <%@ include file="../include/footer.jspf"%>

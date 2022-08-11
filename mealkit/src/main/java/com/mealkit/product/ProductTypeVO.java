@@ -1,6 +1,6 @@
 package com.mealkit.product;
 
-public class ProductTypeDTO {
+public class ProductTypeVO {
 
     private String typeCode;
     private String tName;
@@ -30,4 +30,9 @@ public class ProductTypeDTO {
         this.tNameEng = tNameEng;
     }
 
+	@Override
+	public String toString() {
+		return "ProductTypeVO [typeCode=" + typeCode + ", tName=" + tName + ", tNameEng=" + tNameEng + "]";
+	}
+    
 }

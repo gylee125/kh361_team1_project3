@@ -41,19 +41,19 @@ FACEBOOK: https://www.facebook.com/themefisher
 
 <!-- Themefisher Icon font -->
 <link rel="stylesheet"
-	href="<%=request.getContextPath()%>/aviato/plugins/themefisher-font/style.css">
+	href="<%=request.getContextPath()%>/resources/plugins/themefisher-font/style.css">
 <!-- bootstrap.min css -->
 <link rel="stylesheet"
-	href="<%=request.getContextPath()%>/aviato/plugins/bootstrap/css/bootstrap.min.css">
+	href="<%=request.getContextPath()%>/resources/plugins/bootstrap/css/bootstrap.min.css">
 
 <!-- Animate css -->
-<link rel="stylesheet" href="<%=request.getContextPath()%>/aviato/plugins/animate/animate.css">
+<link rel="stylesheet" href="<%=request.getContextPath()%>/resources/plugins/animate/animate.css">
 <!-- Slick Carousel -->
-<link rel="stylesheet" href="<%=request.getContextPath()%>/aviato/plugins/slick/slick.css">
-<link rel="stylesheet" href="<%=request.getContextPath()%>/aviato/plugins/slick/slick-theme.css">
+<link rel="stylesheet" href="<%=request.getContextPath()%>/resources/plugins/slick/slick.css">
+<link rel="stylesheet" href="<%=request.getContextPath()%>/resources/plugins/slick/slick-theme.css">
 
 <!-- Main Stylesheet -->
-<link rel="stylesheet" href="<%=request.getContextPath()%>/aviato/css/style.css">
+<link rel="stylesheet" href="<%=request.getContextPath()%>/resources/css/style.css">
 
 </head>
 
@@ -72,7 +72,7 @@ FACEBOOK: https://www.facebook.com/themefisher
 				<div class="col-md-4 col-xs-12 col-sm-4">
 					<!-- Site Logo -->
 					<div class="logo text-center">
-						<a href="<%=request.getContextPath()%>/index.do"> <!-- replace logo here -->
+						<a href="<%=request.getContextPath()%>/"> <!-- replace logo here -->
 							<svg width="135px" height="37px" viewBox="0 0 155 29"
 								version="1.1" xmlns="http://www.w3.org/2000/svg"
 								xmlns:xlink="http://www.w3.org/1999/xlink">
@@ -197,8 +197,8 @@ FACEBOOK: https://www.facebook.com/themefisher
 								Search</a>
 							<ul class="dropdown-menu search-dropdown">
 								<li>
-									<form action="<%=request.getContextPath()%>/shop/search.do" method="post">
-										<input type="text" name="searchKeyword" id="searchKeyword" class="form-control" placeholder="상품 검색">
+									<form action="<%=request.getContextPath()%>/product/search" role="form">
+										<input type="text" name="keyword" id="keyword" class="form-control" placeholder="상품 검색">
 									</form>
 								</li>
 							</ul></li>
@@ -257,7 +257,7 @@ FACEBOOK: https://www.facebook.com/themefisher
 
 									<!-- Home -->
 									<li class="dropdown "><a
-										href="<%=request.getContextPath()%>/index.do">Home</a>
+										href="<%=request.getContextPath()%>">Home</a>
 									</li>
 									<!-- / Home -->
 
@@ -269,17 +269,17 @@ FACEBOOK: https://www.facebook.com/themefisher
 										aria-haspopup="true" aria-expanded="false">Shop <span
 											class="tf-ion-ios-arrow-down"></span></a>
 										<ul class="dropdown-menu">
-											<li><a href="<%=request.getContextPath()%>/shop/all.do">all</a></li>
+											<li><a href="<%=request.getContextPath()%>/product/listAll?page=1">all</a></li>
 											<li><a
-												href="<%=request.getContextPath()%>/shop/type.do?typeCode=1">korean</a></li>
+												href="<%=request.getContextPath()%>/product/listType?typeCode=1">korean</a></li>
 											<li><a
-												href="<%=request.getContextPath()%>/shop/type.do?typeCode=2">western</a></li>
+												href="<%=request.getContextPath()%>/product/listType?typeCode=2">western</a></li>
 											<li><a
-												href="<%=request.getContextPath()%>/shop/type.do?typeCode=3">chinese</a></li>
+												href="<%=request.getContextPath()%>/product/listType?typeCode=3">chinese</a></li>
 											<li><a
-												href="<%=request.getContextPath()%>/shop/type.do?typeCode=4">japanese</a></li>
+												href="<%=request.getContextPath()%>/product/listType?typeCode=4">japanese</a></li>
 											<li><a
-												href="<%=request.getContextPath()%>/shop/type.do?typeCode=5">etc</a></li>
+												href="<%=request.getContextPath()%>/product/listType?typeCode=5">etc</a></li>
 
 										</ul></li>
 									<!-- / shop -->
@@ -315,12 +315,46 @@ FACEBOOK: https://www.facebook.com/themefisher
 									
 									<!-- About Us -->
 									<li class="dropdown "><a
-										href="<%=request.getContextPath()%>/about.do">About Us</a>
+										href="<%=request.getContextPath()%>/about">About Us</a>
 									</li>
 									<!-- / About Us -->
 
-
-
+									<!-- Admin 관리자 메뉴 -->
+									<c:if test="${member.mLevel eq 2}">관리자만 아래 메뉴보이게?? 아니면 아예 관리자페이지를 따로 만들까? 팀원들과 의논필요</c:if>
+									<li class="dropdown dropdown-slide">
+										<a href="#!" class="dropdown-toggle" data-toggle="dropdown" data-hover="dropdown" data-delay="350"
+											role="button" aria-haspopup="true" aria-expanded="false">Admin <span
+												class="tf-ion-ios-arrow-down"></span></a>
+										<div class="dropdown-menu">
+											<div class="row">
+				
+												<!-- Basic -->
+												<div class="col-lg-6 col-md-6 mb-sm-3">
+													<ul>
+														<li class="dropdown-header">Product</li>
+														<li role="separator" class="divider"></li>
+														<li><a href="<%=request.getContextPath()%>/product/register">Register</a></li>
+														<li><a href="<%=request.getContextPath()%>/product/listAdmin">update / delete</a></li>
+													</ul>
+												</div>
+				
+												<!-- Layout -->
+												<div class="col-lg-6 col-md-6 mb-sm-3">
+													<ul>
+														<li class="dropdown-header">관리자메뉴 필요시 사용</li>
+														<li role="separator" class="divider"></li>
+														<li><a href="<%=request.getContextPath()%>/index">Product Details</a></li>
+														<li><a href="<%=request.getContextPath()%>/index">Shop With Sidebar</a></li>
+				
+													</ul>
+												</div>
+				
+											</div><!-- / .row -->
+										</div><!-- / .dropdown-menu -->
+									</li><!-- / Elements -->
+									
+									<!-- / Admin -->
+									
 
 								</ul>
 								<!-- / .nav .navbar-nav -->

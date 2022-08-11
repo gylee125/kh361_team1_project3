@@ -1,6 +1,6 @@
 package com.mealkit.product;
 
-public class ProductDetailDTO {
+public class ProductDetailVO {
 
     private int pId;
     private String typeCode;
@@ -102,4 +102,12 @@ public class ProductDetailDTO {
         this.tNameEng = tNameEng;
     }
 
+	@Override
+	public String toString() {
+		return "ProductDetailVO [pId=" + pId + ", typeCode=" + typeCode + ", pName=" + pName + ", price=" + price
+				+ ", stock=" + stock + ", brand=" + brand + ", description=" + description + ", thumbnail=" + thumbnail
+				+ ", image=" + image + ", tName=" + tName + ", tNameEng=" + tNameEng + "]";
+	}
+    
+    
 }
