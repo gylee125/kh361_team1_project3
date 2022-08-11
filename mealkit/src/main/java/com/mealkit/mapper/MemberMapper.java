@@ -1,10 +1,16 @@
-package com.mealkit.member;
+package com.mealkit.mapper;
 
 import java.util.List;
 
-public interface MemberService {
+import org.apache.ibatis.annotations.Param;
 
-    public MemberDTO submitLogin(MemberDTO member) throws Exception;
+import com.mealkit.member.MemberDTO;
+import com.mealkit.member.MemberListDTO;
+import com.mealkit.member.PointDTO;
+
+public interface MemberMapper {
+	
+	public MemberDTO submitLogin(MemberDTO member) throws Exception;
     
     public void submitSignUp(MemberDTO member) throws Exception;
     
@@ -12,7 +18,7 @@ public interface MemberService {
     
     public int checkUniqueEmail(String inputedEmail) throws Exception;
     
-    public int checkUniqueEmailForModify(String email, String mId) throws Exception;
+    public int checkUniqueEmailForModify(@Param("email")String email, @Param("mId")String mId) throws Exception;
     
     public MemberDTO checkEmail(String mId) throws Exception;
     
@@ -25,11 +31,11 @@ public interface MemberService {
     public PointDTO showPoint(String mId) throws Exception;
 
     public MemberDTO showMemberDetail(String mId) throws Exception;   
-    
+
     public List<MemberListDTO> memberList() throws Exception;
 
     public void submitModifyMemberByAdmin(MemberDTO member) throws Exception;
 
     public void submitModifyPointByAdmin(PointDTO pointDTO) throws Exception;
-   
+    
 }

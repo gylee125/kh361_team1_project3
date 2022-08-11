@@ -45,9 +45,9 @@
 		          <div class="media">
 		            <div class="media-body">
 		              <ul class="user-profile-list">
-		              	<li><span>${member.mId}'s profile</span></li>
+		              	<li><span>${member.MId}'s profile</span></li>
 		              	<li><span></span></li>
-		                <li><span>Name:</span>${member.mName}</li>
+		                <li><span>Name:</span>${member.MName}</li>
 		                <li><span>Email:</span>${member.email}</li>
 		                <li><span>Phone:</span>${member.phone}</li>
 		                <li><span>Address:</span>${member.address}</li>
@@ -60,11 +60,11 @@
                   <form class="checkout-form">
                   	 <div class="form-group">
                   	    <label>ID</label>
-                        <input type="text" class="form-control" value="${member.mId}" readonly>
+                        <input type="text" class="form-control" value="${member.MId}" readonly>
                   	 </div>
                      <div class="form-group">
                         <label>이름</label>
-                        <input type="text" class="form-control" value="${member.mName}">
+                        <input type="text" class="form-control" value="${member.MName}">
                      </div>
                      <div class="form-group">
                         <label>이메일</label>
@@ -110,7 +110,7 @@
                      <div class="media product-card">
                      <div class="summary-total">
                         <span>Total</span>
-                        <span>250P</span>
+                        <span> ${point.currentPoint} </span>
                      </div>
                   </div>
                </div>

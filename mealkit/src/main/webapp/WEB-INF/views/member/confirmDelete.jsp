@@ -52,7 +52,7 @@ span {
 				<input type="checkbox" required>
 				  <span style="font-size: 12px; position: relative; top: -2px;">
 					안내 사항을 모두 확인하였으며, 이에 동의합니다.</span>
-				<input type="hidden" class="form-control" name="mId" value="${member.mId}">
+				<input type="hidden" class="form-control" name="mId" value="${member.MId}">
 				<div class="text-center"><br>
 				  <button type="submit" class="btn btn-main btn-medium btn-round">탈퇴하기</button>
 				</div>

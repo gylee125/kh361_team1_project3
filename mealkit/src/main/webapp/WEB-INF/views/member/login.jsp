@@ -9,7 +9,7 @@
 
 	<%@ include file="../include/header.jspf"%>
 	<%
-	// ID저장 기능
+	// ID저장 기능. 추후 자바스크립트 형태로 수정하기
 	Cookie[] cookie = request.getCookies();
 	String saveIdText = "";
 	if (cookie != null) {
