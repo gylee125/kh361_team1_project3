@@ -43,7 +43,6 @@ public class ProductController{
 	    // pageMaker.setTotalCount(131);
 
 	    pageMaker.setTotalCount(productService.listCountCriteria(cri));
-	    logger.info(pageMaker.toString());
 
 	    model.addAttribute("pageMaker", pageMaker);
 	}
