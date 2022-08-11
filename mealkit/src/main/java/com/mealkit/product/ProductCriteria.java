@@ -1,11 +1,11 @@
 package com.mealkit.product;
 
-public class Criteria {
+public class ProductCriteria {
 
 	private int page;
 	private int perPageNum;
 
-	public Criteria() {
+	public ProductCriteria() {
 		this.page = 1;
 		this.perPageNum = 12;
 	}

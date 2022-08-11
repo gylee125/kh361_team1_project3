@@ -28,12 +28,12 @@ public class ProductController{
 	
 	
 	@RequestMapping(value = "/listAll", method = RequestMethod.GET)
-	public void productListPage(@ModelAttribute("cri") Criteria cri, Model model) throws Exception {
+	public void productListPage(@ModelAttribute("cri") ProductCriteria cri, Model model) throws Exception {
 		logger.info("/product/listAll");
 		logger.info(cri.toString());
 
 	    model.addAttribute("productList", productService.selectListWithPaging(cri));
-	    PageMaker pageMaker = new PageMaker();
+	    ProductPageMaker pageMaker = new ProductPageMaker();
 	    pageMaker.setCri(cri);
 	    // pageMaker.setTotalCount(131);
 

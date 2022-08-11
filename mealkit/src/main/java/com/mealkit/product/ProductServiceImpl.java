@@ -72,14 +72,14 @@ public class ProductServiceImpl implements ProductService {
 
 	@Override
 	@Transactional
-	public List<ProductVO> selectListWithPaging(Criteria cri) throws Exception {
+	public List<ProductVO> selectListWithPaging(ProductCriteria cri) throws Exception {
 
 		return productMapper.selectListWithPaging(cri);
 	}
 
 	@Override
 	@Transactional
-	public int listCountCriteria(Criteria cri) throws Exception {
+	public int listCountCriteria(ProductCriteria cri) throws Exception {
 
 		return productMapper.countPaging(cri);
 	}

@@ -3,7 +3,7 @@ package com.mealkit.product;
 import org.springframework.web.util.UriComponents;
 import org.springframework.web.util.UriComponentsBuilder;
 
-public class PageMaker {
+public class ProductPageMaker {
 
 	private int totalCount;
 	private int startPage;
@@ -13,9 +13,9 @@ public class PageMaker {
 
 	private int displayPageNum = 10;
 
-	private Criteria cri;
+	private ProductCriteria cri;
 
-	public void setCri(Criteria cri) {
+	public void setCri(ProductCriteria cri) {
 		this.cri = cri;
 	}
 
@@ -67,7 +67,7 @@ public class PageMaker {
 		return displayPageNum;
 	}
 
-	public Criteria getCri() {
+	public ProductCriteria getCri() {
 		return cri;
 	}
 
