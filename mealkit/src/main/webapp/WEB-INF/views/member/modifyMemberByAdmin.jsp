@@ -69,7 +69,7 @@
 								</div>
 								<br>
 								<button type="button" class="btn btn-main text-center" onclick="checkModifyForm();">수정 완료</button>								
-								<button type="button" class="btn btn-main text-center" onclick="location.href='/adminPage.do'">취소</button>
+								<button type="button" class="btn btn-main text-center" onclick="location.href='<%=request.getContextPath()%>/adminPage.do'">취소</button>
 								</form>
 							</div>
 							<div class="dashboard-wrapper dashboard-user-profile" id="showMemberDetail">
@@ -89,7 +89,7 @@
 								</div>
 								<br>
 								<button type="button" class="btn btn-main text-center" onclick="checkPointForm();">포인트 정정 지급</button>								
-								<button type="button" class="btn btn-main text-center" onclick="location.href='/adminPage.do'">취소</button>
+								<button type="button" class="btn btn-main text-center" onclick="location.href='<%=request.getContextPath()%>/adminPage.do'">취소</button>
 								</form>
 							</div>
 						</div>
@@ -108,7 +108,7 @@
 	let submitPointForm = document.getElementById("submitPointForm");
 	let checkUniqueEmail = true;
 
-	alert("js테스트 17");
+	//alert("js테스트 17");
 	$('#email').focusout(function(){
 		let email = $('#email').val();
 		let isEmail = /^[a-zA-Z0-9+-\_.]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$/;
@@ -124,7 +124,7 @@
 			return false;
 		}	
 		$.ajax({
-			url : "/checkUniqueEmailForModify.do",
+			url : "<%=request.getContextPath()%>/checkUniqueEmailForModify.do",
 			type : "get",
 			data : 'email=' + $('#email').val() + '&mId=' + $('#mId').val(),
 			datatype : 'json',
