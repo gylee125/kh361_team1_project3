@@ -1873,6 +1873,7 @@ input[type="email"]:focus, input[type="password"]:focus, input[type="text"]:focu
 
 .post-pagination>li.active>a {
 	color: #ffffff;
+	background: #000000;
 	border: 1px solid #000;
 }
 
