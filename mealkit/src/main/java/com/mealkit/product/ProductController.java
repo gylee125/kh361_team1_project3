@@ -4,8 +4,6 @@ import java.util.List;
 
 import javax.inject.Inject;
 import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -15,9 +13,6 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
-
-import com.mealkit.board.CommentListService;
-import com.mealkit.board.ReviewPage;
 
 @Controller
 @RequestMapping(value = "/product")
@@ -29,7 +24,7 @@ public class ProductController{
 	private ProductService productService;
 	
 	//@Inject
-	private CommentListService commentService;
+	//private CommentListService commentService;
 	
 	
 	@RequestMapping(value = "/listAll", method = RequestMethod.GET)
