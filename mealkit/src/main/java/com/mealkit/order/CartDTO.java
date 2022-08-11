@@ -1,6 +1,6 @@
 package com.mealkit.order;
 
-import com.mealkit.product.ProductDTO;
+import com.mealkit.product.ProductVO;
 
 public class CartDTO {
 		private int ucId;
@@ -62,7 +62,7 @@ public class CartDTO {
 		
 
 		
-		private ProductDTO productDTO;
+		private ProductVO productDTO;
 		
 		private String pName;
 		private int price;

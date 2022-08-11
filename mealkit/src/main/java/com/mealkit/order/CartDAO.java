@@ -10,7 +10,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
-import com.mealkit.board.CommentVO;
+import com.mealkit.board.CommentDTO;
 import jdbc.JdbcUtil;
 import com.mealkit.order.CartDTO;
 

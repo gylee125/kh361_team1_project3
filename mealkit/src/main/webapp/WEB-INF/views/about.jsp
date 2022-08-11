@@ -45,7 +45,7 @@
 			<div class="col-md-3">
 				<div class="team-member text-center">
 					<a href="https://www.kurly.com/shop/main/index.php">
-					<img class="img-responsive" src="<%=request.getContextPath()%>/aviato/images/about/marketKurly.png"></a>
+					<img class="img-responsive" src="<%=request.getContextPath()%>/resources/images/about/marketKurly.png"></a>
 					<h4>Market Kurly</h4>
 					<p>mealkit product sample</p>
 				</div>
@@ -53,7 +53,7 @@
 			<div class="col-md-3">
 				<div class="team-member text-center">
 					<a href="https://themefisher.com/">
-					<img class="img-responsive" src="<%=request.getContextPath()%>/aviato/images/about/Themefisher.png"></a>
+					<img class="img-responsive" src="<%=request.getContextPath()%>/resources/images/about/Themefisher.png"></a>
 					<h4>Themefisher</h4>
 					<p>Template Design</p>
 				</div>

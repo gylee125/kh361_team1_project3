@@ -4,8 +4,7 @@
 <html>
 <head>
 <script>
-
-// 컨트롤러 지시로 뷰(자바스크립트) 경고메세지 출력
+// 컨트롤러 지시를 받아 뷰에서(자바스크립트) 안내 메세지 출력하고 페이지 이동
 	var message = "${msg}";
 	var url = "${url}";
 	alert(message);

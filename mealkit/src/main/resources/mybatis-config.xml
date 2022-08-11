@@ -5,9 +5,9 @@
 <configuration>
 
   <typeAliases>
+    <package name="com.mealkit.product"/>    
     <package name="com.mealkit.board"/>
   </typeAliases>
-
 
 </configuration>
 
