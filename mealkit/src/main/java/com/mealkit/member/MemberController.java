@@ -26,13 +26,11 @@ public class MemberController {
 	MemberService memberService;
 	//EmailService emailService;
 
-	// 커밋테스트
-	
 	@RequestMapping(value = "/login.do")
 	public String login() {
 		return "member/login";
 	}
-
+	
 	// 코드 정리 필요
 	@RequestMapping(value = "/submitLogin.do", method = RequestMethod.POST)
 	public String submitLogin(MemberDTO member, HttpServletRequest request, HttpServletResponse response)
@@ -78,7 +76,7 @@ public class MemberController {
 		memberService.earnPointForNewMember(member.getMId()); // 3000포인트 증정. 코드 정리 필요(3000변수가 매퍼xml파일에 바로 들어가있음)
 		session.setAttribute("member", member);
 		model.addAttribute("msg", "회원가입되었습니다. 환영합니다~신규 가입 프로모션으로 3000포인트 증정!");
-		model.addAttribute("url", "");
+		model.addAttribute("url", "home");
 		return "alert";
 	}
 
