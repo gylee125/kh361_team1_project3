@@ -94,6 +94,11 @@ public class MemberServiceImpl implements MemberService {
     }
     
     @Override
+	public void closeAccount(String mId) throws Exception {
+		memberMapper.closeAccount(mId);
+	}
+    
+    @Override
     public void updateMyInfo(MemberDTO member) throws Exception {
     	memberMapper.updateMyInfo(member);
     }
@@ -107,5 +112,7 @@ public class MemberServiceImpl implements MemberService {
     public void deleteAccount(String mId) throws Exception {
         memberMapper.deleteAccount(mId);
     }
+
+	
 
 }

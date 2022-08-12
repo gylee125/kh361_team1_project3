@@ -106,7 +106,7 @@
 								</div>
 								<br>
 								<button type="button" class="btn btn-main text-center" onclick="modifyMemberByAdmin();">수정</button>
-								<button type="button" class="btn btn-main text-center">탈퇴</button>
+								<button type="button" class="btn btn-main text-center" onclick="closeAccountByAdmin();">탈퇴</button>
 								<button type="button" class="btn btn-main text-center" onclick="closeMemberDetail();">닫기</button>
 							</div>
 						</div>
@@ -123,7 +123,7 @@
 	let inputId = document.getElementById("inputId");
 	showMemberDetail.style.display = 'none';
 	
-	//alert("js 작동 테스트 28");
+	// alert("js 작동 테스트 34");
 		
 	function searchMember(){		
 		
@@ -141,11 +141,15 @@
 				memberAddress.innerHTML = data.address;
 				memberRegDate.innerHTML = data.regDate;				
 				memberCurrentPoint.innerHTML = data.pointDTO.currentPoint;				
-				memberUpdateDate.innerHTML = data.pointDTO.updateDate;				
+				memberUpdateDate.innerHTML = data.pointDTO.updateDate;	
 				if(data.mlevel == 2)
-					memberMlevel.innerHTML = '관리자';
-				else
-					memberMlevel.innerHTML = '일반회원';									
+					memberMlevel.innerHTML = '관리자';		
+				else if(data.mlevel == -1)
+					memberMlevel.innerHTML = '탈퇴';	
+				else{					
+					memberMlevel.innerHTML = '일반회원';	
+				}
+													
 				showMemberDetail.style.display = 'block';
 			})
 			.catch(function(){
@@ -156,6 +160,11 @@
 	
 	function modifyMemberByAdmin(){
 		location.href='<%=request.getContextPath()%>/modifyMemberByAdmin.do?mId=' + memberId.innerHTML;
+	}
+	
+	function closeAccountByAdmin(){
+		alert("해당 계정 탈퇴처리합니다...");
+		location.href='<%=request.getContextPath()%>/closeAccountByAdmin.do?mId=' + memberId.innerHTML;
 	}
 	
 	function closeMemberDetail(){

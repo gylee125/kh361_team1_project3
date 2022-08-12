@@ -213,6 +213,12 @@ public class MemberController {
 	@RequestMapping(value = "/submitModifyPointByAdmin.do", method = RequestMethod.POST) // 포인트 수정은 따로 관리
 	public String submitModifyPointByAdmin(PointDTO pointDTO) throws Exception {
 		memberService.submitModifyPointByAdmin(pointDTO);
+		return "redirect:/adminPage.do";		
+	}
+	
+	@RequestMapping(value = "/closeAccountByAdmin.do")
+	public String closeAccountByAdmin(String mId) throws Exception {
+		memberService.closeAccount(mId); // 일단 삭제는 안 하고 mLevel -1(별도로 '탈퇴상태' 코드 부여)두기.		
 		return "redirect:/adminPage.do";
 	}
 
@@ -226,11 +232,13 @@ public class MemberController {
 		return "member/deleteAccount";
 	}
 
-	@RequestMapping(value = "/deleteAccount.do", method = RequestMethod.POST)
-	public String deleteAccount(String mId, HttpSession session) throws Exception {
-		memberService.deleteAccount(mId); // 일단 삭제는 안 하고 mLevel -1(별도로 '탈퇴상태' 코드 부여)두기.
+	@RequestMapping(value = "/closeAccount.do", method = RequestMethod.POST)
+	public String closeAccount(String mId, HttpSession session) throws Exception {
+		memberService.closeAccount(mId); // 일단 삭제는 안 하고 mLevel -1(별도로 '탈퇴상태' 코드 부여)두기.
 		session.invalidate(); // 탈퇴처리하고 로그아웃
-		return "member/deleteAccount";
+		return "redirect:/";
 	}
+	
+	
 
 }

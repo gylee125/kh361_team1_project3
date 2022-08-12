@@ -44,9 +44,13 @@ public interface MemberMapper {
     
     public MemberDTO selectMember(String mId) throws Exception;
     
+    public void closeAccount(String mId) throws Exception;
+    
     public void updateMyInfo(MemberDTO member) throws Exception;
     
     public void updatePwd(MemberDTO member) throws Exception;
+
+	
 
 
     

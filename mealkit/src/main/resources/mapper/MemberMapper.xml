@@ -95,4 +95,10 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		    set currentPoint=#{currentPoint}, updateDate=sysdate
 		    where mid=#{mId}
 	</update>
+	
+	<update id="closeAccount">
+		update member
+		    set mLevel=-1
+		    where mId=#{mId}
+	</update>
 </mapper>
