@@ -9,6 +9,7 @@ import javax.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.CookieValue;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -27,16 +28,20 @@ public class MemberController {
 	//EmailService emailService;
 
 	@RequestMapping(value = "/login.do")
-	public String login() {
+	public String login(@CookieValue(value="saveId", required=false)Cookie cookie, Model model) {	
+		if (cookie != null) {
+			String saveIdCookie = cookie.getValue();
+			model.addAttribute("saveIdCookie", saveIdCookie);
+		}		
 		return "member/login";
 	}
 	
 	@RequestMapping(value = "/submitLogin.do", method = RequestMethod.POST)
-	public String submitLogin(MemberDTO member, HttpServletRequest request, HttpServletResponse response) throws Exception {
-		HttpSession session = request.getSession();
+	public String submitLogin(MemberDTO member, HttpServletRequest request, HttpServletResponse response) throws Exception {		
 		MemberDTO loginData = memberService.submitLogin(member); 
 		if (loginData == null) // 비밀번호 틀리면 null값 들어옴		
 			return alertMsgAndGoUrl(request, "로그인 오류! ID와 비밀번호를 확인해주세요~!!", "login.do");
+		HttpSession session = request.getSession();
 		session.setAttribute("member", loginData);	
 		setCookieForSaveId(response, request.getParameter("saveId"), loginData.getMId());
 		return "redirect:/";
