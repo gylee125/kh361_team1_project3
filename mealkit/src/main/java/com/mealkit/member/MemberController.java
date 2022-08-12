@@ -26,6 +26,8 @@ public class MemberController {
 	MemberService memberService;
 	//EmailService emailService;
 
+	// 커밋테스트
+	
 	@RequestMapping(value = "/login.do")
 	public String login() {
 		return "member/login";
