@@ -26,7 +26,7 @@ public interface MemberMapper {
     
     public void deleteAccount(String mId) throws Exception;
 
-    public void earnPointForNewMember(String mId) throws Exception;
+    public void earnPointForNewMember(@Param("mId")String mId, @Param("currentPoint")int currentPoint) throws Exception;
 
     public PointDTO showPoint(String mId) throws Exception;
 

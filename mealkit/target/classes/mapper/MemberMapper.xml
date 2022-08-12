@@ -62,7 +62,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	
 	<insert id="earnPointForNewMember">
 		insert into point
-			values(#{mId}, 3000, sysdate)			
+			values(#{mId}, #{currentPoint}, sysdate)			
 	</insert>
 	
 	<select id="showPoint" resultType="com.mealkit.member.PointDTO">

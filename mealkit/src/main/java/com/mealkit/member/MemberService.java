@@ -18,7 +18,7 @@ public interface MemberService {
     
     public void changePwd(String mId, String pw) throws Exception;
         
-    public void earnPointForNewMember(String mId) throws Exception;
+    public void earnPointForNewMember(String mId, int point) throws Exception;
     
     public PointDTO showPoint(String mId) throws Exception;
 

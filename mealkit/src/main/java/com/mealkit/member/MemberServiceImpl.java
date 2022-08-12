@@ -49,9 +49,8 @@ public class MemberServiceImpl implements MemberService {
     } 
 
     @Override
-    public void earnPointForNewMember(String mId) throws Exception {
-        System.out.println("포인트 최초적립시 아이디 확인 : " + mId);
-        memberMapper.earnPointForNewMember(mId);        
+    public void earnPointForNewMember(String mId, int point) throws Exception {
+        memberMapper.earnPointForNewMember(mId, point);        
     }
 
     @Override
