@@ -50,7 +50,7 @@
 
 <!-- Main jQuery -->
 <%--     <script src="<%=request.getContextPath()%>/resources/plugins/jquery/dist/jquery.min.js"></script> --%>
-<!-- 	<script src="/resources/plugins/jQuery/jQuery-2.1.4.min.js"></script> -->
+<script src="/resources/plugins/jQuery/jQuery-2.1.4.min.js"></script>
 <script
 	src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
 
@@ -112,7 +112,7 @@
 						<!-- comment section -->
 						<div>
 							<%-- <form id="commentform" class="text-left clearfix"
-								action="<%=request.getContextPath()%>/comment.do?pId=${productOne.pId}"
+								action="<%=request.getContextPath()%>/reviews/"
 								method="post"> 
 							<div class="form-group"> --%>
 								<input type="text" id="submitReviewWriter" name="reviews"
@@ -225,7 +225,7 @@
 			if ($(".timeline li").size() > 1) {
 				return;
 			}
-			getPage("/reviews/" + 189 + "/1");
+			getPage("<%=request.getContextPath()%>/reviews/" + 189 + "/1");
 			// 189 = pid
 
 		});
@@ -238,9 +238,20 @@
 
 			replyPage = $(this).attr("href");
 
-			getPage("/reviews/" + 189 + "/" + replyPage);
+			getPage("<%=request.getContextPath()%>/reviews/" + 189 + "/" + replyPage);
 
 		});
+		
+		//deadcode
+		 document.getElementById("submitReviewWriter").addEventListener("keypress",function(event){
+				if(event.key === "Enter"){
+					
+					event.preventDefault();
+					
+					document.getElementById("submitReview").click();
+				} 
+		 });
+		
 
 		 $("#submitReview").on("click", function() {
 			//var reviewObj = 
@@ -253,7 +264,7 @@
 			$.ajax({
 				
 				type:'post',
-				url:'/reviews/',
+				url:'<%=request.getContextPath()%>/reviews/',
 				headers: {
 					"Content-Type" : "application/json",
 					"X-HTTP-Method-Override" : "POST" },
@@ -266,7 +277,7 @@
 						if(result == 'SUCCESS'){
 							alert("posted");
 							replyPage = 1;
-							getPage("/reviews/"+pid+"/"+replyPage);
+							getPage("<%=request.getContextPath()%>/reviews/"+pid+"/"+replyPage);
 							reviewtextObj.val("");
 						}
 					}});
