@@ -28,7 +28,7 @@
                   <form class="checkout-form" action="/order.do" method="post">
                      <div class="form-group">
                         <label for="full_name">이름</label>
-                        <input type="text" class="form-control" id="full_name" value="${member.mName}" placeholder="">
+                        <input type="text" class="form-control" id="full_name" value="${member.MName}" placeholder="">
                      </div>
                      <div class="form-group">
                         <label for="user_address">주소</label>
@@ -71,7 +71,7 @@
                                  <label for="card-cvc">CVC 번호 <span class="required">*</span></label>
                                  <input id="card-cvc" class="form-control"  type="tel" maxlength="4" placeholder="CVC" >
                               </div>
-                              <a href="<%=request.getContextPath()%>/addOrder.do?mId=${member.mId}" class="btn btn-main mt-20">주문하기</a >
+                              <a href="<%=request.getContextPath()%>/addOrder.do?mId=${member.MId}" class="btn btn-main mt-20">주문하기</a >
                            </form>
                         </div>
                      </div>
@@ -93,7 +93,7 @@
                         <div class="media-body">
                            <h4 class="media-heading"><a href="<%=request.getContextPath()%>/shop/detail.do?pId=${cart.pId}">${cart.pName}</a></h4>
                            <p class="price">${cart.cquantity} x ${cart.price}</p>
-                           <a class="remove" href="<%=request.getContextPath()%>/deleteCart.do?mId=${member.mId}&ucId=${cart.ucId}">삭제하기</a>
+                           <a class="remove" href="<%=request.getContextPath()%>/deleteCart.do?mId=${member.MId}&ucId=${cart.ucId}">삭제하기</a>
                         </div>
                      </div>
                      

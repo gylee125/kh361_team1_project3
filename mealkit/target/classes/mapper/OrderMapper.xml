@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.mealkit.mapper.OrderMapper">
+
+	<insert id="addOrder">
+		insert into userOrder(oId, oDate, mId, pId, quantity, price, statusCode)
+		select OID_SEQ.nextval, sysdate, #{mId}, a.pId, a.cquantity, b.price * a.cquantity, 1
+		from userCart a, product b
+		where a.pId = b.pId
+	</insert>
+
+	<select id="showOrderList"
+		resultType="com.mealkit.order.OrderVO">
+		select a.oId, a.mId, a.pId, a.quantity, a.odate, a.price, a.statusCode, b.pName, c.statusName
+        from userOrder a, product b, statusType c
+        where a.mId = #{mId}
+        and a.pid = b.pid 
+        and a.statusCode = c.statusCode 
+        order by oId desc
+	</select>
+	
+	<select id = "orderDetail" resultType="com.mealkit.order.OrderVO">
+		select a.oId, a.mId, a.pId, a.quantity, a.odate, a.price, a.statusCode, b.pName, c.statusName
+        from userOrder a, product b, statusType c
+        where a.pid = b.pid 
+        and a.statusCode = c.statusCode 
+        and a.oId= #{oId}
+	</select>
+	
+	
+	<insert id="addCart">
+	INSERT INTO usercart(ucId, mId, pId, cquantity)
+	VALUES(UCIDSEQ.nextval, #{mId}, #{pId}, #{cquantity})
+	</insert>
+	
+	<select id="showCart" resultType="com.mealkit.order.CartVO">
+		select a.ucId, a.pId, a.cquantity, b.pName, b.price, b.thumbnail
+		from usercart a, product b
+		where a.pId = b.pId
+		and mId=#{mId}
+	</select>
+	
+	<!-- <select id="checkProduct" resultType="com.mealkit.order.CartVO">
+		select * 
+		from usercart
+		where ucId=#{ucId} and
+		mId=#{mId} and
+		pId=#{pId} and
+		cquantity=#{cquantity}
+	</select> -->
+	
+	<update id="update">
+		update usercart set
+		cquantity = #{cquantity}
+		where ucId = #{ucId}
+	</update>
+	
+	<delete id="delete">
+	delete from usercart
+	where ucId = #{ucId}
+	</delete>
+	
+	<delete id="resetCart">
+	delete from userCart
+	where mId= #{mId}
+	</delete>
+	
+	
+	<!-- <select id="orderAdmin"
+		resultType="com.mealkit.order.OrderVO">
+		select a.oId, a.mId, a.pId, a.quantity, a.odate, a.price, a.statusCode, b.pName, c.statusName
+        from userOrder a, product b, statusType c
+        where a.pid = b.pid 
+        and a.statusCode = c.statusCode 
+        order by oId desc
+	</select> -->
+	
+	<select id="orderAdmin"
+		resultType="com.mealkit.order.OrderVO">
+		select * from userOrder
+		order by oId desc
+	</select>
+	
+	<update id="updateAdmin">
+		update userorder set
+		statuscode = #{statuscode}
+		where mId = #{mId}
+		and oId = #{oId}
+	</update>
+	
+	<delete id="deleteAdmin">
+	delete from userorder
+	where oId = #{oId}
+	</delete>
+
+
+
+</mapper>

@@ -34,11 +34,12 @@
 								<tr>
 									<th>주문번호</th>
 									<th>주문일자</th>
+									<th>아이디</th>
 									<th>상품명</th>
 									<th>상품수량</th>
 									<th>결제금액</th>
 									<th>주문현황</th>
-									<th>상세보기</th>
+									<th>선택</th>
 									<th></th>
 								</tr>
 							</thead>
@@ -47,12 +48,12 @@
 								<tr>
 									<td> ${order.oId} </td>
 									<td>${order.oDate}</td>
+									<th>${member.MId}</th>
 									<td>${order.pName}</td>
 									<td>${order.quantity}</td>
 									<td>${order.price}</td>
 									<td><span class="label label-primary">${order.statusName}</span></td>
-									<td><a href="<%=request.getContextPath()%>/order-detail.do?mId=${member.MId}&oId=${order.oId}">상세보기</a></td>
-									<!-- <td><a href="<%=request.getContextPath()%>/orderDetail.do?MId=${member.MId}&oId=${order.oId}" class="btn btn-default">View</a></td>  -->
+									<td class=""><a class="product-remove" href="deleteAdmin.do">삭제</a></td>
 								</tr>
 								</c:forEach>
 							</tbody>

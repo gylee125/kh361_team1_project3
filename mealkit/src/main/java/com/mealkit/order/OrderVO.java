@@ -4,7 +4,10 @@ package com.mealkit.order;
 
 import java.util.Date;
 
-public class OrderDTO {
+public class OrderVO {
+	
+	public OrderVO() {}
+	
 	
 	private int oId;
 	private String mId;
@@ -81,4 +84,12 @@ public class OrderDTO {
 	public void setStatusName(String statusName) {
 		this.statusName = statusName;
 	}
+	@Override
+	public String toString() {
+		return "OrderVO [oId=" + oId + ", mId=" + mId + ", pId=" + pId + ", quantity=" + quantity + ", oDate=" + oDate
+				+ ", price=" + price + ", statusCode=" + statusCode + ", pName=" + pName + ", statusName=" + statusName
+				+ "]";
+	}
+	
+	
 }

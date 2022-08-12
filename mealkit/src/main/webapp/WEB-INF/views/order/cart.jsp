@@ -1,6 +1,5 @@
-<%@page import="model.service.CartService"%>
-<%@page import="model.dao.CartDAO"%>
-<%@page import="model.dto.CartDTO"%>
+<%@page import="com.mealkit.order.OrderService"%>
+<%@page import="com.mealkit.order.CartVO"%>
 <%@page import="java.util.List"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 <%@ page import="java.sql.SQLException"%>
@@ -11,14 +10,6 @@
 
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 
-
-<% 
-	String mId = request.getParameter("mId");
-
-	CartService cartService = CartService.getInstance();
-	List<CartDTO> cartList = cartService.showCart(mId);
-	if(!cartList.isEmpty()){
-%>
 
 <%@ include file="../include/header.jspf" %>
 
@@ -62,16 +53,15 @@
 											<tr class="">
 											<td class="">
 												<div class="product-info">
-													<img width="80"
-														src="<%=request.getContextPath()%>${cart.thumbnail}"
-														alt="" /> <a href="<%=request.getContextPath()%>/shop/detail.do?pId=${cart.pId}">${cart.pName}</a>
+													<img width="80" src="<%=request.getContextPath()%>${cart.thumbnail}" alt="" />
+													<a href="<%=request.getContextPath()%>/shop/detail.do?pId=${cart.pId}">${cart.pName}</a>
 												</div>
 											</td> 
 											 <td class="">${cart.price}</td>
 											 <!-- <td class=""><input type=number id="stuff" value="1" min="1" max="100"></td> -->
 											 <td class="">${cart.cquantity} </td>
 											<td class=""><a class="product-remove"
-												href="deleteCart.do?ucId=${cart.ucId}&mId=${member.mId}">삭제</a>
+												href="deleteCart.do?ucId=${cart.ucId}&mId=${member.MId}">삭제</a>
 											</td>
 										</tr>
 										</c:forEach> 
@@ -79,7 +69,7 @@
 									</tbody>
 								</table>
 
-								<a href="<%=request.getContextPath()%>/checkout.do?mId=${member.mId}"
+								<a href="<%=request.getContextPath()%>/checkout.do?mId=${member.MId}"
 									class="btn btn-main pull-right">주문하기</a>
 							</form>
 
@@ -92,16 +82,5 @@
 	</div>
 </div>
 
-<%
-	} else {
-%>
-
-<script>
-	location.href="emptyCart.do";
-</script>
-
-<%
-	}
-%>
 
 <%@ include file="../include/footer.jspf" %>

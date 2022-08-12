@@ -64,7 +64,7 @@
 				        		<tbody>
 				        			<tr>
 				                    	<td><strong>수령인</strong></td>
-				                    	<td>${member.mName}</td>
+				                    	<td>${member.MName}</td>
 				                  	</tr>
 				                  	<tr>
 				                    	<td><strong>연락처</strong></td>
