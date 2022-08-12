@@ -303,7 +303,7 @@ FACEBOOK: https://www.facebook.com/themefisher
 											<li><a
 												href="<%=request.getContextPath()%>/index.do">Q&A</a></li>
 											<li><a
-												href="<%=request.getContextPath()%>/index.do">Community</a></li>
+												href="<%=request.getContextPath()%>/community/list">Community</a></li>
 											<li><a
 												href="<%=request.getContextPath()%>/index.do">Review</a></li>
 										</ul></li>

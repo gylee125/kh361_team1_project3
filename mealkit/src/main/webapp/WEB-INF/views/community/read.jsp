@@ -5,20 +5,27 @@
 <script src="https://code.jquery.com/jquery-3.6.0.slim.min.js"
 	integrity="sha256-u7e5khyithlIdTpu22PHhENmPcRdFiHRjhAuHcs05RI="
 	crossorigin="anonymous"></script>
+
 <script type="text/javascript">
+	function getContextPath() {
+		var hostIndex = location.href.indexOf(location.host)
+				+ location.host.length;
+		return location.href.substring(hostIndex, location.href.indexOf('/',
+				hostIndex + 1));
+	};
 	$(document).ready(function() {
 		var formObj = $("form[name='readForm']");
 
 		// 수정 
 		$("#update").on("click", function() {
-			formObj.attr("action", "/community/update");
+			formObj.attr("action", getContextPath() + "/community/update");
 			formObj.attr("method", "get");
 			formObj.submit();
 		})
 
 		// 삭제
 		$("#delete").on("click", function() {
-			formObj.attr("action", "/community/delete");
+			formObj.attr("action", getContextPath() + "/community/delete");
 			formObj.attr("method", "post");
 			formObj.submit();
 		})
@@ -26,7 +33,7 @@
 		// 취소
 		$("#list").on("click", function() {
 
-			location.href = "/community/list";
+			location.href = getContextPath() + "/community/list";
 		})
 	})
 </script>
@@ -63,11 +70,14 @@
 					<textarea class="form-control" name="content" rows="7"
 						readonly="readonly">${CommunityVO.content}</textarea>
 				</div>
-
+				
 				<div class="box-footer">
+				<c:if test = "${sessionScope.member.MId == CommunityVO.mId}">
 					<button type="submit" class="btn btn-main" id="update">Modify</button>
 					<button type="submit" class="btn btn-main" id="delete">REMOVE</button>
-					<button type="submit" class="btn btn-main" id="list">LIST ALL</button>
+				</c:if>	
+					<button type="submit" class="btn btn-main" id="list">LIST
+						ALL</button>
 				</div>
 
 				<!-- <div class="text-center">

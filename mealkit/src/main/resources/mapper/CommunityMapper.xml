@@ -5,7 +5,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 
 <mapper namespace="com.mealkit.mapper.CommunityMapper">
 
-	<select id="listPage" resultType="com.mealkit.board.CommunityVO">
+	<select id="list" resultType="com.mealkit.board.CommunityVO">
 	
 	select cNo, 
 			mId, 

@@ -2,45 +2,47 @@ package com.mealkit.board;
 
 import java.util.List;
 
-import javax.inject.Inject;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import com.mealkit.mapper.CommunityMapper;
 
 @Service
 public class CommunityServiceImpl implements CommunityService {
 
-	@Inject
-	private CommunityDAO dao;
+	@Autowired
+	private CommunityMapper communityMapper;
 
 	@Override
 	public void write(CommunityVO community) throws Exception {
-		dao.write(community);
+		communityMapper.write(community);
 	}
 
 	@Override
 	public CommunityVO read(Integer cNo) throws Exception {
-		return dao.read(cNo);
+		return communityMapper.read(cNo);
 	}
 
 	@Override
 	public void update(CommunityVO community) throws Exception {
-		dao.update(community);
+		communityMapper.update(community);
 	}
 
 	@Override
 	public void delete(Integer cNo) throws Exception {
-		dao.delete(cNo);
+		communityMapper.delete(cNo);
 	}
 
 	@Override
 	public List<CommunityVO> list(SearchCriteria scri) throws Exception {
-		return dao.list(scri);
+		return communityMapper.list(scri);
 	}
 
 	@Override
 	public int listCount(SearchCriteria scri) throws Exception {
 		
-		return dao.listCount(scri);
+		return communityMapper.listCount(scri);
 	}
 
 }

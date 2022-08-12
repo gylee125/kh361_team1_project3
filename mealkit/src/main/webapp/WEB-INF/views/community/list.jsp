@@ -10,6 +10,19 @@
 	float: left;
 	padding: 6px;
 }
+.page-wrapper {
+    padding: 0;
+}
+
+input[type="text"] {
+    border-radius: 0;
+    box-shadow: none;
+    height: 23px;
+    outline: none;
+    font-weight: 200;
+    font-size: 12px;
+}
+
 </style>
 
 
@@ -38,10 +51,10 @@
 								<table class="table">
 									<thead>
 										<tr>
-											<th>CNO</th>
-											<th>MID</th>
-											<th>TITLE</th>
-											<th>REGDATE</th>
+											<th>번호</th>
+											<th>작성자</th>
+											<th>제목</th>
+											<th>작성일</th>
 											<th></th>
 										</tr>
 									</thead>
@@ -50,15 +63,19 @@
 											<tr>
 												<td>${CommunityVO.cNo}</td>
 												<td>${CommunityVO.mId}</td>
-												<td><a href='/community/read?cNo=${CommunityVO.cNo}'>${CommunityVO.title}</a></td>
+												<td><a href='<%=request.getContextPath()%>/community/read?cNo=${CommunityVO.cNo}'>${CommunityVO.title}</a></td>
 												<td><fmt:formatDate pattern="yyyy-MM-dd HH:mm"
 														value="${CommunityVO.regDate}" /></td>
 											</tr>
 										</c:forEach>
 									</tbody>
+									
+									<c:if test = "${sessionScope.member.MId !=null}">
 									<ul class="list-inline dashboard-menu text-right">
-										<li><a class="active" href="/community/write">Write</a></li>
+										<li><a class="active" href="<%=request.getContextPath()%>/community/write">Write</a></li>
 									</ul>
+									</c:if>
+									
 								</table>
 								
 					<div class="search">
@@ -72,7 +89,7 @@
 						
 						<input type="text" name="keyword" id="keywordInput" value="${scri.keyword}"/>
 						
-						<button id="searchBtn" type="button">검색</button> 	
+						<button id="searchBtn">검색</button> 	
 						
 						<script>
 							 $(function(){

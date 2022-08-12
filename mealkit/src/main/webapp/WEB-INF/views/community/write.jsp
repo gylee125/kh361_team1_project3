@@ -14,7 +14,8 @@
 				<form class="text-left clearfix" method="post">
 					<div class="form-group">
 						<input type="text" name='mId' class="form-control"
-							placeholder="작성자">
+							placeholder="작성자" value="${member.MId}"
+							readonly="readonly"> 
 					</div>
 					<div class="form-group">
 						<input type="text" name='title' class="form-control"
