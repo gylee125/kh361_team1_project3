@@ -49,11 +49,16 @@ public class MemberController {
 	
 	// 아이디 저장용 쿠키 세팅
 	private void setCookieForSaveId(HttpServletResponse response, String saveId, String loginId) {
-		if (saveId != null) { // 아이디 저장 버튼 눌렀는지 확인하는 역할;
-			Cookie cookieSaveId = new Cookie("saveId", loginId);
-			cookieSaveId.setMaxAge(60 * 60 * 24 * 7); // (초단위 입력 = 7일)
-			response.addCookie(cookieSaveId);
-		}
+		if (saveId != null) // 아이디 저장 버튼 눌렀는지 확인하는 역할;			
+			addCookie(response, loginId, 60 * 60 * 24 * 7); //(초단위 입력 = 7일)
+		else  // 아이디 저장 버튼 해제했으므로, 쿠키 삭제			
+			addCookie(response, null, 0); // 수명 0초 쿠키를 등록한다 = 쿠키 없애겠다
+	}
+	
+	private void addCookie(HttpServletResponse response, String id, int setMaxAge) {
+		Cookie cookieSaveId = new Cookie("saveId", id);
+		cookieSaveId.setMaxAge(setMaxAge);
+		response.addCookie(cookieSaveId);
 	}
 	
 	// alert.jsp 정리
