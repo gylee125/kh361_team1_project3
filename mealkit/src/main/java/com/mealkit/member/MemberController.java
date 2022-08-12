@@ -31,31 +31,31 @@ public class MemberController {
 		return "member/login";
 	}
 	
-	// 코드 정리 필요
 	@RequestMapping(value = "/submitLogin.do", method = RequestMethod.POST)
-	public String submitLogin(MemberDTO member, HttpServletRequest request, HttpServletResponse response)
-			throws Exception {
-
-		String saveId = request.getParameter("saveId");
+	public String submitLogin(MemberDTO member, HttpServletRequest request, HttpServletResponse response) throws Exception {
 		HttpSession session = request.getSession();
-		MemberDTO loginData = memberService.submitLogin(member);
-
-		if (loginData != null) {
-			session.setAttribute("member", loginData);
-
-			// 아이디 저장 기능
-			if (saveId != null) {
-				Cookie cookieSaveId = new Cookie("saveId", loginData.getMId());
-				cookieSaveId.setMaxAge(60 * 60 * 24 * 7); // (초단위 입력 = 7일)
-				response.addCookie(cookieSaveId);
-			}
-
-		} else {
-			request.setAttribute("msg", "로그인 오류! ID와 비밀번호를 확인해주세요~!!");
-			request.setAttribute("url", "login.do");
-			return "alert";
-		}
+		MemberDTO loginData = memberService.submitLogin(member); 
+		if (loginData == null) // 비밀번호 틀리면 null값 들어옴		
+			return alertMsgAndGoUrl(request, "로그인 오류! ID와 비밀번호를 확인해주세요~!!", "login.do");
+		session.setAttribute("member", loginData);	
+		setCookieForSaveId(response, request.getParameter("saveId"), loginData.getMId());
 		return "redirect:/";
+	}
+	
+	// 아이디 저장용 쿠키 세팅
+	private void setCookieForSaveId(HttpServletResponse response, String saveId, String loginId) {
+		if (saveId != null) { // 아이디 저장 버튼 눌렀는지 확인하는 역할;
+			Cookie cookieSaveId = new Cookie("saveId", loginId);
+			cookieSaveId.setMaxAge(60 * 60 * 24 * 7); // (초단위 입력 = 7일)
+			response.addCookie(cookieSaveId);
+		}
+	}
+	
+	// alert.jsp 정리
+	private String alertMsgAndGoUrl(HttpServletRequest request, String msg, String url) {
+		request.setAttribute("msg", msg);
+		request.setAttribute("url", url);
+		return "alert";
 	}
 
 	@RequestMapping(value = "/logout.do")
@@ -76,9 +76,7 @@ public class MemberController {
 		MemberDTO loginData = memberService.submitLogin(member);
 		HttpSession session = request.getSession();
 		session.setAttribute("member", loginData); // 가입한 아이디로 로그인도 해주기
-		request.setAttribute("msg", "회원가입되었습니다. 환영합니다~신규 가입 프로모션으로 3000포인트 증정!");
-		request.setAttribute("url", "home");
-		return "alert";
+		return alertMsgAndGoUrl(request, "회원가입되었습니다. 신규 가입 프로모션으로 3000포인트 증정!", "home");
 	}
 
 	@RequestMapping(value = "/checkUniqueId.do")
@@ -114,10 +112,8 @@ public class MemberController {
 			throws Exception {
 		MemberDTO member = memberService.selectMember(mId);
 		member.setPw(pw);
-		memberService.updatePwd(member);
-		request.setAttribute("msg", "비밀번호가 변경되었습니다.");
-		request.setAttribute("url", "login.do");
-		return "alert";
+		memberService.updatePwd(member);	
+		return alertMsgAndGoUrl(request, "비밀번호가 변경되었습니다.", "login.do");
 	}
 
 	@RequestMapping(value = "/checkPwd.do", method = RequestMethod.GET)
@@ -137,10 +133,8 @@ public class MemberController {
 		int result = memberService.checkPwd(member);
 		if (result == 1) {
 			return "member/myPage";
-		} else {
-			request.setAttribute("msg", "비밀번호가 일치하지 않습니다.");
-			request.setAttribute("url", "checkPwd.do");
-			return "alert";
+		} else {			
+			return alertMsgAndGoUrl(request, "비밀번호가 일치하지 않습니다.", "checkPwd.do");
 		}
 	}
 
@@ -150,9 +144,7 @@ public class MemberController {
 
 		MemberDTO updateMember = memberService.selectMember(member.getMId());
 		session.setAttribute("member", updateMember);
-		request.setAttribute("msg", "수정이 완료되었습니다.");
-		request.setAttribute("url", "myPage.do");
-		return "alert";
+		return alertMsgAndGoUrl(request, "수정이 완료되었습니다.", "myPage.do");
 	}
 
 	@RequestMapping(value = "updatePwd", method = RequestMethod.POST)
@@ -164,9 +156,7 @@ public class MemberController {
 
 		MemberDTO updateMember = memberService.selectMember(member.getMId());
 		session.setAttribute("member", updateMember);
-		request.setAttribute("msg", "수정이 완료되었습니다.");
-		request.setAttribute("url", "myPage.do");
-		return "alert";
+		return alertMsgAndGoUrl(request, "수정이 완료되었습니다.", "myPage.do");
 	}
 
 	@RequestMapping(value = "/adminPage.do")
