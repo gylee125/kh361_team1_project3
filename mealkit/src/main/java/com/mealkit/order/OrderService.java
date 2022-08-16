@@ -8,7 +8,7 @@ public interface OrderService {
 
 	public List<OrderVO> showOrderList(String mId) throws Exception;
 	
-	public OrderVO orderDetail (int oId) throws Exception;
+	public List<OrderVO> orderDetail (int oId) throws Exception;
 	
 	
 	public void addCart (CartVO cart) throws Exception;
@@ -26,7 +26,7 @@ public interface OrderService {
 	public void resetCart (String mId) throws Exception;
 	
 	
-	public List<OrderVO> orderAdmin(OrderVO order) throws Exception;
+	public List<OrderVO> orderAdmin() throws Exception;
 	
 	public void updateAdmin (int oId, int statuscode) throws Exception;
 	

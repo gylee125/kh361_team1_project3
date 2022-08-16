@@ -11,6 +11,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 
 
+
 <%@ include file="../include/header.jspf" %>
 
 <section class="page-header">
@@ -36,7 +37,7 @@
 				<div class="col-md-8 col-md-offset-2">
 					<div class="block">
 						<div class="product-list">
-							<form method="post">
+							<form id = "cart_form" name = "cart_form" method="post">
 
 							
 								<table class="table">
@@ -70,7 +71,7 @@
 								</table>
 
 								<a href="<%=request.getContextPath()%>/checkout.do?mId=${member.MId}"
-									class="btn btn-main pull-right">주문하기</a>
+									class="btn btn-main pull-right" onclick="cart_add()">주문하기</a>
 							</form>
 
 
@@ -81,6 +82,7 @@
 		</div>
 	</div>
 </div>
+
 
 
 <%@ include file="../include/footer.jspf" %>

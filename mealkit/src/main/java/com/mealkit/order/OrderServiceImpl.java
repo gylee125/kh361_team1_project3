@@ -25,7 +25,7 @@ public class OrderServiceImpl implements OrderService {
 	}
 	
 	@Override
-	public OrderVO orderDetail(int oId) throws Exception {
+	public List<OrderVO> orderDetail(int oId) throws Exception {
 		return orderMapper.orderDetail(oId);
 	}
 
@@ -71,8 +71,8 @@ public class OrderServiceImpl implements OrderService {
 	
 	
 	@Override
-	public List<OrderVO> orderAdmin(OrderVO order) throws Exception {
-		return orderMapper.orderAdmin(order);
+	public List<OrderVO> orderAdmin() throws Exception {
+		return orderMapper.orderAdmin();
 	}
 
 	

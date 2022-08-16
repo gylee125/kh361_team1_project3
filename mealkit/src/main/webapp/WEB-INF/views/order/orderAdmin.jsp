@@ -48,7 +48,7 @@
 								<tr>
 									<td> ${order.oId} </td>
 									<td>${order.oDate}</td>
-									<th>${member.MId}</th>
+									<th>${order.mId}</th>
 									<td>${order.pName}</td>
 									<td>${order.quantity}</td>
 									<td>${order.price}</td>

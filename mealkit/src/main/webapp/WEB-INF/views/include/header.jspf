@@ -104,14 +104,16 @@ FACEBOOK: https://www.facebook.com/themefisher
 								class="dropdown-toggle"><i class="tf-ion-android-cart"></i>Cart</a>
 							</li>
 						</c:if>
-						<c:if test="${member != null}">
-							<!-- 로그인 정보가 있을 때 -->
+						<c:if test="${member != null and member.MLevel == 1}">
+							<!-- 일반회원 모드 -->
 							<li class="dropdown cart-nav dropdown-slide"><a
 								href="<%=request.getContextPath()%>/cart.do?mId=${member.MId}"
 								class="dropdown-toggle"><i class="tf-ion-android-cart"></i>Cart</a>
 							</li>
 						</c:if>
-						
+						<c:if test="${member != null and member.MLevel == 2}">
+							<!-- 운영자 모드 -->
+						</c:if>
 						
 							<!--
 							<div class="dropdown-menu cart-dropdown">

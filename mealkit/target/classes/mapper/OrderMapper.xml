@@ -80,8 +80,13 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	
 	<select id="orderAdmin"
 		resultType="com.mealkit.order.OrderVO">
-		select * from userOrder
-		order by oId desc
+		
+		select a.oId, a.mId, a.pId, a.quantity, a.odate, a.price, a.statusCode, b.pName, c.statusName
+        from userOrder a, product b, statusType c
+        where a.pid = b.pid 
+        and a.statusCode = c.statusCode 
+        order by oId desc
+        
 	</select>
 	
 	<update id="updateAdmin">
@@ -93,7 +98,8 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	
 	<delete id="deleteAdmin">
 	delete from userorder
-	where oId = #{oId}
+	where mId = ${mId}
+	and oId = #{oId}
 	</delete>
 
 

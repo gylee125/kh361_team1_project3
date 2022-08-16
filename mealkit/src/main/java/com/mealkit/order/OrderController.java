@@ -30,14 +30,19 @@ public class OrderController {
 	public String order(String mId, HttpServletRequest request, HttpSession session) throws Exception {
 		List<OrderVO> orderList = orderService.showOrderList(mId);
 		
-		session.setAttribute("orderList", orderList);
+		if(!orderList.isEmpty()) {
+			session.setAttribute("orderList", orderList);
+		} else {
+			// request.setAttribute("msg", "장바구니가 비었습니다.");
+	        // request.setAttribute("url", "emptyCart.do"); 
+			return "order/empty-order";
+		}
 		return "order/order";
 	}
 	
 	@RequestMapping(value="/order-detail.do")
 	public String orderDetail(int oId, HttpServletRequest request, HttpSession session) throws Exception {
-		OrderVO orderDetail = orderService.orderDetail(oId);
-		
+		List<OrderVO> orderDetail = orderService.orderDetail(oId);
 		session.setAttribute("orderDetail", orderDetail);
 		return "order/order-detail";
 	}
@@ -50,7 +55,6 @@ public class OrderController {
 		request.setAttribute("msg", "주문목록에 상품이 추가됐습니다.");
 		request.setAttribute("url", "confirmation.do");
 		return "alert";
-
 	}
 	
 	@RequestMapping(value="/confirmation.do")
@@ -66,12 +70,12 @@ public class OrderController {
 		public String cart(String mId, HttpServletRequest request, HttpSession session) throws Exception {
 			List<CartVO> cartList = orderService.showCart(mId);
 			
-			if(cartList != null) {
+			if(!cartList.isEmpty()) {
 				session.setAttribute("cartList", cartList);
 			} else {
-				request.setAttribute("msg", "장바구니가 비었습니다.");
-		        request.setAttribute("url", "emptyCart.do"); 
-				return "alert";
+				// request.setAttribute("msg", "장바구니가 비었습니다.");
+		        // request.setAttribute("url", "emptyCart.do"); 
+				return "order/empty-cart";
 			}
 			return "order/cart";
 		}
@@ -98,9 +102,10 @@ public class OrderController {
 		@RequestMapping (value="/addCart.do")
 		public String addCart(CartVO cart, HttpServletRequest request, HttpSession session) throws Exception {
 			orderService.addCart(cart);
+			String MId = request.getParameter("MId");
 			session.setAttribute("cart", cart);
 			request.setAttribute("msg", "장바구니에 상품이 추가됐습니다.");
-	        request.setAttribute("url", "cart"); 
+	        request.setAttribute("url", "cart.do?mId="+MId); 
 			return "alert";
 		}
 		
@@ -129,9 +134,10 @@ public class OrderController {
 		@RequestMapping (value="/deleteCart.do")
 		public String delete(int ucId, HttpServletRequest request, HttpSession session) throws Exception {
 			orderService.delete(ucId);
+			String mId = request.getParameter("mId");
 			session.setAttribute("ucId", ucId);
 			request.setAttribute("msg", "상품이 삭제 되었습니다.");
-	        request.setAttribute("url", "cart"); 
+			request.setAttribute("url", "cart.do?mId="+mId);
 			return "alert";
 		}
 		
@@ -172,10 +178,10 @@ public class OrderController {
 		
 		
 		@RequestMapping(value="/orderAdmin.do")
-		public String orderAdmin(OrderVO order, HttpServletRequest request, HttpSession session) throws Exception {
-			List<OrderVO> orderList = orderService.orderAdmin(order);
+		public String orderAdmin(Model model) throws Exception {
+			List<OrderVO> orderList = orderService.orderAdmin();
 			
-			session.setAttribute("orderList", orderList);
+			model.addAttribute("orderList",orderList);
 			return "order/orderAdmin";
 		}
 		
