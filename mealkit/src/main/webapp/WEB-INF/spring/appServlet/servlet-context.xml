@@ -27,16 +27,19 @@
 	<beans:bean id="LoginInterceptor" class="com.mealkit.member.LoginInterceptor"></beans:bean>
 	<beans:bean id="AdminInterceptor" class="com.mealkit.member.AdminInterceptor"></beans:bean>
 	<!-- Interceptor 설정 -->
-	<interceptors>
-	  <!-- 막상 로그인 안 하면 안되는 곳이 별로 없는듯? 먼저 추리고 적자
+	<interceptors>	 
 	    <interceptor>
-	      <mapping path="/**"/>  
-	       <beans:ref bean="LoginInterceptor"/>
-	    </interceptor>
-	     -->	       
+	      	<mapping path="/myPage.do"/>  
+	      	<mapping path="/updateMyInfo.do"/>  
+	    	<beans:ref bean="LoginInterceptor"/>
+	    </interceptor>	     
 	    <interceptor>
 	        <mapping path="/admin*"/>        
 	        <mapping path="/*Admin.do"/>        
+	        <mapping path="/product/register"/>        
+	        <mapping path="/product/listAdmin"/>        
+	        <mapping path="/prduct/update"/>        
+	        <mapping path="/product/delete"/>        
 	        <beans:ref bean="AdminInterceptor"/>
 	    </interceptor>
 	</interceptors>
