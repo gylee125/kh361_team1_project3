@@ -5,6 +5,8 @@ import java.util.List;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -12,9 +14,11 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import com.mealkit.main.HomeController;
+
 @Controller
 public class OrderController {
-
+	
 	@Autowired
 	private OrderService orderService;
 	
@@ -42,8 +46,8 @@ public class OrderController {
 	
 	@RequestMapping(value="/order-detail.do")
 	public String orderDetail(int oId, HttpServletRequest request, HttpSession session) throws Exception {
-		List<OrderVO> orderDetail = orderService.orderDetail(oId);
-		session.setAttribute("orderDetail", orderDetail);
+		OrderVO orderDetail = orderService.orderDetail(oId);
+		session.setAttribute("order", orderDetail);
 		return "order/order-detail";
 	}
 	
@@ -190,7 +194,7 @@ public class OrderController {
 			orderService.deleteAdmin(oId);
 			session.setAttribute("oId", oId);
 			request.setAttribute("msg", "상품이 삭제 되었습니다.");
-	        request.setAttribute("url", "orderAdmin"); 
+	        request.setAttribute("url", "orderAdmin.do"); 
 			return "alert";
 		}
 		

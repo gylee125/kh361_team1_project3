@@ -98,8 +98,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	
 	<delete id="deleteAdmin">
 	delete from userorder
-	where mId = ${mId}
-	and oId = #{oId}
+	where oId = #{oId}
 	</delete>
 
 

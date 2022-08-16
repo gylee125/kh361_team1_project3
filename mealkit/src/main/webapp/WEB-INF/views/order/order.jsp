@@ -45,8 +45,8 @@
 							<tbody>
 								<c:forEach var="order" items="${orderList}">
 								<tr>
-									<td> ${order.oId} </td>
-									<td>${order.oDate}</td>
+									<td>${order.oId}</td>
+									<td><fmt:formatDate value="${order.oDate}" pattern="yyyy-MM-dd"/></td>
 									<td>${order.pName}</td>
 									<td>${order.quantity}</td>
 									<td>${order.price}</td>

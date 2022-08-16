@@ -1,6 +1,7 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
-<%@ include file="../include/header.jspf" %>
+<%@ include file="../include/header.jspf"%>
 
 <section class="page-header">
 	<div class="container">
@@ -27,6 +28,15 @@
 					<li><a href="<%=request.getContextPath()%>/aviato/address.html">Address</a></li>
 					<li><a href="<%=request.getContextPath()%>/aviato/profile-details.html">Profile</a></li> -->
 				</ul>
+				<ul class="dropdown-menu search-dropdown">
+					<li>
+						<form action="<%=request.getContextPath()%>/product/search"
+							role="form">
+							<input type="text" name="keyword" id="keyword"
+								class="form-control" placeholder="상품 검색">
+						</form>
+					</li>
+				</ul>
 				<div class="dashboard-wrapper user-dashboard">
 					<div class="table-responsive">
 						<table class="table">
@@ -40,21 +50,21 @@
 									<th>결제금액</th>
 									<th>주문현황</th>
 									<th>선택</th>
-									<th></th>
 								</tr>
 							</thead>
 							<tbody>
 								<c:forEach var="order" items="${orderList}">
-								<tr>
-									<td> ${order.oId} </td>
-									<td>${order.oDate}</td>
-									<th>${order.mId}</th>
-									<td>${order.pName}</td>
-									<td>${order.quantity}</td>
-									<td>${order.price}</td>
-									<td><span class="label label-primary">${order.statusName}</span></td>
-									<td class=""><a class="product-remove" href="deleteAdmin.do">삭제</a></td>
-								</tr>
+									<tr>
+										<td>${order.oId}</td>
+										<td><fmt:formatDate value="${order.oDate}" pattern="yyyy-MM-dd"/></td>
+										<td>${order.mId}</td>
+										<td>${order.pName}</td>
+										<td>${order.quantity}</td>
+										<td>${order.price}</td>
+										<td><span class="label label-primary">${order.statusName}</span></td>
+										<td><a class="product-remove"
+											href="deleteAdmin.do?oId=${order.oId}">삭제</a></td>
+									</tr>
 								</c:forEach>
 							</tbody>
 						</table>
@@ -65,4 +75,4 @@
 	</div>
 </section>
 
-<%@ include file="../include/footer.jspf" %>  
+<%@ include file="../include/footer.jspf"%>

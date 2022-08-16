@@ -8,7 +8,7 @@ public interface OrderService {
 
 	public List<OrderVO> showOrderList(String mId) throws Exception;
 	
-	public List<OrderVO> orderDetail (int oId) throws Exception;
+	public OrderVO orderDetail (int oId) throws Exception;
 	
 	
 	public void addCart (CartVO cart) throws Exception;

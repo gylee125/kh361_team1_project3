@@ -28,7 +28,6 @@
           			<div class="block ">
             			<div class="purchase-confirmation-details">
 				            <table id="purchase-receipt" class="table">
-				             <c:forEach var="order" items="${orderList}">
 				                <thead>
 									<tr>
 					                    <th><h4><strong>주문 정보</strong></h4></th>
@@ -37,11 +36,11 @@
 				                <tbody>
 				                	<tr>
 					                    <th><strong>주문번호</strong></th>
-					                    <th>${order.oDate}-${order.oId}</th>
+					                    <th><fmt:formatDate value="${order.oDate}" pattern="yyMMddkkmm"/>-${order.oId}</th>
 				                  	</tr>
 				                  	<tr>
 				                    	<td><strong>주문날짜</strong></td>
-				                    	<td>${order.oDate}</td>
+				                    	<td><fmt:formatDate value="${order.oDate}" pattern="yyyy-MM-dd"/></td>
 				                  	</tr>
 									<tr>
 				                    	<td class=""><strong>주문 내역</strong></td>
@@ -104,7 +103,6 @@
 					                    </tr>
 					                    
 				                </tbody>
-				                </c:forEach>
 				            </table>
 						</div>
 				   
