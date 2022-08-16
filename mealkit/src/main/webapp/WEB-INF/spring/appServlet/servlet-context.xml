@@ -23,6 +23,23 @@
 	
 	<context:component-scan base-package="com.mealkit" />
 	
+	<!-- 인터셉터 객체 생성 -->
+	<beans:bean id="LoginInterceptor" class="com.mealkit.member.LoginInterceptor"></beans:bean>
+	<beans:bean id="AdminInterceptor" class="com.mealkit.member.AdminInterceptor"></beans:bean>
+	<!-- Interceptor 설정 -->
+	<interceptors>
+	  <!-- 막상 로그인 안 하면 안되는 곳이 별로 없는듯? 먼저 추리고 적자
+	    <interceptor>
+	      <mapping path="/**"/>  
+	       <beans:ref bean="LoginInterceptor"/>
+	    </interceptor>
+	     -->	       
+	    <interceptor>
+	        <mapping path="/admin*"/>        
+	        <mapping path="/*Admin.do"/>        
+	        <beans:ref bean="AdminInterceptor"/>
+	    </interceptor>
+	</interceptors>
 	
 	
 </beans:beans>
