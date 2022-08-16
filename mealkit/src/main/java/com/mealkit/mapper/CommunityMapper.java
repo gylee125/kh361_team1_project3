@@ -1,8 +1,12 @@
-package com.mealkit.board;
+package com.mealkit.mapper;
 
 import java.util.List;
+import java.util.Map;
 
-public interface CommunityDAO {
+import com.mealkit.board.CommunityVO;
+import com.mealkit.board.SearchCriteria;
+
+public interface CommunityMapper {
 
 	public void write(CommunityVO vo) throws Exception;
 
@@ -15,4 +19,7 @@ public interface CommunityDAO {
 	public List<CommunityVO> list(SearchCriteria scri) throws Exception;
 	
 	public int listCount(SearchCriteria scri) throws Exception;
+	
+	public void insertFile(Map<String, Object> map) throws Exception;
+	
 }

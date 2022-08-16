@@ -6,39 +6,39 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 <mapper namespace="com.mealkit.mapper.CommunityMapper">
 
 	<select id="list" resultType="com.mealkit.board.CommunityVO">
-	
-	select cNo, 
-			mId, 
-			title, 
-			content, 
-			regDate
- 	from (
- 		select cNo, 
- 			mId, 
- 			title, 
- 			content, 
- 			regDate,
- 			row_number() over(order by cNo desc) as rNum
- 		from community
- 		where 1=1
+
+		select cNo,
+		mId,
+		title,
+		content,
+		regDate
+		from (
+		select cNo,
+		mId,
+		title,
+		content,
+		regDate,
+		row_number() over(order by cNo desc) as rNum
+		from community
+		where 1=1
 
 		<include refid="search" />
-		
- 				) mp
- 	where rNum between #{rowStart} and #{rowEnd}
- 	order by cNo desc
+
+		) mp
+		where rNum between #{rowStart} and #{rowEnd}
+		order by cNo desc
 
 	</select>
-	
+
 	<select id="listCount" resultType="int">
 		SELECT COUNT(cNo)
-		  FROM community
-		  WHERE 1=1
+		FROM community
+		WHERE 1=1
 		<include refid="search" />
-		  
-		 And cNo > 0
+
+		And cNo > 0
 	</select>
-	
+
 	<select id="read" resultType="com.mealkit.board.CommunityVO">
 		select
 		cNo, mId, title, content
@@ -56,55 +56,54 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	<delete id="delete">
 		delete from community where cNo = #{cNo}
 	</delete>
-
+<!-- 
 	<insert id="write">
 		insert into community (cNo, mId, title, content)
 		values(Community_seq.nextval, #{mId},#{title}, #{content})
 	</insert>
-	<!-- 
 	
-	<select id="listPage" resultType="com.mealkit.board.CommunityVO">
+ -->	
+ 	<!-- 게시판 글 작성 -->
+	<insert id="write" parameterType="com.mealkit.board.CommunityVO" useGeneratedKeys="true" keyProperty="cNo">
+	    <selectKey keyProperty="cNo" resultType="int" order="BEFORE">
+	    	SELECT Community_seq.NEXTVAL FROM DUAL
+	    </selectKey>
+	    INSERT INTO community (  cNo 
+	   					       , mId 
+	   					       , title 
+	   					       , content  )
+	                  VALUES(    #{cNo}
+	                 		   , #{mId}
+	                 		   , #{title}
+	                 		   , #{content}  )
+   
+    </insert>
 	
-	<![CDATA[
-	select cNo, 
-			mId, 
-			title, 
-			content, 
-			regDate
- 	from (
- 		select cNo, 
- 			mId, 
- 			title, 
- 			content, 
- 			regDate,
- 			row_number() over(order by cNo desc) as rNum
- 		from community
- 		where 1=1
- 	]]>
+	<insert id="insertFile" parameterType="hashMap">
+		INSERT INTO
+		COMMUNITY_FILE(
+		FILE_NO,
+		CNO,
+		ORG_FILE_NAME,
+		STORED_FILE_NAME,
+		FILE_SIZE
+		)VALUES(
+		SEQ_COMMUNITY_FILE_NO.NEXTVAL,
+		#{CNO},
+		#{ORG_FILE_NAME},
+		#{STORED_FILE_NAME},
+		#{FILE_SIZE}
+		)
+	</insert>
 
-		<include refid="search" />
-		
- 	<![CDATA[
- 				) mp
- 	where rNum between #{rowStart} and #{rowEnd}
- 	order by cNo desc
-	 ]]>
 
-	</select>
-	
-	<select id="listCount" resultType="int">
-	<![CDATA[
-		SELECT COUNT(cNo)
-		  FROM community
-		  WHERE 1=1
-	]]>
-		<include refid="search" />
-		  
-	<![CDATA[	  
-		 And cNo > 0
-	]]>
-	</select>
- -->
+	<!-- <select id="listPage" resultType="com.mealkit.board.CommunityVO"> <![CDATA[ 
+		select cNo, mId, title, content, regDate from ( select cNo, mId, title, content, 
+		regDate, row_number() over(order by cNo desc) as rNum from community where 
+		1=1 ]]> <include refid="search" /> <![CDATA[ ) mp where rNum between #{rowStart} 
+		and #{rowEnd} order by cNo desc ]]> </select> <select id="listCount" resultType="int"> 
+		<![CDATA[ SELECT COUNT(cNo) FROM community WHERE 1=1 ]]> <include refid="search" 
+		/> <![CDATA[ And cNo > 0 ]]> </select> -->
 	<sql id="search">
 		<if test="searchType != null">
 			<if test="searchType == 't'.toString()">AND title LIKE '%' || #{keyword} || '%'</if>

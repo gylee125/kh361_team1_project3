@@ -1,22 +1,34 @@
 package com.mealkit.board;
 
 import java.util.List;
-
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartHttpServletRequest;
 
 import com.mealkit.mapper.CommunityMapper;
+import com.mealkit.util.FileUtils;
 
 @Service
 public class CommunityServiceImpl implements CommunityService {
-
+	
+	@Autowired
+	private FileUtils fileUtils;
+	
 	@Autowired
 	private CommunityMapper communityMapper;
 
 	@Override
-	public void write(CommunityVO community) throws Exception {
+	public void write(CommunityVO community, MultipartHttpServletRequest communityRequest) throws Exception {
 		communityMapper.write(community);
+		
+		List<Map<String,Object>> list = fileUtils.parseInsertFileInfo(community, communityRequest); 
+		int size = list.size();
+		for(int i=0; i<size; i++){ 
+			communityMapper.insertFile(list.get(i)); 
+		}
+		
 	}
 
 	@Override

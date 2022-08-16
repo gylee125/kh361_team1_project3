@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.multipart.MultipartHttpServletRequest;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 @Controller
@@ -30,12 +31,12 @@ public class CommunityController {
 	}
 
 	@RequestMapping(value = "/write", method = RequestMethod.POST)
-	public String writePOST(CommunityVO community, RedirectAttributes rttr) throws Exception {
+	public String writePOST(CommunityVO community, MultipartHttpServletRequest communityRequest ,RedirectAttributes rttr) throws Exception {
 
 		logger.info("write post ...........");
 		logger.info(community.toString());
 
-		service.write(community);
+		service.write(community, communityRequest);
 
 		rttr.addFlashAttribute("msg", "SUCCESS");
 		return "redirect:/community/list";
