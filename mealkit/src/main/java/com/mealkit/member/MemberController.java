@@ -38,9 +38,11 @@ public class MemberController {
 	
 	@RequestMapping(value = "/submitLogin.do", method = RequestMethod.POST)
 	public String submitLogin(MemberDTO member, HttpServletRequest request, HttpServletResponse response) throws Exception {		
-		MemberDTO loginData = memberService.submitLogin(member); 
+		MemberDTO loginData = memberService.submitLogin(member); 			
 		if (loginData == null) // 비밀번호 틀리면 null값 들어옴		
-			return alertMsgAndGoUrl(request, "로그인 오류! ID와 비밀번호를 확인해주세요~!!", "login.do");
+			return alertMsgAndGoUrl(request, "로그인 오류! ID와 비밀번호를 확인해주세요~!!", "login.do");	
+		if (loginData.getMLevel() == -1) // 회원등급 -1 은 탈퇴한 계정
+			return alertMsgAndGoUrl(request, "탈퇴한 계정입니다. 다른 ID로 로그인해주세요~!!", "login.do");	
 		HttpSession session = request.getSession();
 		session.setAttribute("member", loginData);	
 		setCookieForSaveId(response, request.getParameter("saveId"), loginData.getMId());
