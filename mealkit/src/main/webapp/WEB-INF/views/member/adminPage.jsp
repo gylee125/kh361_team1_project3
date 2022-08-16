@@ -51,64 +51,29 @@
 						<h4>Total Members</h4>
 						<div class="table-responsive">
 							<table class="table">
-								<thead>
-									<tr>
-										<th>No</th>
-										<th>ID</th>
-										<th>Name</th>	
-										<th>Email</th>										
-										<th>Since</th>
-										<th>Point</th>
-									</tr>
-								</thead>
-								<tbody>
-									<tr>												
-										<c:forEach var="list" items="${memberList}">					
-											<td>${list.MNo}</td>
-											<td>${list.MId}</td>
-											<td>${list.MName}</td>
-											<td>${list.email}</td>
-											<td>${list.regDate}</td>													
-											<td>${list.point}</td>													
-										</c:forEach>										
-									</tr>
-									<!-- 피카츄는 예시 -->		
-									<tr>
-										<td>1</td>
-										<td>pikachu</td>
-										<td>피카츄</td>
-										<td>pika@poke.mon</td>
-										<td>2022-08-04</td>													
-										<td>3000</td>	
-									</tr>							
-								</tbody>
+									<thead>
+										<tr>
+											<th>No</th>
+											<th>ID</th>
+											<th>Name</th>
+											<th>Email</th>
+											<th>Since</th>
+											<th>Point</th>
+										</tr>
+									</thead>
+									<tbody>
+										<c:forEach var="list" items="${memberlist}">
+											<tr>
+												<td>${list.mNo}</td>
+												<td>${list.mId}</td>
+												<td>${list.mName}</td>
+												<td>${list.email}</td>
+												<td>${list.regDate}</td>
+												<td>${list.currentPoint}</td>
+											</tr>
+										</c:forEach>
+									</tbody>
 							</table>
-							<!-- 작업용 가라 입력태그 -->
-							(테스트용)ID <input type="text" id="inputId" onfocusout="searchMember();" >
-														
-							<div class="dashboard-wrapper dashboard-user-profile" id="showMemberDetail">
-								<div class="media">								
-									<div class="media-body">
-										<ul class="user-profile-list">
-											<li> <span>No:</span> <span id="memberNo"></span> </li>
-											<li> <span>ID:</span> <span id="memberId"></span> </li>
-											<li> <span>Name:</span><span id="memberName"></span></li>
-											<li> <span>Password:</span><span id="memberPw"></span></li>
-											<li> <span>Phone:</span> <span id="memberPhone"></span> </li>
-											<li> <span>Email:</span> <span id="memberEmail"></span> </li>
-											<li> <span>Address:</span> <span id="memberAddress" style="width:50%;"></span> </li>
-											<li> <span>Since:</span> <span id="memberRegDate"></span> </li>
-											<li> <span>Level:</span> <span id="memberMlevel"></span> </li>
-											<li> <span>Point:</span> <span id="memberCurrentPoint"></span> </li>
-											<li> <span>Point Update:</span> <span id="memberUpdateDate"></span> </li>
-										</ul>										
-									</div>									
-								</div>
-								<br>
-								<button type="button" class="btn btn-main text-center" onclick="modifyMemberByAdmin();">수정</button>
-								<button type="button" class="btn btn-main text-center">탈퇴</button>
-								<button type="button" class="btn btn-main text-center" onclick="closeMemberDetail();">닫기</button>
-							</div>
 						</div>
 					</div>
 				</div>

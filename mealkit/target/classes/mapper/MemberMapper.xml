@@ -48,18 +48,6 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 			and mId != #{mId}
 	</select>
 
-	<select id="checkEmail" resultType="com.mealkit.member.MemberDTO">
-		select from member where mId=#{mId}
-	</select>
-
-	<update id="changePwd">
-		update member set pw=#{pw} where mId=#{mId}
-	</update>
-
-	<delete id="deleteAccount">
-		delete from member where mId=#{mId}
-	</delete>
-	
 	<insert id="earnPointForNewMember">
 		insert into point
 			values(#{mId}, 3000, sysdate)			
@@ -77,13 +65,6 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	        and a.mid=#{mId}
 	</select>	
 	
-	<select id="memberList" resultType="com.mealkit.member.MemberListDTO">
-		select 
-			m.mNo, m.mId, m.mName, m.email, m.regDate, p.currentPoint
-		from member m, point p
-		order by mNo desc
-	</select>
-	
 	<update id="submitModifyMemberByAdmin">
 		update MEMBER
 		    set pw=#{pw}, mName=#{mName}, phone=#{phone}, address=#{address}, email=#{email}
@@ -95,4 +76,37 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		    set currentPoint=#{currentPoint}, updateDate=sysdate
 		    where mid=#{mId}
 	</update>
+	
+	<select id="selectMember"
+		resultType="com.mealkit.member.MemberDTO">
+		select * from member where mId=#{mId}
+	</select>
+	
+	<select id="checkPwd" resultType="int">
+		select count(*) from member
+		where mId=#{mId} and pw=#{pw}
+	</select>
+	
+	<update id="updateMyInfo">
+		update member 
+			set mName=#{mName}, email=#{email}, phone=#{phone}, address=#{address}
+		where mId=#{mId}
+	</update>
+
+	<update id="updatePwd">
+		update member set pw=#{pw} where mId=#{mId}
+	</update>
+
+	<update id="deleteMember">
+		update member set mLevel=-1 where mId=#{mId}
+	</update>
+	
+	<select id="selectMemberList" resultType="com.mealkit.member.MemberListDTO">
+		select
+		m.mNo, m.mId, m.mName, m.email, m.regDate, p.currentPoint
+		from member m, point p
+		where m.mId = p.mId and m.mLevel=1
+		order by mNo asc
+	</select>
+	
 </mapper>

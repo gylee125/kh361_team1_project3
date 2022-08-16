@@ -29,7 +29,21 @@ span{
 	font-size: 11px;
 }
 </style>
+<script type="text/javascript">
 
+	//비밀번호 확인
+	function checkPwd() {
+		var pw = document.getElementById("pw").value;
+		var pw2 = document.getElementById("pw2").value;
+
+		if (pw != pw2) {
+			document.getElementById("check").innerHTML = '비밀번호가 일치하지 않습니다.';
+			document.getElementById("check").style.color = 'red';
+			return false;
+		}
+	}
+	
+</script>
 </head>
 <body id="body">
 
@@ -101,23 +115,26 @@ span{
                         <input type="text" class="form-control" name="address" value="${member.address}">
                      </div>
                      <button type="submit" class="btn btn-main btn-small btn-round">수정</button> 
-                  </form>
+                  </form><!-- 수정필요 개인정보 유효성검사 -->
                </div>   
                <!-- 비밀번호 -->
-               <div class="block">
-                    <h4 class="widget-title">비밀번호 변경</h4>
-                    <form  class="checkout-form" action="updatePwd.do" method="post">
-                       <div class="form-group">
-                          <label>새 비밀번호</label>
-                          <input type="password" name="pw" class="form-control" >
-                       </div>
-                       <div class="form-group">
-                          <label>비밀번호 확인</label>
-                          <input type="password" id="pw2" class="form-control" >
-                       </div><!-- 수정필요 비밀번호 일치여부 검사~!~!~! -->
-                          <button type="submit" class="btn btn-main btn-small btn-round">변경</button>
-                   </form> 
-               </div>
+						<div class="block">
+							<h4 class="widget-title">비밀번호 변경</h4>
+							<form class="checkout-form" action="updatePwd.do" method="post"
+								onsubmit="return checkPwd();">
+								<div class="form-group">
+									<label>새 비밀번호</label> <input type="password" name="pw" id="pw"
+										class="form-control"required">
+								</div>
+								<div class="form-group">
+									<label>비밀번호 확인</label> <input type="password" id="pw2"
+										class="form-control" required><br> <span
+										id="check"></span>
+								</div>
+								<input type="submit" class="btn btn-main btn-small btn-round"
+									value="변경">
+							</form>
+						</div>
                <!-- 탈퇴 -->
                <div class="block">
                  	<h4 class="widget-title"></h4>
