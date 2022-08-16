@@ -58,6 +58,7 @@ public class MemberController {
 	}
 	
 	private void addCookie(HttpServletResponse response, String id, int setMaxAge) {
+		logger.info("쿠키 생성 : {}", id);
 		Cookie cookieSaveId = new Cookie("saveId", id);
 		cookieSaveId.setMaxAge(setMaxAge);
 		response.addCookie(cookieSaveId);
@@ -173,7 +174,7 @@ public class MemberController {
 
 	@RequestMapping(value = "/adminPage.do")
 	public String adminPage(Model model) throws Exception {
-		List<MemberListDTO> list = memberService.memberList();
+		List<MemberDTO> list = memberService.memberList();
 		model.addAttribute("memberList", list);
 		return "member/adminPage";
 	}

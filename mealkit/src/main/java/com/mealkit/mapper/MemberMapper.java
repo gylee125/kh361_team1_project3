@@ -32,7 +32,7 @@ public interface MemberMapper {
 
     public MemberDTO showMemberDetail(String mId) throws Exception;   
 
-    public List<MemberListDTO> memberList() throws Exception;
+    public List<MemberDTO> memberList() throws Exception;
 
     public void submitModifyMemberByAdmin(MemberDTO member) throws Exception;
 

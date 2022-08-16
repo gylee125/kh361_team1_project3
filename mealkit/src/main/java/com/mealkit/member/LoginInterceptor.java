@@ -10,17 +10,17 @@ import lombok.extern.slf4j.Slf4j;
 @Slf4j
 public class LoginInterceptor extends HandlerInterceptorAdapter{
 	
-	 @Override
-	    public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler)
-	            throws Exception {
-		 	log.info("로그인 확인 인터셉트 작동!");
-	        HttpSession session = request.getSession();
-	        Object obj = session.getAttribute("member");
-	        if ( obj == null ){     
-	        	log.error("잘못된 접근 : 로그인 필요");
-	            response.sendRedirect(request.getContextPath() + "/");
-	            return false; 
-	        }       
-	        return true;
-	    } 
+	@Override
+	public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler)
+	        throws Exception {
+	 	log.info("로그인 확인 인터셉트 작동!");
+	    HttpSession session = request.getSession();
+	    Object obj = session.getAttribute("member");
+	    if ( obj == null ){     
+	    	log.error("잘못된 접근 : 로그인 필요");
+	        response.sendRedirect(request.getContextPath() + "/");
+	        return false; 
+	    }       
+	    return true;
+	} 
 }

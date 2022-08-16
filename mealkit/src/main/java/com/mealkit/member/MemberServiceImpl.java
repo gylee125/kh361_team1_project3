@@ -64,7 +64,7 @@ public class MemberServiceImpl implements MemberService {
     }
 
     @Override
-    public List<MemberListDTO> memberList() throws Exception  {
+    public List<MemberDTO> memberList() throws Exception  {
         return memberMapper.memberList();
     }
 
