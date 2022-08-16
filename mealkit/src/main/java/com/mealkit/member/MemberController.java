@@ -29,7 +29,7 @@ public class MemberController {
 
 	@RequestMapping(value = "/login.do")
 	public String login(@CookieValue(value="saveId", required=false)Cookie cookie, Model model) {	
-		if (cookie != null) {
+		if (cookie != null) { // 아이디 저장 쿠키 있으면 불러오기
 			String saveIdCookie = cookie.getValue();
 			model.addAttribute("saveIdCookie", saveIdCookie);
 		}		
@@ -44,8 +44,8 @@ public class MemberController {
 		if (loginData.getMLevel() == -1) // 회원등급 -1 은 탈퇴한 계정
 			return alertMsgAndGoUrl(request, "탈퇴한 계정입니다. 다른 ID로 로그인해주세요~!!", "login.do");	
 		HttpSession session = request.getSession();
-		session.setAttribute("member", loginData);	
-		setCookieForSaveId(response, request.getParameter("saveId"), loginData.getMId());
+		session.setAttribute("member", loginData); // 회원가입 완료되면 해당 정보로 로그인도 해주기
+		setCookieForSaveId(response, request.getParameter("saveId"), loginData.getMId()); // 아이디저장 체크박스 확인 후, 쿠키 생성
 		return "redirect:/";
 	}
 	
@@ -63,7 +63,7 @@ public class MemberController {
 		response.addCookie(cookieSaveId);
 	}
 	
-	// alert.jsp 정리
+	// alert.jsp 연결문 정리
 	private String alertMsgAndGoUrl(HttpServletRequest request, String msg, String url) {
 		request.setAttribute("msg", msg);
 		request.setAttribute("url", url);
@@ -173,8 +173,8 @@ public class MemberController {
 
 	@RequestMapping(value = "/adminPage.do")
 	public String adminPage(Model model) throws Exception {
-		// List<MemberListDTO> list = memberService.memberList();
-		// model.addAttribute("memberList", list);
+		List<MemberListDTO> list = memberService.memberList();
+		model.addAttribute("memberList", list);
 		return "member/adminPage";
 	}
 
@@ -199,7 +199,7 @@ public class MemberController {
 		return memberService.showMemberDetail(mId);
 	}
 
-	@RequestMapping(value = "/modifyMemberByAdmin.do") // 취합할때 상의하고, 게시판 쪽으로 이전
+	@RequestMapping(value = "/modifyMemberByAdmin.do")
 	public String modifyMemberByAdmin(Model model, String mId) throws Exception {
 		MemberDTO member = memberService.showMemberDetail(mId);
 		model.addAttribute("selectMember", member);
@@ -237,7 +237,7 @@ public class MemberController {
 	@RequestMapping(value = "/closeAccount.do", method = RequestMethod.POST)
 	public String closeAccount(String mId, HttpSession session) throws Exception {
 		memberService.closeAccount(mId); // 일단 삭제는 안 하고 mLevel -1(별도로 '탈퇴상태' 코드 부여)두기.
-		session.invalidate(); // 탈퇴처리하고 로그아웃
+		session.invalidate(); // 탈퇴처리했으니 로그아웃
 		return "redirect:/";
 	}
 	

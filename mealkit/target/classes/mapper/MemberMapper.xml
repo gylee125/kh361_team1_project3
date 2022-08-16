@@ -74,14 +74,14 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		select a.mno, a.mid, a.pw, a.mName, a.phone, a.address, a.email, a.regDate, a.mLevel, b.currentPoint, b.updateDate 
 	    	from member a, point b
 	        where a.mid=b.mid 
-	        and a.mid=#{mId}
+	        and a.mid=#{mId}	       
 	</select>	
 	
-	<select id="memberList" resultType="com.mealkit.member.MemberListDTO">
-		select 
-			m.mNo, m.mId, m.mName, m.email, m.regDate, p.currentPoint
-		from member m, point p
-		order by mNo desc
+	<select id="memberList" resultMap="member">
+		select a.mno, a.mid, a.pw, a.mName, a.phone, a.address, a.email, a.regDate, a.mLevel, b.currentPoint, b.updateDate 
+	    	from member a, point b
+	        where a.mid=b.mid 	        
+			order by a.mNo desc
 	</select>
 	
 	<update id="submitModifyMemberByAdmin">

@@ -61,30 +61,21 @@
 										<th>Point</th>
 									</tr>
 								</thead>
-								<tbody>
-									<tr>												
-										<c:forEach var="list" items="${memberList}">					
-											<td>${list.MNo}</td>
-											<td>${list.MId}</td>
-											<td>${list.MName}</td>
-											<td>${list.email}</td>
-											<td>${list.regDate}</td>													
-											<td>${list.point}</td>													
-										</c:forEach>										
-									</tr>
-									<!-- 피카츄는 예시 -->		
-									<tr>
-										<td>1</td>
-										<td>pikachu</td>
-										<td>피카츄</td>
-										<td>pika@poke.mon</td>
-										<td>2022-08-04</td>													
-										<td>3000</td>	
-									</tr>							
+								<tbody>																				
+									<c:forEach var="list" items="${memberList}">	
+										<tr>	
+											<td> <a href="javascript:searchMember('${list.MId}');"> ${list.MNo} </a></td>
+											<td> <a href="javascript:searchMember('${list.MId}');"> ${list.MId} </a></td>
+											<td><a href="javascript:searchMember('${list.MId}');"> ${list.MName} </a></td>
+											<td><a href="javascript:searchMember('${list.MId}');"> ${list.email} </a></td>
+											<td><a href="javascript:searchMember('${list.MId}');"> 
+											<fmt:formatDate value="${list.regDate}" pattern="yyyy-MM-dd"/>
+											</a></td>
+											<td><a href="javascript:searchMember('${list.MId}');"> ${list.pointDTO.currentPoint} </a></td>
+										</tr>												
+									</c:forEach>									
 								</tbody>
-							</table>
-							<!-- 작업용 가라 입력태그 -->
-							(테스트용)ID <input type="text" id="inputId" onfocusout="searchMember();" >
+							</table>							
 														
 							<div class="dashboard-wrapper dashboard-user-profile" id="showMemberDetail">
 								<div class="media">								
@@ -120,14 +111,14 @@
 <script>
 
 	let showMemberDetail = document.getElementById("showMemberDetail");
-	let inputId = document.getElementById("inputId");
+	
 	showMemberDetail.style.display = 'none';
 	
-	// alert("js 작동 테스트 34");
+	//alert("js 작동 테스트 37");
+
+	function searchMember(inputId){		
 		
-	function searchMember(){		
-		
-		fetch("<%=request.getContextPath()%>/showMemberDetail.do?mId=" + inputId.value)
+		fetch("<%=request.getContextPath()%>/showMemberDetail.do?mId=" + inputId)
 			.then((response) => response.json())			
 			.then((data) => {
 				console.log(data);
