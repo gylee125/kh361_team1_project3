@@ -158,7 +158,7 @@ public class ProductController {
 		logger.info("/product/delete pId=" + pId);
 
 		request.setAttribute("msg", "상품삭제 완료");
-		request.setAttribute("url", "listAll");
+		request.setAttribute("url", "listAdmin");
 
 		productService.delete(pId);
 
@@ -242,7 +242,6 @@ public class ProductController {
 	@RequestMapping(value = "/display", method = RequestMethod.GET)
 	public ResponseEntity<byte[]> getImage(String fileName){
 		
-		logger.info("getImage()........" + fileName);
 		
 		File file = new File("c:\\upload\\" + fileName);
 		

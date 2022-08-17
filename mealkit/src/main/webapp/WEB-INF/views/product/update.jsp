@@ -18,9 +18,9 @@
 				<div class="col-md-6">
 					<ol class="breadcrumb">
 						<li><a href="<%=request.getContextPath()%>/index.do">Home</a></li>
-						<li><a href="<%=request.getContextPath()%>/shop/all.do">Shop</a></li>
+						<li><a href="<%=request.getContextPath()%>/product/listAll">Shop</a></li>
 						<li><a
-							href="<%=request.getContextPath()%>/shop/type.do?typeCode=${productOne.typeCode}">${productOne.tNameEng}</a></li>
+							href="<%=request.getContextPath()%>/product/listType?typeCode=${productOne.typeCode}">${productOne.tNameEng}</a></li>
 					</ol>
 				</div>
 			</div>
@@ -34,7 +34,7 @@
 								<div class='carousel-inner '>
 									<div class='item active'>
 										<img
-											src='<%=request.getContextPath()%>${productOne.thumbnail}'
+											src='<%=request.getContextPath()%>/product/display?fileName=${productOne.thumbnail}'
 											alt='' />
 									</div>
 								</div>

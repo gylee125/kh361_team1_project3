@@ -13,7 +13,6 @@ public class ProductVO {
 	private String thumbnail;
 	private String image;
 	
-	private AttachImageVO imageTemp;
 	private MultipartFile uploadfile;
 	
 	public int getpId() {
@@ -68,8 +67,7 @@ public class ProductVO {
 	@Override
 	public String toString() {
 		return "ProductVO [pId=" + pId + ", typeCode=" + typeCode + ", pName=" + pName + ", price=" + price + ", brand="
-				+ brand + ", description=" + description + ", thumbnail=" + thumbnail + ", image=" + image
-				+ ", imageTemp=" + imageTemp + "]";
+				+ brand + ", description=" + description + ", thumbnail=" + thumbnail + ", image=" + image + "]";
 	}
 	
 	public MultipartFile getUploadfile() {
@@ -78,13 +76,6 @@ public class ProductVO {
 	public void setUploadfile(MultipartFile uploadfile) {
 		this.uploadfile = uploadfile;
 	}
-	public AttachImageVO getImageTemp() {
-		return imageTemp;
-	}
-	public void setImageTemp(AttachImageVO imageTemp) {
-		this.imageTemp = imageTemp;
-	}
-	
 	
 
 	
