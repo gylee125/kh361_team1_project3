@@ -92,7 +92,7 @@
                         </a>
                         <div class="media-body">
                            <h4 class="media-heading"><a href="<%=request.getContextPath()%>/shop/detail.do?pId=${cart.pId}">${cart.pName}</a></h4>
-                           <p class="price">${cart.cquantity} x ${cart.price}</p>
+                           <p class="price">${cart.cquantity} x <fmt:formatNumber value="${cart.price}" pattern="###,####,###"/>원</p>
                            <a class="remove" href="<%=request.getContextPath()%>/deleteCart.do?mId=${member.MId}&ucId=${cart.ucId}">삭제하기</a>
                         </div>
                      </div>
@@ -109,7 +109,7 @@
                      <ul class="summary-prices">
                         <li>
                            <span>총가격:</span>
-                           <span class="price">${sumPrice} 원</span>
+                           <span class="price"><fmt:formatNumber value="${sumPrice}" pattern="###,####,###"/>원</span>
                         </li>
                         <li>
                            <span>배송비:</span>
@@ -118,7 +118,7 @@
                      </ul>
                      <div class="summary-total">
                         <span>Total</span>
-                        <span>${sumPrice} 원</span>
+                        <span><fmt:formatNumber value="${sumPrice}" pattern="###,####,###"/>원</span>
                      </div>
                   </div>
                </div>

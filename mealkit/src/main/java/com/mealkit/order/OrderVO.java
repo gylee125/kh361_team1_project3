@@ -21,6 +21,10 @@ public class OrderVO {
 	private String pName;
 	private String statusName;
 	
+	// 관리자 주문상세를 위해 회원정보 추가
+	private String mName;
+	private String phone;
+	private String address;
 	
 	public int getoId() {
 		return oId;
@@ -84,12 +88,35 @@ public class OrderVO {
 	public void setStatusName(String statusName) {
 		this.statusName = statusName;
 	}
+	
+	
+	public String getmName() {
+		return mName;
+	}
+	public void setmName(String mName) {
+		this.mName = mName;
+	}
+	public String getPhone() {
+		return phone;
+	}
+	public void setPhone(String phone) {
+		this.phone = phone;
+	}
+	public String getAddress() {
+		return address;
+	}
+	public void setAddress(String address) {
+		this.address = address;
+	}
+	
 	@Override
 	public String toString() {
 		return "OrderVO [oId=" + oId + ", mId=" + mId + ", pId=" + pId + ", quantity=" + quantity + ", oDate=" + oDate
 				+ ", price=" + price + ", statusCode=" + statusCode + ", pName=" + pName + ", statusName=" + statusName
-				+ "]";
+				+ ", mName=" + mName + ", phone=" + phone + ", address=" + address + "]";
 	}
+	
+	
 	
 	
 }

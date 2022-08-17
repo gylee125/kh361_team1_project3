@@ -77,14 +77,17 @@ public class OrderServiceImpl implements OrderService {
 
 	
 	@Override
-	public void updateAdmin (int oId, int statuscode) throws Exception {
-		orderMapper.updateAdmin(oId, statuscode);
+	public void updateAdmin (int oId, int statusCode) throws Exception {
+		orderMapper.updateAdmin(oId, statusCode);
 	}
 	
 	@Override
 	public void deleteAdmin (int oId) throws Exception{
 		orderMapper.deleteAdmin(oId);
 	}
-
+	
+	public OrderVO detailAdmin(int oId) throws Exception{
+		return orderMapper.detailAdmin(oId);
+	}
 
 }

@@ -163,23 +163,17 @@ public class OrderController {
 		}
 		
 		
-		@RequestMapping (value="/updateAdmin.do", method = RequestMethod.GET)
-		public void updateAdmin (@RequestParam("oId") int oId, int statuscode, Model model)throws Exception {
-			CartVO cart = orderService.selectOne(oId);
-			model.addAttribute("cart", cart);
-		}
-
-		@RequestMapping (value="/updateAdmin.do", method = RequestMethod.POST)
-		public String updateAdmin (@RequestParam("oId") int oId, int statuscode, HttpServletRequest request, HttpSession session) throws Exception {
-			orderService.updateAdmin(oId, statuscode);		
-			session.setAttribute("oId", oId);
-			session.setAttribute("statuscode", statuscode);
-			request.setAttribute("msg", "상품 수량이 수정되었습니다.");
+		@RequestMapping (value="/updateAdmin.do")
+		public String updateAdmin (@RequestParam("oId") int oId, @RequestParam("statuscode") int statusCode,  Model model, HttpServletRequest request, HttpSession session) throws Exception {
+			oId = Integer.parseInt("oId");
+			statusCode = Integer.parseInt("statuscode");
+			orderService.updateAdmin(oId,statusCode);	
+			model.addAttribute("oId",oId);
+			model.addAttribute("statusCode",statusCode);
+			request.setAttribute("msg", "상품 정보가 수정 되었습니다.");
 	        request.setAttribute("url", "orderAdmin"); 
 			return "alert";
 		}
-		
-		
 		
 		@RequestMapping(value="/orderAdmin.do")
 		public String orderAdmin(Model model) throws Exception {
@@ -196,6 +190,13 @@ public class OrderController {
 			request.setAttribute("msg", "상품이 삭제 되었습니다.");
 	        request.setAttribute("url", "orderAdmin.do"); 
 			return "alert";
+		}
+		
+		@RequestMapping(value="/detailAdmin.do")
+		public String detailAdmin(int oId, HttpServletRequest request, HttpSession session) throws Exception {
+			OrderVO detailAdmin = orderService.detailAdmin(oId);
+			session.setAttribute("order", detailAdmin);
+			return "order/detailAdmin";
 		}
 		
 

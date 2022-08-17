@@ -58,7 +58,7 @@
 													<a href="<%=request.getContextPath()%>/shop/detail.do?pId=${cart.pId}">${cart.pName}</a>
 												</div>
 											</td> 
-											 <td class="">${cart.price}</td>
+											 <td class=""><fmt:formatNumber value="${cart.price}" pattern="###,####,###"/>원</td>
 											 <!-- <td class=""><input type=number id="stuff" value="1" min="1" max="100"></td> -->
 											 <td class="">${cart.cquantity} </td>
 											<td class=""><a class="product-remove"

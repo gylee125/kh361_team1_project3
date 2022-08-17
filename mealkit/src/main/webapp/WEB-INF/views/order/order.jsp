@@ -49,7 +49,7 @@
 									<td><fmt:formatDate value="${order.oDate}" pattern="yyyy-MM-dd"/></td>
 									<td>${order.pName}</td>
 									<td>${order.quantity}</td>
-									<td>${order.price}</td>
+									<td><fmt:formatNumber value="${order.price}" pattern="###,####,###"/>원</td>
 									<td><span class="label label-primary">${order.statusName}</span></td>
 									<td><a href="<%=request.getContextPath()%>/order-detail.do?oId=${order.oId}">상세보기</a></td>
 									<!-- <td><a href="<%=request.getContextPath()%>/orderDetail.do?MId=${member.MId}&oId=${order.oId}" class="btn btn-default">View</a></td>  -->

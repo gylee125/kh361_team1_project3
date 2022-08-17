@@ -31,7 +31,9 @@ public interface OrderMapper {
 	
 	public List<OrderVO> orderAdmin() throws Exception;
 	
-	public void updateAdmin (int oId, int statuscode) throws Exception;
+	public void updateAdmin (int oId,int statusCode) throws Exception;
 	
 	public void deleteAdmin (int oId) throws Exception;
+
+	public OrderVO detailAdmin(int oId) throws Exception;
 }

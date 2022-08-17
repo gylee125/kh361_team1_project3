@@ -60,10 +60,10 @@
 										<td>${order.mId}</td>
 										<td>${order.pName}</td>
 										<td>${order.quantity}</td>
-										<td>${order.price}</td>
+										<td><fmt:formatNumber value="${order.price}" pattern="###,####,###"/>원</td>
 										<td><span class="label label-primary">${order.statusName}</span></td>
 										<td><a class="product-remove"
-											href="deleteAdmin.do?oId=${order.oId}">삭제</a></td>
+											href="detailAdmin.do?oId=${order.oId}">수정</a></td>
 									</tr>
 								</c:forEach>
 							</tbody>
