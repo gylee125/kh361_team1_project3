@@ -74,8 +74,8 @@ public class MemberServiceImpl implements MemberService {
     }
 
     @Override
-    public void submitModifyPointByAdmin(PointDTO pointDTO) throws Exception {
-        memberMapper.submitModifyPointByAdmin(pointDTO);    
+    public void modifyPoint(String mId, int point) throws Exception {
+        memberMapper.modifyPoint(mId, point);    
     }
 
     @Override

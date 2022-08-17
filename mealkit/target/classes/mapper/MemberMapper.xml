@@ -90,9 +90,9 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		    where mid=#{mId}
 	</update>
 	
-	<update id="submitModifyPointByAdmin">
+	<update id="modifyPoint">
 		update point
-		    set currentPoint=#{currentPoint}, updateDate=sysdate
+		    set currentPoint=#{point}, updateDate=sysdate
 		    where mid=#{mId}
 	</update>
 	

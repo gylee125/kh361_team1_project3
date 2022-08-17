@@ -28,7 +28,7 @@ public interface MemberService {
 
     public void submitModifyMemberByAdmin(MemberDTO member) throws Exception;
 
-    public void submitModifyPointByAdmin(PointDTO pointDTO) throws Exception;
+    public void modifyPoint(String mId, int point) throws Exception;
      
     public int checkEmail(String mId, String email) throws Exception;
     

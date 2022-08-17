@@ -215,15 +215,24 @@ public class MemberController {
 
 	@RequestMapping(value = "/submitModifyPointByAdmin.do", method = RequestMethod.POST) // 포인트 수정은 따로 관리
 	public String submitModifyPointByAdmin(PointDTO pointDTO) throws Exception {
-		memberService.submitModifyPointByAdmin(pointDTO);
+		memberService.modifyPoint(pointDTO.getMId(), pointDTO.getCurrentPoint());
 		return "redirect:/adminPage.do";		
 	}
 	
 	@RequestMapping(value = "/closeAccountByAdmin.do")
 	public String closeAccountByAdmin(String mId) throws Exception {
-		memberService.closeAccount(mId); // 일단 삭제는 안 하고 mLevel -1(별도로 '탈퇴상태' 코드 부여)두기.		
+		memberService.closeAccount(mId); // 일단 삭제는 안 하고 mLevel -1(별도로 '탈퇴상태' 코드 부여)두기.	
+		memberService.modifyPoint(mId, 0); // 탈퇴하면 포인트 0됨
 		return "redirect:/adminPage.do";
 	}
+	
+	@RequestMapping(value = "/closeAccount.do")
+    public String closeAccount(String mId, HttpSession session) throws Exception {
+        memberService.closeAccount(mId); 
+        memberService.modifyPoint(mId, 0); 
+        session.invalidate(); // 탈퇴처리했으니 로그아웃
+        return "redirect:/";
+    }    
 
 	@RequestMapping(value = "/confirmDelete.do", method = RequestMethod.GET)
 	public String confirmDelete() {
@@ -234,14 +243,5 @@ public class MemberController {
 	public String deleteAccount() {
 		return "member/deleteAccount";
 	}
-
-	@RequestMapping(value = "/closeAccount.do", method = RequestMethod.POST)
-	public String closeAccount(String mId, HttpSession session) throws Exception {
-		memberService.closeAccount(mId); // 일단 삭제는 안 하고 mLevel -1(별도로 '탈퇴상태' 코드 부여)두기.
-		session.invalidate(); // 탈퇴처리했으니 로그아웃
-		return "redirect:/";
-	}
-	
-	
 
 }
