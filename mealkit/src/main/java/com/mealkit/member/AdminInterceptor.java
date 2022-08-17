@@ -18,7 +18,7 @@ public class AdminInterceptor extends HandlerInterceptorAdapter{
         HttpSession session = request.getSession();
         MemberDTO member = (MemberDTO)session.getAttribute("member");
         if ( member == null || member.getMLevel() != 2 ){ // mLevel 2면 관리자      	
-        	log.error("잘못된 접근 : 관리자 로그인 아님!!");
+        	log.warn("잘못된 접근 : 관리자 로그인 아님!!");
         	response.sendRedirect(request.getContextPath() + "/");
             return false; 
         }       

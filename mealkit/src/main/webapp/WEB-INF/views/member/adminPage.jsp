@@ -115,7 +115,7 @@
 	showMemberDetail.style.display = 'none';
 	
 	//alert("js 작동 테스트 37");
-
+	
 	function searchMember(inputId){		
 		
 		fetch("<%=request.getContextPath()%>/showMemberDetail.do?mId=" + inputId)
@@ -154,7 +154,7 @@
 	}
 	
 	function closeAccountByAdmin(){
-		alert("해당 계정 탈퇴처리합니다...");
+		confirm("정말로 해당 계정을 탈퇴 처리하시겠습니까?")
 		location.href='<%=request.getContextPath()%>/closeAccountByAdmin.do?mId=' + memberId.innerHTML;
 	}
 	

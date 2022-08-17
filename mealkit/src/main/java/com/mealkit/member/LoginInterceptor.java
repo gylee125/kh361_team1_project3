@@ -17,7 +17,7 @@ public class LoginInterceptor extends HandlerInterceptorAdapter{
 	    HttpSession session = request.getSession();
 	    Object obj = session.getAttribute("member");
 	    if ( obj == null ){     
-	    	log.error("잘못된 접근 : 로그인 필요");
+	    	log.warn("잘못된 접근 : 로그인 필요");
 	        response.sendRedirect(request.getContextPath() + "/");
 	        return false; 
 	    }       
