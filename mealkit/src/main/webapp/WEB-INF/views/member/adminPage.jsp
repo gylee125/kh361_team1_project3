@@ -56,9 +56,10 @@
 										<th>No</th>
 										<th>ID</th>
 										<th>Name</th>	
-										<th>Email</th>										
+										<th>Level</th>	
+										<th>Point</th>																
 										<th>Since</th>
-										<th>Point</th>
+										
 									</tr>
 								</thead>
 								<tbody>																				
@@ -66,12 +67,18 @@
 										<tr>	
 											<td> <a href="javascript:searchMember('${list.MId}');"> ${list.MNo} </a></td>
 											<td> <a href="javascript:searchMember('${list.MId}');"> ${list.MId} </a></td>
-											<td><a href="javascript:searchMember('${list.MId}');"> ${list.MName} </a></td>
-											<td><a href="javascript:searchMember('${list.MId}');"> ${list.email} </a></td>
-											<td><a href="javascript:searchMember('${list.MId}');"> 
-											<fmt:formatDate value="${list.regDate}" pattern="yyyy-MM-dd"/>
-											</a></td>
+											<td> <a href="javascript:searchMember('${list.MId}');"> ${list.MName} </a></td>										
+											<td> <a href="javascript:searchMember('${list.MId}');">
+												<c:choose>
+													<c:when test="${list.MLevel == 2}">관리자</c:when>
+													<c:when test="${list.MLevel == -1}">탈퇴</c:when>
+													<c:otherwise>일반회원</c:otherwise>
+												</c:choose>
+											</a></td>										
 											<td><a href="javascript:searchMember('${list.MId}');"> ${list.pointDTO.currentPoint} </a></td>
+											<td> <a href="javascript:searchMember('${list.MId}');"> 
+											<fmt:formatDate value="${list.regDate}" pattern="yyyy-MM-dd"/>
+											</a></td>											
 										</tr>												
 									</c:forEach>									
 								</tbody>
@@ -114,7 +121,7 @@
 	let withdrawalButton = document.getElementById("withdrawalButton");
 	showMemberDetail.style.display = 'none';
 	
-	alert("js 작동 테스트 40");
+	alert("js 작동 테스트 42");
 	
 	function searchMember(inputId){		
 		
@@ -133,26 +140,28 @@
 				memberRegDate.innerHTML = data.regDate;				
 				memberCurrentPoint.innerHTML = data.pointDTO.currentPoint;				
 				memberUpdateDate.innerHTML = data.pointDTO.updateDate;	
-				if(data.mlevel == 2){
-					memberMlevel.innerHTML = '관리자';	
-					showMemberDetail.style.color="blue";
-					withdrawalButton.style.display="block";
-				}else if(data.mlevel == -1){
-					memberMlevel.innerHTML = '탈퇴';
-					showMemberDetail.style.color="grey";
-					withdrawalButton.style.display="none";
-				}else{					
-					memberMlevel.innerHTML = '일반회원';	
-					showMemberDetail.style.color="black";
-					withdrawalButton.style.display="block";
-				}
-													
+				divideMemberDisplayAboutLevel(data.mlevel);
 				showMemberDetail.style.display = 'block';
 			})
 			.catch(function(){
 				alert("ID 확인바랍니다...");
 				showMemberDetail.style.display = 'none';
 			});
+	}
+	
+	function divideMemberDisplayAboutLevel(memberLevel){
+		if(memberLevel == 2)					
+			memberFontColorAndWithdrawalButtonAboutLevel("관리자", "blue", "block");
+		else if(memberLevel == -1)		
+			memberFontColorAndWithdrawalButtonAboutLevel("탈퇴", "grey", "none");
+		else				
+			memberFontColorAndWithdrawalButtonAboutLevel("일반회원", "black", "block");	
+	}
+	
+	function memberFontColorAndWithdrawalButtonAboutLevel(levelName, color, displayButton){
+		memberMlevel.innerHTML = levelName;	
+		showMemberDetail.style.color= color;
+		withdrawalButton.style.display= displayButton;
 	}
 	
 	function modifyMemberByAdmin(){
