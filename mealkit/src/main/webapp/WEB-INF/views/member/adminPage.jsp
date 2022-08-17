@@ -95,10 +95,10 @@
 										</ul>										
 									</div>									
 								</div>
-								<br>
-								<button type="button" class="btn btn-main text-center" onclick="modifyMemberByAdmin();">수정</button>
-								<button type="button" class="btn btn-main text-center" onclick="closeAccountByAdmin();">탈퇴</button>
-								<button type="button" class="btn btn-main text-center" onclick="closeMemberDetail();">닫기</button>
+								<br>								
+								<button type="button" class="btn btn-main text-center" onclick="modifyMemberByAdmin();">수정</button>														
+								<button type="button" class="btn btn-main text-center" onclick="closeMemberDetail();">닫기</button><br><br>
+								<button type="button" class="btn btn-main text-center" id="withdrawalButton" onclick="closeAccountByAdmin();">탈퇴</button>	
 							</div>
 						</div>
 					</div>
@@ -111,10 +111,10 @@
 <script>
 
 	let showMemberDetail = document.getElementById("showMemberDetail");
-	
+	let withdrawalButton = document.getElementById("withdrawalButton");
 	showMemberDetail.style.display = 'none';
 	
-	//alert("js 작동 테스트 37");
+	alert("js 작동 테스트 40");
 	
 	function searchMember(inputId){		
 		
@@ -133,12 +133,18 @@
 				memberRegDate.innerHTML = data.regDate;				
 				memberCurrentPoint.innerHTML = data.pointDTO.currentPoint;				
 				memberUpdateDate.innerHTML = data.pointDTO.updateDate;	
-				if(data.mlevel == 2)
-					memberMlevel.innerHTML = '관리자';		
-				else if(data.mlevel == -1)
-					memberMlevel.innerHTML = '탈퇴';	
-				else{					
+				if(data.mlevel == 2){
+					memberMlevel.innerHTML = '관리자';	
+					showMemberDetail.style.color="blue";
+					withdrawalButton.style.display="block";
+				}else if(data.mlevel == -1){
+					memberMlevel.innerHTML = '탈퇴';
+					showMemberDetail.style.color="grey";
+					withdrawalButton.style.display="none";
+				}else{					
 					memberMlevel.innerHTML = '일반회원';	
+					showMemberDetail.style.color="black";
+					withdrawalButton.style.display="block";
 				}
 													
 				showMemberDetail.style.display = 'block';
