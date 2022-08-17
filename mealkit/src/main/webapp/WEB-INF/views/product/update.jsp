@@ -64,10 +64,6 @@
 								<input type="text" class="form-control" name="price" id="price" value="${productOne.price}">
 							</div>
 							<div class="product-category">
-								<span>재고수량*</span> 
-								<input type="text" class="form-control" name="stock" id="stock" value="${productOne.stock}">
-							</div>
-							<div class="product-category">
 								<span>브랜드*</span>
 								<input type="text" class="form-control" name="brand" id="brand" value="${productOne.brand}">
 							</div>

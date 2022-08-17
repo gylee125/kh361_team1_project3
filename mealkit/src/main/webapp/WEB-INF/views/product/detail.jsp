@@ -112,7 +112,7 @@
 						</ul>
 						<div class="tab-content patternbg">
 							<div id="details" class="tab-pane fade active in">
-								<img src='<%=request.getContextPath()%>${productOne.image}'>
+								<img src='<%=request.getContextPath()%>${productOne.image}' class="img-responsive">
 							</div>
 
 

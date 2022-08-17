@@ -1,16 +1,20 @@
 package com.mealkit.product;
 
+import org.springframework.web.multipart.MultipartFile;
+
 public class ProductVO {
 	
 	private int pId;
 	private String typeCode;
 	private String pName;
 	private int price;
-	private int stock;
 	private String brand;
 	private String description;
 	private String thumbnail;
 	private String image;
+	
+	private AttachImageVO imageTemp;
+	private MultipartFile uploadfile;
 	
 	public int getpId() {
 		return pId;
@@ -35,12 +39,6 @@ public class ProductVO {
 	}
 	public void setPrice(int price) {
 		this.price = price;
-	}
-	public int getStock() {
-		return stock;
-	}
-	public void setStock(int stock) {
-		this.stock = stock;
 	}
 	public String getBrand() {
 		return brand;
@@ -69,9 +67,25 @@ public class ProductVO {
 	
 	@Override
 	public String toString() {
-		return "ProductVO [pId=" + pId + ", typeCode=" + typeCode + ", pName=" + pName + ", price=" + price + ", stock="
-				+ stock + ", brand=" + brand + ", description=" + description + ", thumbnail=" + thumbnail + ", image="
-				+ image + "]";
+		return "ProductVO [pId=" + pId + ", typeCode=" + typeCode + ", pName=" + pName + ", price=" + price + ", brand="
+				+ brand + ", description=" + description + ", thumbnail=" + thumbnail + ", image=" + image
+				+ ", imageTemp=" + imageTemp + "]";
 	}
+	
+	public MultipartFile getUploadfile() {
+		return uploadfile;
+	}
+	public void setUploadfile(MultipartFile uploadfile) {
+		this.uploadfile = uploadfile;
+	}
+	public AttachImageVO getImageTemp() {
+		return imageTemp;
+	}
+	public void setImageTemp(AttachImageVO imageTemp) {
+		this.imageTemp = imageTemp;
+	}
+	
+	
 
+	
 }
