@@ -121,19 +121,15 @@ public class OrderController {
 		 */
 		
 		@RequestMapping (value="/updateCart.do")
-		public String update( @RequestParam("ucId") int ucId, @RequestParam("cquantuity") int cquantity, HttpServletRequest request, HttpSession session) throws Exception {
+		public String update(@RequestParam("ucId") int ucId, @RequestParam("cquantity") int cquantity, HttpServletRequest request, HttpSession session) throws Exception {
 			orderService.update(ucId, cquantity);
+			String mId = request.getParameter("mId");
 			session.setAttribute("ucId", ucId);
-			session.setAttribute("cquantuty", cquantity);
+			session.setAttribute("cquantity", cquantity);
 			request.setAttribute("msg", "상품 수량이 수정되었습니다.");
-	        request.setAttribute("url", "cart"); 
+	        request.setAttribute("url", "cart.do?mId="+mId); 
 			return "alert";
 		}
-		
-		/*
-		 * @RequestMapping (value="/deleteCart.do", method = RequestMethod.GET) public
-		 * void delete() { }
-		 */
 		
 		@RequestMapping (value="/deleteCart.do")
 		public String delete(int ucId, HttpServletRequest request, HttpSession session) throws Exception {

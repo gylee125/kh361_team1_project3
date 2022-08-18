@@ -37,7 +37,7 @@
 				<div class="col-md-8 col-md-offset-2">
 					<div class="block">
 						<div class="product-list">
-							<form id = "cart_form" name = "cart_form" method="post">
+							<form id="cart_form" name="cart_form" method="post">
 								<table class="table">
 									<thead>
 										<tr>
@@ -47,31 +47,43 @@
 											<th class="">선택</th>
 										</tr>
 									</thead>
-									<tbody>												
-											<c:forEach var="cart" items="${cartList}">
+									<tbody>
+										<c:forEach var="cart" items="${cartList}">
 											<tr class="">
-											<td class="">
-												<div class="product-info">
-													<img width="80" src="<%=request.getContextPath()%>${cart.thumbnail}" alt="" />
-													<a href="<%=request.getContextPath()%>/shop/detail.do?pId=${cart.pId}">${cart.pName}</a>
-												</div>
-											</td> 
-											 <td class=""><fmt:formatNumber value="${cart.price}" pattern="###,####,###"/>원</td>
-											 <!-- <td class=""><input type=number id="stuff" value="1" min="1" max="100"></td> -->
-											 <td class=""><input type="text" id="cquantity" name="cquantity" value="${cart.cquantity}" />
-											  <button type ="button" onclick="fnCalCount('p',this);">+</button>
-											   <button type ="button" onclick="fnCalCount('m',this);">-</button>
-											   <a class="quantity_modify_btn" data-cquantity="${cart.cquantity}">변경</a></td>
-											<td class=""><a class="product-remove"
-												href="deleteCart.do?ucId=${cart.ucId}&mId=${member.MId}">삭제</a>
-											</td>
-										</tr>
-										</c:forEach> 
-										
+												<td class="">
+													<div class="product-info">
+														<img width="80"
+															src="<%=request.getContextPath()%>${cart.thumbnail}"
+															alt="" /> <a
+															href="<%=request.getContextPath()%>/shop/detail.do?pId=${cart.pId}">${cart.pName}</a>
+													</div>
+												</td>
+												<td class=""><fmt:formatNumber value="${cart.price}"
+														pattern="###,####,###" />원</td>
+												<!-- <td class=""><input type=number id="stuff" value="1" min="1" max="100"></td> -->
+												<td class="">
+													<button type="button" onclick="fnCalCount('m',this);">-</button>
+													<input type="text" id="cquantity" name="cquantity" value="${cart.cquantity}" size="1" max="">
+													<button type="button" onclick="fnCalCount('p',this);">+</button>
+												</td>
+
+												<td class="">
+													<%-- <a href="<%=request.getContextPath()%>/updateCart.do?mId=${member.MId}"> --%>
+														<button type="submit">변경</button>
+													<!-- </a> -->
+												</td>
+													
+												<td class=""><a class="product-remove"
+													href="deleteCart.do?ucId=${cart.ucId}&mId=${member.MId}">삭제</a>
+												</td>
+											</tr>
+										</c:forEach>
+
 									</tbody>
 								</table>
 
-								<a href="<%=request.getContextPath()%>/checkout.do?mId=${member.MId}"
+								<a
+									href="<%=request.getContextPath()%>/checkout.do?mId=${member.MId}"
 									class="btn btn-main pull-right" onclick="cart_add()">주문하기</a>
 							</form>
 						</div>

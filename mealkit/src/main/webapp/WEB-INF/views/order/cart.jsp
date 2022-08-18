@@ -40,7 +40,7 @@
 						<div class="product-list">
 							<form action="updateCart.do" id="updateCart" method="get"
 								name="updateCart" role="form">
-
+							<!-- <form id = "cart_form" name = "cart_form" method="post"> -->
 
 								<table class="table">
 									<thead>
@@ -55,8 +55,6 @@
 									<tbody>
 										<c:forEach var="cart" items="${cartList}">
 											<tr class="">
-												<input type="hidden" id="ucId" name="ucId"
-													value="${cart.ucId}" />
 												<td class="">
 													<div class="product-info">
 														<img width="80"
@@ -69,21 +67,21 @@
 												<td class="">${cart.price}</td>
 
 												<td class="">
-													<button type="button" onclick="fnCalCount('p',this);">+</button>
-													<input type="text" id="cquantity" name="cquantity"
-													value="${cart.cquantity}" size="1" max="">
-
+													<input type="hidden" id="mId" name="mId" value="${member.MId}" />
+													<input type="hidden" id="ucId" name="ucId" value="${cart.ucId}" />
 													<button type="button" onclick="fnCalCount('m',this);">-</button>
+													<input type="text" id="cquantity" name="cquantity" value="${cart.cquantity}" size="1" max="">
+													<button type="button" onclick="fnCalCount('p',this);">+</button>
 												</td>
 
 												<td class="">
-													<a href="<%=request.getContextPath()%>/updateCart.do?mId=${member.MId}">
+													<%-- <a href="<%=request.getContextPath()%>/updateCart.do?mId=${member.MId}"> --%>
 														<button type="submit">변경</button>
-													</a>
+													<!-- </a> -->
 												</td>
-
-
-
+									</form>
+									<form id = "cart_form" name = "cart_form" method="post">	
+										<input type="hidden" id="mId" name="mId" value="${member.MId}" />
 												<td class=""><a class="product-remove"
 													href="deleteCart.do?ucId=${cart.ucId}&mId=${member.MId}">삭제</a>
 												</td>

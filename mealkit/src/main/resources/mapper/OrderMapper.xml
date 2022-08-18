@@ -55,20 +55,18 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	
 	<update id="update">
 		update usercart set
-		cquantity = #{param2}
-		where ucId = #{param1}
-		and a.mId = #{mId}
+		cquantity=#{param2}
+		where ucId=#{param1}
 	</update>
 	
 	<delete id="delete">
-	delete from usercart
-	where ucId = #{ucId}
-	and a.mId = #{mId}
-	</delete>
+   delete from usercart
+   where ucId = #{ucId}
+   </delete>
 	
 	<delete id="resetCart">
 	delete from userCart
-	where mId= #{mId}
+	where mId=#{mId}
 	</delete>
 	
 	
