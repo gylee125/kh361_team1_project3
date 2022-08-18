@@ -6,14 +6,13 @@ import java.util.Map;
 
 import javax.inject.Inject;
 
-import org.apache.ibatis.annotations.Param;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.mealkit.mapper.CommentMapper;
@@ -44,6 +43,7 @@ public class CommentController {
 	}
 	
 	// pid mapping후 vo객체를 list화
+	//neverused
 	@RequestMapping(value = "/all/{pid}", method = RequestMethod.GET)
 	public ResponseEntity<List<CommentVO>> list(@PathVariable("pid") Integer pid){
 		ResponseEntity<List<CommentVO>> entity = null;
@@ -129,4 +129,13 @@ public class CommentController {
 		}
 		return entity;
 	}
+	
+	@RequestMapping("/getAttach/{rno}")
+	@ResponseBody
+	public List<String> getAttach(@PathVariable("rno") Integer rno)throws Exception{
+		return commentMapper.getAttach(rno);
+		
+	}
+	
+	
 }

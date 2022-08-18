@@ -22,7 +22,23 @@
 	</beans:bean>
 	
 	<context:component-scan base-package="com.mealkit" />
-	
+	<!-- imageupload -->
+	<context:component-scan base-package="org.zerock.controller" />
+
+	<beans:bean id="multipartResolver"
+		class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
+		<beans:property name="maxUploadSize" value="10485760"></beans:property>
+	</beans:bean>
+
+	<beans:bean id="fileuploadPath" class="java.lang.String">
+		<beans:constructor-arg value="C:\\uploadfiles\\upload">
+		</beans:constructor-arg>
+	</beans:bean>
+	<!-- 
+	<beans:bean id="uploadPath" class="java.lang.String">
+		<beans:constructor-arg value="C:\\zzz\\upload">
+		</beans:constructor-arg>
+	</beans:bean> -->
 	
 	
 </beans:beans>

@@ -21,4 +21,6 @@ public interface CommentMapper {
 	public int count(Integer pid) throws Exception;
 	
 	public int getPid(Integer rno) throws Exception;
+	
+	public List<String> getAttach(Integer rno) throws Exception;
 }

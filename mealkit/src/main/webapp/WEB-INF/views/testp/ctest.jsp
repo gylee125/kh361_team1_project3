@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
+<%@ page import="java.io.*"%>
 <%@ page import="java.sql.DriverManager"%>
 <%@ page import="java.sql.Connection"%>
 <%@ page import="java.sql.PreparedStatement"%>
@@ -10,8 +11,8 @@
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 
 
-<%@ page import="java.text.SimpleDateFormat" %>
-<%@ page import="java.util.Date" %>
+<%@ page import="java.text.SimpleDateFormat"%>
+<%@ page import="java.util.Date"%>
 
 
 <!DOCTYPE html>
@@ -50,10 +51,9 @@
 
 <!-- Main jQuery -->
 <%--     <script src="<%=request.getContextPath()%>/resources/plugins/jquery/dist/jquery.min.js"></script> --%>
-<script src="/resources/plugins/jQuery/jQuery-2.1.4.min.js"></script>
+<!-- <script src="/resources/plugins/jQuery/jQuery-2.1.4.min.js"></script> -->
 <script
 	src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
-
 <!-- Bootstrap 3.1 -->
 <script
 	src="<%=request.getContextPath()%>/resources/plugins/bootstrap/js/bootstrap.min.js"></script>
@@ -107,6 +107,68 @@
 				<div class="tab-content patternbg">
 					<div id="details" class="tab-pane fade active in">
 						<img src='<%=request.getContextPath()%>/resources/images/logo.png'>
+						
+						<!-- testcode -->
+						<!-- <style>
+						.fileDrop {
+	width: 100%;
+	height: 200px;
+	border: 1px dotted blue;
+}
+						</style>
+						
+						<div class='fileDrop'></div>
+
+						<div class='uploadedList'></div>
+						
+						
+						
+						<script>
+						$(".fileDrop").on("dragenter dragover", function(event) {
+							event.preventDefault();
+						});
+
+						$(".fileDrop").on("drop", function(event){
+							event.preventDefault();
+							
+							var files = event.originalEvent.dataTransfer.files;
+							
+							var file = files[0];
+
+							//console.log(file);
+							
+							var formData = new FormData();
+							
+							formData.append("file", file);
+							
+							$.ajax({
+								  url: '/uploadAjax',
+								  data: formData,
+								  dataType:'text',
+								  processData: false,
+								  contentType: false,
+								  type: 'POST',
+								  success: function(data){
+									  
+									  var str ="";
+									  
+									  if(checkImageType(data)){
+										  str ="<div><a href=displayFile?fileName="+getImageLink(data)+">"
+												  +"<img src='displayFile?fileName="+data+"'/>"
+												  +"</a><small data-src="+data+">X</small></div>";
+									  }else{
+										  str = "<div><a href='displayFile?fileName="+data+"'>" 
+												  + getOriginalName(data)+"</a>"
+												  +"<small data-src="+data+">X</small></div></div>";
+									  }
+									  
+									  $(".uploadedList").append(str);
+								  }
+								});	
+						});
+						</script> -->
+						<!-- tcode -->
+						
 					</div>
 					<div id="reviews" class="tab-pane fade">
 						<!-- comment section -->
@@ -115,13 +177,110 @@
 								action="<%=request.getContextPath()%>/reviews/"
 								method="post"> 
 							<div class="form-group"> --%>
-								<input type="text" id="submitReviewWriter" name="reviews"
-									class="form-control" placeholder="Comment">
+							<form id = "submitform">
+							<input type="text" id="submitReviewWriter" name="reviews"
+								class="form-control" placeholder="Comment">
+
+							<%-- <!--confirmed testform -->
+								<form id="commentform" class="text-left clearfix"
+								action="<%=request.getContextPath()%>/reviews/"
+								method="post"> 
+								
+								<input type='file' multiple />
+								<div id = "thumbs"></div>								
+								</form>
+								
+								<!-- testform --> --%>
+
 								<div class="text-center">
-									<button id="submitReview" type="submit"
-										class="btn btn-main text-center">submit Comment</button>
+
+								<input type='file' id='fileupload' name="fileupload[]" multiple />
+
+								<div id="uploadedList" class='uploadedList'>
 								</div>
+
+								<button id="submitReview" type="submit"
+									class="btn btn-main text-center">submit Comment</button>
+							</div>
+							</form>
+
+
+
+							<script>
+	
+							/* $('input[type="file"]').on('change',function(){
+								for(var i = 0 ; i< this.files.length; i ++ ) {
+									
+									var fr = new FileReader();
+									fr.onload = function(e){
+										$('#uploadedList').append('<img src="'+e.target.result+'" width = "50px" height = "50px">')
+										}
+									fr.readAsDataURL(this.files[i]);
+								}	
+							}) */
 							
+							
+							
+								<%-- $("#fileupload").change(function(event){
+									alert($(this).val());
+								
+								var files= event.originalEvent.dataTransfer.files;
+								
+								var file = files[0];
+								
+								console.log(file);
+								
+								var formData = new FormData();
+								
+								formData.append("file",file);
+								
+								$.ajax({
+									
+									url: '<%=request.getContextPath()%>/uploadAjax',
+									data : formData,
+									dataType:'text',
+									processData: false,
+									contentType: false,
+									type: 'POST',
+									success: function(data){
+										
+										var str = "";
+										
+										if(checkImageType(data)){
+											str = "<div><a href=displayFile?fileName="+getImageLink(data)+">"
+													+"<img src='displayFile?fileName="+data+"' />"
+													+"</a><small data-src="+data+">X</small></div>";
+										}else{
+											  str = "<div><a href='displayFile?fileName="+data+"'>" 
+											  + getOriginalName(data)+"</a>"
+											  +"<small data-src="+data+">X</small></div></div>";
+										  }
+										  $(".uploadedList").append(str);
+									}
+								});
+								
+								}); --%>
+								</script>
+
+							<%-- <form id = 'form1' action="<%=request.getContextPath()%>/fileuploadForm" method="post" 
+								target="zeroFrame"
+								enctype="multipart/form-data">
+								<input type='file' name='file'> <input type='submit'>
+								</form>	
+								<iframe name="zeroFrame"></iframe>
+										
+								<script>
+								
+								var result = '${fileSavedName}';
+
+								parent.addFilePath(result);
+								
+								function addFilePath(msg){
+									alert(msg);
+									document.getElementById("form1").reset();
+								}
+								</script> --%>
+
 							<!-- </div>
 							</form> -->
 						</div>
@@ -146,13 +305,13 @@
 	<!-- TESTSECTION -->
 
 
-<script id="template" type="text/x-handlebars-template">
+	<script id="template" type="text/x-handlebars-template">
 
 {{#each .}}
 <ui id="reviewreplyLi" class="replyLi" data-rno={{rno}}>
  <div class="post-comments" >
   <span class="time">
-    <i class="fa fa-clock-o"></i>regdate:{{prettifyDate regdate}}
+    <i class="fa fa-clock-o">regdate:{{prettifyDate regDate}}</i>
   </span>
   <h4 class="comment-author"> <a href="https://www.google.com/search?q={{mId}}">{{mId}}</a></h4>
   <div class="timeline-body">{{content}} </div>
@@ -253,13 +412,43 @@
 		 });
 		
 
-		 $("#submitReview").on("click", function() {
+		 $("#submitReview").on("click", function(event) {
+			 event.preventDefault();
 			//var reviewObj = 
 			var reviewtextObj = $("#submitReviewWriter");
 			var reviewtext = reviewtextObj.val();
 			
 			//testString
 			var mId = 'admin';
+			
+			var files = document.getElementById("fileupload").files;
+			
+			var formData = new FormData();
+			
+			var filelist = document.getElementById("fileupload").files || [];
+			for(var i = 0 ; i < filelist.length; i ++){
+				
+				console.log('foundfile' + i + '=' + filelist[i].name);
+				
+				formData.append("fileupload[]",filelist[i]);
+				
+				
+			}
+			
+				
+
+			
+			
+			
+			/* for(var i = 0 ; i < files.length ; i ++){
+			
+			
+			formData.append("fileupload",$("#fileupload")[i].files[i]);
+				
+			} */
+			
+			//formData.append("fileupload",$("#fileupload")[0].files[0]);
+			
 			
 			$.ajax({
 				
@@ -270,19 +459,50 @@
 					"X-HTTP-Method-Override" : "POST" },
 					
 					dataType:'text',
-					data: JSON.stringify({pid:pid,mId:mId,content:reviewtext,regdate:'1659524489000'}),
+					data: JSON.stringify({pid:pid,mid:mId,content:reviewtext,regdate: 'sysdate'}),
 					success:function(result){
 						
 						console.log("result: " + result);
 						if(result == 'SUCCESS'){
 							alert("posted");
 							replyPage = 1;
-							getPage("<%=request.getContextPath()%>/reviews/"+pid+"/"+replyPage);
-							reviewtextObj.val("");
-						}
-					}});
-				});
-
+							
+							$.ajax({
+									url: '<%=request.getContextPath()%>/uploadAjax',
+									data : formData,
+									processData: false,
+									contentType: false,
+									enctype: 'multipart/form-data',
+									type: 'POST',
+									success: function(result){
+										//$(".uploadedList").removeChild();
+										console.log(result);
+										/*  var str = "";
+										
+										if(checkImageType(data)){
+											str = "<div><a href=displayFile?fileName="+getImageLink(data)+">"
+													+"<img src='displayFile?fileName="+data+"' />"
+													+"</a><small data-src="+data+">X</small></div>";
+										}else{
+											  str = "<div><a href='displayFile?fileName="+data+"'>" 
+											  + getOriginalName(data)+"</a>"
+											  +"<small data-src="+data+">X</small></div></div>";
+										  }
+										  $(".uploadedList").append(str);  */
+									 
+									 }				 
+							 });
+							
+							
+							getPage( "<%=request.getContextPath()%>/reviews/" + pid + "/" + replyPage);
+								reviewtextObj.val("");
+											}
+										}
+								});
+						});
+		 
+		 
+		 
 	</script>
 
 	<script>
@@ -297,8 +517,45 @@
 			//
 
 			var template = Handlebars.compile($("#templateAttach").html());
-
-		})
+			
+		});
+		
+		$("#fileupload").on("change",function handleImgFileSelect(e) {
+		
+	       	var files = e.target.files;
+	        var filesArr = Array.prototype.slice.call(files);
+	 
+	        var reg = /(.*?)\/(jpg|jpeg|png|bmp)$/;
+	        
+	        var sel_file;
+	        var fString = "";
+	 
+	        filesArr.forEach(function(f) {
+	            if (!f.type.match(reg)) {
+	                alert("확장자는 이미지 확장자만 가능합니다.");
+	                return;
+	            }
+	            
+	            /* for(var i = 0 ; i< this.files.length; i ++ ) {
+					var fr = new FileReader();
+					fr.onload = function(e){
+						$('#uploadedList').append('<img src="'+e.target.result+'" width = "50px" height = "50px">')
+						}
+					fr.readAsDataURL(this.files[i]);
+				} */	
+	 
+	            var reader = new FileReader();
+	            
+	            reader.readAsDataURL(f);
+	            
+	            reader.onload = function(e) {
+	                $(".uploadedList").append('<img src="'+ e.target.result+'" width = "50px" height = "50px">')
+          	  }
+	        }); 
+			
+		});
+		
+		
 	</script>
 
 
