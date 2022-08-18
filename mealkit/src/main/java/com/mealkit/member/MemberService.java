@@ -36,5 +36,7 @@ public interface MemberService {
     
     public void deleteMember(String mId) throws Exception;
     
-    List<MemberListDTO> selectMemberList() throws Exception;
+    List<MemberListDTO> selectMemberList(Criteria cri) throws Exception;
+    
+    public int countPage(Criteria cri) throws Exception;
 }

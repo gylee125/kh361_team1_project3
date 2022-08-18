@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.apache.ibatis.annotations.Param;
 
+import com.mealkit.member.Criteria;
 import com.mealkit.member.MemberDTO;
 import com.mealkit.member.MemberListDTO;
 import com.mealkit.member.PointDTO;
@@ -42,6 +43,8 @@ public interface MemberMapper {
     
     public void deleteMember(String mId) throws Exception;
     
-    List<MemberListDTO> selectMemberList() throws Exception;
+    List<MemberListDTO> selectMemberList(Criteria cri) throws Exception;
+    
+    public int countPage(Criteria cri) throws Exception;
     
 }

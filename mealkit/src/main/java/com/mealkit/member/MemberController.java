@@ -9,6 +9,7 @@ import javax.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -253,11 +254,15 @@ public class MemberController {
 	
 	
 	//관리자
-    @RequestMapping(value="/adminPage.do")
-    public String adminPagetest(Model model) throws Exception {
+    @RequestMapping(value = "/adminPage.do", method = RequestMethod.GET)
+    public String listSearch(@ModelAttribute("cri") Criteria cri, Model model) throws Exception {
     	
-    	List<MemberListDTO> list = memberService.selectMemberList();
-    	model.addAttribute("memberlist", list);
+    	model.addAttribute("memberlist", memberService.selectMemberList(cri));
+    	
+    	PageMaker pageMaker = new PageMaker();
+    	pageMaker.setCri(cri);
+    	pageMaker.setTotalCount(memberService.countPage(cri));
+    	model.addAttribute("pageMaker", pageMaker);
     	
     	return "member/adminPage";
     }   

@@ -92,8 +92,13 @@ public class MemberServiceImpl implements MemberService {
     }
 
     @Override
-    public List<MemberListDTO> selectMemberList() throws Exception {
-    	return memberMapper.selectMemberList();
+    public List<MemberListDTO> selectMemberList(Criteria cri) throws Exception {
+    	return memberMapper.selectMemberList(cri);
+    }
+    
+    @Override
+    public int countPage(Criteria cri) throws Exception {
+    	return memberMapper.countPage(cri);
     }
     
 }
