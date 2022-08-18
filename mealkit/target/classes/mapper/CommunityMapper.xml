@@ -96,14 +96,26 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		)
 	</insert>
 
-
-	<!-- <select id="listPage" resultType="com.mealkit.board.CommunityVO"> <![CDATA[ 
-		select cNo, mId, title, content, regDate from ( select cNo, mId, title, content, 
-		regDate, row_number() over(order by cNo desc) as rNum from community where 
-		1=1 ]]> <include refid="search" /> <![CDATA[ ) mp where rNum between #{rowStart} 
-		and #{rowEnd} order by cNo desc ]]> </select> <select id="listCount" resultType="int"> 
-		<![CDATA[ SELECT COUNT(cNo) FROM community WHERE 1=1 ]]> <include refid="search" 
-		/> <![CDATA[ And cNo > 0 ]]> </select> -->
+	<!-- 첨부파일 조회 -->
+	<select id="selectFileList" parameterType="int" resultType="hashMap">
+	SELECT FILE_NO,
+		   ORG_FILE_NAME,
+		   ROUND(FILE_SIZE/1024,1) AS FILE_SIZE
+	  FROM COMMUNITY_FILE
+	 WHERE cNo = #{cNo}
+	   AND DEL_GB = 'N'
+	</select>
+	
+	<!-- 첨부파일 다운 -->
+	<select id="selectFileInfo" parameterType="hashMap" resultType="hashMap">
+	SELECT 
+		STORED_FILE_NAME,
+		ORG_FILE_NAME
+	FROM COMMUNITY_FILE
+	WHERE FILE_NO = #{FILE_NO}
+	</select>
+	
+	
 	<sql id="search">
 		<if test="searchType != null">
 			<if test="searchType == 't'.toString()">AND title LIKE '%' || #{keyword} || '%'</if>

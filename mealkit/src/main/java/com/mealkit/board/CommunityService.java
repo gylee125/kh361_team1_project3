@@ -1,6 +1,7 @@
 package com.mealkit.board;
 
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 
@@ -18,4 +19,7 @@ public interface CommunityService {
   
   public int listCount(SearchCriteria scri) throws Exception;
   
+  public List<Map<String, Object>> selectFileList(int cNo) throws Exception;
+  
+  public Map<String, Object> selectFileInfo(Map<String, Object> map) throws Exception;
 }

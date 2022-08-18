@@ -36,6 +36,14 @@
 			location.href = getContextPath() + "/community/list";
 		})
 	})
+	
+	function fn_fileDown(fileNo){
+			var formObj = $("form[name='readForm']");
+			$("#FILE_NO").attr("value", fileNo);
+			formObj.attr("action", getContextPath()+ "/community/fileDown");
+			formObj.submit();
+		}
+	
 </script>
 
 <body id="body">
@@ -48,9 +56,8 @@
 				</div>
 
 				<form name="readForm" role="form" method="post">
-
 					<input type='hidden' id="cNo" name="cNo" value="${CommunityVO.cNo}">
-
+					<input type="hidden" id="FILE_NO" name="FILE_NO" value=""> 						
 				</form>
 
 				<div class="form-group">
@@ -71,6 +78,13 @@
 						readonly="readonly">${CommunityVO.content}</textarea>
 				</div>
 				
+				<label>File</label>
+				<div class="form-group" style="border: 1px solid #dbdbdb;">
+					<c:forEach var="file" items="${file}">
+						<a href="#" onclick="fn_fileDown('${file.FILE_NO}'); return false;">${file.ORG_FILE_NAME}</a>(${file.FILE_SIZE}kb)<br>
+					</c:forEach>
+				</div>
+				
 				<div class="box-footer">
 				<c:if test = "${sessionScope.member.MId == CommunityVO.mId}">
 					<button type="submit" class="btn btn-main" id="update">Modify</button>
@@ -79,17 +93,7 @@
 					<button type="submit" class="btn btn-main" id="list">LIST
 						ALL</button>
 				</div>
-
-				<!-- <div class="text-center">
-								<button type="submit" class="btn btn-main text-center">Modify
-									</button>
-							</div> -->
-				<!-- <p class="mt-20">
-							Already hava an account ?<a href="login.html"> Login</a>
-						</p>
-						<p>
-							<a href="forget-password.html"> Forgot your password?</a>
-						</p> -->
+				
 			</div>
 		</div>
 	</section>

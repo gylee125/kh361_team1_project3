@@ -57,4 +57,16 @@ public class CommunityServiceImpl implements CommunityService {
 		return communityMapper.listCount(scri);
 	}
 
+	@Override
+	public List<Map<String, Object>> selectFileList(int cNo) throws Exception {
+		
+		return communityMapper.selectFileList(cNo);
+	}
+
+	@Override
+	public Map<String, Object> selectFileInfo(Map<String, Object> map) throws Exception {
+		
+		return communityMapper.selectFileInfo(map);
+	}
+	
 }
