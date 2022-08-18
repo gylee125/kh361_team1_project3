@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.mealkit.mapper.MemberMapper">
+
+	<resultMap type="com.mealkit.member.PointDTO" id="point">		
+		<result column="mId" property="mId" />
+		<result column="currentPoint" property="currentPoint" />				
+		<result column="updateDate" property="updateDate" />				
+	</resultMap>
+
+	<resultMap type="com.mealkit.member.MemberDTO" id="member">
+		<result column="mNo" property="mNo" />
+		<result column="mId" property="mId" />
+		<result column="pw" property="pw" />
+		<result column="mName" property="mName" />
+		<result column="phone" property="phone" />
+		<result column="address" property="address" />
+		<result column="email" property="email" />
+		<result column="regDate" property="regDate" />
+		<result column="mLevel" property="mLevel" />
+		<collection property="pointDTO" resultMap="point" />
+	</resultMap>	
+	
+	<select id="submitLogin" resultType="com.mealkit.member.MemberDTO">
+		select *
+			from member 
+			where mId=#{mId} and pw=#{pw}
+	</select>
+
+	<insert id="submitSignUp">
+		insert into member(mNo, mId, pw, mName, phone, address, email, regDate)
+			values(mNo_seq.nextval, #{mId}, #{pw}, #{mName}, #{phone}, #{address}, #{email}, sysdate)			
+	</insert>
+
+	<select id="checkUniqueId" resultType="int">
+		select count(*) from member where mId=#{mId}
+	</select>
+
+	<select id="checkUniqueEmail" resultType="int">
+		select count(*) from member where email=#{email}
+	</select>
+	
+	<select id="checkUniqueEmailForModify" resultType="int">
+		select count(*) from member where email=#{email} 
+			and mId != #{mId}
+	</select>
+
+	<select id="checkEmail" resultType="com.mealkit.member.MemberDTO">
+		select from member where mId=#{mId}
+	</select>
+
+	<update id="changePwd">
+		update member set pw=#{pw} where mId=#{mId}
+	</update>
+
+	<delete id="deleteAccount">
+		delete from member where mId=#{mId}
+	</delete>
+	
+	<insert id="earnPointForNewMember">
+		insert into point
+			values(#{mId}, 3000, sysdate)			
+	</insert>
+	
+	<select id="showPoint" resultType="com.mealkit.member.PointDTO">
+		select * from point 
+			where mId=#{mId}
+	</select>
+	
+	<select id="showMemberDetail" resultMap="member">
+		select a.mno, a.mid, a.pw, a.mName, a.phone, a.address, a.email, a.regDate, a.mLevel, b.currentPoint, b.updateDate 
+	    	from member a, point b
+	        where a.mid=b.mid 
+	        and a.mid=#{mId}
+	</select>	
+	
+	<select id="memberList" resultType="com.mealkit.member.MemberListDTO">
+		select 
+			m.mNo, m.mId, m.mName, m.email, m.regDate, p.currentPoint
+		from member m, point p
+		order by mNo desc
+	</select>
+	
+	<update id="submitModifyMemberByAdmin">
+		update MEMBER
+		    set pw=#{pw}, mName=#{mName}, phone=#{phone}, address=#{address}, email=#{email}
+		    where mid=#{mId}
+	</update>
+	
+	<update id="submitModifyPointByAdmin">
+		update point
+		    set currentPoint=#{currentPoint}, updateDate=sysdate
+		    where mid=#{mId}
+	</update>
+</mapper>

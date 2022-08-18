@@ -4,6 +4,18 @@
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.mealkit.mapper.CommentMapper">
 
+
+
+	<resultMap type="com.mealkit.board.CommentVO" id="commentvo">
+		<result column="rno" property="rno" />
+		<result column="pid" property="pid"	/>	
+		<result column="mId" property="mId" />
+		<result column="content" property="content" />
+		<result column="regdate" property="regdate" />
+		<result column="updateddate" property="updateddate" />
+	</resultMap>
+	
+	
 	<!-- id 속성은 DAO 의 메소드와 같아야 한다. 여기의 boardVO 는 mybatis-confg.xml 에 Alias 되어 
 		있습니다. -->
 	<select id="list" resultType="com.mealkit.board.CommentVO">
@@ -52,5 +64,21 @@
 		select pid from review where rno
 		= #{rno}
 	</select>
-
+	
+	<insert id="addAttach">
+	insert into filename_tbl(savedFileName,rno) values(#{savedFileName},#{rno})
+	</insert>
+	
+	<select id="getAttach" resultType="string">
+	select savedFileName from filename_tbl where rno = #{rno}
+	</select>
+	
+	<delete id="deleteAttach">
+	delete from filename_tbl where rno = #{rno}
+	</delete>
+	
+	<insert id="replaceAttach">
+	insert into filename_tbl(savedFileName,rno) values (#{savedFileName},#{rno})
+	</insert>
+	
 </mapper>
