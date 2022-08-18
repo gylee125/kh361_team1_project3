@@ -5,20 +5,27 @@
 <script src="https://code.jquery.com/jquery-3.6.0.slim.min.js"
 	integrity="sha256-u7e5khyithlIdTpu22PHhENmPcRdFiHRjhAuHcs05RI="
 	crossorigin="anonymous"></script>
+
 <script type="text/javascript">
+	function getContextPath() {
+		var hostIndex = location.href.indexOf(location.host)
+				+ location.host.length;
+		return location.href.substring(hostIndex, location.href.indexOf('/',
+				hostIndex + 1));
+	};
 	$(document).ready(function() {
 		var formObj = $("form[name='readForm']");
 
 		// 수정 
 		$("#update").on("click", function() {
-			formObj.attr("action", "/community/update");
+			formObj.attr("action", getContextPath() + "/community/update");
 			formObj.attr("method", "get");
 			formObj.submit();
 		})
 
 		// 삭제
 		$("#delete").on("click", function() {
-			formObj.attr("action", "/community/delete");
+			formObj.attr("action", getContextPath() + "/community/delete");
 			formObj.attr("method", "post");
 			formObj.submit();
 		})
@@ -26,9 +33,17 @@
 		// 취소
 		$("#list").on("click", function() {
 
-			location.href = "/community/list";
+			location.href = getContextPath() + "/community/list";
 		})
 	})
+	
+	function fn_fileDown(fileNo){
+			var formObj = $("form[name='readForm']");
+			$("#FILE_NO").attr("value", fileNo);
+			formObj.attr("action", getContextPath()+ "/community/fileDown");
+			formObj.submit();
+		}
+	
 </script>
 
 <body id="body">
@@ -41,9 +56,8 @@
 				</div>
 
 				<form name="readForm" role="form" method="post">
-
 					<input type='hidden' id="cNo" name="cNo" value="${CommunityVO.cNo}">
-
+					<input type="hidden" id="FILE_NO" name="FILE_NO" value=""> 						
 				</form>
 
 				<div class="form-group">
@@ -63,23 +77,23 @@
 					<textarea class="form-control" name="content" rows="7"
 						readonly="readonly">${CommunityVO.content}</textarea>
 				</div>
-
+				
+				<label>File</label>
+				<div class="form-group" style="border: 1px solid #dbdbdb;">
+					<c:forEach var="file" items="${file}">
+						<a href="#" onclick="fn_fileDown('${file.FILE_NO}'); return false;">${file.ORG_FILE_NAME}</a>(${file.FILE_SIZE}kb)<br>
+					</c:forEach>
+				</div>
+				
 				<div class="box-footer">
+				<c:if test = "${sessionScope.member.MId == CommunityVO.mId}">
 					<button type="submit" class="btn btn-main" id="update">Modify</button>
 					<button type="submit" class="btn btn-main" id="delete">REMOVE</button>
-					<button type="submit" class="btn btn-main" id="list">LIST ALL</button>
+				</c:if>	
+					<button type="submit" class="btn btn-main" id="list">LIST
+						ALL</button>
 				</div>
-
-				<!-- <div class="text-center">
-								<button type="submit" class="btn btn-main text-center">Modify
-									</button>
-							</div> -->
-				<!-- <p class="mt-20">
-							Already hava an account ?<a href="login.html"> Login</a>
-						</p>
-						<p>
-							<a href="forget-password.html"> Forgot your password?</a>
-						</p> -->
+				
 			</div>
 		</div>
 	</section>

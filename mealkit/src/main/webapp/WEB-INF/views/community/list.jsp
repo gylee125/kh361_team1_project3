@@ -10,6 +10,20 @@
 	float: left;
 	padding: 6px;
 }
+
+.page-wrapper {
+	padding: 0;
+}
+
+input[type="text"] {
+	border-radius: 0;
+	box-shadow: none;
+	height: 23px;
+	outline: none;
+	font-weight: 200;
+	font-size: 12px;
+}
+
 </style>
 
 
@@ -38,10 +52,10 @@
 								<table class="table">
 									<thead>
 										<tr>
-											<th>CNO</th>
-											<th>MID</th>
-											<th>TITLE</th>
-											<th>REGDATE</th>
+											<th>번호</th>
+											<th>작성자</th>
+											<th>제목</th>
+											<th>작성일</th>
 											<th></th>
 										</tr>
 									</thead>
@@ -50,66 +64,83 @@
 											<tr>
 												<td>${CommunityVO.cNo}</td>
 												<td>${CommunityVO.mId}</td>
-												<td><a href='/community/read?cNo=${CommunityVO.cNo}'>${CommunityVO.title}</a></td>
+												<td><a
+													href='<%=request.getContextPath()%>/community/read?cNo=${CommunityVO.cNo}'>${CommunityVO.title}</a></td>
 												<td><fmt:formatDate pattern="yyyy-MM-dd HH:mm"
 														value="${CommunityVO.regDate}" /></td>
 											</tr>
 										</c:forEach>
 									</tbody>
-									<ul class="list-inline dashboard-menu text-right">
-										<li><a class="active" href="/community/write">Write</a></li>
-									</ul>
 								</table>
-								
-					<div class="search">
-						<select type="text" name="searchType">
-								<option value="n"<c:out value="${scri.searchType == null ? 'selected' : ''}"/>>-----</option>
-								<option value="t"<c:out value="${scri.searchType eq 't' ? 'selected' : ''}"/>>제목</option>
-								<option value="c"<c:out value="${scri.searchType eq 'c' ? 'selected' : ''}"/>>내용</option>
-								<option value="w"<c:out value="${scri.searchType eq 'w' ? 'selected' : ''}"/>>작성자</option>
-								<option value="tc"<c:out value="${scri.searchType eq 'tc' ? 'selected' : ''}"/>>제목+내용</option>
-						</select>
-						
-						<input type="text" name="keyword" id="keywordInput" value="${scri.keyword}"/>
-						
-						<button id="searchBtn" type="button">검색</button> 	
-						
-						<script>
-							 $(function(){
-								 $('#searchBtn').click(function() {
-									 self.location = "list" + '${pageMaker.makeQuery(1)}' + "&searchType=" + $("select option:selected").val() + "&keyword=" + encodeURIComponent($('#keywordInput').val());
-								 });
-							 });   
-						</script>
 
-					</div>
+								<div class="search">
+									<select type="text" name="searchType">
+										<option value="n"
+											<c:out value="${scri.searchType == null ? 'selected' : ''}"/>>-----</option>
+										<option value="t"
+											<c:out value="${scri.searchType eq 't' ? 'selected' : ''}"/>>제목</option>
+										<option value="c"
+											<c:out value="${scri.searchType eq 'c' ? 'selected' : ''}"/>>내용</option>
+										<option value="w"
+											<c:out value="${scri.searchType eq 'w' ? 'selected' : ''}"/>>작성자</option>
+										<option value="tc"
+											<c:out value="${scri.searchType eq 'tc' ? 'selected' : ''}"/>>제목+내용</option>
+									</select> <input type="text" name="keyword" id="keywordInput"
+										value="${scri.keyword}" />
 
-					<div class="box-footer">
-						<div class="text-center">
-							<ul class="pagination">
+									<button id="searchBtn">검색</button>
 
-								<c:if test="${pageMaker.prev}">
-									<li><a
-										href="list${pageMaker.makeSearch(pageMaker.startPage - 1)}">이전</a></li>
-								</c:if>
 
-								<c:forEach begin="${pageMaker.startPage}"
-									end="${pageMaker.endPage}" var="idx">
-									<li><a href="list${pageMaker.makeSearch(idx)}">${idx}</a></li>
-								</c:forEach>
+									<script>
+										$(function() {
+											$('#searchBtn')
+													.click(
+															function() {
+																self.location = "list"
+																		+ '${pageMaker.makeQuery(1)}'
+																		+ "&searchType="
+																		+ $(
+																				"select option:selected")
+																				.val()
+																		+ "&keyword="
+																		+ encodeURIComponent($(
+																				'#keywordInput')
+																				.val());
+															});
+										});
+									</script>
+										<c:if test="${sessionScope.member.MId !=null}">
+											<a class="btn btn-main"
+												href="<%=request.getContextPath()%>/community/write">Write</a>
+										</c:if>
+								</div>
 
-								<c:if test="${pageMaker.next && pageMaker.endPage > 0}">
-									<li><a
-										href="list${pageMaker.makeSearch(pageMaker.endPage + 1)}">다음</a></li>
-								</c:if>
+								<div class="box-footer">
+									<div class="text-center">
+										<ul class="pagination">
 
-							</ul>
+											<c:if test="${pageMaker.prev}">
+												<li><a
+													href="list${pageMaker.makeSearch(pageMaker.startPage - 1)}">이전</a></li>
+											</c:if>
+
+											<c:forEach begin="${pageMaker.startPage}"
+												end="${pageMaker.endPage}" var="idx">
+												<li><a href="list${pageMaker.makeSearch(idx)}">${idx}</a></li>
+											</c:forEach>
+
+											<c:if test="${pageMaker.next && pageMaker.endPage > 0}">
+												<li><a
+													href="list${pageMaker.makeSearch(pageMaker.endPage + 1)}">다음</a></li>
+											</c:if>
+
+										</ul>
+									</div>
+								</div>
+							</form>
 						</div>
 					</div>
-				</form>
 				</div>
-			</div>
-		</div>
 	</section>
 
 	<script>

@@ -1,46 +1,72 @@
 package com.mealkit.board;
 
 import java.util.List;
+import java.util.Map;
 
-import javax.inject.Inject;
-
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartHttpServletRequest;
+
+import com.mealkit.mapper.CommunityMapper;
+import com.mealkit.util.FileUtils;
 
 @Service
 public class CommunityServiceImpl implements CommunityService {
-
-	@Inject
-	private CommunityDAO dao;
+	
+	@Autowired
+	private FileUtils fileUtils;
+	
+	@Autowired
+	private CommunityMapper communityMapper;
 
 	@Override
-	public void write(CommunityVO community) throws Exception {
-		dao.write(community);
+	public void write(CommunityVO community, MultipartHttpServletRequest communityRequest) throws Exception {
+		communityMapper.write(community);
+		
+		List<Map<String,Object>> list = fileUtils.parseInsertFileInfo(community, communityRequest); 
+		int size = list.size();
+		for(int i=0; i<size; i++){ 
+			communityMapper.insertFile(list.get(i)); 
+		}
+		
 	}
 
 	@Override
 	public CommunityVO read(Integer cNo) throws Exception {
-		return dao.read(cNo);
+		return communityMapper.read(cNo);
 	}
 
 	@Override
 	public void update(CommunityVO community) throws Exception {
-		dao.update(community);
+		communityMapper.update(community);
 	}
 
 	@Override
 	public void delete(Integer cNo) throws Exception {
-		dao.delete(cNo);
+		communityMapper.delete(cNo);
 	}
 
 	@Override
 	public List<CommunityVO> list(SearchCriteria scri) throws Exception {
-		return dao.list(scri);
+		return communityMapper.list(scri);
 	}
 
 	@Override
 	public int listCount(SearchCriteria scri) throws Exception {
 		
-		return dao.listCount(scri);
+		return communityMapper.listCount(scri);
 	}
 
+	@Override
+	public List<Map<String, Object>> selectFileList(int cNo) throws Exception {
+		
+		return communityMapper.selectFileList(cNo);
+	}
+
+	@Override
+	public Map<String, Object> selectFileInfo(Map<String, Object> map) throws Exception {
+		
+		return communityMapper.selectFileInfo(map);
+	}
+	
 }

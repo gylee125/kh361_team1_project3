@@ -49,9 +49,8 @@ public class MemberServiceImpl implements MemberService {
     } 
 
     @Override
-    public void earnPointForNewMember(String mId) throws Exception {
-        System.out.println("포인트 최초적립시 아이디 확인 : " + mId);
-        memberMapper.earnPointForNewMember(mId);        
+    public void earnPointForNewMember(String mId, int point) throws Exception {
+        memberMapper.earnPointForNewMember(mId, point);        
     }
 
     @Override
@@ -65,7 +64,7 @@ public class MemberServiceImpl implements MemberService {
     }
 
     @Override
-    public List<MemberListDTO> memberList() throws Exception  {
+    public List<MemberDTO> memberList() throws Exception  {
         return memberMapper.memberList();
     }
 
@@ -75,8 +74,8 @@ public class MemberServiceImpl implements MemberService {
     }
 
     @Override
-    public void submitModifyPointByAdmin(PointDTO pointDTO) throws Exception {
-        memberMapper.submitModifyPointByAdmin(pointDTO);    
+    public void modifyPoint(String mId, int point) throws Exception {
+        memberMapper.modifyPoint(mId, point);    
     }
 
     @Override
@@ -95,6 +94,11 @@ public class MemberServiceImpl implements MemberService {
     }
     
     @Override
+	public void closeAccount(String mId) throws Exception {
+		memberMapper.closeAccount(mId);
+	}
+    
+    @Override
     public void updateMyInfo(MemberDTO member) throws Exception {
     	memberMapper.updateMyInfo(member);
     }
@@ -108,5 +112,7 @@ public class MemberServiceImpl implements MemberService {
     public void deleteAccount(String mId) throws Exception {
         memberMapper.deleteAccount(mId);
     }
+
+	
 
 }

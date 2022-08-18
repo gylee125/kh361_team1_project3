@@ -1,10 +1,13 @@
 package com.mealkit.board;
 
 import java.util.List;
+import java.util.Map;
+
+import org.springframework.web.multipart.MultipartHttpServletRequest;
 
 public interface CommunityService {
 
-  public void write(CommunityVO community) throws Exception;
+  public void write(CommunityVO community, MultipartHttpServletRequest communityRequest) throws Exception;
 
   public CommunityVO read(Integer cNo) throws Exception;
 
@@ -16,4 +19,7 @@ public interface CommunityService {
   
   public int listCount(SearchCriteria scri) throws Exception;
   
+  public List<Map<String, Object>> selectFileList(int cNo) throws Exception;
+  
+  public Map<String, Object> selectFileInfo(Map<String, Object> map) throws Exception;
 }

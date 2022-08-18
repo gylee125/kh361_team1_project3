@@ -6,14 +6,20 @@
 	integrity="sha256-u7e5khyithlIdTpu22PHhENmPcRdFiHRjhAuHcs05RI="
 	crossorigin="anonymous"></script>
 <script type="text/javascript">
+function getContextPath() {
+	var hostIndex = location.href.indexOf(location.host)
+			+ location.host.length;
+	return location.href.substring(hostIndex, location.href.indexOf('/',
+			hostIndex + 1));
+};
+	
 		$(document).ready(function(){
 			
 			$("#cancel").on("click", function(){
 				event.preventDefault();
-				location.href = "/community/list";
+				location.href = getContextPath()+ "/community/list";
 			})
 		})
-	
 </script>
 
 <body id="body">
@@ -25,7 +31,7 @@
 					<h3 class="box-title">Update BOARD</h3>
 				</div>
 
-				<form role="form" method="post" action="/community/update">
+				<form role="form" method="post" action="<%=request.getContextPath()%>/community/update">
 
 					<div class="form-group">
 						<label for="cNo">No</label> <input type="text" name='cNo'
@@ -48,12 +54,11 @@
 						<label for="content">Content</label>
 						<textarea class="form-control" name="content" rows="7">${CommunityVO.content}</textarea>
 					</div>
-
+					
 					<div class="box-footer">
 						<button type="submit" class="btn btn-main">SAVE</button>
 						<button type="submit" class="btn btn-main" id="Cancel">CANCEL</button>
 					</div>
-
 				</form>
 				<!-- <div class="text-center">
 								<button type="submit" class="btn btn-main text-center">Modify

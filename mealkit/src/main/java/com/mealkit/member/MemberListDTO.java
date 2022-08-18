@@ -4,6 +4,8 @@ import java.util.Date;
 
 import lombok.Data;
 
+// 필요한지 검토하고 안 쓰면 지우기
+
 @Data
 public class MemberListDTO {
 	
