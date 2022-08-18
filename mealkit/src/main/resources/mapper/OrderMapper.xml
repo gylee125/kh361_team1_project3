@@ -55,8 +55,8 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	
 	<update id="update">
 		update usercart set
-		cquantity = #{cquantity}
-		where ucId = #{ucId}
+		cquantity = #{param2}
+		where ucId = #{param1}
 		and a.mId = #{mId}
 	</update>
 	

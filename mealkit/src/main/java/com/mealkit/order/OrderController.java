@@ -121,7 +121,7 @@ public class OrderController {
 		 */
 		
 		@RequestMapping (value="/updateCart.do")
-		public String update(int ucId, int cquantity, HttpServletRequest request, HttpSession session) throws Exception {
+		public String update( @RequestParam("ucId") int ucId, @RequestParam("cquantuity") int cquantity, HttpServletRequest request, HttpSession session) throws Exception {
 			orderService.update(ucId, cquantity);
 			session.setAttribute("ucId", ucId);
 			session.setAttribute("cquantuty", cquantity);
