@@ -92,10 +92,10 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         
 	</select>
 	
-	<update id="updateAdmin">
+	<update id="updateAdmin" >
 		update userorder set
-		statuscode = #{statuscode}
-		where oId = #{oId}
+		statuscode = #{param2}
+		where oId = #{param1}
 	</update>
 	
 	<delete id="deleteAdmin">

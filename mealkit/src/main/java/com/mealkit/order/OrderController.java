@@ -162,16 +162,13 @@ public class OrderController {
 
 		}
 		
-		
 		@RequestMapping (value="/updateAdmin.do")
-		public String updateAdmin (@RequestParam("oId") int oId, @RequestParam("statuscode") int statusCode,  Model model, HttpServletRequest request, HttpSession session) throws Exception {
-			oId = Integer.parseInt("oId");
-			statusCode = Integer.parseInt("statuscode");
-			orderService.updateAdmin(oId,statusCode);	
-			model.addAttribute("oId",oId);
-			model.addAttribute("statusCode",statusCode);
+		public String updateAdmin (@RequestParam("oId") int oId, @RequestParam("statusCode") int statusCode, Model model, HttpServletRequest request, HttpSession session) throws Exception {
+			orderService.updateAdmin(oId, statusCode);	
+			session.setAttribute("oId", oId);
+			session.setAttribute("statusCode", statusCode);
 			request.setAttribute("msg", "상품 정보가 수정 되었습니다.");
-	        request.setAttribute("url", "orderAdmin"); 
+	        request.setAttribute("url", "orderAdmin.do"); 
 			return "alert";
 		}
 		
