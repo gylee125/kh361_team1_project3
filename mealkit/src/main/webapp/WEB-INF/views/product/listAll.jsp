@@ -61,7 +61,7 @@
 					<div class="product-item">
 						<div class="product-thumb">
 							<img class="img-responsive"
-								src="<%=request.getContextPath()%>${product.thumbnail}"
+								src="<%=request.getContextPath()%>/product/display?fileName=${product.thumbnail}"
 								alt="product-img" />
 							<div class="preview-meta">
 								<ul>

@@ -21,8 +21,36 @@
 		<beans:property name="suffix" value=".jsp" />
 	</beans:bean>
 	
+	<beans:bean id="multipartResolver"
+		class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
+	</beans:bean>
+
+	<beans:bean id="uploadPath" class="java.lang.String">
+		<beans:constructor-arg value="C:\\upload"></beans:constructor-arg>
+	</beans:bean>
+	
 	<context:component-scan base-package="com.mealkit" />
 	
-	
+	<!-- 인터셉터 객체 생성 -->
+	<beans:bean id="LoginInterceptor" class="com.mealkit.member.LoginInterceptor"></beans:bean>
+	<beans:bean id="AdminInterceptor" class="com.mealkit.member.AdminInterceptor"></beans:bean>
+	<!-- Interceptor 설정 -->
+	<interceptors>	 
+	    <interceptor>
+	      	<mapping path="/myPage.do"/>  
+	      	<mapping path="/updateMyInfo.do"/>  
+	    	<beans:ref bean="LoginInterceptor"/>
+	    </interceptor>	     
+	    <interceptor>
+	        <mapping path="/admin*"/>        
+	        <mapping path="/*Admin.do"/>        
+	        <mapping path="/product/register"/>        
+	        <mapping path="/product/listAdmin"/>        
+	        <mapping path="/prduct/update"/>        
+	        <mapping path="/product/delete"/>        
+	        <beans:ref bean="AdminInterceptor"/>
+	    </interceptor>
+	</interceptors>
+
 	
 </beans:beans>

@@ -9,6 +9,7 @@ import javax.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.CookieValue;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -27,36 +28,47 @@ public class MemberController {
 	//EmailService emailService;
 
 	@RequestMapping(value = "/login.do")
-	public String login() {
+	public String login(@CookieValue(value="saveId", required=false)Cookie cookie, Model model) {	
+		if (cookie != null) { // 아이디 저장 쿠키 있으면 불러오기
+			String saveIdCookie = cookie.getValue();
+			model.addAttribute("saveIdCookie", saveIdCookie);
+		}		
 		return "member/login";
 	}
-
-	// 코드 정리 필요
+	
 	@RequestMapping(value = "/submitLogin.do", method = RequestMethod.POST)
-	public String submitLogin(MemberDTO member, HttpServletRequest request, HttpServletResponse response)
-			throws Exception {
-
-		String saveId = request.getParameter("saveId");
+	public String submitLogin(MemberDTO member, HttpServletRequest request, HttpServletResponse response) throws Exception {		
+		MemberDTO loginData = memberService.submitLogin(member); 			
+		if (loginData == null) // 비밀번호 틀리면 null값 들어옴		
+			return alertMsgAndGoUrl(request, "로그인 오류! ID와 비밀번호를 확인해주세요~!!", "login.do");	
+		if (loginData.getMLevel() == -1) // 회원등급 -1 은 탈퇴한 계정
+			return alertMsgAndGoUrl(request, "탈퇴한 계정입니다. 다른 ID로 로그인해주세요~!!", "login.do");	
 		HttpSession session = request.getSession();
-		MemberDTO loginData;
-
-		loginData = memberService.submitLogin(member);
-		if (loginData != null) {
-			session.setAttribute("member", loginData);
-
-			// 아이디 저장 기능 - 다른 아이디로 로그인했는데, 이전 아이디 저장되는 버그있음
-			if (saveId != null) {
-				Cookie cookieSaveId = new Cookie("saveId", loginData.getMId());
-				cookieSaveId.setMaxAge(60 * 60 * 24 * 7); // (초단위 입력 = 7일)
-				response.addCookie(cookieSaveId);
-			}
-
-		} else {
-			request.setAttribute("msg", "로그인 오류! ID와 비밀번호를 확인해주세요~!!");
-			request.setAttribute("url", "login.do");
-			return "alert";
-		}
+		session.setAttribute("member", loginData); // 회원가입 완료되면 해당 정보로 로그인도 해주기
+		setCookieForSaveId(response, request.getParameter("saveId"), loginData.getMId()); // 아이디저장 체크박스 확인 후, 쿠키 생성
 		return "redirect:/";
+	}
+	
+	// 아이디 저장용 쿠키 세팅
+	private void setCookieForSaveId(HttpServletResponse response, String saveId, String loginId) {
+		if (saveId != null) // 아이디 저장 버튼 눌렀는지 확인하는 역할;			
+			addCookie(response, loginId, 60 * 60 * 24 * 7); //(초단위 입력 = 7일)
+		else  // 아이디 저장 버튼 해제했으므로, 쿠키 삭제			
+			addCookie(response, null, 0); // 수명 0초 쿠키를 등록한다 = 쿠키 없애겠다
+	}
+	
+	private void addCookie(HttpServletResponse response, String id, int setMaxAge) {
+		logger.info("쿠키 생성 : {}", id);
+		Cookie cookieSaveId = new Cookie("saveId", id);
+		cookieSaveId.setMaxAge(setMaxAge);
+		response.addCookie(cookieSaveId);
+	}
+	
+	// alert.jsp 연결문 정리
+	private String alertMsgAndGoUrl(HttpServletRequest request, String msg, String url) {
+		request.setAttribute("msg", msg);
+		request.setAttribute("url", url);
+		return "alert";
 	}
 
 	@RequestMapping(value = "/logout.do")
@@ -71,13 +83,13 @@ public class MemberController {
 	}
 
 	@RequestMapping(value = "/submitSignUp.do", method = RequestMethod.POST)
-	public String submitSignUp(MemberDTO member, HttpSession session, Model model) throws Exception {
+	public String submitSignUp(MemberDTO member, HttpServletRequest request) throws Exception {
 		memberService.submitSignUp(member);
-		memberService.earnPointForNewMember(member.getMId()); // 3000포인트 증정. 코드 정리 필요(3000변수가 매퍼xml파일에 바로 들어가있음)
-		session.setAttribute("member", member);
-		model.addAttribute("msg", "회원가입되었습니다. 환영합니다~신규 가입 프로모션으로 3000포인트 증정!");
-		model.addAttribute("url", "");
-		return "alert";
+		memberService.earnPointForNewMember(member.getMId(), 3000); // 신규가입시 3000포인트 증정	
+		MemberDTO loginData = memberService.submitLogin(member);
+		HttpSession session = request.getSession();
+		session.setAttribute("member", loginData); // 가입한 아이디로 로그인도 해주기
+		return alertMsgAndGoUrl(request, "회원가입되었습니다. 신규 가입 프로모션으로 3000포인트 증정!", "home");
 	}
 
 	@RequestMapping(value = "/checkUniqueId.do")
@@ -113,10 +125,8 @@ public class MemberController {
 			throws Exception {
 		MemberDTO member = memberService.selectMember(mId);
 		member.setPw(pw);
-		memberService.updatePwd(member);
-		request.setAttribute("msg", "비밀번호가 변경되었습니다.");
-		request.setAttribute("url", "login.do");
-		return "alert";
+		memberService.updatePwd(member);	
+		return alertMsgAndGoUrl(request, "비밀번호가 변경되었습니다.", "login.do");
 	}
 
 	@RequestMapping(value = "/checkPwd.do", method = RequestMethod.GET)
@@ -136,12 +146,9 @@ public class MemberController {
 		int result = memberService.checkPwd(member);
 		if (result == 1) {
 			return "member/myPage";
-		} else {
-			request.setAttribute("msg", "비밀번호가 일치하지 않습니다.");
-			request.setAttribute("url", "checkPwd.do");
-			return "alert";
+		} else {			
+			return alertMsgAndGoUrl(request, "비밀번호가 일치하지 않습니다.", "checkPwd.do");
 		}
-
 	}
 
 	@RequestMapping(value = "/updateMyInfo.do", method = RequestMethod.POST)
@@ -150,9 +157,7 @@ public class MemberController {
 
 		MemberDTO updateMember = memberService.selectMember(member.getMId());
 		session.setAttribute("member", updateMember);
-		request.setAttribute("msg", "수정이 완료되었습니다.");
-		request.setAttribute("url", "myPage.do");
-		return "alert";
+		return alertMsgAndGoUrl(request, "수정이 완료되었습니다.", "myPage.do");
 	}
 
 	@RequestMapping(value = "updatePwd", method = RequestMethod.POST)
@@ -164,15 +169,13 @@ public class MemberController {
 
 		MemberDTO updateMember = memberService.selectMember(member.getMId());
 		session.setAttribute("member", updateMember);
-		request.setAttribute("msg", "수정이 완료되었습니다.");
-		request.setAttribute("url", "myPage.do");
-		return "alert";
+		return alertMsgAndGoUrl(request, "수정이 완료되었습니다.", "myPage.do");
 	}
 
 	@RequestMapping(value = "/adminPage.do")
 	public String adminPage(Model model) throws Exception {
-		// List<MemberListDTO> list = memberService.memberList();
-		// model.addAttribute("memberList", list);
+		List<MemberDTO> list = memberService.memberList();
+		model.addAttribute("memberList", list);
 		return "member/adminPage";
 	}
 
@@ -197,7 +200,7 @@ public class MemberController {
 		return memberService.showMemberDetail(mId);
 	}
 
-	@RequestMapping(value = "/modifyMemberByAdmin.do") // 취합할때 상의하고, 게시판 쪽으로 이전
+	@RequestMapping(value = "/modifyMemberByAdmin.do")
 	public String modifyMemberByAdmin(Model model, String mId) throws Exception {
 		MemberDTO member = memberService.showMemberDetail(mId);
 		model.addAttribute("selectMember", member);
@@ -210,11 +213,26 @@ public class MemberController {
 		return "redirect:/adminPage.do";
 	}
 
-	@RequestMapping(value = "/submitModifyPointByAdmin.do", method = RequestMethod.POST)
+	@RequestMapping(value = "/submitModifyPointByAdmin.do", method = RequestMethod.POST) // 포인트 수정은 따로 관리
 	public String submitModifyPointByAdmin(PointDTO pointDTO) throws Exception {
-		memberService.submitModifyPointByAdmin(pointDTO);
+		memberService.modifyPoint(pointDTO.getMId(), pointDTO.getCurrentPoint());
+		return "redirect:/adminPage.do";		
+	}
+	
+	@RequestMapping(value = "/closeAccountByAdmin.do")
+	public String closeAccountByAdmin(String mId) throws Exception {
+		memberService.closeAccount(mId); // 일단 삭제는 안 하고 mLevel -1(별도로 '탈퇴상태' 코드 부여)두기.	
+		memberService.modifyPoint(mId, 0); // 탈퇴하면 포인트 0됨
 		return "redirect:/adminPage.do";
 	}
+	
+	@RequestMapping(value = "/closeAccount.do")
+    public String closeAccount(String mId, HttpSession session) throws Exception {
+        memberService.closeAccount(mId); 
+        memberService.modifyPoint(mId, 0); 
+        session.invalidate(); // 탈퇴처리했으니 로그아웃
+        return "redirect:/";
+    }    
 
 	@RequestMapping(value = "/confirmDelete.do", method = RequestMethod.GET)
 	public String confirmDelete() {
@@ -223,14 +241,6 @@ public class MemberController {
 
 	@RequestMapping(value = "/deleteAccount.do", method = RequestMethod.GET)
 	public String deleteAccount() {
-		return "member/deleteAccount";
-	}
-
-	@RequestMapping(value = "/deleteAccount.do", method = RequestMethod.POST)
-	public String deleteAccount(String mId, HttpSession session) throws Exception {
-		memberService.deleteAccount(mId); // 30일 보관내용 어떻게 처리할지 의논하기
-		// 관련해서 아이디 삭제시 묶인 내용들(외래키관련) 어떻게 할지?(지금은 외래키 걸려있으면 오류뜸)
-		session.invalidate(); // 로그아웃하고 db삭제
 		return "member/deleteAccount";
 	}
 

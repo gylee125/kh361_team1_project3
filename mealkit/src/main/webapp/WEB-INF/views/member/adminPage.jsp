@@ -56,35 +56,33 @@
 										<th>No</th>
 										<th>ID</th>
 										<th>Name</th>	
-										<th>Email</th>										
+										<th>Level</th>	
+										<th>Point</th>																
 										<th>Since</th>
-										<th>Point</th>
+										
 									</tr>
 								</thead>
-								<tbody>
-									<tr>												
-										<c:forEach var="list" items="${memberList}">					
-											<td>${list.MNo}</td>
-											<td>${list.MId}</td>
-											<td>${list.MName}</td>
-											<td>${list.email}</td>
-											<td>${list.regDate}</td>													
-											<td>${list.point}</td>													
-										</c:forEach>										
-									</tr>
-									<!-- 피카츄는 예시 -->		
-									<tr>
-										<td>1</td>
-										<td>pikachu</td>
-										<td>피카츄</td>
-										<td>pika@poke.mon</td>
-										<td>2022-08-04</td>													
-										<td>3000</td>	
-									</tr>							
+								<tbody>																				
+									<c:forEach var="list" items="${memberList}">	
+										<tr>	
+											<td> <a href="javascript:searchMember('${list.MId}');"> ${list.MNo} </a></td>
+											<td> <a href="javascript:searchMember('${list.MId}');"> ${list.MId} </a></td>
+											<td> <a href="javascript:searchMember('${list.MId}');"> ${list.MName} </a></td>										
+											<td> <a href="javascript:searchMember('${list.MId}');">
+												<c:choose>
+													<c:when test="${list.MLevel == 2}">관리자</c:when>
+													<c:when test="${list.MLevel == -1}">탈퇴</c:when>
+													<c:otherwise>일반회원</c:otherwise>
+												</c:choose>
+											</a></td>										
+											<td><a href="javascript:searchMember('${list.MId}');"> ${list.pointDTO.currentPoint} </a></td>
+											<td> <a href="javascript:searchMember('${list.MId}');"> 
+											<fmt:formatDate value="${list.regDate}" pattern="yyyy-MM-dd"/>
+											</a></td>											
+										</tr>												
+									</c:forEach>									
 								</tbody>
-							</table>
-							<!-- 작업용 가라 입력태그 -->
-							(테스트용)ID <input type="text" id="inputId" onfocusout="searchMember();" >
+							</table>							
 														
 							<div class="dashboard-wrapper dashboard-user-profile" id="showMemberDetail">
 								<div class="media">								
@@ -104,10 +102,10 @@
 										</ul>										
 									</div>									
 								</div>
-								<br>
-								<button type="button" class="btn btn-main text-center" onclick="modifyMemberByAdmin();">수정</button>
-								<button type="button" class="btn btn-main text-center">탈퇴</button>
-								<button type="button" class="btn btn-main text-center" onclick="closeMemberDetail();">닫기</button>
+								<br>								
+								<button type="button" class="btn btn-main text-center" onclick="modifyMemberByAdmin();">수정</button>														
+								<button type="button" class="btn btn-main text-center" onclick="closeMemberDetail();">닫기</button><br><br>
+								<button type="button" class="btn btn-main text-center" id="withdrawalButton" onclick="closeAccountByAdmin();">탈퇴</button>	
 							</div>
 						</div>
 					</div>
@@ -120,14 +118,14 @@
 <script>
 
 	let showMemberDetail = document.getElementById("showMemberDetail");
-	let inputId = document.getElementById("inputId");
+	let withdrawalButton = document.getElementById("withdrawalButton");
 	showMemberDetail.style.display = 'none';
 	
-	//alert("js 작동 테스트 28");
+	alert("js 작동 테스트 42");
+	
+	function searchMember(inputId){		
 		
-	function searchMember(){		
-		
-		fetch("<%=request.getContextPath()%>/showMemberDetail.do?mId=" + inputId.value)
+		fetch("<%=request.getContextPath()%>/showMemberDetail.do?mId=" + inputId)
 			.then((response) => response.json())			
 			.then((data) => {
 				console.log(data);
@@ -141,11 +139,8 @@
 				memberAddress.innerHTML = data.address;
 				memberRegDate.innerHTML = data.regDate;				
 				memberCurrentPoint.innerHTML = data.pointDTO.currentPoint;				
-				memberUpdateDate.innerHTML = data.pointDTO.updateDate;				
-				if(data.mlevel == 2)
-					memberMlevel.innerHTML = '관리자';
-				else
-					memberMlevel.innerHTML = '일반회원';									
+				memberUpdateDate.innerHTML = data.pointDTO.updateDate;	
+				divideMemberDisplayAboutLevel(data.mlevel);
 				showMemberDetail.style.display = 'block';
 			})
 			.catch(function(){
@@ -154,8 +149,28 @@
 			});
 	}
 	
+	function divideMemberDisplayAboutLevel(memberLevel){
+		if(memberLevel == 2)					
+			memberFontColorAndWithdrawalButtonAboutLevel("관리자", "blue", "block");
+		else if(memberLevel == -1)		
+			memberFontColorAndWithdrawalButtonAboutLevel("탈퇴", "grey", "none");
+		else				
+			memberFontColorAndWithdrawalButtonAboutLevel("일반회원", "black", "block");	
+	}
+	
+	function memberFontColorAndWithdrawalButtonAboutLevel(levelName, color, displayButton){
+		memberMlevel.innerHTML = levelName;	
+		showMemberDetail.style.color= color;
+		withdrawalButton.style.display= displayButton;
+	}
+	
 	function modifyMemberByAdmin(){
 		location.href='<%=request.getContextPath()%>/modifyMemberByAdmin.do?mId=' + memberId.innerHTML;
+	}
+	
+	function closeAccountByAdmin(){
+		confirm("정말로 해당 계정을 탈퇴 처리하시겠습니까?")
+		location.href='<%=request.getContextPath()%>/closeAccountByAdmin.do?mId=' + memberId.innerHTML;
 	}
 	
 	function closeMemberDetail(){
