@@ -1575,6 +1575,11 @@ input[type="email"]:focus, input[type="password"]:focus, input[type="text"]:focu
 	border-radius: 0;
 }
 
+#details img {
+	max-width: 100%;
+	height: auto;
+}
+
 .bootstrap-touchspin .input-group-btn-vertical {
 	position: relative;
 	white-space: nowrap;

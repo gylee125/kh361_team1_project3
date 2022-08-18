@@ -18,9 +18,9 @@
 				<div class="col-md-6">
 					<ol class="breadcrumb">
 						<li><a href="<%=request.getContextPath()%>/index.do">Home</a></li>
-						<li><a href="<%=request.getContextPath()%>/shop/all.do">Shop</a></li>
+						<li><a href="<%=request.getContextPath()%>/product/listAll">Shop</a></li>
 						<li><a
-							href="<%=request.getContextPath()%>/shop/type.do?typeCode=${productOne.typeCode}">${productOne.tNameEng}</a></li>
+							href="<%=request.getContextPath()%>/product/listType?typeCode=${productOne.typeCode}">${productOne.tNameEng}</a></li>
 					</ol>
 				</div>
 			</div>
@@ -34,7 +34,7 @@
 								<div class='carousel-inner '>
 									<div class='item active'>
 										<img
-											src='<%=request.getContextPath()%>${productOne.thumbnail}'
+											src='<%=request.getContextPath()%>/product/display?fileName=${productOne.thumbnail}'
 											alt='' />
 									</div>
 								</div>
@@ -112,7 +112,7 @@
 						</ul>
 						<div class="tab-content patternbg">
 							<div id="details" class="tab-pane fade active in">
-								<img src='<%=request.getContextPath()%>${productOne.image}'>
+								<img src='<%=request.getContextPath()%>/product/display?fileName=${productOne.image}' class="img-responsive">
 							</div>
 
 
@@ -289,12 +289,12 @@
 					<div class="product-item">
 						<div class="product-thumb">
 							<img class="img-responsive"
-								src="<%=request.getContextPath()%>${relatedList.thumbnail}"
+								src="<%=request.getContextPath()%>/product/display?fileName=${relatedList.thumbnail}"
 								alt="product-img" />
 							<div class="preview-meta">
 								<ul>
 									<li><a
-										href="<%=request.getContextPath()%>/shop/detail.do?pId=${relatedList.pId}"><i
+										href="<%=request.getContextPath()%>/product/detail?pId=${relatedList.pId}"><i
 											class="tf-ion-ios-search"></i></a></li>
 
 									<li><a href="#!"><i class="tf-ion-android-cart"></i></a></li>
@@ -304,7 +304,7 @@
 						<div class="product-content">
 							<h4>
 								<a
-									href="<%=request.getContextPath()%>/shop/detail.do?pId=${relatedList.pId}">${relatedList.pName}</a>
+									href="<%=request.getContextPath()%>/product/detail?pId=${relatedList.pId}">${relatedList.pName}</a>
 							</h4>
 							<p class="price">${relatedList.price}원</p>
 						</div>
