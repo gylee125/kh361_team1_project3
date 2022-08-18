@@ -40,6 +40,15 @@ public class HomeController {
 		return "index";
 	}
 	
+	@RequestMapping(value = "/home") // alert.jsp 기능쓰고 메인화면갈 때 쓰려고 만듬
+	public String home(HttpServletRequest request, Model model) throws Exception {
+		List<ProductVO> productList = productService.selectNewProductList();
+		model.addAttribute("productList", productList);
+		logger.info("/index");
+		return "index";
+	}
+	
+	
 	@RequestMapping(value = "/about")
 	public String about() throws Exception {
 		logger.info("/about");
