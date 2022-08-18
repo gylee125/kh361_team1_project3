@@ -6,7 +6,7 @@
 
 
 
-	<resultMap type="com.mealkit.board.CommentVO" id="commentvo">
+	<resultMap type="com.mealkit.board.CommentVO" id="CommentVO">
 		<result column="rno" property="rno" />
 		<result column="pid" property="pid"	/>	
 		<result column="mId" property="mId" />
