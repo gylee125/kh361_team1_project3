@@ -1,6 +1,7 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
-<%@ include file="../include/header.jspf" %>
+<%@ include file="../include/header.jspf"%>
 
 <section class="page-header">
 	<div class="container">
@@ -27,6 +28,15 @@
 					<li><a href="<%=request.getContextPath()%>/aviato/address.html">Address</a></li>
 					<li><a href="<%=request.getContextPath()%>/aviato/profile-details.html">Profile</a></li> -->
 				</ul>
+				<ul class="dropdown-menu search-dropdown">
+					<li>
+						<form action="<%=request.getContextPath()%>/product/search"
+							role="form">
+							<input type="text" name="keyword" id="keyword"
+								class="form-control" placeholder="상품 검색">
+						</form>
+					</li>
+				</ul>
 				<div class="dashboard-wrapper user-dashboard">
 					<div class="table-responsive">
 						<table class="table">
@@ -34,26 +44,27 @@
 								<tr>
 									<th>주문번호</th>
 									<th>주문일자</th>
+									<th>아이디</th>
 									<th>상품명</th>
 									<th>상품수량</th>
 									<th>결제금액</th>
 									<th>주문현황</th>
-									<th>상세보기</th>
-									<th></th>
+									<th>선택</th>
 								</tr>
 							</thead>
 							<tbody>
 								<c:forEach var="order" items="${orderList}">
-								<tr>
-									<td>${order.oId}</td>
-									<td><fmt:formatDate value="${order.oDate}" pattern="yyyy-MM-dd"/></td>
-									<td>${order.pName}</td>
-									<td>${order.quantity}</td>
-									<td><fmt:formatNumber value="${order.price}" pattern="###,####,###"/>원</td>
-									<td><span class="label label-primary">${order.statusName}</span></td>
-									<td><a href="<%=request.getContextPath()%>/order-detail.do?oId=${order.oId}">상세보기</a></td>
-									<!-- <td><a href="<%=request.getContextPath()%>/orderDetail.do?MId=${member.MId}&oId=${order.oId}" class="btn btn-default">View</a></td>  -->
-								</tr>
+									<tr>
+										<td>${order.oId}</td>
+										<td><fmt:formatDate value="${order.oDate}" pattern="yyyy-MM-dd"/></td>
+										<td>${order.mId}</td>
+										<td>${order.pName}</td>
+										<td>${order.quantity}</td>
+										<td><fmt:formatNumber value="${order.price}" pattern="###,####,###"/>원</td>
+										<td><span class="label label-primary">${order.statusName}</span></td>
+										<td><a class="product-remove"
+											href="detailAdmin.do?oId=${order.oId}">수정</a></td>
+									</tr>
 								</c:forEach>
 							</tbody>
 						</table>
@@ -64,4 +75,4 @@
 	</div>
 </section>
 
-<%@ include file="../include/footer.jspf" %>  
+<%@ include file="../include/footer.jspf"%>

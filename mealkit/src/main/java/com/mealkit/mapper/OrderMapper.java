@@ -1,12 +1,15 @@
-package com.mealkit.order;
+package com.mealkit.mapper;
 
 import java.util.List;
 
-public interface OrderService {
+import com.mealkit.order.CartVO;
+import com.mealkit.order.OrderVO;
 
-	public void addOrder(String mId) throws Exception;
-
-	public List<OrderVO> showOrderList(String mId) throws Exception;
+public interface OrderMapper {
+	
+	public void addOrder (String mId) throws Exception;
+	
+	public List<OrderVO> showOrderList (String mId) throws Exception;
 	
 	public OrderVO orderDetail (int oId) throws Exception;
 	
@@ -28,7 +31,7 @@ public interface OrderService {
 	
 	public List<OrderVO> orderAdmin() throws Exception;
 	
-	public void updateAdmin (int oId, int statusCode) throws Exception;
+	public void updateAdmin (int oId,int statusCode) throws Exception;
 	
 	public void deleteAdmin (int oId) throws Exception;
 

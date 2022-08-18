@@ -11,7 +11,7 @@
         	<i class="tf-ion-android-checkmark-circle"></i>
           <h2 class="text-center">이용해주셔서 감사합니다!</h2>
           <p>밀키트 조리시간처럼 빠른 속도로 배송해드리겠습니다!</p>
-          <a href="<%=request.getContextPath()%>/index.do" class="btn btn-main mt-20">쇼핑 계속하기</a>
+          <a href="<%=request.getContextPath()%>/" class="btn btn-main mt-20">쇼핑 계속하기</a>
         </div>
       </div>
     </div>

@@ -38,21 +38,20 @@
 									<th>상품수량</th>
 									<th>결제금액</th>
 									<th>주문현황</th>
-									<th>상세보기</th>
-									<th></th>
+									<th>상세확인</th>
 								</tr>
 							</thead>
 							<tbody>
 								<c:forEach var="order" items="${orderList}">
 								<tr>
-									<td>${order.oId}</td>
-									<td><fmt:formatDate value="${order.oDate}" pattern="yyyy-MM-dd"/></td>
+									<td> ${order.oId} </td>
+									<td>${order.oDate}</td>
 									<td>${order.pName}</td>
 									<td>${order.quantity}</td>
-									<td><fmt:formatNumber value="${order.price}" pattern="###,####,###"/>원</td>
+									<td>${order.price}</td>
 									<td><span class="label label-primary">${order.statusName}</span></td>
-									<td><a href="<%=request.getContextPath()%>/order-detail.do?oId=${order.oId}">상세보기</a></td>
-									<!-- <td><a href="<%=request.getContextPath()%>/orderDetail.do?MId=${member.MId}&oId=${order.oId}" class="btn btn-default">View</a></td>  -->
+									<td><a href="<%=request.getContextPath()%>/order-detail.do?oId=${order.oId}">상세 확인</a></td>
+									<!-- <td><a href="<%=request.getContextPath()%>/orderDetail.do?mId=${member.mId}&oId=${order.oId}" class="btn btn-default">View</a></td>  -->
 								</tr>
 								</c:forEach>
 							</tbody>
