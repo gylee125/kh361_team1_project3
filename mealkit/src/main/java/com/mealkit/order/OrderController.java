@@ -168,13 +168,16 @@ public class OrderController {
 			return "alert";
 		}
 		
-		@RequestMapping(value="/orderAdmin.do")
-		public String orderAdmin(Model model) throws Exception {
-			List<OrderVO> orderList = orderService.orderAdmin();
-			
-			model.addAttribute("orderList",orderList);
-			return "order/orderAdmin";
-		}
+		
+		/*
+		 * @RequestMapping(value="/orderAdmin.do")
+		 * public String orderAdmin(Model model) throws Exception { 
+		 * List<OrderVO> orderList = orderService.orderAdmin();
+		 * model.addAttribute("orderList",orderList); 
+		 * 
+		 * return "order/orderAdmin"; 
+		 * }
+		 */
 		
 		@RequestMapping (value="/deleteAdmin.do")
 		public String deleteAdmin(int oId, HttpServletRequest request, HttpSession session) throws Exception {
@@ -193,8 +196,11 @@ public class OrderController {
 		}
 		
 		@RequestMapping(value = "/adminOrder.do") 
-		public String adminOrder() {
-			return "order/adminOrder";
+		public String adminOrder(Model model) throws Exception {
+			List<OrderVO> orderList = orderService.orderAdmin();
+			
+			model.addAttribute("orderList",orderList);
+			return "order/orderAdmin";
 		}
 
 }

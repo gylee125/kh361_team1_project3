@@ -41,7 +41,6 @@
 	</div>
 </section>
 
-
 <section class="user-dashboard page-wrapper">
 	<div class="container">
 		<div class="row">
@@ -53,42 +52,36 @@
 					<li><a href="<%=request.getContextPath()%>/community/adminBoard.do">Board</a></li>
 				</ul>
 			<div class="dashboard-wrapper user-dashboard">
-					
-					<div class="total-order mt-20">
-						<h4>Total !@##!@</h4>
-						<div class="table-responsive">
-							<table class="table">
-								<thead>
+					<div class="table-responsive">
+						<table class="table">
+							<thead>
+								<tr>
+									<th>주문번호</th>
+									<th>주문일자</th>
+									<th>아이디</th>
+									<th>상품명</th>
+									<th>상품수량</th>
+									<th>결제금액</th>
+									<th>주문현황</th>
+									<th>선택</th>
+								</tr>
+							</thead>
+							<tbody>
+								<c:forEach var="order" items="${orderList}">
 									<tr>
-										<th>No</th>
-										<th>ID</th>
-										<th>Name</th>	
-										<th>Email</th>										
-										<th>Since</th>
-										<th>Point</th>
+										<td>${order.oId}</td>
+										<td><fmt:formatDate value="${order.oDate}" pattern="yyyy-MM-dd"/></td>
+										<td>${order.mId}</td>
+										<td>${order.pName}</td>
+										<td>${order.quantity}</td>
+										<td><fmt:formatNumber value="${order.price}" pattern="###,####,###"/>원</td>
+										<td><span class="label label-primary">${order.statusName}</span></td>
+										<td><a class="product-remove"
+											href="detailAdmin.do?oId=${order.oId}">수정</a></td>
 									</tr>
-								</thead>
-								<tbody>								
-									<!-- 예시 -->		
-									<tr>
-										<td>1</td>
-										<td>pikachu</td>
-										<td>피카츄</td>
-										<td>pika@poke.mon</td>
-										<td>2022-08-04</td>													
-										<td>3000</td>	
-									</tr>	
-									<tr>
-										<td>2</td>
-										<td>raichu</td>
-										<td>라이츄</td>
-										<td>thunderbolt@poke.mon</td>
-										<td>2022-08-04</td>													
-										<td>8500</td>	
-									</tr>						
-								</tbody>
-							</table>
-						</div>
+								</c:forEach>
+							</tbody>
+						</table>
 					</div>
 				</div>
 			</div>

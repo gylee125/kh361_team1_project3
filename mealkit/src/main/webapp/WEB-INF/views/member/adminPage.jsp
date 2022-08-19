@@ -101,9 +101,9 @@
 									<tbody>
 										<c:forEach var="list" items="${memberlist}">
 											<tr>
-												<td>${list.mNo}</td>
-												<td>${list.mId}</td>
-												<td>${list.mName}</td>
+												<td>${list.MNo}</td>
+												<td>${list.MId}</td>
+												<td>${list.MName}</td>
 												<td>${list.email}</td>
 												<td>${list.regDate}</td>
 												<td>${list.currentPoint}</td>
