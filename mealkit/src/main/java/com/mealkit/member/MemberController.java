@@ -10,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.CookieValue;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -25,7 +26,9 @@ public class MemberController {
 
 	@Autowired
 	MemberService memberService;
-	//EmailService emailService;
+	
+	@Autowired
+    private MailSendService mailService;
 
 	@RequestMapping(value = "/login.do")
 	public String login(@CookieValue(value="saveId", required=false)Cookie cookie, Model model) {	
@@ -109,26 +112,77 @@ public class MemberController {
 	public int checkUniqueEmailForModify(String email, String mId) throws Exception {
 		return memberService.checkUniqueEmailForModify(email, mId);
 	}
+	
+	@RequestMapping(value = "/showMemberDetail.do")
+	@ResponseBody
+	public MemberDTO showMemberDetail(Model model, String mId) throws Exception {
+		return memberService.showMemberDetail(mId);
+	}
 
+	@RequestMapping(value = "/modifyMemberByAdmin.do") 
+	public String modifyMemberByAdmin(Model model, String mId) throws Exception {
+		MemberDTO member = memberService.showMemberDetail(mId);
+		model.addAttribute("selectMember", member);
+		return "member/modifyMemberByAdmin";
+	}
+
+	@RequestMapping(value = "/submitModifyMemberByAdmin.do", method = RequestMethod.POST)
+	public String submitModifyMemberByAdmin(MemberDTO member) throws Exception {
+		memberService.submitModifyMemberByAdmin(member);
+		return "redirect:/adminPage.do";
+	}
+
+	@RequestMapping(value = "/submitModifyPointByAdmin.do", method = RequestMethod.POST) // 포인트 수정은 따로 관리
+	public String submitModifyPointByAdmin(PointDTO pointDTO) throws Exception {
+		memberService.modifyPoint(pointDTO.getMId(), pointDTO.getCurrentPoint());
+		return "redirect:/adminPage.do";	
+	}
+
+
+	//==================================================================================
+	//비번찾기
 	@RequestMapping(value = "/forgetPwd.do", method = RequestMethod.GET)
-	public String forgetPwd() {
-		return "member/forgetPwd";
-	}
+    public String forgetPwd() {
+    	return "member/forgetPwd";
+    }
 
-	@RequestMapping(value = "/changePwd.do", method = RequestMethod.GET)
-	public String changePwd() {
-		return "member/changePwd";
-	}
+    @RequestMapping(value = "/email.do", method = RequestMethod.GET)
+    public String email(@RequestParam("mId") String mId,@RequestParam("email") String email, HttpSession session, HttpServletRequest request) throws Exception {
 
-	@RequestMapping(value = "/changePwd.do", method = RequestMethod.POST)
-	public String changePwd(@RequestParam String mId, @RequestParam String pw, HttpServletRequest request)
-			throws Exception {
-		MemberDTO member = memberService.selectMember(mId);
-		member.setPw(pw);
-		memberService.updatePwd(member);	
-		return alertMsgAndGoUrl(request, "비밀번호가 변경되었습니다.", "login.do");
-	}
+    	System.out.println("mId="+mId);
+    	System.out.println("email="+email);
 
+    	MemberDTO member = memberService.selectMember(mId);
+
+    	if(member.getEmail().equals(email)) {
+    		String AuthenticationKey = mailService.setMail(email);
+    		session.setAttribute("AuthenticationKey", AuthenticationKey);
+    		session.setAttribute("mId", mId);
+    		return "member/changePwd";	
+    	} else {
+    		request.setAttribute("msg", "회원정보를 찾을 수 없습니다. 아이디와 입력값을 확인해주세요.");
+            request.setAttribute("url", "forgetPwd.do"); 
+            return "alert";
+    	}
+    }
+
+    @RequestMapping(value = "/changePwd.do", method = RequestMethod.GET)
+    public String changePwd() {
+    	return "member/changePwd";
+    }
+
+    @RequestMapping(value = "/changePwd.do", method = RequestMethod.POST)
+    public String changePwd(@RequestParam String mId,@RequestParam String pw, HttpServletRequest request) throws Exception {
+    	MemberDTO member = memberService.selectMember(mId);
+    	member.setPw(pw);
+    	memberService.updatePwd(member);
+    	request.setAttribute("msg", "비밀번호가 변경되었습니다.");
+        request.setAttribute("url", "login.do"); 
+        return "alert";
+    }
+
+
+	//마이페이지
 	@RequestMapping(value = "/checkPwd.do", method = RequestMethod.GET)
 	public String checkPwd() {
 		return "member/checkPwd";
@@ -171,53 +225,6 @@ public class MemberController {
 		session.setAttribute("member", updateMember);
 		return alertMsgAndGoUrl(request, "수정이 완료되었습니다.", "myPage.do");
 	}
-
-	@RequestMapping(value = "/adminPage.do")
-	public String adminPage(Model model) throws Exception {
-		List<MemberDTO> list = memberService.memberList();
-		model.addAttribute("memberList", list);
-		return "member/adminPage";
-	}
-
-	@RequestMapping(value = "/adminProduct.do") // 취합할때 상의하고, 상품쪽으로 이전
-	public String adminProduct() {
-		return "member/adminProduct";
-	}
-
-	@RequestMapping(value = "/adminOrder.do") // 취합할때 상의하고, 주문 쪽으로 이전
-	public String adminOrder() {
-		return "member/adminOrder";
-	}
-
-	@RequestMapping(value = "/adminBoard.do") // 취합할때 상의하고, 게시판 쪽으로 이전
-	public String adminBoard() {
-		return "member/adminBoard";
-	}
-
-	@RequestMapping(value = "/showMemberDetail.do")
-	@ResponseBody
-	public MemberDTO showMemberDetail(Model model, String mId) throws Exception {
-		return memberService.showMemberDetail(mId);
-	}
-
-	@RequestMapping(value = "/modifyMemberByAdmin.do")
-	public String modifyMemberByAdmin(Model model, String mId) throws Exception {
-		MemberDTO member = memberService.showMemberDetail(mId);
-		model.addAttribute("selectMember", member);
-		return "member/modifyMemberByAdmin";
-	}
-
-	@RequestMapping(value = "/submitModifyMemberByAdmin.do", method = RequestMethod.POST)
-	public String submitModifyMemberByAdmin(MemberDTO member) throws Exception {
-		memberService.submitModifyMemberByAdmin(member);
-		return "redirect:/adminPage.do";
-	}
-
-	@RequestMapping(value = "/submitModifyPointByAdmin.do", method = RequestMethod.POST) // 포인트 수정은 따로 관리
-	public String submitModifyPointByAdmin(PointDTO pointDTO) throws Exception {
-		memberService.modifyPoint(pointDTO.getMId(), pointDTO.getCurrentPoint());
-		return "redirect:/adminPage.do";		
-	}
 	
 	@RequestMapping(value = "/closeAccountByAdmin.do")
 	public String closeAccountByAdmin(String mId) throws Exception {
@@ -243,5 +250,47 @@ public class MemberController {
 	public String deleteAccount() {
 		return "member/deleteAccount";
 	}
+	
+	@RequestMapping(value = "/deleteAccount.do", method = RequestMethod.POST)
+	public String deleteAccount(String mId, HttpSession session) throws Exception {
+		memberService.deleteMember(mId);
+		session.invalidate();
+		return "member/deleteAccount";
+	}
+	
+	//관리자
+    @RequestMapping(value = "/adminPage.do", method = RequestMethod.GET)
+    public String listSearch(@ModelAttribute("cri") MemberCriteria cri, Model model) throws Exception {
 
+    	model.addAttribute("memberlist", memberService.selectMemberList(cri));
+
+    	MemberPageMaker pageMaker = new MemberPageMaker();
+    	pageMaker.setCri(cri);
+    	pageMaker.setTotalCount(memberService.countPage(cri));
+    	model.addAttribute("pageMaker", pageMaker);
+
+    	return "member/adminPage";
+    }   
+    
+	@RequestMapping(value = "/adminProduct.do") // 취합할때 상의하고, 상품쪽으로 이전
+	public String adminProduct() {
+		return "member/adminProduct";
+	}
+
+	@RequestMapping(value = "/adminOrder.do") // 취합할때 상의하고, 주문 쪽으로 이전
+	public String adminOrder() {
+		return "member/adminOrder";
+	}
+
+	@RequestMapping(value = "/adminBoard.do") // 취합할때 상의하고, 게시판 쪽으로 이전
+	public String adminBoard() {
+		return "member/adminBoard";
+	}
+
+
+    @RequestMapping(value="/deleteMember.do")
+    public String deleteMember(String mId) throws Exception {
+    	memberService.deleteMember(mId);
+    	return "redirect:adminPage.do";
+    }
 }

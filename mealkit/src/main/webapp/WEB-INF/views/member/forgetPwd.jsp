@@ -17,8 +17,7 @@
 				<div class="col-md-6 col-md-offset-3">
 					<div class="block text-center">
 						<h2 class="text-center">회원정보 확인</h2>
-						<form class="text-center" action="checkEmail.do" method="post"
-							>
+						<form class="text-center" action="email.do" method="get">
 							<p>
 								가입한 계정의 아이디와 이메일를 입력하세요.<br> 
 								이메일 주소로 인증 코드가 전송됩니다.

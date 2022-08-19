@@ -44,10 +44,8 @@ function checkvalue(){
 								인증 코드 확인 후 새로운 비밀번호를 설정하세요. 
 							</p>
 							<div class="form-group">
-								<% String mId = request.getParameter("mId"); %>
-								<input type="hidden" name="mId" value="<%=mId%>">
-								<% String AuthenticationKey = (String) request.getSession().getAttribute("AuthenticationKey"); %>
-								<input type="hidden" id="key1" value="<%=AuthenticationKey%>">
+								<input type="hidden" name="mId" value="${mId}">
+								<input type="hidden" id="key1" value="${AuthenticationKey}">
 							</div>
 							<div class="form-group">
 								<input type="text" class="form-control" id="key2" placeholder="이메일 인증 코드" required>

@@ -39,16 +39,6 @@ public class MemberServiceImpl implements MemberService {
     }
 
     @Override
-    public MemberDTO checkEmail(String mId) throws Exception {
-        return memberMapper.checkEmail(mId);
-    }
-
-    @Override
-    public void changePwd(String mId, String pw) throws Exception {
-        memberMapper.changePwd(mId, pw);        
-    } 
-
-    @Override
     public void earnPointForNewMember(String mId, int point) throws Exception {
         memberMapper.earnPointForNewMember(mId, point);        
     }
@@ -62,12 +52,7 @@ public class MemberServiceImpl implements MemberService {
     public MemberDTO showMemberDetail(String mId) throws Exception {        
         return memberMapper.showMemberDetail(mId);
     }
-
-    @Override
-    public List<MemberDTO> memberList() throws Exception  {
-        return memberMapper.memberList();
-    }
-
+    
     @Override
     public void submitModifyMemberByAdmin(MemberDTO member) throws Exception {
         memberMapper.submitModifyMemberByAdmin(member);        
@@ -77,20 +62,17 @@ public class MemberServiceImpl implements MemberService {
     public void modifyPoint(String mId, int point) throws Exception {
         memberMapper.modifyPoint(mId, point);    
     }
+    
+    //===========================================================================
 
     @Override
-    public int checkEmail(String mId, String email) throws Exception {
-    	return memberMapper.checkEmail(mId, email);
+    public MemberDTO selectMember(String mId) throws Exception {
+    	return memberMapper.selectMember(mId);
     }
     
     @Override
     public int checkPwd(MemberDTO member) throws Exception {
     	return memberMapper.checkPwd(member);
-    }
-    
-    @Override
-    public MemberDTO selectMember(String mId) throws Exception {
-    	return memberMapper.selectMember(mId);
     }
     
     @Override
@@ -109,10 +91,18 @@ public class MemberServiceImpl implements MemberService {
     }
 
     @Override
-    public void deleteAccount(String mId) throws Exception {
-        memberMapper.deleteAccount(mId);
+    public void deleteMember(String mId) throws Exception {
+        memberMapper.deleteMember(mId);
     }
 
-	
+    @Override
+    public List<MemberListDTO> selectMemberList(MemberCriteria cri) throws Exception {
+    	return memberMapper.selectMemberList(cri);
+    }
+
+    @Override
+    public int countPage(MemberCriteria cri) throws Exception {
+    	return memberMapper.countPage(cri);
+    }
 
 }

@@ -47,18 +47,6 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		select count(*) from member where email=#{email} 
 			and mId != #{mId}
 	</select>
-
-	<select id="checkEmail" resultType="com.mealkit.member.MemberDTO">
-		select from member where mId=#{mId}
-	</select>
-
-	<update id="changePwd">
-		update member set pw=#{pw} where mId=#{mId}
-	</update>
-
-	<delete id="deleteAccount">
-		delete from member where mId=#{mId}
-	</delete>
 	
 	<insert id="earnPointForNewMember">
 		insert into point
@@ -76,14 +64,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	        where a.mid=b.mid 
 	        and a.mid=#{mId}	       
 	</select>	
-	
-	<select id="memberList" resultMap="member">
-		select a.mno, a.mid, a.pw, a.mName, a.phone, a.address, a.email, a.regDate, a.mLevel, b.currentPoint, b.updateDate 
-	    	from member a, point b
-	        where a.mid=b.mid 	        
-			order by a.mNo desc
-	</select>
-	
+		
 	<update id="submitModifyMemberByAdmin">
 		update MEMBER
 		    set pw=#{pw}, mName=#{mName}, phone=#{phone}, address=#{address}, email=#{email}
@@ -101,4 +82,62 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		    set mLevel=-1
 		    where mId=#{mId}
 	</update>
+	
+	<select id="selectMember"
+		resultType="com.mealkit.member.MemberDTO">
+		select * from member where mId=#{mId}
+	</select>
+
+	<select id="checkPwd" resultType="int">
+		select count(*) from member
+		where mId=#{mId} and pw=#{pw}
+	</select>
+
+	<update id="updateMyInfo">
+		update member 
+			set mName=#{mName}, email=#{email}, phone=#{phone}, address=#{address}
+		where mId=#{mId}
+	</update>
+
+	<update id="updatePwd">
+		update member set pw=#{pw} where mId=#{mId}
+	</update>
+
+	<update id="deleteMember">
+		update member set mLevel=-1 where mId=#{mId}
+	</update>
+
+	<sql id="search">
+	  <if test="searchType != null" >
+		<if test="searchType == 'i'.toString()">
+		and m.mId like '%'||#{keyword}||'%'
+		</if>
+	    <if test="searchType == 'n'.toString()">
+		and m.mName like '%'||#{keyword}||'%'
+		</if>
+	  </if>
+	</sql>
+
+	<select id="selectMemberList" resultType="com.mealkit.member.MemberListDTO">
+	<![CDATA[
+		select * from(
+ 			select rownum rn, mNo, mId, mName, email, regDate, currentPoint from(
+ 				select m.mNo, m.mId, m.mName, m.email, m.regDate, p.currentPoint
+		    	from member m, point p where m.mId = p.mId and m.mLevel=1
+	]]>
+		<include refid="search"></include>
+	<![CDATA[
+            	order by mId asc
+ 			))
+ 		where rn between #{pageStart} and #{pageEnd}
+	]]>
+	</select>
+
+	<select id="countPage" resultType="int">
+	<![CDATA[
+		select count(*) from member m 
+		where m.mLevel=1
+	]]>
+		<include refid="search"></include>
+	</select>
 </mapper>

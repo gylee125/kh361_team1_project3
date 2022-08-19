@@ -13,28 +13,22 @@ public interface MemberService {
     public int checkUniqueEmail(String inputedEmail) throws Exception;
     
     public int checkUniqueEmailForModify(String email, String mId) throws Exception;
-    
-    public MemberDTO checkEmail(String mId) throws Exception;
-    
-    public void changePwd(String mId, String pw) throws Exception;
         
     public void earnPointForNewMember(String mId, int point) throws Exception;
     
     public PointDTO showPoint(String mId) throws Exception;
 
     public MemberDTO showMemberDetail(String mId) throws Exception;   
-    
-    public List<MemberDTO> memberList() throws Exception;
 
     public void submitModifyMemberByAdmin(MemberDTO member) throws Exception;
 
     public void modifyPoint(String mId, int point) throws Exception;
-     
-    public int checkEmail(String mId, String email) throws Exception;
     
-    public int checkPwd(MemberDTO member) throws Exception;
+    //===========================================================================
     
     public MemberDTO selectMember(String mId) throws Exception;
+    
+    public int checkPwd(MemberDTO member) throws Exception;
     
     public void updateMyInfo(MemberDTO member) throws Exception;
     
@@ -42,8 +36,10 @@ public interface MemberService {
     
     public void closeAccount(String mId) throws Exception;
 
-    public void deleteAccount(String mId) throws Exception;
+    public void deleteMember(String mId) throws Exception;
 
-	
+    List<MemberListDTO> selectMemberList(MemberCriteria cri) throws Exception;
+
+    public int countPage(MemberCriteria cri) throws Exception;
 
 }
