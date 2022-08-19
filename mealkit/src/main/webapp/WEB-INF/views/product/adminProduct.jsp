@@ -47,12 +47,12 @@
 		<div class="row">
 			<div class="col-md-12">
 				<ul class="list-inline dashboard-menu text-center">
-					<li><a href="adminPage.do">Member</a></li>
-					<li><a href="adminProduct.do">Product</a></li>
-					<li><a class="active" href="adminOrder.do">Order</a></li>
-					<li><a  href="adminBoard.do">Board</a></li>
+					<li><a href="<%=request.getContextPath()%>/adminPage.do">Member</a></li>
+					<li><a class="active" href="<%=request.getContextPath()%>/product/adminProduct">Product</a></li>
+					<li><a href="<%=request.getContextPath()%>/adminOrder.do">Order</a></li>
+					<li><a href="<%=request.getContextPath()%>/community/adminBoard.do">Board</a></li>
 				</ul>
-			<div class="dashboard-wrapper user-dashboard">
+				<div class="dashboard-wrapper user-dashboard">
 					
 					<div class="total-order mt-20">
 						<h4>Total !@##!@</h4>
@@ -78,16 +78,10 @@
 										<td>2022-08-04</td>													
 										<td>3000</td>	
 									</tr>	
-									<tr>
-										<td>2</td>
-										<td>raichu</td>
-										<td>라이츄</td>
-										<td>thunderbolt@poke.mon</td>
-										<td>2022-08-04</td>													
-										<td>8500</td>	
-									</tr>						
+									
+									
 								</tbody>
-							</table>
+							</table>						
 						</div>
 					</div>
 				</div>
@@ -95,7 +89,6 @@
 		</div>
 	</div>
 </section>
-
 
 <%@ include file="../include/footer.jspf"%>
 

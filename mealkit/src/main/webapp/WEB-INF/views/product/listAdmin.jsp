@@ -37,14 +37,14 @@
 						<div class="product-content">
 							<h4>
 								<a
-									href="<%=request.getContextPath()%>/product/detail?pId=${product.pId}">${product.pName}</a>
+									href="<%=request.getContextPath()%>/product/detail?pId=${product.PId}">${product.PName}</a>
 							</h4>
 							<ul class="list-inline mt-10">
 								<li class="li"><a
-									href="<%=request.getContextPath()%>/product/update?pId=${product.pId}"
+									href="<%=request.getContextPath()%>/product/update?pId=${product.PId}"
 									class="btn btn-main btn-small btn-round">Update</a></li>
 								<li class="li"><a
-									href="javascript:void(0);" onclick="delCheck(${product.pId});"
+									href="javascript:void(0);" onclick="delCheck(${product.PId});"
 									class="btn btn-main btn-small btn-round">Delete</a></li>
 
 

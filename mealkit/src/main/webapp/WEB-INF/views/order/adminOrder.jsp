@@ -18,9 +18,7 @@
 
 
 
-
 <!-- 취합할 때 협의해서 해당 업무 폴더로 옮기기 -->
-
 
 
 
@@ -49,12 +47,12 @@
 		<div class="row">
 			<div class="col-md-12">
 				<ul class="list-inline dashboard-menu text-center">
-					<li><a href="adminPage.do">Member</a></li>
-					<li><a  href="adminProduct.do">Product</a></li>
-					<li><a href="adminOrder.do">Order</a></li>
-					<li><a class="active" href="adminBoard.do">Board</a></li>
+					<li><a href="<%=request.getContextPath()%>/adminPage.do">Member</a></li>
+					<li><a href="<%=request.getContextPath()%>/product/adminProduct">Product</a></li>
+					<li><a class="active" href="<%=request.getContextPath()%>/adminOrder.do">Order</a></li>
+					<li><a href="<%=request.getContextPath()%>/community/adminBoard.do">Board</a></li>
 				</ul>
-				<div class="dashboard-wrapper user-dashboard">
+			<div class="dashboard-wrapper user-dashboard">
 					
 					<div class="total-order mt-20">
 						<h4>Total !@##!@</h4>

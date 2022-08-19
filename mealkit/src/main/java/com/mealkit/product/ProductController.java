@@ -116,6 +116,12 @@ public class ProductController {
 		return "alert";
 
 	}
+	
+	@RequestMapping(value = "/adminProduct")
+	public String adminProduct() {
+		logger.info("/product/adminProduct");
+		return "product/adminProduct";
+	}
 
 	@RequestMapping(value = "/listAdmin")
 	public void productListAdmin(HttpServletRequest request, Model model) throws Exception {
@@ -140,7 +146,7 @@ public class ProductController {
 	public String updatePOST(HttpServletRequest request, ProductVO product, Model model) throws Exception {
 		logger.info("/product/update post 호출");
 
-		int pId = product.getpId();
+		int pId = product.getPId();
 
 		productService.updateProduct(product);
 

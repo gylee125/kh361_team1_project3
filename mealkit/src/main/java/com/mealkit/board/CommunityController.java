@@ -113,4 +113,9 @@ public class CommunityController {
 		response.getOutputStream().close();
 	}
 	
+
+	@RequestMapping(value = "/adminBoard.do")
+	public String adminBoard() {
+		return "community/adminBoard";
+	}
 }

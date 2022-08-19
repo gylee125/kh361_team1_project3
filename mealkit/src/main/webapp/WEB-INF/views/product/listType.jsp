@@ -36,7 +36,7 @@
 							<div class="preview-meta">
 								<ul>
 									<li><a
-										href="<%=request.getContextPath()%>/product/detail?pId=${product.pId}"><i
+										href="<%=request.getContextPath()%>/product/detail?pId=${product.PId}"><i
 											class="tf-ion-ios-search-strong"></i></a></li>
 									<c:if test="${member == null}">
 										<!-- 로그인 정보가 없을 때 -->
@@ -48,9 +48,9 @@
 									<c:if test="${member != null}">
 										<!-- 로그인 정보가 있을 때 -->
 										<input type="hidden" name=mId value="${member.mId}">
-										<input type="hidden" name="pId" value="${product.pId}">
+										<input type="hidden" name="pId" value="${product.PId}">
 										<li><a
-											href="<%=request.getContextPath()%>/addCart.do?mId=${member.mId}&pId=${product.pId}&cquantity=1"><i
+											href="<%=request.getContextPath()%>/addCart.do?mId=${member.mId}&pId=${product.PId}&cquantity=1"><i
 												class="tf-ion-android-cart"></i></a></li>
 									</c:if>
 								</ul>
@@ -59,7 +59,7 @@
 						<div class="product-content">
 							<h4>
 								<a
-									href="<%=request.getContextPath()%>/product/detail?pId=${product.pId}">${product.pName}</a>
+									href="<%=request.getContextPath()%>/product/detail?pId=${product.PId}">${product.PName}</a>
 							</h4>
 							<p class="price">${product.price}원</p>
 						</div>

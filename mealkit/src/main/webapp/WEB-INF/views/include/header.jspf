@@ -333,42 +333,7 @@ FACEBOOK: https://www.facebook.com/themefisher
 										href="<%=request.getContextPath()%>/about">About Us</a>
 									</li>
 									<!-- / About Us -->
-
-									<!-- Admin 관리자 메뉴 -->
-									<c:if test="${member.MLevel eq 2}">관리자만 아래 메뉴보이게?? 아니면 아예 관리자페이지를 따로 만들까? 팀원들과 의논필요</c:if>
-									<li class="dropdown dropdown-slide">
-										<a href="#!" class="dropdown-toggle" data-toggle="dropdown" data-hover="dropdown" data-delay="350"
-											role="button" aria-haspopup="true" aria-expanded="false">Admin <span
-												class="tf-ion-ios-arrow-down"></span></a>
-										<div class="dropdown-menu">
-											<div class="row">
-				
-												<!-- Basic -->
-												<div class="col-lg-6 col-md-6 mb-sm-3">
-													<ul>
-														<li class="dropdown-header">Product</li>
-														<li role="separator" class="divider"></li>
-														<li><a href="<%=request.getContextPath()%>/product/register">Register</a></li>
-														<li><a href="<%=request.getContextPath()%>/product/listAdmin">update / delete</a></li>
-													</ul>
-												</div>
-				
-												<!-- Layout -->
-												<div class="col-lg-6 col-md-6 mb-sm-3">
-													<ul>
-														<li class="dropdown-header">관리자메뉴 필요시 사용</li>
-														<li role="separator" class="divider"></li>
-														<li><a href="<%=request.getContextPath()%>/index">Product Details</a></li>
-														<li><a href="<%=request.getContextPath()%>/index">Shop With Sidebar</a></li>
-				
-													</ul>
-												</div>
-				
-											</div><!-- / .row -->
-										</div><!-- / .dropdown-menu -->
-									</li><!-- / Elements -->
 									
-									<!-- / Admin -->
 									
 
 								</ul>

@@ -20,7 +20,7 @@
 						<li><a href="<%=request.getContextPath()%>/index.do">Home</a></li>
 						<li><a href="<%=request.getContextPath()%>/product/listAll">Shop</a></li>
 						<li><a
-							href="<%=request.getContextPath()%>/product/listType?typeCode=${productOne.typeCode}">${productOne.tNameEng}</a></li>
+							href="<%=request.getContextPath()%>/product/listType?typeCode=${productOne.typeCode}">${productOne.TNameEng}</a></li>
 					</ol>
 				</div>
 			</div>
@@ -49,7 +49,7 @@
 							<h2>상품 정보 수정</h2>
 							<div class="product-category">
 								<span>상품번호</span> 
-							<input type="text" class="form-control" name="pId" id="pId" value="${productOne.pId}" readonly/>
+							<input type="text" class="form-control" name="pId" id="pId" value="${productOne.PId}" readonly/>
 							</div>
 							<div class="product-category">
 								<span>상품분류코드* </span>  1:한식 &nbsp; 2:양식 &nbsp; 3:중식 &nbsp; 4:일식 &nbsp; 5:기타 &nbsp; 
@@ -57,7 +57,7 @@
 							</div>
 							<div class="product-category">
 								<span>상품명*</span> 
-								<input type="text" class="form-control" name="pName" id="pName" value="${productOne.pName}">
+								<input type="text" class="form-control" name="PName" id="PName" value="${productOne.PName}">
 							</div>
 							<div class="product-category">
 								<span>가격*</span>

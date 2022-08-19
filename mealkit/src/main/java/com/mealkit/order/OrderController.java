@@ -192,5 +192,9 @@ public class OrderController {
 			return "order/detailAdmin";
 		}
 		
+		@RequestMapping(value = "/adminOrder.do") 
+		public String adminOrder() {
+			return "order/adminOrder";
+		}
 
 }

@@ -20,7 +20,7 @@
 						<li><a href="<%=request.getContextPath()%>/index.do">Home</a></li>
 						<li><a href="<%=request.getContextPath()%>/product/listAll">Shop</a></li>
 						<li><a
-							href="<%=request.getContextPath()%>/product/listType?typeCode=${productOne.typeCode}">${productOne.tNameEng}</a></li>
+							href="<%=request.getContextPath()%>/product/listType?typeCode=${productOne.typeCode}">${productOne.TNameEng}</a></li>
 					</ol>
 				</div>
 			</div>
@@ -49,7 +49,7 @@
 
 						<form action="<%=request.getContextPath()%>/addCart.do"
 							id="addCartForm">
-							<h2>${productOne.pName}</h2>
+							<h2>${productOne.PName}</h2>
 							<p class="product-price">${productOne.price}원</p>
 
 							<p class="product-description mt-20">${productOne.description}</p>
@@ -77,8 +77,8 @@
 							</c:if>
 							<c:if test="${member != null}">
 								<!-- 로그인 정보가 있을 때 -->
-								<input type="hidden" name=mId value="${member.mId}">
-								<input type="hidden" name="pId" value="${productOne.pId}">
+								<input type="hidden" name=mId value="${member.MId}">
+								<input type="hidden" name="pId" value="${productOne.PId}">
 								<button type="button" class="btn btn-main mt-20" id="cartBtn"
 									onclick="checkQuantity();">Add To Cart</button>
 							</c:if>
@@ -121,7 +121,7 @@
 								<!-- comment section -->
 
 								<form class="text-left clearfix"
-									action="<%=request.getContextPath()%>/comment.do?pId=${productOne.pId}"
+									action="<%=request.getContextPath()%>/comment.do?pId=${productOne.PId}"
 									method="post">
 
 									<div class="form-group">
@@ -149,14 +149,14 @@
 												</a>
 													<div class="comment-info">
 														<h4 class="comment-author">
-															<a href="#!">${review.mId} </a>
+															<a href="#!">${review.MId} </a>
 														</h4>
 														<a><fmt:formatDate value='${review.regDate}'
 																type='date' pattern='yy.MM.dd'></fmt:formatDate></a> <a
 															class="comment-button" href="#!"><i
 															class="tf-ion-chatbubbles"></i>Reply</a>
 														<%--   <c:set var = "eachmId" value = "${review.mId}"> --%>
-														<c:if test="${sessionScope.mId == review.mId}">
+														<c:if test="${sessionScope.MId == review.MId}">
 															<a class="pull-right" style="cursor: pointer;"
 																<%-- href="#Update?rNo=${review.rNo}" --%>  data-toggle="collapse"
 																data-target="#commentupdate${review.rNo}"
@@ -242,7 +242,7 @@
 												</a>
 													<div class="comment-info">
 														<h4 class="comment-author">
-															<a href="#!">${review.mId} </a>
+															<a href="#!">${review.MId} </a>
 														</h4>
 														<a><fmt:formatDate value='${review.regDate}'
 																type='date' pattern='yy.MM.dd'></fmt:formatDate></a> <a
@@ -294,7 +294,7 @@
 							<div class="preview-meta">
 								<ul>
 									<li><a
-										href="<%=request.getContextPath()%>/product/detail?pId=${relatedList.pId}"><i
+										href="<%=request.getContextPath()%>/product/detail?pId=${relatedList.PId}"><i
 											class="tf-ion-ios-search"></i></a></li>
 
 									<li><a href="#!"><i class="tf-ion-android-cart"></i></a></li>
@@ -304,7 +304,7 @@
 						<div class="product-content">
 							<h4>
 								<a
-									href="<%=request.getContextPath()%>/product/detail?pId=${relatedList.pId}">${relatedList.pName}</a>
+									href="<%=request.getContextPath()%>/product/detail?pId=${relatedList.PId}">${relatedList.PName}</a>
 							</h4>
 							<p class="price">${relatedList.price}원</p>
 						</div>
@@ -343,11 +343,11 @@
 				        </a>
 				            <div class="comment-info">
 				                <h4 class="comment-author">
-				                    <a href="#!">${review.mId} </a>
+				                    <a href="#!">${review.MId} </a>
 				                </h4>
 				                <a><fmt:formatDate value='${review.regDate}' type='date' pattern='yy.MM.dd'></fmt:formatDate></a>
 				                <a class="comment-button" href="#!"><i class="tf-ion-chatbubbles"></i>Reply</a>
-				              <c:if test="${sessionScope.mId == review.mId}">
+				              <c:if test="${sessionScope.MId == review.MId}">
 				                <a class="pull-right" style="cursor:pointer;"  data-toggle="collapse" data-target="#commentupdate${review.rNo}" onClick="hideReviewText(${review.rNo})"><i class="tf-ion-chatbubbles"></i>Update</a>
 				                <div id="commentupdate${review.rNo}" class="collapse">
 				                <form class="text-left clearfix" action="<%=request.getContextPath()%>/update.do?rNo=${review.rNo}" method="post">

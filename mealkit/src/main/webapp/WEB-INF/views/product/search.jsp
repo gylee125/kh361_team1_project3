@@ -29,7 +29,7 @@
 						<ul>
 							<li>
 							<a
-									href="<%=request.getContextPath()%>/product/detail?pId=${product.pId}"><i
+									href="<%=request.getContextPath()%>/product/detail?pId=${product.PId}"><i
 										class="tf-ion-ios-search-strong"></i></a></li>
 							<li><a href="#!"><i class="tf-ion-android-cart"></i></a></li>
 						</ul>
@@ -37,7 +37,7 @@
 				</div>
 				<div class="product-content">
 					<h4>
-						<a href="<%=request.getContextPath()%>/product/detail?pId=${product.pId}">${product.pName}</a>
+						<a href="<%=request.getContextPath()%>/product/detail?pId=${product.PId}">${product.PName}</a>
 					</h4>
 					<p class="price">${product.price}원</p>
 				</div>

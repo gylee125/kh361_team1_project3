@@ -61,10 +61,10 @@
 		<div class="row">
 			<div class="col-md-12">
 				<ul class="list-inline dashboard-menu text-center">
-					<li><a class="active" href="adminPage.do">Member</a></li>
-					<li><a href="adminProduct.do">Product</a></li>
-					<li><a href="adminOrder.do">Order</a></li>
-					<li><a href="adminBoard.do">Board</a></li>
+					<li><a class="active" href="<%=request.getContextPath()%>/adminPage.do">Member</a></li>
+					<li><a href="<%=request.getContextPath()%>/product/adminProduct">Product</a></li>
+					<li><a href="<%=request.getContextPath()%>/adminOrder.do">Order</a></li>
+					<li><a href="<%=request.getContextPath()%>/community/adminBoard.do">Board</a></li>
 				</ul>
 				<div class="search-wrap">
 					<select name="searchType">
