@@ -25,4 +25,6 @@ public interface CommunityMapper {
 	public List<Map<String, Object>> selectFileList(Integer cNo) throws Exception;
 	
 	public Map<String, Object> selectFileInfo(Map<String, Object> map) throws Exception;
+	
+	public void updateFile(Map<String, Object> map) throws Exception;
 }
