@@ -1,16 +1,9 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
-<!DOCTYPE html>
-<html>
-<head>
-<title>밀슐랭 | 비밀번호 변경</title>
-</head>
 
-<body id="body">
+<%@ include file="../include/header.jspf"%>
 
-	<%@ include file="../include/header.jspf"%>
 
-	<%-- Forget password form --%>
 	<section class="forget-password-page account">
 		<div class="container">
 			<div class="row">

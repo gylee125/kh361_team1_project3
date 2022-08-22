@@ -24,11 +24,11 @@ public interface MemberService {
 
     public void modifyPoint(String mId, int point) throws Exception;
     
-    //===========================================================================
-    
     public MemberDTO selectMember(String mId) throws Exception;
     
     public int checkPwd(MemberDTO member) throws Exception;
+    
+    public int checkEmail(String email) throws Exception;
     
     public void updateMyInfo(MemberDTO member) throws Exception;
     

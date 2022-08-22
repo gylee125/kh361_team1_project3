@@ -1,10 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
-<!DOCTYPE html>
-<html>
-<head>
-<meta charset="UTF-8">
-<title>밀슐랭 | 회원탈퇴</title>
+	
+<%@ include file="../include/header.jspf"%>
+
 <style>
 .text1 {
 	margin-top: 15px;
@@ -18,10 +16,6 @@
 	letter-spacing: 1px;
 }
 </style>
-</head>
-<body>
-
-<%@ include file="../include/header.jspf"%>
 
 	<section class="page-wrapper success-msg">
 		<div class="container">
@@ -44,6 +38,3 @@
 	</section>
 
 <%@ include file="../include/footer.jspf"%>
-
-</body>
-</html>

@@ -1,10 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
-<!DOCTYPE html>
-<html>
-<head>
-<title>밀슐랭 | 회원탈퇴</title>
+<%@ include file="../include/header.jspf"%>
+
 <style>
 .h {
 	margin-top: 40px;
@@ -19,11 +17,7 @@ span {
 	font-size: 13px;
 }
 </style>
-</head>
 
-<body id="body">
-
-<%@ include file="../include/header.jspf"%>
 	
 	<section class="alerts section">
 	  <div class="container">
@@ -63,6 +57,3 @@ span {
 	</section>
 
 <%@ include file="../include/footer.jspf"%>
-
-</body>
-</html>

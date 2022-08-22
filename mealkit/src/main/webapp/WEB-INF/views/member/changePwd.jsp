@@ -1,10 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
-
-<!DOCTYPE html>
-<html>
-<head>
-<title>밀슐랭 | 비밀번호 변경</title>
-</head>
+<%@ include file="../include/header.jspf"%>
 
 <script type="text/javascript">
 
@@ -27,11 +22,6 @@ function checkvalue(){
 }
 </script>
 
-<body id="body">
-
-	<%@ include file="../include/header.jspf"%>
-
-	<%-- ChangePwd password form --%>
 	<section class="forget-password-page account">
 		<div class="container">
 			<div class="row">

@@ -1,10 +1,10 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
-<!DOCTYPE html>
-<html>
-<head>
-<title>밀슐랭 | 마이페이지</title>
+
+
+<%@ include file="../include/header.jspf"%>
+
 <style>
 .h {
 	font-family: "Poppins", sans-serif;
@@ -31,24 +31,101 @@ span {
 	font-size: 11px;
 }
 </style>
-<script type="text/javascript">
-	//비밀번호 확인
-	function checkPwd() {
-		var pw = document.getElementById("pw").value;
-		var pw2 = document.getElementById("pw2").value;
-		if (pw != pw2) {
-			document.getElementById("check").innerHTML = '비밀번호가 일치하지 않습니다.';
-			document.getElementById("check").style.color = 'red';
-			return false;
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+<script>
+$(document).ready(function() {
+	
+	$('#email').change(function(){
+		$('#checkedEmail').val(N);
+		$('#checkedCode').val(N);
+	});
+	
+	$('#emailCkBtn').on("click",function(event) {
+			
+		const email = $('#email').val();  
+		const regExp = /\w+([-+.]\w+)*@\w+([-.]\w+)*\.[a-zA-Z]{2,4}$/;
+		console.log('회원 이메일 : ' + email);
+			
+		if(!regExp.test(email)){
+			$('#emailCkMsg').text('이메일 형식이 아닙니다.').css('color', 'red');
+		 } else {
+			$.ajax({            
+				url: '/checkEmail',        
+				type : 'post', 
+				data: email,    
+				dataType: 'json',       
+				success: function(result) { 
+					if(result == 0) {   
+						console.log('결과:'+result);
+						$('#emailCkMsg').text('사용 가능한 이메일입니다. 하단의 본인 확인 버튼을 클릭해주세요.').css('color', 'green');
+						$('#email').attr('readonly',true);
+						$('#checkedEmail').val(Y);
+					} else { 
+						$('emailCkMsg').text('이미 사용 중인 이메일입니다.').css('color', 'red');
+					}                            
+				}
+			});   
 		}
-	}
+	});
+			
+	$('#emailSendBtn').on("click",function(event) {
+		
+		const email = $('#email').val();  
+
+		$.ajax({
+			url : '/sendEmail?email='+email,
+			type : 'get',			
+			success : function(data) {
+				console.log("data : " + data);
+				code = data;
+				alert('이메일로 인증코드가 전송되었습니다.');
+				$('#VerificationCode').attr('disabled',false);
+			}
+		});
+	});
+		
+	$('#VerificationCode').on("keyup", function(event) {
+		
+		const inputCode = $(this).val();
+		
+		if(inputCode === code){
+			$('#codeCkMsg').text('인증코드가 일치합니다.').css('color', 'green');
+			$('#checkedCode').val(Y);
+		}else{
+			$('#codeCkMsg').text('인증코드가 일치하지 않습니다.').css('color', 'red');
+		}
+	});
+	
+	$("infoSumit").on("click",function(event){
+		if($('#checkedEmail').val()=='N'){
+	    alert('이메일 중복확인을 해주세요.');
+	    }
+		if($('#codeEmail').val()=='N'){
+	    alert('이메일 인증을 완료해주세요.');
+	    }
+		$('#updateInfo').submit();
+	});
+		
+	$('#pw2').on("input", function(event) {
+		if ($('#pw').val() != $(this).val()) {
+			$('#pwCkMsg').text('비밀번호가 일치하지 않습니다.').css('color', 'red');
+			$('#checkedPw').val(N);
+		} else{
+			$('#pwCkMsg').text('비밀번호가 일치합니다.').css('color', 'green');
+			$('#checkedPw').val(Y);
+		}
+	});
+	
+	$("pwSumit").on("click",function(event){
+		if($('#checkedEmail').val()=='N'){
+		    alert('이메일 중복확인을 해주세요.');
+	    }
+		$('#updateInfo').submit();
+	});
+	
+});
 </script>
-</head>
-<body id="body">
 
-	<%@ include file="../include/header.jspf"%>
-
-	<!-- 헤더 -->
 	<section class="page-header">
 		<div class="container">
 			<div class="row">
@@ -87,7 +164,7 @@ span {
 						</div>
 						<div class="block billing-details">
 							<h4 class="widget-title">개인정보 수정</h4>
-							<form class="checkout-form" action="updateMyInfo.do"
+							<form class="checkout-form" action="updateMyInfo.do" 
 								method="post" id="updateInfo">
 								<div class="form-group">
 									<label>ID</label> <input type="text" class="form-control"
@@ -95,16 +172,22 @@ span {
 								</div>
 								<div class="form-group">
 									<label>이름</label> <input type="text" class="form-control"
-										name="mName" value="${member.MName}">
-
+										name="mName" value="${member.MName}" required>
 								</div>
 								<div class="form-group">
 									<label>이메일</label> <input type="email" class="form-control"
 										id="email" name="email" value="${member.email}">
-									<button type="button" class="gradient-btn">확인 내용</button>
-									<span id="emailCheckText">이메일 중복확인이 필요합니다.</span>
+									<button type="button" class="gradient-btn" id="emailCkBtn">중복 확인</button>
+									<span id="emailCkMsg"></span>
 								</div>
-								<!-- 수정필요 이메일 중복검사~!~!~! -->
+								<div class="mail-check-box">
+								<div class="form-group">
+									<label>인증코드</label> <input type="text" class="form-control"
+										id="VerificationCode" disabled="disabled" required>
+									<button type="button" class="gradient-btn" id="emailSendBtn">본인 확인</button>
+									<span id="codeCkMsg"></span>
+								</div>
+								</div>
 								<div class="form-group">
 									<label>연락처</label> <input type="text" class="form-control"
 										name="phone" value="${member.phone}">
@@ -113,26 +196,31 @@ span {
 									<label>주소</label> <input type="text" class="form-control"
 										name="address" value="${member.address}">
 								</div>
-								<button type="submit" class="btn btn-main btn-small btn-round">수정</button>
+								<div>
+								<input type="hidden" id="checkedEmail" value="Y">
+								<input type="hidden" id="checkedCode" value="Y">
+								</div>
+								<button type="submit" class="btn btn-main btn-small btn-round"
+								id="infoSubmit">수정</button>
 							</form>
-							<!-- 수정필요 개인정보 유효성검사 -->
 						</div>
 						<!-- 비밀번호 -->
 						<div class="block">
 							<h4 class="widget-title">비밀번호 변경</h4>
 							<form class="checkout-form" action="updatePwd.do" method="post"
-								onsubmit="return checkPwd();">
+								id="updatePwd">
 								<div class="form-group">
 									<label>새 비밀번호</label> <input type="password" name="pw" id="pw"
 										class="form-control"required">
 								</div>
 								<div class="form-group">
 									<label>비밀번호 확인</label> <input type="password" id="pw2"
-										class="form-control" required><br> <span
-										id="check"></span>
+										class="form-control" required><br> 
+									<span id="pwCkMsg"></span>
 								</div>
-								<input type="submit" class="btn btn-main btn-small btn-round"
-									value="변경">
+								<input type="hidden" id="checkedPw" value="N">
+								<button type="submit" class="btn btn-main btn-small btn-round"
+									id="pwSubmit">변경</button>
 							</form>
 						</div>
 						<!-- 탈퇴 -->
@@ -148,7 +236,7 @@ span {
 								<h4 class="widget-title">POINT</h4>
 								<div class="media product-card">
 									<div class="summary-total">
-										<span>Total</span> <span> ${point.currentPoint} </span>
+										<span>Total</span> <span> ${point.currentPoint}P </span>
 									</div>
 								</div>
 							</div>
@@ -159,4 +247,4 @@ span {
 		</div>
 	</div>
 
-	<%@ include file="../include/footer.jspf"%>
+<%@ include file="../include/footer.jspf"%>

@@ -101,9 +101,11 @@
 									<tbody>
 										<c:forEach var="list" items="${memberlist}">
 											<tr>
-												<td>${list.mNo}</td>
-												<td>${list.mId}</td>
-												<td>${list.mName}</td>
+												<td>${list.MNo}</td>
+												<td>
+												  <a href='/modifyMemberByAdmin.do&mId=${list.MId}'>${list.MId}</a>
+												</td>
+												<td>${list.MName}</td>
 												<td>${list.email}</td>
 												<td>${list.regDate}</td>
 												<td>${list.currentPoint}</td>
