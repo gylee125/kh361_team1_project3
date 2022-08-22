@@ -109,7 +109,7 @@ span{
 			data : 'mId=' + $('#mId').val(),
 			dataType : "json",
 			success : function(result){
-				console.log(result);
+				//console.log(result);
 				if(result == 0){
 					$("#idCheckText").html('사용할 수 있는 ID입니다.');
 					checkUniqueId = true;
