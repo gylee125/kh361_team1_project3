@@ -10,11 +10,14 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import com.mealkit.main.HomeController;
+import com.mealkit.member.MemberCriteria;
+import com.mealkit.member.MemberPageMaker;
 
 @Controller
 public class OrderController {
@@ -22,6 +25,8 @@ public class OrderController {
 	@Autowired
 	private OrderService orderService;
 	
+	
+	/* 주문 */
 	@RequestMapping(value="/checkout.do")
 	public String checkout(String mId, HttpServletRequest request, HttpSession session) throws Exception {
 		List<CartVO> cartList = orderService.showCart(mId);
@@ -66,7 +71,10 @@ public class OrderController {
 		return "order/confirmation";
 	}
 	
-	// @RequestMapping(value="/cart.do", method = RequestMethod.GET)
+	
+	
+	/* 장바구니 */
+		// @RequestMapping(value="/cart.do", method = RequestMethod.GET)
 		// public void cart() {
 		// }
 		
@@ -121,7 +129,8 @@ public class OrderController {
 		 */
 		
 		@RequestMapping (value="/updateCart.do")
-		public String update(@RequestParam("ucId") int ucId, @RequestParam("cquantity") int cquantity, HttpServletRequest request, HttpSession session) throws Exception {
+		public String update(@RequestParam("ucId") int ucId, @RequestParam("cquantity") int cquantity, 
+				HttpServletRequest request, HttpSession session) throws Exception {
 			orderService.update(ucId, cquantity);
 			String mId = request.getParameter("mId");
 			session.setAttribute("ucId", ucId);
@@ -159,16 +168,18 @@ public class OrderController {
 		}
 		
 		@RequestMapping (value="/updateAdmin.do")
-		public String updateAdmin (@RequestParam("oId") int oId, @RequestParam("statusCode") int statusCode, Model model, HttpServletRequest request, HttpSession session) throws Exception {
+		public String updateAdmin (@RequestParam("oId") int oId, @RequestParam("statusCode") int statusCode, 
+				Model model, HttpServletRequest request, HttpSession session) throws Exception {
 			orderService.updateAdmin(oId, statusCode);	
 			session.setAttribute("oId", oId);
 			session.setAttribute("statusCode", statusCode);
 			request.setAttribute("msg", "상품 정보가 수정 되었습니다.");
-	        request.setAttribute("url", "orderAdmin.do"); 
+	        request.setAttribute("url", "adminOrder.do"); 
 			return "alert";
 		}
 		
 		
+		/* 관리자 */
 		/*
 		 * @RequestMapping(value="/orderAdmin.do")
 		 * public String orderAdmin(Model model) throws Exception { 
@@ -184,7 +195,7 @@ public class OrderController {
 			orderService.deleteAdmin(oId);
 			session.setAttribute("oId", oId);
 			request.setAttribute("msg", "상품이 삭제 되었습니다.");
-	        request.setAttribute("url", "orderAdmin.do"); 
+	        request.setAttribute("url", "adminOrder.do"); 
 			return "alert";
 		}
 		
@@ -202,5 +213,6 @@ public class OrderController {
 			model.addAttribute("orderList",orderList);
 			return "order/adminOrder";
 		}
+		
 
 }

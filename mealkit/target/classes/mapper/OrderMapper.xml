@@ -38,10 +38,10 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	</insert>
 	
 	<select id="showCart" resultType="com.mealkit.order.CartVO">
-		select a.ucId, a.pId, a.cquantity, b.pName, b.price, b.thumbnail
+		select a.ucId, a.mId, a.pId, a.cquantity, b.pName, b.price, b.thumbnail
 		from usercart a, product b
 		where a.pId = b.pId
-		and mId=#{mId}
+		and a.mId=#{mId}
 	</select>
 	
 	<!-- <select id="checkProduct" resultType="com.mealkit.order.CartVO">

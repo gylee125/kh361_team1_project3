@@ -141,7 +141,7 @@
 						</div>
 								<div class="text-center">
 								</br>
-									<a href="<%=request.getContextPath()%>/orderAdmin.do">
+									<a href="<%=request.getContextPath()%>/adminOrder.do">
 										<button type="button" class="btn btn-main">뒤로가기</button>
 									</a>
 									<button type="submit" class="btn btn-main" id="updateAdmin">정보수정</button>

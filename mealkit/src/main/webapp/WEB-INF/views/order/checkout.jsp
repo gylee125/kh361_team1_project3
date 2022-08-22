@@ -2,7 +2,23 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 
 <%@ include file="../include/header.jspf" %>
+<style>
+.media-body {
+	line-height: 1em;
+}
 
+.media-heading a{
+	font-weight:bold;
+	padding-top:5px;
+	color:#444;
+}
+
+.remove{
+	font-weight:bold;
+	color:#444;
+}
+
+</style>
 <section class="page-header">
 	<div class="container">
 		<div class="row">
@@ -92,7 +108,8 @@
                         </a>
                         <div class="media-body">
                            <h4 class="media-heading"><a href="<%=request.getContextPath()%>/shop/detail.do?pId=${cart.pId}">${cart.pName}</a></h4>
-                           <p class="price">${cart.cquantity} x <fmt:formatNumber value="${cart.price}" pattern="###,####,###"/>원</p>
+                           <p class="price"><fmt:formatNumber value="${cart.price}" pattern="###,####,###"/>원 x ${cart.cquantity}개</p>
+                           <p class="total_price">= <fmt:formatNumber value="${cart.price * cart.cquantity}" pattern="###,####,###"/>원</p>
                            <a class="remove" href="<%=request.getContextPath()%>/deleteCart.do?mId=${member.MId}&ucId=${cart.ucId}">삭제하기</a>
                         </div>
                      </div>
