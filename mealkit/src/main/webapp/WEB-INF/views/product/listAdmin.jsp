@@ -36,7 +36,7 @@
 						</div>
 						<div class="product-content">
 							<h4>
-								<a
+								[상품번호: ${product.PId}번] <a
 									href="<%=request.getContextPath()%>/product/detail?pId=${product.PId}">${product.PName}</a>
 							</h4>
 							<ul class="list-inline mt-10">
