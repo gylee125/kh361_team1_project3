@@ -99,6 +99,7 @@
 								</thead>
 								<c:if test="${memberlist.size() != 0}">
 									<tbody>
+										<!-- 항목 수정 및 상세보기 연동 다시 해야함 -->
 										<c:forEach var="list" items="${memberlist}">
 											<tr>
 												<td>${list.MNo}</td>
