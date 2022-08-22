@@ -98,6 +98,8 @@ public class MemberController {
 	@RequestMapping(value = "/checkUniqueId.do")
 	@ResponseBody
 	public int checkUniqueId(String mId) throws Exception {
+	    logger.info("ID 중복 검사: {}", mId);
+	    logger.info("ID 중복 검사 결과: {}", memberService.checkUniqueId(mId));
 		return memberService.checkUniqueId(mId);
 	}
 
