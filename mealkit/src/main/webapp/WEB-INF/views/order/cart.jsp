@@ -14,6 +14,32 @@
 
 
 <%@ include file="../include/header.jspf"%>
+<style>
+
+#modify {
+	background:transparent;
+	border:none;
+	color:#c7254e;
+}
+
+#cquantity {
+	border: solid 1px;
+	text-align:center;
+}
+
+#quantity {
+	padding-left:25px;
+}
+
+#plus_btn {
+	background-color:white;
+	border:none;
+}
+#minus_btn {
+	background-color:white;
+	border:none;
+}
+</style>
 
 <section class="page-header">
 	<div class="container">
@@ -47,7 +73,7 @@
 										<tr>
 											<th class="">상품명</th>
 											<th class="">상품가격</th>
-											<th class="">상품수량</th>
+											<th class="" id="quantity">상품수량</th>
 											<th class="">수량수정</th>
 											<th class="">선택</th>
 										</tr>
@@ -69,14 +95,14 @@
 												<td class="">
 													<input type="hidden" id="mId" name="mId" value="${member.MId}" />
 													<input type="hidden" id="ucId" name="ucId" value="${cart.ucId}" />
-													<button type="button" onclick="fnCalCount('m',this);">-</button>
+													<button type="button" id="plus_btn" onclick="fnCalCount('m',this);">-</button>
 													<input type="text" id="cquantity" name="cquantity" value="${cart.cquantity}" size="1" max="">
-													<button type="button" onclick="fnCalCount('p',this);">+</button>
+													<button type="button" id="minus_btn" onclick="fnCalCount('p',this);">+</button>
 												</td>
 
 												<td class="">
 													<%-- <a href="<%=request.getContextPath()%>/updateCart.do?mId=${member.MId}"> --%>
-														<button type="submit">변경</button>
+														<button type="submit" id="modify">변경</button>
 													<!-- </a> -->
 												</td>
 									</form>

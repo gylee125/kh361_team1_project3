@@ -200,7 +200,7 @@ public class OrderController {
 			List<OrderVO> orderList = orderService.orderAdmin();
 			
 			model.addAttribute("orderList",orderList);
-			return "order/orderAdmin";
+			return "order/adminOrder";
 		}
 
 }
