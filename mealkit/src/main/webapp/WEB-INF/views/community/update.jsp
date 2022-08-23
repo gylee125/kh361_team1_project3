@@ -89,13 +89,13 @@
 
 					<div class="form-group">
 						<label for="cNo">No</label> <input type="text" name='cNo'
-							class="form-control" value="${CommunityVO.cNo}"
+							class="form-control" value="${CommunityVO.CNo}"
 							readonly="readonly">
 					</div>
 
 					<div class="form-group">
 						<label for="mId">Writer</label> <input type="text" name='mId'
-							class="form-control" value="${CommunityVO.mId}"
+							class="form-control" value="${CommunityVO.MId}"
 							readonly="readonly">
 					</div>
 

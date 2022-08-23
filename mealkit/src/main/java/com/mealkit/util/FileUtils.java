@@ -32,7 +32,7 @@ public class FileUtils {
 		List<Map<String, Object>> list = new ArrayList<Map<String,Object>>();
 		Map<String, Object> listMap = null;
 		
-		int cNo = (int)communityVO.getcNo();
+		int cNo = (int)communityVO.getCNo();
 		
 		File file = new File(filePath);
 		if(file.exists() == false) {
@@ -67,7 +67,7 @@ public class FileUtils {
 		String storedFileName = null; 
 		List<Map<String,Object>> list = new ArrayList<Map<String,Object>>();
 		Map<String, Object> listMap = null; 
-		int cNo = communityVO.getcNo();
+		int cNo = communityVO.getCNo();
 		while(iterator.hasNext()){ 
 			multipartFile = mpRequest.getFile(iterator.next()); 
 			if(multipartFile.isEmpty() == false){ 

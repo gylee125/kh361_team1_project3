@@ -56,13 +56,13 @@
 				</div>
 
 				<form name="readForm" role="form" method="post">
-					<input type='hidden' id="cNo" name="cNo" value="${CommunityVO.cNo}">
+					<input type='hidden' id="cNo" name="cNo" value="${CommunityVO.CNo}">
 					<input type="hidden" id="FILE_NO" name="FILE_NO" value=""> 						
 				</form>
 
 				<div class="form-group">
 					<label for="mId">Writer</label> <input type="text" name='mId'
-						class="form-control" value="${CommunityVO.mId}"
+						class="form-control" value="${CommunityVO.MId}"
 						readonly="readonly">
 				</div>
 
@@ -86,7 +86,7 @@
 				</div>
 				
 				<div class="box-footer">
-				<c:if test = "${sessionScope.member.MId == CommunityVO.mId}">
+				<c:if test = "${sessionScope.member.MId == CommunityVO.MId}">
 					<button type="submit" class="btn btn-main" id="update">Modify</button>
 					<button type="submit" class="btn btn-main" id="delete">REMOVE</button>
 				</c:if>	
