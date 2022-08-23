@@ -181,7 +181,10 @@ public class MemberController {
 	}
 
 	@RequestMapping(value = "/myPage.do", method = RequestMethod.GET)
-	public String myPage() throws Exception {
+	public String myPage(Model model, HttpSession session) throws Exception {
+		MemberDTO member = (MemberDTO) session.getAttribute("member");
+		PointDTO point = memberService.showPoint(member.getMId());
+		model.addAttribute("point", point);
 		return "member/myPage";
 	}
 
@@ -197,37 +200,32 @@ public class MemberController {
 		}
 	}
 
-	//이메일중복확인 오류(select count(*) from member where email=#{email})
-    @RequestMapping(value="/checkEmail", method = RequestMethod.POST)
+    @RequestMapping(value="/checkEmail.do", method = RequestMethod.POST)
     @ResponseBody
     public int checkEmail(String email) throws Exception  {
     	return memberService.checkEmail(email);
     }
     
-  	@RequestMapping(value = "/sendEmail", method = RequestMethod.GET)
+  	@RequestMapping(value = "/sendEmail.do", method = RequestMethod.GET)
   	@ResponseBody
   	public String mailCheck(String email) {
   		return mailService.setMail(email);
   	}
   	
-  	//부적합한 열 유형:1111
 	@RequestMapping(value = "/updateMyInfo.do", method = RequestMethod.POST)
 	public String updateMyInfo(MemberDTO member, HttpSession session, HttpServletRequest request) throws Exception {
-		
 		memberService.updateMyInfo(member);
 		MemberDTO updateMember = memberService.selectMember(member.getMId());
 		session.setAttribute("member", updateMember);
 		return alertMsgAndGoUrl(request, "수정이 완료되었습니다.", "myPage.do");
 	}
 
-	//부적합한 열 유형:1111
 	@RequestMapping(value = "updatePwd", method = RequestMethod.POST)
 	public String updatePwd(@RequestParam("pw") String pw, HttpSession session, HttpServletRequest request)
 			throws Exception {
 		MemberDTO member = (MemberDTO) session.getAttribute("member");
 		member.setPw(pw);
 		memberService.updatePwd(member);
-
 		MemberDTO updateMember = memberService.selectMember(member.getMId());
 		session.setAttribute("member", updateMember);
 		return alertMsgAndGoUrl(request, "변경이 완료되었습니다.", "myPage.do");
@@ -267,14 +265,11 @@ public class MemberController {
 	
     @RequestMapping(value = "/adminPage.do", method = RequestMethod.GET)
     public String listSearch(@ModelAttribute("cri") MemberCriteria cri, Model model) throws Exception {
-
     	model.addAttribute("memberlist", memberService.selectMemberList(cri));
-
     	MemberPageMaker pageMaker = new MemberPageMaker();
     	pageMaker.setCri(cri);
     	pageMaker.setTotalCount(memberService.countPage(cri));
     	model.addAttribute("pageMaker", pageMaker);
-
     	return "member/adminPage";
     }   
 

@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ include file="../include/header.jspf"%>
+
 <style>
 .h {
 	font-family: "Poppins", sans-serif;
@@ -23,19 +24,17 @@
 </style>
 </head>
 <body id="body">
-<script
-	src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
 <script>
-	$(document).ready(
-			function() {
-				$('#searchBtn').on("click", function(event) {
-					location.href = "adminPage.do"
-									+ '${pageMaker.makeQuery(1)}'
-									+ "&searchType="
-									+ $("select option:selected").val()
-									+ "&keyword=" + $('#keywordInput').val();
-				});
-		});
+$(document).ready(function() {
+	$('#searchBtn').on("click", function(event) {
+		location.href = "adminPage.do"
+						+ '${pageMaker.makeQuery(1)}'
+						+ "&searchType="
+						+ $("select option:selected").val()
+						+ "&keyword=" + $('#keywordInput').val();
+	});
+});
 	
 </script>
 	
@@ -102,9 +101,7 @@
 										<c:forEach var="list" items="${memberlist}">
 											<tr>
 												<td>${list.MNo}</td>
-												<td>
-												  <a href='/modifyMemberByAdmin.do&mId=${list.MId}'>${list.MId}</a>
-												</td>
+												<td>${list.MId}</td>
 												<td>${list.MName}</td>
 												<td>${list.email}</td>
 												<td>${list.regDate}</td>
@@ -172,6 +169,5 @@
 		</ul>
 	</div>
 </section>
-
 
 <%@ include file="../include/footer.jspf"%> 
