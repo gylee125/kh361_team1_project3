@@ -117,26 +117,6 @@ public class ProductController {
 
 	}
 	
-	/*
-	@RequestMapping(value = "/adminProduct", method = RequestMethod.GET)
-	public String adminProductGET(@ModelAttribute("cri") ProductCriteria cri, Model model) throws Exception {
-		logger.info("/product/adminProduct GET");
-
-		model.addAttribute("productList", productService.selectAdminListWithPaging(cri));
-		ProductPageMaker pageMaker = new ProductPageMaker();
-		pageMaker.setCri(cri);
-
-		pageMaker.setTotalCount(productService.listCountCriteria(cri));
-		
-		logger.info(cri.toString());
-
-		model.addAttribute("pageMaker", pageMaker);
-		
-		
-		return "product/adminProduct";
-	}
-	*/
-	
 	@RequestMapping(value = "/adminProduct")
 	public String adminProduct(@ModelAttribute("cri") ProductSearchCriteria cri, Model model) throws Exception {
 		logger.info("/product/adminProduct");

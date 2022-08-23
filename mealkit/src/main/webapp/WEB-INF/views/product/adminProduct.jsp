@@ -17,8 +17,8 @@
 	table-layout: auto;
 }
 
-#searchbox {
-	margin: 10px;
+#searchBox {
+	margin: 30px 0;
 	text-align: right;
 }
 
@@ -80,8 +80,43 @@
 
 
 					<div class="dashboard-wrapper user-dashboard">
-
 						<div class="total-order mt-20">
+						
+						
+							<div class="list-inline mt-10" id="searchBox">
+								<form role="form" >
+									
+										<select name="searchType">
+											<option value="null"
+												<c:out value="${cri.searchType == null?'selected':''}"/>>
+												---</option>
+											<option value="n"
+												<c:out value="${cri.searchType eq 'n'?'selected':''}"/>>
+												상품명</option>
+											<option value="b"
+												<c:out value="${cri.searchType eq 'b'?'selected':''}"/>>
+												브랜드</option>
+											<option value="d"
+												<c:out value="${cri.searchType eq 'd'?'selected':''}"/>>
+												상품설명</option>
+											<option value="nb"
+												<c:out value="${cri.searchType eq 'nb'?'selected':''}"/>>
+												상품명 OR 브랜드</option>
+											<option value="nd"
+												<c:out value="${cri.searchType eq 'nd'?'selected':''}"/>>
+												상품명 OR 상품설명</option>
+											<option value="nbd"
+												<c:out value="${cri.searchType eq 'nbd'?'selected':''}"/>>
+												상품명 OR 브랜드 OR 상품설명</option>
+										</select> <input type="text" name='keyword' id="keywordInput"
+											value='${cri.keyword }'>
+										<button class="btn btn-main btn-small btn-round" id='searchBtn'>Search</button>
+		
+									
+								</form>
+							</div>
+						
+						
 							<div class="table-responsive">
 								<table class="table">
 									<thead>
@@ -146,39 +181,7 @@
 							</form>
 							
 						</div>
-							
-						<div class="list-inline mt-10"  >
-							<form role="form" id="searchBox">
-								
-									<select name="searchType">
-										<option value="null"
-											<c:out value="${cri.searchType == null?'selected':''}"/>>
-											---</option>
-										<option value="n"
-											<c:out value="${cri.searchType eq 'n'?'selected':''}"/>>
-											상품명</option>
-										<option value="b"
-											<c:out value="${cri.searchType eq 'b'?'selected':''}"/>>
-											브랜드</option>
-										<option value="d"
-											<c:out value="${cri.searchType eq 'd'?'selected':''}"/>>
-											상품설명</option>
-										<option value="nb"
-											<c:out value="${cri.searchType eq 'nb'?'selected':''}"/>>
-											상품명 OR 브랜드</option>
-										<option value="nd"
-											<c:out value="${cri.searchType eq 'nd'?'selected':''}"/>>
-											상품명 OR 상품설명</option>
-										<option value="nbd"
-											<c:out value="${cri.searchType eq 'nbd'?'selected':''}"/>>
-											상품명 OR 브랜드 OR 상품설명</option>
-									</select> <input type="text" name='keyword' id="keywordInput"
-										value='${cri.keyword }'>
-									<button class="btn btn-main btn-small btn-round" id='searchBtn'>Search</button>
-	
-								
-							</form>
-						</div>
+
 
 							<ul class="list-inline mt-10" id="productBtn">
 								<li><a

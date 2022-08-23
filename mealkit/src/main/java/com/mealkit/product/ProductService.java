@@ -11,8 +11,6 @@ public interface ProductService {
 	
 	List<ProductVO> selectRelatedList(int pId) throws Exception;
 	
-	ProductVO selectByPId(int pId) throws Exception;
-	
 	List<ProductVO> selectByTypeCode(String typeCode) throws Exception;
 	
 	void insert(ProductVO product) throws Exception;
@@ -22,8 +20,6 @@ public interface ProductService {
 	int delete(int pId) throws Exception;
 	
 	List<ProductVO> selectListWithPaging(ProductCriteria cri) throws Exception;
-	
-	public List<ProductVO> selectAdminListWithPaging(ProductCriteria cri) throws Exception;
 
 	int listCountCriteria(ProductCriteria cri) throws Exception;
 	

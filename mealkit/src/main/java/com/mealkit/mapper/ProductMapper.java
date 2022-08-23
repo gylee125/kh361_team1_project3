@@ -17,8 +17,6 @@ public interface ProductMapper {
 	
 	List<ProductVO> selectRelatedList(int pId) throws Exception;
 	
-	ProductVO selectByPId(int pId) throws Exception;
-	
 	List<ProductVO> selectByTypeCode(String typeCode) throws Exception;
 	
 	List<ProductVO> selectListWithPaging(ProductCriteria cri) throws Exception;

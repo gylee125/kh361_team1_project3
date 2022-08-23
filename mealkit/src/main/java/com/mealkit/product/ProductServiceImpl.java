@@ -40,12 +40,6 @@ public class ProductServiceImpl implements ProductService {
 
 	@Override
 	@Transactional
-	public ProductVO selectByPId(int pId) throws Exception {
-		return productMapper.selectByPId(pId);
-	}
-
-	@Override
-	@Transactional
 	public List<ProductVO> selectByTypeCode(String typeCode) throws Exception {
 		return productMapper.selectByTypeCode(typeCode);
 	}
@@ -72,14 +66,6 @@ public class ProductServiceImpl implements ProductService {
 	@Transactional
 	public List<ProductVO> selectListWithPaging(ProductCriteria cri) throws Exception {
 		return productMapper.selectListWithPaging(cri);
-	}
-	
-	@Override
-	@Transactional
-	public List<ProductVO> selectAdminListWithPaging(ProductCriteria cri) throws Exception {
-		ProductCriteria pc = cri;
-		pc.setPerPageNum(10);
-		return productMapper.selectListWithPaging(pc);
 	}
 
 	@Override
