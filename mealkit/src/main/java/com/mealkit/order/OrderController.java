@@ -114,10 +114,10 @@ public class OrderController {
 		@RequestMapping (value="/addCart.do")
 		public String addCart(CartVO cart, HttpServletRequest request, HttpSession session) throws Exception {
 			orderService.addCart(cart);
-			String MId = request.getParameter("MId");
+			String mId = request.getParameter("mId");
 			session.setAttribute("cart", cart);
 			request.setAttribute("msg", "장바구니에 상품이 추가됐습니다.");
-	        request.setAttribute("url", "cart.do?mId="+MId); 
+	        request.setAttribute("url", "cart.do?mId="+mId); 
 			return "alert";
 		}
 		

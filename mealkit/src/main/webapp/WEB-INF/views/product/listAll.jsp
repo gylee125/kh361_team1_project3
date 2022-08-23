@@ -77,10 +77,10 @@
 									</c:if>
 									<c:if test="${member != null}">
 										<!-- 로그인 정보가 있을 때 -->
-										<input type="hidden" name=mId value="${member.MId}">
+										<input type="hidden" name=mId value="${member.mId}">
 										<input type="hidden" name="pId" value="${product.PId}">
 										<li><a
-											href="<%=request.getContextPath()%>/addCart.do?mId=${member.MId}&pId=${product.PId}&cquantity=1"><i
+											href="<%=request.getContextPath()%>/addCart.do?mId=${member.mId}&pId=${product.PId}&cquantity=1"><i
 												class="tf-ion-android-cart"></i></a></li>
 									</c:if>
 								</ul>
