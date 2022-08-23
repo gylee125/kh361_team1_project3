@@ -17,10 +17,27 @@
 	table-layout: auto;
 }
 
+#searchbox {
+	margin: 10px;
+	text-align: right;
+}
+
 #productBtn {
 	margin: 10px;
 	text-align: right;
 }
+
+#keywordInput {
+	width: 200px;
+	height: 30px;
+	letter-spacing: 2px;
+	text-transform: uppercase;
+	color: #000;
+	font-size: 12px;
+	border: 1px solid #e5e5e5;
+}
+
+
 </style>
 </head>
 <body id="body">
@@ -59,6 +76,9 @@
 						<li><a
 							href="<%=request.getContextPath()%>/community/adminBoard.do">Board</a></li>
 					</ul>
+
+
+
 					<div class="dashboard-wrapper user-dashboard">
 
 						<div class="total-order mt-20">
@@ -71,6 +91,7 @@
 											<th>상품명</th>
 											<th>가격</th>
 											<th>브랜드</th>
+											<th>상품설명</th>
 										</tr>
 									</thead>
 									<tbody>
@@ -82,6 +103,7 @@
 													<td>${product.PName}</td>
 													<td>${product.price}</td>
 													<td>${product.brand}</td>
+													<td>${product.description}</td>
 												</tr>
 											</c:forEach>
 										</c:if>
@@ -97,33 +119,66 @@
 								<!-- href값을 페이지 번호로 대체하여 이를 자바스크립트에서 href값을 통해 form 태그 내 input hidden에 값을 대체하여 form으로 submit -->
 								<c:if test="${pageMaker.prev}">
 									<li class="paginate_button previous"><a
-										href="<%=request.getContextPath()%>/product/adminProduct?page=${pageMaker.startPage-1}">
+										href="adminProduct${pageMaker.makeSearch(pageMaker.startPage - 1)}">
 											prev </a></li>
 								</c:if>
 
-								<c:forEach var="num" begin="${pageMaker.startPage}"
-									end="${pageMaker.endPage}">
+								<c:forEach var="num" begin="${pageMaker.startPage}"	end="${pageMaker.endPage}">
 									<li
 										class="paginate_button ${pageMaker.cri.page == num ? 'active' :''}">
-										<a
-										href="<%=request.getContextPath()%>/product/adminProduct?page=${num}">${num}</a>
+										<a href="adminProduct${pageMaker.makeSearch(num)}">${num}</a>
 									</li>
 								</c:forEach>
 
-								<c:if test="${pageMaker.next}">
+								<c:if test="${pageMaker.next && pageMaker.endPage > 0}">
 									<li class="paginate_button next"><a
-										href="<%=request.getContextPath()%>/product/adminProduct?page=${pageMaker.endPage+1}">
+										href="adminProduct${pageMaker.makeSearch(pageMaker.endPage +1) }">
 											next </a></li>
 								</c:if>
 
 							</ul>
 
 
-							<form id='actionForm' action="/board/list" method='get'>
+							<form id='actionForm' action="/product/adminProduct" method='get'>
 								<input type='hidden' name='pageNum'
 									value='${pageMaker.cri.page}'> <input type='hidden'
 									name='amount' value='${pageMaker.cri.perPageNum}'>
 							</form>
+							
+						</div>
+							
+						<div class="list-inline mt-10"  >
+							<form role="form" id="searchBox">
+								
+									<select name="searchType">
+										<option value="null"
+											<c:out value="${cri.searchType == null?'selected':''}"/>>
+											---</option>
+										<option value="n"
+											<c:out value="${cri.searchType eq 'n'?'selected':''}"/>>
+											상품명</option>
+										<option value="b"
+											<c:out value="${cri.searchType eq 'b'?'selected':''}"/>>
+											브랜드</option>
+										<option value="d"
+											<c:out value="${cri.searchType eq 'd'?'selected':''}"/>>
+											상품설명</option>
+										<option value="nb"
+											<c:out value="${cri.searchType eq 'nb'?'selected':''}"/>>
+											상품명 OR 브랜드</option>
+										<option value="nd"
+											<c:out value="${cri.searchType eq 'nd'?'selected':''}"/>>
+											상품명 OR 상품설명</option>
+										<option value="nbd"
+											<c:out value="${cri.searchType eq 'nbd'?'selected':''}"/>>
+											상품명 OR 브랜드 OR 상품설명</option>
+									</select> <input type="text" name='keyword' id="keywordInput"
+										value='${cri.keyword }'>
+									<button class="btn btn-main btn-small btn-round" id='searchBtn'>Search</button>
+	
+								
+							</form>
+						</div>
 
 							<ul class="list-inline mt-10" id="productBtn">
 								<li><a
@@ -134,7 +189,7 @@
 									class="btn btn-main btn-small btn-round">update / delete</a></li>
 							</ul>
 
-						</div>
+						
 
 					</div>
 				</div>
@@ -143,14 +198,22 @@
 	</section>
 
 	<script>
-		var actionForm = $("#acionForm");
+		$(document).ready(
+				function() {
+					
+					$('#searchBtn').on(
+							"click",
+							function(event) {
+							self.location = "list"
+							+ '${pageMaker.makeQuery(1)}'
+							+ "&searchType="
+							+ $("select option:selected").val()
+							+ "&keyword=" + $('#keywordInput').val();
+					});
 
-		$(".pagination_button a").on("click", function(e) {
-
-			e.preventDefault();
-			actionForm.find("input[name='page']").val($(this).attr("href"));
-			actionForm.submit();
-		});
+				});
 	</script>
+
+
 
 	<%@ include file="../include/footer.jspf"%>

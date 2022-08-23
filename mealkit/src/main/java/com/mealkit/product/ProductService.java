@@ -28,4 +28,8 @@ public interface ProductService {
 	int listCountCriteria(ProductCriteria cri) throws Exception;
 	
 	List<ProductVO> search(String keyword) throws Exception;
+	
+	List<ProductVO> adminListSearch(ProductSearchCriteria cri) throws Exception;
+	
+	int adminListSearchCount(ProductSearchCriteria cri) throws Exception;
 }

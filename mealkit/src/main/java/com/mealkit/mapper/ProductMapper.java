@@ -3,6 +3,7 @@ package com.mealkit.mapper;
 import java.util.List;
 
 import com.mealkit.product.ProductDetailVO;
+import com.mealkit.product.ProductSearchCriteria;
 import com.mealkit.product.ProductVO;
 import com.mealkit.product.ProductCriteria;
 
@@ -31,5 +32,9 @@ public interface ProductMapper {
 	int delete(int pId) throws Exception;
 	
 	List<ProductVO> search(String keyword) throws Exception;
+	
+	List<ProductVO> adminListSearch(ProductSearchCriteria cri) throws Exception;
+	
+	int adminListSearchCount(ProductSearchCriteria cri) throws Exception;
 	
 }
