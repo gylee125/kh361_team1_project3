@@ -47,17 +47,17 @@
                         <input type="text" class="form-control" id="full_name" value="${member.MName}" placeholder="">
                      </div>
                      <div class="form-group">
-                        <label for="user_address">주소</label>
-                        <input type="text" class="form-control" name="oAddress" id="user_address" value="${member.address}" placeholder="">
+                        <label for="user_phone">연락처</label>
+                        <input type="text" class="form-control" name="phone" id="user_phone" value="${member.phone}" placeholder="">
                      </div>
                      <div class="checkout-country-code clearfix">
                         <div class="form-group">
-                           <label for="user_post_code">우편 번호</label>
-                           <input type="text" class="form-control" id="user_post_code" name="zipcode" value="">
+                           <label for="user_address">주소</label>
+                           <input type="text" class="form-control" name="oAddress" id="user_address" value="${member.address}" placeholder="">
                         </div>
                         <div class="form-group" >
-                           <label for="user_city">도시</label>
-                           <input type="text" class="form-control" id="user_city" name="city" value="">
+                           <label for="user_address">상세주소</label>
+                           <input type="text" class="form-control" name="oAddress_detail" id="user_address_detail" value="" placeholder="">
                         </div>
                      </div>
                      <!-- 국가까진 필요없을 듯합니다
@@ -104,7 +104,7 @@
                      
                      <div class="media product-card">
                         <a class="pull-left" href="<%=request.getContextPath()%>/shop/detail.do?pId=${cart.pId}">
-                           <img class="media-object" src="<%=request.getContextPath()%>${cart.thumbnail}" alt="Image" />
+                           <img class="media-object" src="<%=request.getContextPath()%>/product/display?fileName=${cart.thumbnail}" alt="Image" />
                         </a>
                         <div class="media-body">
                            <h4 class="media-heading"><a href="<%=request.getContextPath()%>/shop/detail.do?pId=${cart.pId}">${cart.pName}</a></h4>

@@ -106,7 +106,7 @@
 											<tr class="">
 												<td class="">
 													<div class="product-info">
-														<img width="80" src="<%=request.getContextPath()%>${cart.thumbnail}" alt="" />
+														<img width="80" src="<%=request.getContextPath()%>/product/display?fileName=${cart.thumbnail}" alt="" />
 														<a href="<%=request.getContextPath()%>/shop/detail.do?pId=${cart.pId}">${cart.pName}</a>
 
 													</div>
