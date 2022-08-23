@@ -120,13 +120,14 @@ public class ProductController {
 	@RequestMapping(value = "/adminProduct", method = RequestMethod.GET)
 	public String adminProduct(@ModelAttribute("cri") ProductCriteria cri, Model model) throws Exception {
 		logger.info("/product/adminProduct");
-		logger.info(cri.toString());
 
-		model.addAttribute("productList", productService.selectListWithPaging(cri));
+		model.addAttribute("productList", productService.selectAdminListWithPaging(cri));
 		ProductPageMaker pageMaker = new ProductPageMaker();
 		pageMaker.setCri(cri);
 
 		pageMaker.setTotalCount(productService.listCountCriteria(cri));
+		
+		logger.info(cri.toString());
 
 		model.addAttribute("pageMaker", pageMaker);
 		

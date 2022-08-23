@@ -19,7 +19,11 @@
 		</div>
 		<div class="row">
 
-
+			<ul class="list-inline mt-10" id="productBtn">
+				<li><a href="<%=request.getContextPath()%>/product/register"
+					class="btn btn-main btn-small btn-round"
+					style="margin: 10px; text-align: right;">Register</a></li>
+			</ul>
 
 
 

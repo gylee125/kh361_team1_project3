@@ -22,6 +22,8 @@ public interface ProductService {
 	int delete(int pId) throws Exception;
 	
 	List<ProductVO> selectListWithPaging(ProductCriteria cri) throws Exception;
+	
+	public List<ProductVO> selectAdminListWithPaging(ProductCriteria cri) throws Exception;
 
 	int listCountCriteria(ProductCriteria cri) throws Exception;
 	
