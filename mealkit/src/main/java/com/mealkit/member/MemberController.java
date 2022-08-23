@@ -158,7 +158,7 @@ public class MemberController {
     		String VerificationCode = mailService.setMail(email);
     		session.setAttribute("VerificationCode", VerificationCode);
     		session.setAttribute("mId", mId);
-    		return "member/changePwd";
+    		return "redirect:/changePwd.do";
     	}
     }
 

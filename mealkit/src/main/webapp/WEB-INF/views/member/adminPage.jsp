@@ -1,5 +1,6 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-	pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+
 <%@ include file="../include/header.jspf"%>
 
 <style>
@@ -22,20 +23,18 @@
 	width: 25px;
 }
 </style>
-</head>
-<body id="body">
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
 <script>
-$(document).ready(function() {
-	$('#searchBtn').on("click", function(event) {
-		location.href = "adminPage.do"
-						+ '${pageMaker.makeQuery(1)}'
-						+ "&searchType="
-						+ $("select option:selected").val()
-						+ "&keyword=" + $('#keywordInput').val();
+	$(document).ready(function() {
+		
+		$('#searchBtn').on("click", function(event) {
+			location.href = "adminPage.do"
+							+ '${pageMaker.makeQuery(1)}'
+							+ "&searchType="
+							+ $("select option:selected").val()
+							+ "&keyword=" + $('#keywordInput').val();
+		});
 	});
-});
-	
 </script>
 	
 <section class="page-header">
@@ -53,8 +52,6 @@ $(document).ready(function() {
 		</div>
 	</div>
 </section>
-
-
 <section class="user-dashboard page-wrapper">
 	<div class="container">
 		<div class="row">
@@ -73,14 +70,11 @@ $(document).ready(function() {
 							<c:out value="${cri.searchType eq 'i'?'selected':''}"/>>ID</option>
 						<option value="n"
 							<c:out value="${cri.searchType eq 'n'?'selected':''}"/>>NAME</option>
-					</select> <input type="text" name='keyword' id="keywordInput"
-						value='${cri.keyword }'>
-					<button id='searchBtn'>
-						<i class="tf-ion-ios-search-strong"></i>
-					</button>
+					</select> 
+					<input type="text" name='keyword' id="keywordInput" value='${cri.keyword }'>
+					<button id='searchBtn'><i class="tf-ion-ios-search-strong"></i></button>
 				</div>
 				<div class="dashboard-wrapper user-dashboard">
-					
 					<div class="total-order mt-20">
 						<h4>Total Members</h4>
 						<div class="table-responsive">
@@ -93,7 +87,6 @@ $(document).ready(function() {
 										<th>Level</th>	
 										<th>Point</th>																
 										<th>Since</th>
-										
 									</tr>
 								</thead>
 								<c:if test="${memberlist.size() != 0}">
@@ -113,13 +106,11 @@ $(document).ready(function() {
 								<c:if test="${memberlist.size() == 0}">
 									<tr>
 										<td colspan="6" align="center">
-												<h4>조회된 결과가 없습니다.</h4>
+											<h4>조회된 결과가 없습니다.</h4>
 										</td>
 									</tr>
 								</c:if>
-							</table>
-														
-														
+							</table>			
 							<div class="dashboard-wrapper dashboard-user-profile" id="showMemberDetail">
 								<div class="media">								
 									<div class="media-body">
