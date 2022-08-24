@@ -32,7 +32,21 @@
 
 </head>
 <body id="body">
-
+<script
+	src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+<script>
+	$(document).ready(
+			function() {
+				$('#searchBtn').on("click", function(event) {
+					location.href = "adminOrder.do"
+									+ '${pageMaker.makeQuery(1)}'
+									+ "&searchType="
+									+ $("select option:selected").val()
+									+ "&keyword=" + $('#keywordInput').val();
+				});
+		});
+	
+</script>
 
 
 	<!-- 취합할 때 협의해서 해당 업무 폴더로 옮기기 -->
@@ -72,7 +86,7 @@
 					</ul>
 					
 					<!--  시간이 된다면 검색 기능 넣기 -->
-					<%-- <div class="search-wrap">
+					<div class="search-wrap">
 						<select name="searchType" >
 							<option value="n"
 								<c:out value="${cri.searchType == null?'selected':''}"/>>---</option>
@@ -81,11 +95,11 @@
 							<option value="n"
 								<c:out value="${cri.searchType eq 'n'?'selected':''}"/>>주문번호</option>
 						</select>
-						<input type="text" name='keyword' id="keywordInput" value='${cri.keyword }'>
+						<input type="text" name='keyword' id="keywordInput" value='${cri.keyword}'>
 						<button id='searchBtn'>
 							<i class="tf-ion-ios-search-strong"></i>
 						</button>
-					</div>--%>
+					</div>
 					
 					<div class="dashboard-wrapper user-dashboard">
 						<div class="table-responsive">
@@ -102,6 +116,7 @@
 										<th>선택</th>
 									</tr>
 								</thead>
+								<c:if test="${memberlist.size() != 0}">
 								<tbody>
 									<c:forEach var="order" items="${orderList}">
 										<tr>
@@ -119,6 +134,14 @@
 										</tr>
 									</c:forEach>
 								</tbody>
+								</c:if>
+								<c:if test="${memberlist.size() == 0}">
+									<tr>
+										<td colspan="6" align="center">
+												<h4>조회된 결과가 없습니다.</h4>
+										</td>
+									</tr>
+								</c:if>
 							</table>
 						</div>
 					</div>

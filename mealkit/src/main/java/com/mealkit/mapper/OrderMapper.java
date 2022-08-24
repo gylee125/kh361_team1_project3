@@ -3,6 +3,8 @@ package com.mealkit.mapper;
 import java.util.List;
 
 import com.mealkit.order.CartVO;
+import com.mealkit.order.OrderCriteria;
+import com.mealkit.order.OrderListVO;
 import com.mealkit.order.OrderVO;
 
 public interface OrderMapper {
@@ -36,4 +38,10 @@ public interface OrderMapper {
 	public void deleteAdmin (int oId) throws Exception;
 
 	public OrderVO detailAdmin(int oId) throws Exception;
+	
+	// 검색기능
+	List<OrderListVO> selectOrderList(OrderCriteria cri) throws Exception;
+
+    public int countPage(OrderCriteria cri) throws Exception;
+
 }

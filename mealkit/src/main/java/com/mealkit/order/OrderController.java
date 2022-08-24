@@ -180,14 +180,32 @@ public class OrderController {
 		
 		
 		/* 관리자 */
+		
+		@RequestMapping(value = "/adminOrder.do") 
+		public String adminOrder(Model model, @ModelAttribute("cri") OrderCriteria cri) throws Exception {
+			List<OrderVO> orderList = orderService.orderAdmin();
+			model.addAttribute("orderList", orderService.selectOrderList(cri));
+	    	OrderPageMaker pageMaker = new OrderPageMaker();
+	    	pageMaker.setCri(cri);
+	    	pageMaker.setTotalCount(orderService.countPage(cri));
+	    	model.addAttribute("pageMaker", pageMaker);
+
+			System.out.println("orderList"+orderList);
+			model.addAttribute("orderList",orderList);
+			return "order/adminOrder";
+		}
+		
 		/*
-		 * @RequestMapping(value="/orderAdmin.do")
-		 * public String orderAdmin(Model model) throws Exception { 
-		 * List<OrderVO> orderList = orderService.orderAdmin();
-		 * model.addAttribute("orderList",orderList); 
+		 * @RequestMapping(value = "/adminOrder.do", method = RequestMethod.GET) public
+		 * String listSearch(@ModelAttribute("cri") OrderCriteria cri, Model model)
+		 * throws Exception {
 		 * 
-		 * return "order/orderAdmin"; 
-		 * }
+		 * model.addAttribute("orderList", orderService.selectOrderList(cri));
+		 * OrderPageMaker pageMaker = new OrderPageMaker(); pageMaker.setCri(cri);
+		 * pageMaker.setTotalCount(orderService.countPage(cri));
+		 * model.addAttribute("pageMaker", pageMaker);
+		 * 
+		 * return "order/adminOrder"; }
 		 */
 		
 		@RequestMapping (value="/deleteAdmin.do")
@@ -205,14 +223,5 @@ public class OrderController {
 			session.setAttribute("order", detailAdmin);
 			return "order/detailAdmin";
 		}
-		
-		@RequestMapping(value = "/adminOrder.do") 
-		public String adminOrder(Model model) throws Exception {
-			List<OrderVO> orderList = orderService.orderAdmin();
-			
-			model.addAttribute("orderList",orderList);
-			return "order/adminOrder";
-		}
-		
 
 }
