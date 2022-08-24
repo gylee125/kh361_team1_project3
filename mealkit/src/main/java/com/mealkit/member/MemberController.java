@@ -117,7 +117,7 @@ public class MemberController {
 	
 	@RequestMapping(value = "/showMemberDetail.do")
 	@ResponseBody
-	public MemberDTO showMemberDetail(Model model, String mId) throws Exception {
+	public MemberDTO showMemberDetail(String mId) throws Exception {
 		return memberService.showMemberDetail(mId);
 	}
 

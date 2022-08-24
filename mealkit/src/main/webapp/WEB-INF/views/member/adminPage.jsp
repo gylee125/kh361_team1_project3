@@ -25,7 +25,9 @@
 <body id="body">
 <script
 	src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+	
 <script>
+
 	$(document).ready(
 			function() {
 				$('#searchBtn').on("click", function(event) {
@@ -98,17 +100,24 @@
 									</tr>
 								</thead>
 								<c:if test="${memberlist.size() != 0}">
-									<tbody>
-										<!-- 항목 수정 및 상세보기 연동 다시 해야함 -->
-										<c:forEach var="list" items="${memberlist}">
-											<tr>
-												<td>${list.MNo}</td>
-												<td>${list.MId}</td>
-												<td>${list.MName}</td>
-												<td>${list.email}</td>
-												<td>${list.regDate}</td>
-												<td>${list.currentPoint}</td>
-											</tr>
+									<tbody>										
+										<c:forEach var="list" items="${memberlist}"  begin="${pageMaker.cri.pageStart - 1}" end="${pageMaker.cri.pageEnd -1}">							
+											<tr onclick="searchMember('${list.MId}');" style="cursor:pointer;">	
+												<td>  ${list.MNo} </td>
+												<td>  ${list.MId} </td>
+												<td>  ${list.MName} </td>										
+												<td> 
+													<c:choose>
+														<c:when test="${list.MLevel == 2}">관리자</c:when>
+														<c:when test="${list.MLevel == -1}">탈퇴</c:when>
+														<c:otherwise>일반회원</c:otherwise>
+													</c:choose>
+												</td>										
+												<td> ${list.currentPoint} </td>
+												<td>  
+												<fmt:formatDate value="${list.regDate}" pattern="yyyy-MM-dd"/>
+												</td>											
+											</tr>							
 										</c:forEach>
 									</tbody>
 								</c:if>
@@ -157,8 +166,7 @@
 				<li><a
 					href="adminPage.do${pageMaker.makeQuery(pageMaker.startPage - 1)}">Prev</a></li>
 			</c:if>
-			<c:forEach begin="${pageMaker.startPage }"
-				end="${pageMaker.endPage }" var="idx">
+			<c:forEach begin="${pageMaker.startPage }"	end="${pageMaker.endPage}" var="idx">
 				<li class="active"
 					<c:out value="${pageMaker.cri.page == idx?'class =active':''}"/>>
 					<a href="adminPage.do${pageMaker.makeQuery(idx)}">${idx}</a>
@@ -178,13 +186,16 @@
 	let withdrawalButton = document.getElementById("withdrawalButton");
 	showMemberDetail.style.display = 'none';
 	
-	//alert("js 작동 테스트 42");
+	alert("js 작동 테스트 57");
 	
-	function searchMember(inputId){		
+	function searchMember(inputId){	
 		
-		fetch("<%=request.getContextPath()%>/showMemberDetail.do?mId=" + inputId)
-			.then((response) => response.json())			
-			.then((data) => {
+		fetch('<%=request.getContextPath()%>/showMemberDetail.do?mId=' + inputId, 
+			 {headers: { 'Accept': 'application/json'} }
+			)
+			.then(response => response.json())		
+			.then((data) => 
+			{
 				console.log(data);
 				alert("회원 비밀번호가 노출됩니다. 보안에 주의하시기 바랍니다.");				
 				memberNo.innerHTML = data.mno;
@@ -203,7 +214,7 @@
 			.catch(function(){
 				alert("ID 확인바랍니다...");
 				showMemberDetail.style.display = 'none';
-			});
+			});	
 	}
 	
 	function divideMemberDisplayAboutLevel(memberLevel){

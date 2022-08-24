@@ -121,9 +121,9 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	<select id="selectMemberList" resultType="com.mealkit.member.MemberListDTO">
 	<![CDATA[
 		select * from(
- 			select rownum rn, mNo, mId, mName, email, regDate, currentPoint from(
- 				select m.mNo, m.mId, m.mName, m.email, m.regDate, p.currentPoint
-		    	from member m, point p where m.mId = p.mId and m.mLevel=1
+ 			select rownum rn, mNo, mId, mName, email, regDate, mLevel, currentPoint from(
+ 				select m.mNo, m.mId, m.mName, m.email, m.regDate, m.mLevel, p.currentPoint
+		    	from member m, point p where m.mId = p.mId
 	]]>
 		<include refid="search"></include>
 	<![CDATA[
