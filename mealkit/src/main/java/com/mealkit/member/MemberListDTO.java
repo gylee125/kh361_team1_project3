@@ -12,7 +12,7 @@ public class MemberListDTO {
 	private int mNo;
 	private String mId;
 	private String mName;
-	private String email;
+	private String mLevel;
 	private Date regDate;
 	private int currentPoint;
 	
