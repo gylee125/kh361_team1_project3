@@ -127,6 +127,7 @@
 											<th>가격</th>
 											<th>브랜드</th>
 											<th>상품설명</th>
+											<th>상세페이지[고객용]</th>
 										</tr>
 									</thead>
 									<tbody>
@@ -139,10 +140,14 @@
 													<td>${product.price}</td>
 													<td>${product.brand}</td>
 													<td>${product.description}</td>
+													<td><a href="<%=request.getContextPath()%>/product/detail?pId=${product.PId}"
+														class="btn btn-main btn-small btn-round">VIEW</a></td>
 												</tr>
 											</c:forEach>
 										</c:if>
-										<c:if test="${empty productList}"> 상품이 존재하지 않습니다.</c:if>
+										<c:if test="${empty productList}">
+											<td colspan="7" align="center">상품이 존재하지 않습니다.</td>
+										</c:if>
 									</tbody>
 								</table>
 							</div>
@@ -186,10 +191,10 @@
 							<ul class="list-inline mt-10" id="productBtn">
 								<li><a
 									href="<%=request.getContextPath()%>/product/register"
-									class="btn btn-main btn-small btn-round">Register</a></li>
+									class="btn btn-main btn-medium btn-round">Register</a></li>
 								<li><a
 									href="<%=request.getContextPath()%>/product/listAdmin"
-									class="btn btn-main btn-small btn-round">update / delete</a></li>
+									class="btn btn-main btn-medium btn-round">update / delete</a></li>
 							</ul>
 
 						

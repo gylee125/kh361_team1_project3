@@ -12,20 +12,17 @@
 
 <section class="products section bg-gray">
 	<div class="container">
+		<div class="row" style="margin: 10px; text-align: right;">
+				<a href="<%=request.getContextPath()%>/product/adminProduct"
+						class="btn btn-main btn-medium">관리자 메뉴로 돌아가기</a>
+		</div>
 		<div class="row">
 			<div class="title text-center">
 				<h2>Lists of foods</h2>
 			</div>
 		</div>
+		
 		<div class="row">
-
-			<ul class="list-inline mt-10" id="productBtn">
-				<li><a href="<%=request.getContextPath()%>/product/register"
-					class="btn btn-main btn-small btn-round"
-					style="margin: 10px; text-align: right;">Register</a></li>
-			</ul>
-
-
 
 			<c:forEach var="product" items="${productList}">
 

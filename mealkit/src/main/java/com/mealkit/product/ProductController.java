@@ -94,7 +94,6 @@ public class ProductController {
 
 		List<ProductVO> productList = productService.search(keyword);
 
-		logger.info("// productList.toString()=" + productList.toString());
 		model.addAttribute("productList", productList);
 	}
 
