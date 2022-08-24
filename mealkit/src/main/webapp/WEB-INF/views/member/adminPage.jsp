@@ -86,7 +86,7 @@
 					
 					<div class="total-order mt-20">
 						<h4>Total Members</h4>
-						<div class="table-responsive">
+						<div class="table-responsive">							
 							<table class="table">
 								<thead>
 									<tr>
@@ -100,8 +100,8 @@
 									</tr>
 								</thead>
 								<c:if test="${memberlist.size() != 0}">
-									<tbody>										
-										<c:forEach var="list" items="${memberlist}"  begin="${pageMaker.cri.pageStart - 1}" end="${pageMaker.cri.pageEnd -1}">							
+									<tbody>								
+										<c:forEach var="list" items="${memberlist}" >							
 											<tr onclick="searchMember('${list.MId}');" style="cursor:pointer;">	
 												<td>  ${list.MNo} </td>
 												<td>  ${list.MId} </td>
@@ -173,10 +173,9 @@
 				</li>
 			</c:forEach>
 			<c:if test="${pageMaker.next && pageMaker.endPage > 0}">
-				<li><a
-					href="listPage${pageMaker.makeQuery(pageMaker.endPage +1) }">Next</a></li>
+				<li><a href="listPage${pageMaker.makeQuery(pageMaker.endPage +1) }">Next</a></li>
 			</c:if>
-		</ul>
+		</ul>		
 	</div>
 </section>
 

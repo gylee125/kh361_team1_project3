@@ -136,7 +136,6 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	<select id="countPage" resultType="int">
 	<![CDATA[
 		select count(*) from member m 
-		where m.mLevel=1
 	]]>
 		<include refid="search"></include>
 	</select>

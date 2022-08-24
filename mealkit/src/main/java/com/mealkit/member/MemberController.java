@@ -263,7 +263,7 @@ public class MemberController {
 	//관리자
     @RequestMapping(value = "/adminPage.do", method = RequestMethod.GET)
     public String listSearch(@ModelAttribute("cri") MemberCriteria cri, Model model) throws Exception {
-
+        logger.info(cri.toString());
     	model.addAttribute("memberlist", memberService.selectMemberList(cri));
 
     	MemberPageMaker pageMaker = new MemberPageMaker();
