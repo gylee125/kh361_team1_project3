@@ -84,15 +84,15 @@
 										<th>No</th>
 										<th>ID</th>
 										<th>Name</th>	
-										<th>Level</th>	
-										<th>Point</th>																
+										<th>Level</th>													
 										<th>Since</th>
+										<th>Point</th>
 									</tr>
 								</thead>
 								<c:if test="${memberlist.size() != 0}">
 									<tbody>
 										<c:forEach var="list" items="${memberlist}">
-											<tr>
+											<tr onclick="searchMember('${list.MId}');" style="cursor:pointer;">
 												<td>${list.MNo}</td>
 												<td>${list.MId}</td>
 												<td>${list.MName}</td>
