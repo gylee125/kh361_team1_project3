@@ -126,7 +126,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		select * from(
  			select rownum rn, mNo, mId, mName, email, regDate, currentPoint from(
  				select m.mNo, m.mId, m.mName, m.email, m.regDate, p.currentPoint
-		    	from member m, point p where m.mId = p.mId and m.mLevel=1
+		    	from member m, point p where m.mId = p.mId
 	]]>
 		<include refid="search"></include>
 	<![CDATA[
