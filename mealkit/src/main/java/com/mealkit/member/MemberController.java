@@ -99,6 +99,8 @@ public class MemberController {
 	@RequestMapping(value = "/checkUniqueId.do")
 	@ResponseBody
 	public int checkUniqueId(String mId) throws Exception {
+	    logger.info("ID 중복 검사: {}", mId);
+	    logger.info("ID 중복 검사 결과: {}", memberService.checkUniqueId(mId));
 		return memberService.checkUniqueId(mId);
 	}
 
@@ -117,7 +119,7 @@ public class MemberController {
 	//회원 상세보기 링크정리 필요
 	@RequestMapping(value = "/showMemberDetail.do")
 	@ResponseBody
-	public MemberDTO showMemberDetail(Model model, String mId) throws Exception {
+	public MemberDTO showMemberDetail(String mId) throws Exception {
 		return memberService.showMemberDetail(mId);
 	}
 
@@ -265,6 +267,8 @@ public class MemberController {
 	
     @RequestMapping(value = "/adminPage.do", method = RequestMethod.GET)
     public String listSearch(@ModelAttribute("cri") MemberCriteria cri, Model model) throws Exception {
+        logger.info(cri.toString());
+
     	model.addAttribute("memberlist", memberService.selectMemberList(cri));
     	MemberPageMaker pageMaker = new MemberPageMaker();
     	pageMaker.setCri(cri);

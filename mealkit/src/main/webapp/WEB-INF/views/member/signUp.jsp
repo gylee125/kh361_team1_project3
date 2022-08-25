@@ -93,6 +93,8 @@ span{
 	let checkUniqueEmail = false;
 	let checkEmail = false;
 	
+	//alert("js 테스트 04");
+	
 	$('#mId').focusout(function(){
 		let mId = $('#mId').val();
 		let isId = /^[a-z]+[a-z0-9]{3,19}$/g;
@@ -111,8 +113,9 @@ span{
 			url : "<%=request.getContextPath()%>/checkUniqueId.do",
 			type : "get",
 			data : 'mId=' + $('#mId').val(),
-			datatype : 'json',
+			dataType : "json",
 			success : function(result){
+				//console.log(result);
 				if(result == 0){
 					$("#idCheckText").html('사용할 수 있는 ID입니다.');
 					checkUniqueId = true;

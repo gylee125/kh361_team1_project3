@@ -17,6 +17,9 @@
 	<logger name="com.mealkit.product">
 		<level value="info" />
 	</logger>
+	<logger name="com.mealkit.member">
+		<level value="info" />
+	</logger>
 	
 	<!-- 3rdparty Loggers -->
 	<logger name="org.springframework.core">

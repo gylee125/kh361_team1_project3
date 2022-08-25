@@ -23,7 +23,13 @@
 	width: 25px;
 }
 </style>
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+
+</head>
+<body id="body">
+<script
+	src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+	
+
 <script>
 	$(document).ready(function() {
 		
@@ -77,7 +83,7 @@
 				<div class="dashboard-wrapper user-dashboard">
 					<div class="total-order mt-20">
 						<h4>Total Members</h4>
-						<div class="table-responsive">
+						<div class="table-responsive">							
 							<table class="table">
 								<thead>
 									<tr>
@@ -153,6 +159,7 @@
 			<c:if test="${pageMaker.prev}">
 				<li><a href="adminPage.do${pageMaker.makeQuery(pageMaker.startPage - 1)}">Prev</a></li>
 			</c:if>
+
 			<c:forEach begin="${pageMaker.startPage }" end="${pageMaker.endPage }" var="idx">
 				<li class="active"
 					<c:out value="${pageMaker.cri.page == idx?'class =active':''}"/>>
@@ -162,30 +169,28 @@
 			<c:if test="${pageMaker.next && pageMaker.endPage > 0}">
 				<li><a href="listPage${pageMaker.makeQuery(pageMaker.endPage +1) }">Next</a></li>
 			</c:if>
-		</ul>
+		</ul>		
 	</div>
 </section>
 
 <script>
+
 	let showMemberDetail = document.getElementById("showMemberDetail");
 	let withdrawalButton = document.getElementById("withdrawalButton");
 	showMemberDetail.style.display = 'none';
 	
-	//alert("js 작동 테스트 42");
+	alert("js 작동 테스트 57");
 	
-	function searchMember(mId){		
-		console.log('선택한 아이디는 '+mId);
+	function searchMember(inputId){	
 		
-		fetch("<%=request.getContextPath()%>/showMemberDetail.do?mId=" + mId, {
-			headers : {
-				'Content-Type': 'application/json',
-				'Accept': 'application/json'
-			}
-		})
-			.then((response) => response.json())			
-			.then((data) => {
+		fetch('<%=request.getContextPath()%>/showMemberDetail.do?mId=' + inputId, 
+			 {headers: { 'Accept': 'application/json'} }
+			)
+			.then(response => response.json())		
+			.then((data) => 
+			{
 				console.log(data);
-				alert("회원 비밀번호가 노출됩니다. 보안에 주의하시기 바랍니다.");
+				alert("회원 비밀번호가 노출됩니다. 보안에 주의하시기 바랍니다.");				
 				memberNo.innerHTML = data.mno;
 				memberId.innerHTML = data.mid;
 				memberName.innerHTML = data.mname;
@@ -194,15 +199,15 @@
 				memberEmail.innerHTML = data.email;
 				memberAddress.innerHTML = data.address;
 				memberRegDate.innerHTML = data.regDate;				
-				memberCurrentPoint.innerHTML = data.currentPoint;				
-				memberUpdateDate.innerHTML = data.updateDate;	
+				memberCurrentPoint.innerHTML = data.pointDTO.currentPoint;				
+				memberUpdateDate.innerHTML = data.pointDTO.updateDate;	
 				divideMemberDisplayAboutLevel(data.mlevel);
 				showMemberDetail.style.display = 'block';
 			})
 			.catch(function(){
 				alert("ID 확인바랍니다...");
 				showMemberDetail.style.display = 'none';
-			});
+			});	
 	}
 	
 	function divideMemberDisplayAboutLevel(memberLevel){
@@ -232,6 +237,7 @@
 	function closeMemberDetail(){
 		showMemberDetail.style.display = 'none';
 	}
+	
 </script>
 
 <%@ include file="../include/footer.jspf"%> 
