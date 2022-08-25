@@ -101,7 +101,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	where oId = #{oId}
 	</delete>
 	
-	<select id="detailAdmin" resultType="com.mealkit.order.OrderVO">
+	<select id="detailAdmin" resultType="com.mealkit.order.OrderListVO">
 		select a.oId, a.mId, a.pId, a.quantity, a.odate, a.price, a.statusCode, b.pName, c.statusName, d.mName, d.phone, d.address
         from userOrder a, product b, statusType c, member d
         where a.pid = b.pid 
@@ -114,15 +114,15 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	<sql id="search">
 	  <if test="searchType != null" >
 		<if test="searchType == 'i'.toString()">
-		and a.mId like '%'||#{keyword}||'%'
+		 and a.mId like '%'||#{keyword}||'%'
 		</if>
 	    <if test="searchType == 'n'.toString()">
-		and a.oId like '%'||#{keyword}||'%'
+		 and a.oId like '%'||#{keyword}||'%'
 		</if>
 	  </if>
 	</sql>
 
-	<select id="selectOrderList" resultType="com.mealkit.order.OrderListVO">
+	<select id="selectOrderList" resultType="com.mealkit.order.OrderVO">
 	<![CDATA[
 		select * from(
 		    	
@@ -141,7 +141,9 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 
 	<select id="countPage" resultType="int">
 	<![CDATA[
-		select count(*) from userorder o
+		select count(*) from userOrder a
+		where oid>0 
+		
 	]]>
 		<include refid="search"></include>
 	</select>

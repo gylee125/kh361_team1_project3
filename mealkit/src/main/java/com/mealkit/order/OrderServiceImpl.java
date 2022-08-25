@@ -91,7 +91,7 @@ public class OrderServiceImpl implements OrderService {
 	}
 
 	@Override
-	public List<OrderListVO> selectOrderList(OrderCriteria cri) throws Exception {
+	public List<OrderVO> selectOrderList(OrderCriteria cri) throws Exception {
 		return orderMapper.selectOrderList(cri);
 	}
 

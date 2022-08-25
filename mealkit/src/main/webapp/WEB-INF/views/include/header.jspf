@@ -21,7 +21,7 @@ FACEBOOK: https://www.facebook.com/themefisher
 <!DOCTYPE html>
 <html lang="en">
 <head>
-
+<link rel="icon" type="image/png" href="http://example.com/myicon.png">
 <!-- Basic Page Needs
   ================================================== -->
 <meta charset="utf-8">
