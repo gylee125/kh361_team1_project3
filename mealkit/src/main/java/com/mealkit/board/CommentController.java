@@ -54,7 +54,6 @@ public class CommentController {
 	}
 	
 	// pid mapping후 vo객체를 list화
-	//neverused
 	@RequestMapping(value = "/all/{pid}", method = RequestMethod.GET)
 	public ResponseEntity<List<CommentVO>> list(@PathVariable("pid") Integer pid){
 		ResponseEntity<List<CommentVO>> entity = null;

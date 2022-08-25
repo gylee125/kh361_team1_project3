@@ -124,6 +124,45 @@ input[type="file"] {
 	}
 </script>
 
+<script>
+
+var pid = 189;
+
+var replyPage = 1;
+
+		$(document).ready(function() {
+
+			var formObj = $("form[role='form']");
+
+			console.log(formObj);
+
+			//static value for test
+			var pid = 189;
+			//
+
+			var template = Handlebars.compile($("#templateAttach").html());
+	
+			
+			
+			$.get("/mealkit/reviews/all/"+pid,function(){
+				alert("ok");
+			});
+			
+			function loadComment (){
+			//window.alert("reviewsdiv");
+
+			/* if ($(".timeline li").size() > 1) {
+				return;
+			} */
+			getPage("<%=request.getContextPath()%>/reviews/" + 189 + "/1");
+			// 189 = pid
+		}
+			
+			
+	});
+		
+</script>
+
 			<div class="row">
 				<div class="col-xs-12">
 					<div class="tabCommon mt-20">
@@ -207,6 +246,14 @@ input[type="file"] {
 </script>
 
 <script>
+function getPage(pageInfo) {
+	$.getJSON(pageInfo, function(data) {
+		printData(data.list, $("#post-comments"), $('#template'));
+		printPaging(data.commentPageMaker, $(".pagination"));
+
+	});
+}
+
 var printData = function(reviewsArr, target, templateObject) {
 	var template = Handlebars.compile(templateObject.html());
 
@@ -216,19 +263,6 @@ var printData = function(reviewsArr, target, templateObject) {
 
 }
 
-var pid = 189;
-
-var replyPage = 1;
-
-
-
-	function getPage(pageInfo) {
-	$.getJSON(pageInfo, function(data) {
-		printData(data.list, $("#post-comments"), $('#template'));
-		printPaging(data.commentPageMaker, $(".pagination"));
-
-	});
-}
 
 var printPaging = function(commentPageMaker, target) {
 
@@ -347,9 +381,9 @@ function imgonerrorfunction(rno){
 $("#reviewsDiv").on("click", function() {
 	//window.alert("reviewsdiv");
 
-	if ($(".timeline li").size() > 1) {
+	/* if ($(".timeline li").size() > 1) {
 		return;
-	}
+	} */
 	getPage("<%=request.getContextPath()%>/reviews/" + 189 + "/1");
 	// 189 = pid
 
@@ -517,24 +551,8 @@ $(".pagination").on("click", "li a", function(event) {
 			 });
 		});
 </script>
-<script>
-		$(document).ready(function() {
 
-			var formObj = $("form[role='form']");
-
-			console.log(formObj);
-
-			//static value for test
-			var pid = 189;
-			//
-
-			var template = Handlebars.compile($("#templateAttach").html());
-			
-		});
-	</script>
-								
 							</div><!-- divend -->
-							
 								<!--  testing code end, set switch-->
 
 						</div>

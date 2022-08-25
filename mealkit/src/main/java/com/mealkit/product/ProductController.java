@@ -23,11 +23,15 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.util.FileCopyUtils;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RequestPart;
 import org.springframework.web.multipart.MultipartFile;
+
+import com.mealkit.board.CommentVO;
+import com.mealkit.mapper.CommentMapper;
 
 @Controller
 @RequestMapping(value = "/product")
@@ -38,6 +42,9 @@ public class ProductController {
 	@Inject
 	private ProductService productService;
 
+	@Inject
+	private CommentMapper commentMapper;
+	
 	// @Inject
 	// private CommentListService commentService;
 
@@ -87,6 +94,7 @@ public class ProductController {
 		 * request.setAttribute("reviewPage", reviewPage);
 		 */
 	}
+	
 
 	@RequestMapping(value = "/search", method = RequestMethod.GET)
 	public void search(Model model, @RequestParam(value = "keyword") String keyword) throws Exception {
