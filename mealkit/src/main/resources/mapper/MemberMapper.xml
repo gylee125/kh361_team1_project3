@@ -83,14 +83,17 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		    where mId=#{mId}
 	</update>
 	
-	<select id="selectMember"
-		resultType="com.mealkit.member.MemberDTO">
+	<select id="selectMember" resultType="com.mealkit.member.MemberDTO">
 		select * from member where mId=#{mId}
 	</select>
 
 	<select id="checkPwd" resultType="int">
 		select count(*) from member
 		where mId=#{mId} and pw=#{pw}
+	</select>
+	
+	<select id="checkEmail" resultType="int">
+		select count(*) from member where email=#{email}
 	</select>
 
 	<update id="updateMyInfo">
@@ -110,10 +113,10 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	<sql id="search">
 	  <if test="searchType != null" >
 		<if test="searchType == 'i'.toString()">
-		and m.mId like '%'||#{keyword}||'%'
+		where mId like '%'||#{keyword}||'%'
 		</if>
 	    <if test="searchType == 'n'.toString()">
-		and m.mName like '%'||#{keyword}||'%'
+		where mName like '%'||#{keyword}||'%'
 		</if>
 	  </if>
 	</sql>
@@ -121,22 +124,22 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	<select id="selectMemberList" resultType="com.mealkit.member.MemberListDTO">
 	<![CDATA[
 		select * from(
- 			select rownum rn, mNo, mId, mName, email, regDate, currentPoint from(
- 				select m.mNo, m.mId, m.mName, m.email, m.regDate, p.currentPoint
-		    	from member m, point p where m.mId = p.mId and m.mLevel=1
-	]]>
+ 			select rownum rn, mNo, mId, mName, mLevel, regDate, currentPoint from(
+ 				select m.mNo, m.mId, m.mName, m.mLevel, m.regDate, p.currentPoint
+		    	from member m, point p where m.mId = p.mId
+            	order by mId asc
+ 				)
+ 	]]>
 		<include refid="search"></include>
 	<![CDATA[
-            	order by mId asc
- 			))
+ 			)
  		where rn between #{pageStart} and #{pageEnd}
 	]]>
 	</select>
 
 	<select id="countPage" resultType="int">
 	<![CDATA[
-		select count(*) from member m 
-		where m.mLevel=1
+		select count(*) from member
 	]]>
 		<include refid="search"></include>
 	</select>

@@ -62,8 +62,6 @@ public class MemberServiceImpl implements MemberService {
     public void modifyPoint(String mId, int point) throws Exception {
         memberMapper.modifyPoint(mId, point);    
     }
-    
-    //===========================================================================
 
     @Override
     public MemberDTO selectMember(String mId) throws Exception {
@@ -73,6 +71,11 @@ public class MemberServiceImpl implements MemberService {
     @Override
     public int checkPwd(MemberDTO member) throws Exception {
     	return memberMapper.checkPwd(member);
+    }
+    
+    @Override
+    public int checkEmail(String email) throws Exception {
+    	return memberMapper.checkEmail(email);
     }
     
     @Override
