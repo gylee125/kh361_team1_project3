@@ -31,7 +31,7 @@
 							맛있고 즐거운 순간들, 밀슐랭이 필요하실 때 언제든지 다시 찾아주세요!
 						</p>
 					</div>
-					<a href="index.do" class="btn btn-main mt-20">계속 쇼핑하기</a>
+					<a href="home" class="btn btn-main mt-20">계속 쇼핑하기</a>
 				</div>
 			</div>
 		</div>

@@ -107,6 +107,8 @@ public class MemberController {
 	@RequestMapping(value = "/checkUniqueEmail.do")
 	@ResponseBody
 	public int checkUniqueEmail(String email) throws Exception {
+	    logger.info("이멜 중복 검사: {}", email);
+        logger.info("이멜 중복 검사 결과: {}", memberService.checkUniqueEmail(email));
 		return memberService.checkUniqueEmail(email);
 	}
 
@@ -261,6 +263,7 @@ public class MemberController {
 	@RequestMapping(value = "/deleteAccount.do", method = RequestMethod.POST)
 	public String deleteAccount(String mId, HttpSession session) throws Exception {
 		memberService.deleteMember(mId);
+		memberService.modifyPoint(mId, 0);
 		session.invalidate();
 		return "member/deleteAccount";
 	}
