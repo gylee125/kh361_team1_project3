@@ -62,10 +62,10 @@ input[type="text"] {
 									<tbody>
 										<c:forEach var="CommunityVO" items="${list}">
 											<tr>
-												<td>${CommunityVO.cNo}</td>
-												<td>${CommunityVO.mId}</td>
+												<td>${CommunityVO.CNo}</td>
+												<td>${CommunityVO.MId}</td>
 												<td><a
-													href='<%=request.getContextPath()%>/community/read?cNo=${CommunityVO.cNo}'>${CommunityVO.title}</a></td>
+													href='<%=request.getContextPath()%>/community/read?cNo=${CommunityVO.CNo}'>${CommunityVO.title}</a></td>
 												<td><fmt:formatDate pattern="yyyy-MM-dd HH:mm"
 														value="${CommunityVO.regDate}" /></td>
 											</tr>
