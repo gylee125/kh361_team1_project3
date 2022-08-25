@@ -9,6 +9,19 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 
+<!DOCTYPE html>
+<html>
+<head>
+<title>밀슐랭 | 관리자 페이지</title>
+<style>
+#updateProductForm {
+	margin-top: -90px;
+	margin-left: -30px;
+	padding: 0px;
+}
+</style>
+</head>
+<body id="body">
 <%@ include file="../include/header.jspf"%>
 
 <c:if test="${not empty productOne}">

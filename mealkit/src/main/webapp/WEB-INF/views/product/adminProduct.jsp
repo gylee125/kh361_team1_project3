@@ -36,8 +36,6 @@
 	font-size: 12px;
 	border: 1px solid #e5e5e5;
 }
-
-
 </style>
 </head>
 <body id="body">
@@ -80,77 +78,74 @@
 
 
 					<div class="dashboard-wrapper user-dashboard">
-						<div class="total-order mt-20">
-						
-						
-							<div class="list-inline mt-10" id="searchBox">
-								<form role="form" >
-									
-										<select name="searchType">
-											<option value="null"
-												<c:out value="${cri.searchType == null?'selected':''}"/>>
-												---</option>
-											<option value="n"
-												<c:out value="${cri.searchType eq 'n'?'selected':''}"/>>
-												상품명</option>
-											<option value="b"
-												<c:out value="${cri.searchType eq 'b'?'selected':''}"/>>
-												브랜드</option>
-											<option value="d"
-												<c:out value="${cri.searchType eq 'd'?'selected':''}"/>>
-												상품설명</option>
-											<option value="nb"
-												<c:out value="${cri.searchType eq 'nb'?'selected':''}"/>>
-												상품명 OR 브랜드</option>
-											<option value="nd"
-												<c:out value="${cri.searchType eq 'nd'?'selected':''}"/>>
-												상품명 OR 상품설명</option>
-											<option value="nbd"
-												<c:out value="${cri.searchType eq 'nbd'?'selected':''}"/>>
-												상품명 OR 브랜드 OR 상품설명</option>
-										</select> <input type="text" name='keyword' id="keywordInput"
-											value='${cri.keyword }'>
-										<button class="btn btn-main btn-small btn-round" id='searchBtn'>Search</button>
-		
-									
-								</form>
-							</div>
-						
-						
-							<div class="table-responsive">
-								<table class="table">
-									<thead>
-										<tr>
-											<th>상품번호</th>
-											<th>분류코드</th>
-											<th>상품명</th>
-											<th>가격</th>
-											<th>브랜드</th>
-											<th>상품설명</th>
-											<th>상세페이지[고객용]</th>
-										</tr>
-									</thead>
-									<tbody>
-										<c:if test="${!empty productList}">
-											<c:forEach var="product" items="${productList}">
-												<tr>
-													<td>${product.PId}</td>
-													<td>${product.typeCode}</td>
-													<td>${product.PName}</td>
-													<td>${product.price}</td>
-													<td>${product.brand}</td>
-													<td>${product.description}</td>
-													<td><a href="<%=request.getContextPath()%>/product/detail?pId=${product.PId}"
-														class="btn btn-main btn-small btn-round">VIEW</a></td>
-												</tr>
-											</c:forEach>
-										</c:if>
-										<c:if test="${empty productList}">
-											<td colspan="7" align="center">상품이 존재하지 않습니다.</td>
-										</c:if>
-									</tbody>
-								</table>
-							</div>
+						<div class="list-inline mt-10" id="searchBox">
+							<form role="form">
+
+								<select name="searchType">
+									<option value="null"
+										<c:out value="${cri.searchType == null?'selected':''}"/>>
+										---</option>
+									<option value="n"
+										<c:out value="${cri.searchType eq 'n'?'selected':''}"/>>
+										상품명</option>
+									<option value="b"
+										<c:out value="${cri.searchType eq 'b'?'selected':''}"/>>
+										브랜드</option>
+									<option value="d"
+										<c:out value="${cri.searchType eq 'd'?'selected':''}"/>>
+										상품설명</option>
+									<option value="nb"
+										<c:out value="${cri.searchType eq 'nb'?'selected':''}"/>>
+										상품명 OR 브랜드</option>
+									<option value="nd"
+										<c:out value="${cri.searchType eq 'nd'?'selected':''}"/>>
+										상품명 OR 상품설명</option>
+									<option value="nbd"
+										<c:out value="${cri.searchType eq 'nbd'?'selected':''}"/>>
+										상품명 OR 브랜드 OR 상품설명</option>
+								</select> <input type="text" name='keyword' id="keywordInput"
+									value='${cri.keyword }'>
+								<button class="btn btn-main btn-small btn-round" id='searchBtn'>Search</button>
+
+
+							</form>
+						</div>
+
+
+						<div class="table-responsive">
+							<table class="table">
+								<thead>
+									<tr>
+										<th>상품번호</th>
+										<th>분류코드</th>
+										<th>상품명</th>
+										<th>가격</th>
+										<th>브랜드</th>
+										<th>상품설명</th>
+										<th>상세페이지[고객용]</th>
+									</tr>
+								</thead>
+								<tbody>
+									<c:if test="${!empty productList}">
+										<c:forEach var="product" items="${productList}">
+											<tr>
+												<td>${product.PId}</td>
+												<td>${product.typeCode}</td>
+												<td>${product.PName}</td>
+												<td>${product.price}</td>
+												<td>${product.brand}</td>
+												<td>${product.description}</td>
+												<td><a
+													href="<%=request.getContextPath()%>/product/detail?pId=${product.PId}"
+													class="btn btn-main btn-small btn-round">VIEW</a></td>
+											</tr>
+										</c:forEach>
+									</c:if>
+									<c:if test="${empty productList}">
+										<td colspan="7" align="center">상품이 존재하지 않습니다.</td>
+									</c:if>
+								</tbody>
+							</table>
 						</div>
 
 						<div class="row" id="paginationProduct">
@@ -163,7 +158,8 @@
 											prev </a></li>
 								</c:if>
 
-								<c:forEach var="num" begin="${pageMaker.startPage}"	end="${pageMaker.endPage}">
+								<c:forEach var="num" begin="${pageMaker.startPage}"
+									end="${pageMaker.endPage}">
 									<li
 										class="paginate_button ${pageMaker.cri.page == num ? 'active' :''}">
 										<a href="adminProduct${pageMaker.makeSearch(num)}">${num}</a>
@@ -184,20 +180,19 @@
 									value='${pageMaker.cri.page}'> <input type='hidden'
 									name='amount' value='${pageMaker.cri.perPageNum}'>
 							</form>
-							
+
 						</div>
 
 
-							<ul class="list-inline mt-10" id="productBtn">
-								<li><a
-									href="<%=request.getContextPath()%>/product/register"
-									class="btn btn-main btn-medium btn-round">Register</a></li>
-								<li><a
-									href="<%=request.getContextPath()%>/product/listAdmin"
-									class="btn btn-main btn-medium btn-round">update / delete</a></li>
-							</ul>
+						<ul class="list-inline mt-10" id="productBtn">
+							<li><a href="<%=request.getContextPath()%>/product/register"
+								class="btn btn-main btn-medium btn-round">Register</a></li>
+							<li><a
+								href="<%=request.getContextPath()%>/product/listAdmin"
+								class="btn btn-main btn-medium btn-round">update / delete</a></li>
+						</ul>
 
-						
+
 
 					</div>
 				</div>
@@ -208,16 +203,17 @@
 	<script>
 		$(document).ready(
 				function() {
-					
+
 					$('#searchBtn').on(
 							"click",
 							function(event) {
-							self.location = "list"
-							+ '${pageMaker.makeQuery(1)}'
-							+ "&searchType="
-							+ $("select option:selected").val()
-							+ "&keyword=" + $('#keywordInput').val();
-					});
+								self.location = "list"
+										+ '${pageMaker.makeQuery(1)}'
+										+ "&searchType="
+										+ $("select option:selected").val()
+										+ "&keyword="
+										+ $('#keywordInput').val();
+							});
 
 				});
 	</script>
