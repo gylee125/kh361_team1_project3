@@ -17,6 +17,10 @@ public class CommentVO {
 	private String content;
 	private Date regDate;
 	private Date updatedate;
+	
+	
+	//added
+	private String[] files;
 	/*
 	 * 
 	 * public CommentVO(Number rno,String mId,String content,Date regDate) {

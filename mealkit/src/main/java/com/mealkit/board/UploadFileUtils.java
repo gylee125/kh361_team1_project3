@@ -52,6 +52,8 @@ public class UploadFileUtils {
     }
     
     return uploadedFileName;
+    	//returns thumbnailFileName
+    //return savedName;
     
   }
   
