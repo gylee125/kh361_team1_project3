@@ -30,9 +30,9 @@ input[type="file"] {
 	src="<%=request.getContextPath()%>/resources/plugins/bootstrap/js/bootstrap.min.js"></script>
 <script
 	src="<%=request.getContextPath()%>/resources/plugins/bootstrap-touchspin/dist/jquery.bootstrap-touchspin.min.js"></script>
-	
 
 <%@ include file="../include/header.jspf"%>
+
 
 <c:if test="${not empty productOne}">
 	<section class="single-product">
@@ -125,9 +125,8 @@ input[type="file"] {
 </script>
 
 <script>
-
-var pid = 189;
-
+var mId = "admin";
+var pid = ${productOne.PId};
 var replyPage = 1;
 
 		$(document).ready(function() {
@@ -137,7 +136,6 @@ var replyPage = 1;
 			console.log(formObj);
 
 			//static value for test
-			var pid = 189;
 			//
 
 			var template = Handlebars.compile($("#templateAttach").html());
@@ -154,7 +152,7 @@ var replyPage = 1;
 			/* if ($(".timeline li").size() > 1) {
 				return;
 			} */
-			getPage("<%=request.getContextPath()%>/reviews/" + 189 + "/1");
+			getPage("<%=request.getContextPath()%>/reviews/" + pid + "/1");
 			// 189 = pid
 		}
 			
@@ -182,6 +180,9 @@ var replyPage = 1;
 						<!-- comment section -->
 						<div>
 							<form id="submitform">
+								<c:if test="${member != null}"><!-- error strict-origin-when-cross-origin -->
+								<input type="text" readonly="readonly" value="${member.mId}" />
+								</c:if>
 								<input type="text" id="submitReviewWriter" name="reviews"
 									class="form-control" placeholder="Comment">
 								<div class="text-center">
@@ -384,7 +385,7 @@ $("#reviewsDiv").on("click", function() {
 	/* if ($(".timeline li").size() > 1) {
 		return;
 	} */
-	getPage("<%=request.getContextPath()%>/reviews/" + 189 + "/1");
+	getPage("<%=request.getContextPath()%>/reviews/" + pid + "/1");
 	// 189 = pid
 
 });
@@ -397,7 +398,7 @@ $(".pagination").on("click", "li a", function(event) {
 
 	replyPage = $(this).attr("href");
 
-	getPage("<%=request.getContextPath() %>/reviews/" + 189 + "/" + replyPage);
+	getPage("<%=request.getContextPath() %>/reviews/"+pid+ "/" + replyPage);
 
 });
 
@@ -473,8 +474,7 @@ $(".pagination").on("click", "li a", function(event) {
 	}
 	
 	//testString
-	var mId = 'admin';
-	
+	<%-- var mId = <%= session.getAttribute("mId") %>; --%>
 	for(var i = 0; i < storeimg.length ; i ++){
 /* 				var uuid = function uuidv4() {
 			  return ([1e7]+-1e3+-4e3+-8e3+-1e11).replace(/[018]/g, c =>
@@ -517,7 +517,7 @@ $(".pagination").on("click", "li a", function(event) {
 			//$(".uploadedList").removeChild();
 			
 			document.getElementById("fileupload").value = "";
-					 
+
 			 $.ajax({
 					type:'post',
 					url:'<%=request.getContextPath()%>/reviews/',
