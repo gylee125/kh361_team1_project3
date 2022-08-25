@@ -90,4 +90,16 @@ public class OrderServiceImpl implements OrderService {
 		return orderMapper.detailAdmin(oId);
 	}
 
+	@Override
+	public List<OrderListVO> selectOrderList(OrderCriteria cri) throws Exception {
+		return orderMapper.selectOrderList(cri);
+	}
+
+	@Override
+	public int countPage(OrderCriteria cri) throws Exception {
+		return orderMapper.countPage(cri);
+	}
+	
+	
+
 }

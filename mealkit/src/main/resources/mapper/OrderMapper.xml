@@ -38,10 +38,10 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	</insert>
 	
 	<select id="showCart" resultType="com.mealkit.order.CartVO">
-		select a.ucId, a.pId, a.cquantity, b.pName, b.price, b.thumbnail
+		select a.ucId, a.mId, a.pId, a.cquantity, b.pName, b.price, b.thumbnail
 		from usercart a, product b
 		where a.pId = b.pId
-		and mId=#{mId}
+		and a.mId=#{mId}
 	</select>
 	
 	<!-- <select id="checkProduct" resultType="com.mealkit.order.CartVO">
@@ -109,7 +109,42 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         and a.oId = #{oId}
         and a.mId = d.mId
 	</select>
+	
+	<!-- 검색기능 -->
+	<sql id="search">
+	  <if test="searchType != null" >
+		<if test="searchType == 'i'.toString()">
+		and a.mId like '%'||#{keyword}||'%'
+		</if>
+	    <if test="searchType == 'n'.toString()">
+		and a.oId like '%'||#{keyword}||'%'
+		</if>
+	  </if>
+	</sql>
 
+	<select id="selectOrderList" resultType="com.mealkit.order.OrderListVO">
+	<![CDATA[
+		select * from(
+		    	
+		    select rownum rn, oId, mId, pId, quantity, odate, price, statusCode, pname, statusName
+		    from ( select a.oId, a.mId, a.pId, a.quantity, a.odate, a.price, a.statusCode, b.pName, c.statusName
+	       		from userOrder a, product b, statusType c
+	        	where a.pid = b.pid and a.statusCode = c.statusCode 
+	]]>
+		<include refid="search"></include>
+	<![CDATA[
+            	order by oId asc
+ 			))
+ 		where rn between #{pageStart} and #{pageEnd}
+	]]>
+	</select>
+
+	<select id="countPage" resultType="int">
+	<![CDATA[
+		select count(*) from userorder o
+	]]>
+		<include refid="search"></include>
+	</select>
 
 
 </mapper>

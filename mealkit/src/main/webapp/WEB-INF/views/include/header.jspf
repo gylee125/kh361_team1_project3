@@ -188,10 +188,10 @@ FACEBOOK: https://www.facebook.com/themefisher
 						</c:if>
 
 						<c:if test="${member != null and member.MLevel == 2}">
-							<!-- Mlevel.2 -->
+							<%-- <!-- Mlevel.2 -->
 							<li class="dropdown cart-nav dropdown-slide"><a
 								href="<%=request.getContextPath()%>/orderAdmin.do"
-								class="dropdown-toggle">Order</a></li>
+								class="dropdown-toggle">Order</a></li> --%>
 						</c:if>
 
 						<!-- /Order -->
