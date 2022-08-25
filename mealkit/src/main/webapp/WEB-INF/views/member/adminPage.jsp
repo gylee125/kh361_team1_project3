@@ -179,7 +179,7 @@
 	let withdrawalButton = document.getElementById("withdrawalButton");
 	showMemberDetail.style.display = 'none';
 	
-	alert("js 작동 테스트 57");
+	// alert("js 작동 테스트 57");
 	
 	function searchMember(inputId){	
 		

@@ -101,7 +101,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	where oId = #{oId}
 	</delete>
 	
-	<select id="detailAdmin" resultType="com.mealkit.order.OrderListVO">
+	<select id="detailAdmin" resultType="com.mealkit.order.OrderVO">
 		select a.oId, a.mId, a.pId, a.quantity, a.odate, a.price, a.statusCode, b.pName, c.statusName, d.mName, d.phone, d.address
         from userOrder a, product b, statusType c, member d
         where a.pid = b.pid 
@@ -133,7 +133,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	]]>
 		<include refid="search"></include>
 	<![CDATA[
-            	order by oId asc
+            	order by oId desc
  			))
  		where rn between #{pageStart} and #{pageEnd}
 	]]>

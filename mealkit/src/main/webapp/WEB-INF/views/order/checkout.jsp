@@ -41,7 +41,7 @@
             <div class="col-md-8">
                <div class="block billing-details">
                   <h4 class="widget-title">배송지</h4>
-                  <form class="checkout-form" action="/order.do" method="post">
+                  <form class="checkout-form" action="/order.do" method="post" id="checkoutSignUp">
                      <div class="form-group">
                         <label for="full_name">이름</label>
                         <input type="text" class="form-control" id="full_name" value="${member.MName}" placeholder="">
@@ -57,7 +57,7 @@
                         </div>
                         <div class="form-group" >
                            <label for="user_address">상세주소</label>
-                           <input type="text" class="form-control" name="oAddress_detail" id="user_address_detail" value="" placeholder="">
+                           <input type="text" class="form-control" name="oAddress_detail" id="user_address_detail" placeholder="">
                         </div>
                      </div>
                      <!-- 국가까진 필요없을 듯합니다
@@ -74,7 +74,7 @@
                   <div class="checkout-product-details">
                      <div class="payment">
                         <div class="card-details">
-                           <form  class="checkout-form">
+                           <form  class="checkout-form" id="checkoutSignUp">
                               <div class="form-group">
                                  <label for="card-number">카드 번호 <span class="required">*</span></label>
                                  <input  id="card-number" class="form-control"   type="tel" placeholder="**** **** **** ****">
@@ -87,7 +87,7 @@
                                  <label for="card-cvc">CVC 번호 <span class="required">*</span></label>
                                  <input id="card-cvc" class="form-control"  type="tel" maxlength="4" placeholder="CVC" >
                               </div>
-                              <a href="<%=request.getContextPath()%>/addOrder.do?mId=${member.MId}" class="btn btn-main mt-20">주문하기</a >
+                              <a href="<%=request.getContextPath()%>/addOrder.do?mId=${member.MId}" class="btn btn-main mt-20" onclick="checkoutForm();">주문하기</a >
                            </form>
                         </div>
                      </div>
@@ -159,5 +159,36 @@
          </div>
       </div>
    </div>
+   
+ <script type="text/javascript">
+ 
+ let checkoutForm = document.getElementById("checkoutSignUp");	
+ 
+   function checkoutForm() {
+		if (checkoutForm.user_address_detail.value == "") {
+			alert("상세주소를 입력하세요.");
+			checkoutForm.user_address_detail.focus();
+			return false;
+		}
+		if (checkoutForm.card-number.value == "") {
+			alert("카드 번호를 입력하세요.");
+			checkout-form.card-number.focus();
+			return false;
+		}
+		
+		if (checkoutForm.card-expiry.value == "") {
+			alert("카드 만료기한을 입력하세요.");
+			checkout-form.card-expiry.focus();
+			return false;
+		}
+		if (checkoutForm.card-cvc.value == "") {
+			alert("CVC번호를 입력하세요.");
+			checkout-form.card-cvc.focus();
+			return false;
+		}
+		
+		checkoutForm.submit();
+	}
+   </script>
    
    <%@ include file="../include/footer.jspf" %>
