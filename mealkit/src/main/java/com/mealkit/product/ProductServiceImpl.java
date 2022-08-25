@@ -2,8 +2,6 @@ package com.mealkit.product;
 
 import java.util.List;
 
-import org.apache.ibatis.session.SqlSession;
-import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -42,12 +40,6 @@ public class ProductServiceImpl implements ProductService {
 
 	@Override
 	@Transactional
-	public ProductVO selectByPId(int pId) throws Exception {
-		return productMapper.selectByPId(pId);
-	}
-
-	@Override
-	@Transactional
 	public List<ProductVO> selectByTypeCode(String typeCode) throws Exception {
 		return productMapper.selectByTypeCode(typeCode);
 	}
@@ -73,7 +65,6 @@ public class ProductServiceImpl implements ProductService {
 	@Override
 	@Transactional
 	public List<ProductVO> selectListWithPaging(ProductCriteria cri) throws Exception {
-
 		return productMapper.selectListWithPaging(cri);
 	}
 
@@ -89,4 +80,18 @@ public class ProductServiceImpl implements ProductService {
 	public List<ProductVO> search(String keyword) throws Exception {
 		return productMapper.search(keyword);
 	}
+	
+	@Override
+	@Transactional
+	public List<ProductVO> adminListSearch(ProductSearchCriteria cri) throws Exception{
+		cri.setPerPageNum(10);
+		return productMapper.adminListSearch(cri);
+	};
+	
+	@Override
+	@Transactional
+	public int adminListSearchCount(ProductSearchCriteria cri) throws Exception{
+		cri.setPerPageNum(10);
+		return productMapper.adminListSearchCount(cri);
+	};
 }

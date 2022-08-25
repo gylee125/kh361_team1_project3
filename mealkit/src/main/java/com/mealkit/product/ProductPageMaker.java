@@ -27,7 +27,7 @@ public class ProductPageMaker {
 
 	private void calcData() {
 
-		endPage = (int) (Math.ceil(cri.getPage() / (double)displayPageNum) * displayPageNum);
+		endPage = (int) (Math.ceil(cri.getPage() / (double) displayPageNum) * displayPageNum);
 
 		startPage = (endPage - displayPageNum) + 1;
 
@@ -74,9 +74,20 @@ public class ProductPageMaker {
 	public String makeQuery(int page) {
 
 		UriComponents uriComponents = UriComponentsBuilder.newInstance().queryParam("page", page)
-				//.queryParam("perPageNum", cri.getPerPageNum())
+				// .queryParam("perPageNum", cri.getPerPageNum())
 				.build();
 
 		return uriComponents.toUriString();
 	}
+
+	public String makeSearch(int page){
+		cri.setPerPageNum(10);
+		UriComponents uriComponents = UriComponentsBuilder.newInstance()
+		.queryParam("page", page)
+		.queryParam("perPageNum", cri.getPerPageNum())
+		.queryParam("searchType", ((ProductSearchCriteria)cri).getSearchType())
+		.queryParam("keyword", ((ProductSearchCriteria)cri).getKeyword())
+		.build();
+		return uriComponents.toUriString();
+	}	
 }

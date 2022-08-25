@@ -2,12 +2,12 @@ package com.mealkit.member;
 
 public class MemberCriteria {
 
-	private int page;
+	private int page;	
 	private int perPageNum;
 	private String searchType;
 	private String keyword;
 
-	public MemberCriteria() {
+    public MemberCriteria() {
 	    this.page = 1;
 	    this.perPageNum = 10;
 	  }

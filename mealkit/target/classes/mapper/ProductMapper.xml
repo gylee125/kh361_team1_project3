@@ -27,11 +27,6 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	]]>
 	</select>
 
-	<select id="selectByPId" resultType="ProductVO">
-		select * from product where
-		pId=#{pId}
-	</select>
-
 	<select id="selectByTypeCode" resultType="ProductVO">
 		select * from product
 		where typeCode=#{typeCode}
@@ -39,7 +34,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 
 	<insert id="insert" parameterType="ProductVO">
 		insert into product
-		values(pIdSeq.NEXTVAL, #{typeCode}, #{pName}, #{price}, 
+		values(pIdSeq.NEXTVAL, #{typeCode}, #{pName}, #{price},
 		#{brand}, #{description}, #{thumbnail}, #{image})
 	</insert>
 
@@ -52,7 +47,8 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		, brand=#{brand}
 		,
 		description=#{description}
-		where pId=#{pId}
+		where
+		pId=#{pId}
 	</update>
 
 	<delete id="delete">
@@ -91,5 +87,69 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		select * from product where pName like CONCAT('%' || #{keyword}, '%') order by pId desc
 	]]>
 	</select>
+
+
+
+	<sql id="searchSql">
+		<if test="searchType != null">
+			<if test="searchType == 'n'.toString()">
+				and pName like CONCAT('%' || #{keyword}, '%')
+			</if>
+			<if test="searchType == 'b'.toString()">
+				and brand like CONCAT('%' || #{keyword}, '%')
+			</if>
+			<if test="searchType == 'd'.toString()">
+				and description like CONCAT('%' || #{keyword}, '%')
+			</if>
+			<if test="searchType == 'nb'.toString()">
+				and ( pName like CONCAT('%' || #{keyword}, '%') 
+				OR brand like CONCAT('%' || #{keyword}, '%'))
+			</if>
+			<if test="searchType == 'nd'.toString()">
+				and ( pName like CONCAT('%' || #{keyword}, '%') 
+				OR description like CONCAT('%' || #{keyword}, '%'))
+			</if>
+			<if test="searchType == 'nbd'.toString()">
+				and ( pName like CONCAT('%' || #{keyword}, '%')
+				OR
+				brand like CONCAT('%' || #{keyword}, '%')
+				OR
+				description like CONCAT('%' || #{keyword}, '%'))
+			</if>
+		</if>
+	</sql>
+
+
+	<select id="adminListSearch" resultType="ProductVO">
+		<![CDATA[  
+  		select
+              *
+          from
+              (
+                  select /*+INDEX_DESC(product pk_product)*/
+                      rownum rn, pId, typeCode, pName, price, brand, description, thumbnail, image
+                  from
+                      product 
+                  where rownum <= #{page} * #{perPageNum}
+              
+  
+		]]>
+				<include refid="searchSql"></include>
+		<![CDATA[    
+				)
+		  where rn > (#{page}-1) * #{perPageNum}
+		]]>
+	</select>
+
+
+	<select id="adminListSearchCount" resultType="int">
+<![CDATA[  
+  select count(pId) 
+  from product
+  where pId > 0 
+]]>
+		<include refid="searchSql"></include>
+	</select>
+
 
 </mapper>
