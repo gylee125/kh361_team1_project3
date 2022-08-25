@@ -94,7 +94,6 @@ public class ProductController {
 
 		List<ProductVO> productList = productService.search(keyword);
 
-		logger.info("// productList.toString()=" + productList.toString());
 		model.addAttribute("productList", productList);
 	}
 
@@ -118,8 +117,20 @@ public class ProductController {
 	}
 	
 	@RequestMapping(value = "/adminProduct")
-	public String adminProduct() {
+	public String adminProduct(@ModelAttribute("cri") ProductSearchCriteria cri, Model model) throws Exception {
 		logger.info("/product/adminProduct");
+		
+		model.addAttribute("productList", productService.adminListSearch(cri));
+		ProductPageMaker pageMaker = new ProductPageMaker();
+		pageMaker.setCri(cri);
+
+		pageMaker.setTotalCount(productService.adminListSearchCount(cri));
+		
+		logger.info(cri.toString());
+
+		model.addAttribute("pageMaker", pageMaker);
+		
+		
 		return "product/adminProduct";
 	}
 

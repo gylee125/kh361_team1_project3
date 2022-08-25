@@ -22,7 +22,7 @@ public class ProductCriteria {
 	public void setPerPageNum(int perPageNum) {
 
 		if (perPageNum <= 0 || perPageNum > 100) {
-			this.perPageNum = 12;
+			this.perPageNum = perPageNum;
 			return;
 		}
 

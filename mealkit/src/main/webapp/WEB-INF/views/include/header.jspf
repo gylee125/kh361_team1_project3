@@ -208,7 +208,7 @@ FACEBOOK: https://www.facebook.com/themefisher
 							<ul class="dropdown-menu search-dropdown">
 								<li>
 									<form action="<%=request.getContextPath()%>/product/search" role="form">
-										<input type="text" name="keyword" id="keyword" class="form-control" placeholder="상품 검색">
+										<input type="text" name="keyword" id="keyword" class="form-control" placeholder="상품명 검색">
 									</form>
 								</li>
 							</ul></li>

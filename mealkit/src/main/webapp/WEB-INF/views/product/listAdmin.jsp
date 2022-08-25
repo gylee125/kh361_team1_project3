@@ -12,16 +12,17 @@
 
 <section class="products section bg-gray">
 	<div class="container">
+		<div class="row" style="margin: 10px; text-align: right;">
+				<a href="<%=request.getContextPath()%>/product/adminProduct"
+						class="btn btn-main btn-medium">관리자 메뉴로 돌아가기</a>
+		</div>
 		<div class="row">
 			<div class="title text-center">
 				<h2>Lists of foods</h2>
 			</div>
 		</div>
+		
 		<div class="row">
-
-
-
-
 
 			<c:forEach var="product" items="${productList}">
 
@@ -36,7 +37,7 @@
 						</div>
 						<div class="product-content">
 							<h4>
-								<a
+								[상품번호: ${product.PId}번] <a
 									href="<%=request.getContextPath()%>/product/detail?pId=${product.PId}">${product.PName}</a>
 							</h4>
 							<ul class="list-inline mt-10">

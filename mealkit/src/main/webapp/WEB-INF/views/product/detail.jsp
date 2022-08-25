@@ -5,7 +5,7 @@
 <%@ page import="java.sql.PreparedStatement"%>
 <%@ page import="java.sql.ResultSet"%>
 <%@ page import="java.sql.SQLException"%>
-<%@page import="java.text.DecimalFormat"%>
+<%@ page import="java.text.DecimalFormat"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 
@@ -63,7 +63,7 @@
 								<span>주문 수량</span>
 								<div class="product-quantity-slider">
 									<input id="product-quantity" type="text" value="1"
-										name="cquantity">
+										name="cquantity" style="border: 1px solid #e5e5e5;">
 								</div>
 							</div>
 

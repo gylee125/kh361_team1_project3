@@ -50,7 +50,8 @@
 	    </interceptor>	     
 	    <interceptor>
 	        <mapping path="/admin*"/>        
-	        <mapping path="/*Admin.do"/>        
+	        <mapping path="/*Admin.do"/>    
+	        <mapping path="/product/adminProduct"/>      
 	        <mapping path="/product/register"/>        
 	        <mapping path="/product/listAdmin"/>        
 	        <mapping path="/prduct/update"/>        
