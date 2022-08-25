@@ -7,26 +7,8 @@
 <title>밀슐랭 | 관리자 페이지</title>
 
 <style>
-.h {
-	font-family: "Poppins", sans-serif;
-	color: #888783;
-	font-size: 14px;
-	letter-spacing: 2px;
-}
-
-.search-wrap {
-	margin-top: 35px;
-	margin-left: 375px;
-}
-
-.search-wrap #keywordInput {
-	height: 25px;
-	width: 290px;
-}
-
-.search-wrap button {
-	height: 25px;
-	width: 25px;
+.search {
+	margin-top: 25px;
 }
 </style>
 
@@ -86,7 +68,7 @@
 					</ul>
 					
 					<!--  시간이 된다면 검색 기능 넣기 -->
-					<div class="search-wrap">
+					<div class="search text-center">
 						<select name="searchType" >
 							<option value="n"
 								<c:out value="${cri.searchType == null?'selected':''}"/>>---</option>
@@ -95,7 +77,7 @@
 							<option value="n"
 								<c:out value="${cri.searchType eq 'n'?'selected':''}"/>>주문번호</option>
 						</select>
-						<input type="text" name='keyword' id="keywordInput" value='${cri.keyword}'>
+						<input type="search" name='keyword' id="keywordInput" value='${cri.keyword}'>
 						<button id='searchBtn'>
 							<i class="tf-ion-ios-search-strong"></i>
 						</button>
