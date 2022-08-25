@@ -93,7 +93,7 @@ span{
 	let checkUniqueEmail = false;
 	let checkEmail = false;
 	
-	//alert("js 테스트 04");
+	//alert("js 테스트 08");
 	
 	$('#mId').focusout(function(){
 		let mId = $('#mId').val();
@@ -117,7 +117,7 @@ span{
 			success : function(result){
 				//console.log(result);
 				if(result == 0){
-					$("#idCheckText").html('사용할 수 있는 ID입니다.');
+					$("#idCheckText").html('해당 ID 사용가능합니다.');
 					checkUniqueId = true;
 				}else{
 					$("#idCheckText").html('사용할 수 없는 ID입니다.');	
@@ -148,10 +148,10 @@ span{
 			url : "<%=request.getContextPath()%>/checkUniqueEmail.do",
 			type : "get",
 			data : 'email=' + $('#email').val(),
-			datatype : 'json',
+			dataType : 'json',
 			success : function(result){
 				if(result == 0){
-					$("#emailCheckText").html('사용할 수 있는 이메일입니다.');
+					$("#emailCheckText").html('해당 이메일 사용가능합니다.');
 					$('#email').attr('readonly',true);
 					$('#emailSendBtn').attr('disabled',false);
 					$('#VerificationCode').attr('disabled',false);
@@ -171,7 +171,7 @@ span{
 		let email = $('#email').val();
 
 		$.ajax({
-			url : '/sendEmail?email='+email,
+			url : '<%=request.getContextPath()%>/sendEmail.do?email='+email,
 			type : 'get',			
 			success : function(data) {
 				console.log("data : " + data);
