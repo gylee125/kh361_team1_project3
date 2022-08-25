@@ -40,7 +40,7 @@ public interface OrderMapper {
 	public OrderVO detailAdmin(int oId) throws Exception;
 	
 	// 검색기능
-	List<OrderListVO> selectOrderList(OrderCriteria cri) throws Exception;
+	List<OrderVO> selectOrderList(OrderCriteria cri) throws Exception;
 
     public int countPage(OrderCriteria cri) throws Exception;
 

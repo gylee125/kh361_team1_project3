@@ -181,17 +181,18 @@ public class OrderController {
 		
 		/* 관리자 */
 		
-		@RequestMapping(value = "/adminOrder.do") 
+		@RequestMapping(value = "/adminOrder.do", method = RequestMethod.GET) 
 		public String adminOrder(Model model, @ModelAttribute("cri") OrderCriteria cri) throws Exception {
-			List<OrderVO> orderList = orderService.orderAdmin();
+			//List<OrderVO> orderList = orderService.orderAdmin();
+			
 			model.addAttribute("orderList", orderService.selectOrderList(cri));
-	    	OrderPageMaker pageMaker = new OrderPageMaker();
+	    	
+			OrderPageMaker pageMaker = new OrderPageMaker();
 	    	pageMaker.setCri(cri);
 	    	pageMaker.setTotalCount(orderService.countPage(cri));
 	    	model.addAttribute("pageMaker", pageMaker);
 
-			System.out.println("orderList"+orderList);
-			model.addAttribute("orderList",orderList);
+			// model.addAttribute("orderList");
 			return "order/adminOrder";
 		}
 		
