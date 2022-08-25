@@ -22,7 +22,7 @@
 		<div class="row">
 			<div class="col-md-12">
 				<ul class="list-inline dashboard-menu text-center">
-					<li><a href="#!">My account</a></li>
+					<!-- <li><a href="#!">My account</a></li> -->
 					<!-- <li><a class="active" href="order.html">Orders</a></li>
 					<li><a href="<%=request.getContextPath()%>/aviato/address.html">Address</a></li>
 					<li><a href="<%=request.getContextPath()%>/aviato/profile-details.html">Profile</a></li> -->

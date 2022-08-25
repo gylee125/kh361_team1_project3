@@ -1,15 +1,17 @@
-package com.mealkit.member;
+package com.mealkit.order;
 
-public class MemberCriteria {
+public class OrderCriteria {
 
-	private int page;	
+	private int page;
 	private int perPageNum;
 	private String searchType;
 	private String keyword;
 
-    public MemberCriteria() {
+	public OrderCriteria() {
 	    this.page = 1;
 	    this.perPageNum = 10;
+	    this.searchType = null;
+	    this.keyword = null;
 	  }
 
 	public void setPage(int page) {

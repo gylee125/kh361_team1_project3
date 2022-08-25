@@ -57,9 +57,14 @@ span{
               <input type="text" name="mName" class="form-control"  placeholder="이름">
             </div>
             <div class="form-group">
-			<input type="email" name="email" id="email" class="form-control"  placeholder="이메일">                
+			<input type="email" name="email" id="email" class="form-control"  placeholder="이메일" >                
 			<button type="button" class="gradient-btn">확인 내용</button>
               <span id="emailCheckText">이메일 중복확인이 필요합니다.</span>   
+            </div>
+            <div class="form-group">
+			<input type="text" id="VerificationCode" class="form-control"  placeholder="인증코드" disabled="disabled">                
+			<button type="button" id="emailSendBtn" class="gradient-btn" disabled="disabled">본인 확인</button>
+              <span id="codeCheckText">이메일 본인 인증이 필요합니다. 본인 확인 버튼을 클릭하세요.</span>   
             </div>
             <div class="form-group">
               <input type="tel" name="phone" class="form-control"  placeholder="연락처">
@@ -86,6 +91,9 @@ span{
 	let submitSignUpForm = document.getElementById("submitSignUp");	
 	let checkUniqueId = false;
 	let checkUniqueEmail = false;
+	let checkEmail = false;
+	
+	//alert("js 테스트 04");
 	
 	$('#mId').focusout(function(){
 		let mId = $('#mId').val();
@@ -105,8 +113,9 @@ span{
 			url : "<%=request.getContextPath()%>/checkUniqueId.do",
 			type : "get",
 			data : 'mId=' + $('#mId').val(),
-			datatype : 'json',
+			dataType : "json",
 			success : function(result){
+				//console.log(result);
 				if(result == 0){
 					$("#idCheckText").html('사용할 수 있는 ID입니다.');
 					checkUniqueId = true;
@@ -143,6 +152,9 @@ span{
 			success : function(result){
 				if(result == 0){
 					$("#emailCheckText").html('사용할 수 있는 이메일입니다.');
+					$('#email').attr('readonly',true);
+					$('#emailSendBtn').attr('disabled',false);
+					$('#VerificationCode').attr('disabled',false);
 					checkUniqueEmail = true;
 				}else{
 					$("#emailCheckText").html('사용할 수 없는 이메일입니다.');	
@@ -153,6 +165,33 @@ span{
 				alert("(이멜 중복검사)서버 요청 실패...", a, b, c);
 			}
 		})
+	});
+	
+	$('#VerificationCode').click(function(){
+		let email = $('#email').val();
+
+		$.ajax({
+			url : '/sendEmail?email='+email,
+			type : 'get',			
+			success : function(data) {
+				console.log("data : " + data);
+				code = data;
+				alert('이메일로 인증코드가 전송되었습니다.');
+			}
+		});
+	});
+	
+	$('#VerificationCode').keyup(function() {
+		let inputCode =  $(this).val();
+		let $resultMsg = $('#codeCkMsg');
+			
+		if(inputCode === code){
+			$("#codeCheckText").html('인증코드가 일치합니다.');
+			checkEmail= true;
+		}else{
+			$("#codeCheckText").html('인증코드가 일치하지 않습니다.');
+			checkEmail= false;
+		}
 	});
 	
 	
@@ -193,6 +232,11 @@ span{
 		if (checkUniqueEmail != true) { 			
 			alert("이메일 입력 다시 확인해주세요~");
 			submitSignUpForm.email.focus();
+			return false;
+		}
+		if (checkEmail != true) {
+			alert("이메일 본인 인증을 완료해주세요~");
+			submitSignUpForm.VerificationCode.focus();
 			return false;
 		}
 		submitSignUpForm.submit();

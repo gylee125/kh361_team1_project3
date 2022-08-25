@@ -17,7 +17,7 @@ public class MailSendService {
 
 	@Autowired
 	private JavaMailSenderImpl mailSender;
-	private String AuthenticationKey; 
+	private String VerificationCode; 
 
 		public void makeRandomKey() {
 
@@ -41,7 +41,7 @@ public class MailSendService {
     			}	
     		}
     		System.out.println(temp);
-			AuthenticationKey = temp.toString();
+    		VerificationCode = temp.toString();
 		}
 
 		//메일 양식
@@ -50,9 +50,9 @@ public class MailSendService {
 			String setFrom = "kh361team1@gmail.com"; 
 			String toMail = email;
 			String title = "[인증코드 확인] 안녕하세요! 밀키트 쇼핑몰 밀슐랭입니다";  
-			String content = "인증코드: " + AuthenticationKey;  
+			String content = "인증코드: " + VerificationCode;  
 			sendMail(setFrom, toMail, title, content);
-			return AuthenticationKey;
+			return VerificationCode;
 		}
 
 		//전송 메소드

@@ -11,6 +11,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.CookieValue;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -98,6 +99,8 @@ public class MemberController {
 	@RequestMapping(value = "/checkUniqueId.do")
 	@ResponseBody
 	public int checkUniqueId(String mId) throws Exception {
+	    logger.info("ID 중복 검사: {}", mId);
+	    logger.info("ID 중복 검사 결과: {}", memberService.checkUniqueId(mId));
 		return memberService.checkUniqueId(mId);
 	}
 
@@ -113,9 +116,10 @@ public class MemberController {
 		return memberService.checkUniqueEmailForModify(email, mId);
 	}
 	
+	//회원 상세보기 링크정리 필요
 	@RequestMapping(value = "/showMemberDetail.do")
 	@ResponseBody
-	public MemberDTO showMemberDetail(Model model, String mId) throws Exception {
+	public MemberDTO showMemberDetail(String mId) throws Exception {
 		return memberService.showMemberDetail(mId);
 	}
 
@@ -138,9 +142,6 @@ public class MemberController {
 		return "redirect:/adminPage.do";	
 	}
 
-
-	//==================================================================================
-	//비번찾기
 	@RequestMapping(value = "/forgetPwd.do", method = RequestMethod.GET)
     public String forgetPwd() {
     	return "member/forgetPwd";
@@ -149,20 +150,17 @@ public class MemberController {
     @RequestMapping(value = "/email.do", method = RequestMethod.GET)
     public String email(@RequestParam("mId") String mId,@RequestParam("email") String email, HttpSession session, HttpServletRequest request) throws Exception {
 
-    	System.out.println("mId="+mId);
-    	System.out.println("email="+email);
-
     	MemberDTO member = memberService.selectMember(mId);
 
-    	if(member.getEmail().equals(email)) {
-    		String AuthenticationKey = mailService.setMail(email);
-    		session.setAttribute("AuthenticationKey", AuthenticationKey);
-    		session.setAttribute("mId", mId);
-    		return "member/changePwd";	
+    	if(member == null || !member.getEmail().equals(email)) {
+    		return alertMsgAndGoUrl(request, "회원정보를 찾을 수 없습니다. 아이디와 입력값을 확인해주세요.", "forgetPwd.do");
+    	} else if(member.getMLevel() == -1) {
+    		return alertMsgAndGoUrl(request, "탈퇴한 회원정보입니다.", "forgetPwd.do");
     	} else {
-    		request.setAttribute("msg", "회원정보를 찾을 수 없습니다. 아이디와 입력값을 확인해주세요.");
-            request.setAttribute("url", "forgetPwd.do"); 
-            return "alert";
+    		String VerificationCode = mailService.setMail(email);
+    		session.setAttribute("VerificationCode", VerificationCode);
+    		session.setAttribute("mId", mId);
+    		return "redirect:/changePwd.do";
     	}
     }
 
@@ -176,39 +174,49 @@ public class MemberController {
     	MemberDTO member = memberService.selectMember(mId);
     	member.setPw(pw);
     	memberService.updatePwd(member);
-    	request.setAttribute("msg", "비밀번호가 변경되었습니다.");
-        request.setAttribute("url", "login.do"); 
-        return "alert";
+    	return alertMsgAndGoUrl(request, "비밀번호가 변경되었습니다.", "login.do");
     }
 
-
-	//마이페이지
 	@RequestMapping(value = "/checkPwd.do", method = RequestMethod.GET)
 	public String checkPwd() {
 		return "member/checkPwd";
 	}
 
 	@RequestMapping(value = "/myPage.do", method = RequestMethod.GET)
-	public String myPage(Model model, String MId) throws Exception {
-		PointDTO point = memberService.showPoint(MId);
+	public String myPage(Model model, HttpSession session) throws Exception {
+		MemberDTO member = (MemberDTO) session.getAttribute("member");
+		PointDTO point = memberService.showPoint(member.getMId());
 		model.addAttribute("point", point);
 		return "member/myPage";
 	}
 
 	@RequestMapping(value = "/myPage.do", method = RequestMethod.POST)
-	public String myPage(MemberDTO member, HttpServletRequest request) throws Exception {
+	public String myPage(Model model, MemberDTO member, HttpServletRequest request) throws Exception {
 		int result = memberService.checkPwd(member);
 		if (result == 1) {
+			PointDTO point = memberService.showPoint(member.getMId());
+			model.addAttribute("point", point);
 			return "member/myPage";
 		} else {			
 			return alertMsgAndGoUrl(request, "비밀번호가 일치하지 않습니다.", "checkPwd.do");
 		}
 	}
 
+    @RequestMapping(value="/checkEmail.do", method = RequestMethod.POST)
+    @ResponseBody
+    public int checkEmail(String email) throws Exception  {
+    	return memberService.checkEmail(email);
+    }
+    
+  	@RequestMapping(value = "/sendEmail.do", method = RequestMethod.GET)
+  	@ResponseBody
+  	public String mailCheck(String email) {
+  		return mailService.setMail(email);
+  	}
+  	
 	@RequestMapping(value = "/updateMyInfo.do", method = RequestMethod.POST)
 	public String updateMyInfo(MemberDTO member, HttpSession session, HttpServletRequest request) throws Exception {
 		memberService.updateMyInfo(member);
-
 		MemberDTO updateMember = memberService.selectMember(member.getMId());
 		session.setAttribute("member", updateMember);
 		return alertMsgAndGoUrl(request, "수정이 완료되었습니다.", "myPage.do");
@@ -220,10 +228,9 @@ public class MemberController {
 		MemberDTO member = (MemberDTO) session.getAttribute("member");
 		member.setPw(pw);
 		memberService.updatePwd(member);
-
 		MemberDTO updateMember = memberService.selectMember(member.getMId());
 		session.setAttribute("member", updateMember);
-		return alertMsgAndGoUrl(request, "수정이 완료되었습니다.", "myPage.do");
+		return alertMsgAndGoUrl(request, "변경이 완료되었습니다.", "myPage.do");
 	}
 	
 	@RequestMapping(value = "/closeAccountByAdmin.do")
@@ -258,17 +265,15 @@ public class MemberController {
 		return "member/deleteAccount";
 	}
 	
-	//관리자
     @RequestMapping(value = "/adminPage.do", method = RequestMethod.GET)
     public String listSearch(@ModelAttribute("cri") MemberCriteria cri, Model model) throws Exception {
+        logger.info(cri.toString());
 
     	model.addAttribute("memberlist", memberService.selectMemberList(cri));
-
     	MemberPageMaker pageMaker = new MemberPageMaker();
     	pageMaker.setCri(cri);
     	pageMaker.setTotalCount(memberService.countPage(cri));
     	model.addAttribute("pageMaker", pageMaker);
-
     	return "member/adminPage";
     }   
 

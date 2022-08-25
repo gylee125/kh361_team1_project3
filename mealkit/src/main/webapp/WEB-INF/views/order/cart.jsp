@@ -14,6 +14,55 @@
 
 
 <%@ include file="../include/header.jspf"%>
+<style>
+
+#modify {
+	background:transparent;
+	border:none;
+	color:#c7254e;
+	text-align:center;
+	margin-top:5px;
+}
+
+#cquantity {
+	border: solid 1px;
+	text-align:center;
+	height:25px;
+	color:#333;
+	font-weight:bold;
+}
+
+#quantity {
+	/* padding-left:25px; */
+	text-align:center;
+}
+
+#plus_btn {
+	background-color:white;
+	border:none;
+}
+#minus_btn {
+	background-color:white;
+	border:none;
+}
+
+.quaninput{
+	/* width:110px; */
+	text-align:center;
+}
+
+.modifyinput{
+/* 	background-color:black; */
+}
+
+.summary-total {
+	texe-align:right;
+}
+
+.checkout_btn {
+	float:right;
+}
+</style>
 
 <section class="page-header">
 	<div class="container">
@@ -38,8 +87,6 @@
 				<div class="col-md-8 col-md-offset-2">
 					<div class="block">
 						<div class="product-list">
-							<form action="updateCart.do" id="updateCart" method="get"
-								name="updateCart" role="form">
 							<!-- <form id = "cart_form" name = "cart_form" method="post"> -->
 
 								<table class="table">
@@ -47,54 +94,70 @@
 										<tr>
 											<th class="">상품명</th>
 											<th class="">상품가격</th>
-											<th class="">상품수량</th>
-											<th class="">수량수정</th>
+											<th class="" id="quantity">상품수량</th>
+											<!-- <th class="">수량수정</th> -->
+											<th class="">결제금액</th>
 											<th class="">선택</th>
 										</tr>
 									</thead>
 									<tbody>
 										<c:forEach var="cart" items="${cartList}">
+										<form action="updateCart.do" method="get" name="updateCart" >
 											<tr class="">
 												<td class="">
 													<div class="product-info">
-														<img width="80"
-															src="<%=request.getContextPath()%>${cart.thumbnail}"
-															alt="" /> <a
-															href="<%=request.getContextPath()%>/shop/detail.do?pId=${cart.pId}">${cart.pName}</a>
+														<img width="80" src="<%=request.getContextPath()%>/product/display?fileName=${cart.thumbnail}" alt="" />
+														<a href="<%=request.getContextPath()%>/shop/detail.do?pId=${cart.pId}">${cart.pName}</a>
 
 													</div>
 												</td>
-												<td class="">${cart.price}</td>
-
 												<td class="">
+												<fmt:formatNumber value="${cart.price}" pattern="###,####,###"/>원
+												</td>
+
+												<td class="quaninput">
 													<input type="hidden" id="mId" name="mId" value="${member.MId}" />
 													<input type="hidden" id="ucId" name="ucId" value="${cart.ucId}" />
-													<button type="button" onclick="fnCalCount('m',this);">-</button>
+													<input type="hidden" id="ucId" name="ucId" value="${cart.ucId}" />
+													<button type="button" id="plus_btn" name="plus" onclick="fnCalCount('m',this);">-</button>
 													<input type="text" id="cquantity" name="cquantity" value="${cart.cquantity}" size="1" max="">
-													<button type="button" onclick="fnCalCount('p',this);">+</button>
+													<button type="button" id="minus_btn" name="minus" onclick="fnCalCount('p',this);">+</button></br>
+													<input type="submit" id="modify" class="modifybtn" value="변경"/>
+													<!-- <button type="submit" id="modify">변경</button> -->
 												</td>
 
-												<td class="">
-													<%-- <a href="<%=request.getContextPath()%>/updateCart.do?mId=${member.MId}"> --%>
-														<button type="submit">변경</button>
+												<%-- <td class="modifyinput">
+													<a href="<%=request.getContextPath()%>/updateCart.do?mId=${member.MId}">
+														<button type="submit" id="modify">변경</button>
 													<!-- </a> -->
-												</td>
+												</td> --%>
+												
+												<td class="">
+												<fmt:formatNumber value="${cart.price * cart.cquantity}"
+													pattern="###,####,###" />원</td>
 									</form>
-									<form id = "cart_form" name = "cart_form" method="post">	
 										<input type="hidden" id="mId" name="mId" value="${member.MId}" />
-												<td class=""><a class="product-remove"
-													href="deleteCart.do?ucId=${cart.ucId}&mId=${member.MId}">삭제</a>
-												</td>
+										<td class="">
+											<a class="product-remove" href="deleteCart.do?ucId=${cart.ucId}&mId=${member.MId}">삭제</a>
+										</td>
 											</tr>
+											
+											<c:set var="sumPrice" value="${sumPrice + cart.cquantity * cart.price}" />
 										</c:forEach>
 
 									</tbody>
+									<tr>
+									</tr>
 								</table>
-
-								<a
-									href="<%=request.getContextPath()%>/checkout.do?mId=${member.MId}"
+							<div class="summary-total">
+							<h4>
+								<span style="font-weight:bold;">Total </span>
+								<span><fmt:formatNumber value="${sumPrice}" pattern="###,####,###" />원</span></h4>
+							</div>
+							<div class="checkout_btn">
+								<a href="<%=request.getContextPath()%>/checkout.do?mId=${member.MId}"
 									class="btn btn-main pull-right" onclick="cart_add()">주문하기</a>
-							</form>
+							</div>
 
 
 						</div>
@@ -106,6 +169,8 @@
 </div>
 
 <script type="text/javascript">
+
+
 	function fnCalCount(type, ths) {
 		var $input = $(ths).parents("td").find("input[name='cquantity']");
 		var tCount = Number($input.val());

@@ -1,21 +1,21 @@
-package com.mealkit.product;
+package com.mealkit.order;
 
 import org.springframework.web.util.UriComponents;
 import org.springframework.web.util.UriComponentsBuilder;
 
-public class ProductPageMaker {
+public class OrderPageMaker {
 
-	private int totalCount;
+	private int totalCount;	
 	private int startPage;
 	private int endPage;
 	private boolean prev;
 	private boolean next;
 
-	private int displayPageNum = 10;
+	private int displayPageNum = 5;
 
-	private ProductCriteria cri;
+	private OrderCriteria cri;
 
-	public void setCri(ProductCriteria cri) {
+	public void setCri(OrderCriteria cri) {
 		this.cri = cri;
 	}
 
@@ -67,27 +67,25 @@ public class ProductPageMaker {
 		return displayPageNum;
 	}
 
-	public ProductCriteria getCri() {
+	public OrderCriteria getCri() {
 		return cri;
 	}
 
 	public String makeQuery(int page) {
 
 		UriComponents uriComponents = UriComponentsBuilder.newInstance().queryParam("page", page)
-				// .queryParam("perPageNum", cri.getPerPageNum())
-				.build();
+				.queryParam("perPageNum", cri.getPerPageNum()).build();
 
 		return uriComponents.toUriString();
 	}
 
-	public String makeSearch(int page){
-		cri.setPerPageNum(10);
-		UriComponents uriComponents = UriComponentsBuilder.newInstance()
-		.queryParam("page", page)
-		.queryParam("perPageNum", cri.getPerPageNum())
-		.queryParam("searchType", ((ProductSearchCriteria)cri).getSearchType())
-		.queryParam("keyword", ((ProductSearchCriteria)cri).getKeyword())
-		.build();
+	public String makeSearch(int page) {
+
+		UriComponents uriComponents = UriComponentsBuilder.newInstance().queryParam("page", page)
+				.queryParam("perPageNum", cri.getPerPageNum())
+				.queryParam("searchType", ((OrderCriteria) cri).getSearchType())
+				.queryParam("keyword", ((OrderCriteria) cri).getKeyword()).build();
+
 		return uriComponents.toUriString();
-	}	
+	}
 }
