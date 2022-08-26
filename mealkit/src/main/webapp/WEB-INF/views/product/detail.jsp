@@ -143,7 +143,6 @@ var replyPage = 1;
 			
 			
 			$.get("/mealkit/reviews/all/"+pid,function(){
-				alert("ok");
 			});
 			
 			function loadComment (){
@@ -399,7 +398,7 @@ $("#reviewsDiv").on("click", function() {
 
 $(".pagination").on("click", "li a", function(event) {
 
-	window.alert("pagination");
+	//window.alert("pagination");
 
 	event.preventDefault();
 
@@ -491,7 +490,7 @@ $(".pagination").on("click", "li a", function(event) {
 	var reviewtext = reviewtextObj.val();
 	
 	if(!reviewtext.trim()){
-		window.alert("reviewtext.val-ISEMPTY");
+		window.alert("작성한 내용이 없습니다.");
 		return;
 	}
 	
