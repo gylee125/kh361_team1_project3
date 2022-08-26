@@ -32,7 +32,7 @@ input[type="file"] {
 	src="<%=request.getContextPath()%>/resources/plugins/bootstrap-touchspin/dist/jquery.bootstrap-touchspin.min.js"></script>
 
 <%@ include file="../include/header.jspf"%>
-
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 
 <c:if test="${not empty productOne}">
 	<section class="single-product">
@@ -181,6 +181,7 @@ var replyPage = 1;
 							<form id="submitform">
 								<c:if test="${member != null}"><!-- error strict-origin-when-cross-origin -->
 								<input type="text" readonly="readonly" value="${member.MId}" />
+								<br>
 								</c:if>
 								<input type="text" id="submitReviewWriter" name="reviews"
 									class="form-control" placeholder="Comment">
