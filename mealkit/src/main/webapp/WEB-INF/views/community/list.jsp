@@ -15,7 +15,7 @@
 	padding: 0;
 }
 
-input[type="text"] {
+#keywordInput {
 	border-radius: 0;
 	box-shadow: none;
 	height: 23px;
@@ -24,6 +24,9 @@ input[type="text"] {
 	font-size: 12px;
 }
 
+#write_btn {
+	text-align: right;
+}
 </style>
 
 
@@ -109,10 +112,12 @@ input[type="text"] {
 															});
 										});
 									</script>
-										<c:if test="${sessionScope.member.MId !=null}">
+									<c:if test="${sessionScope.member.MId !=null}">
+										<div id="write_btn">
 											<a class="btn btn-main"
 												href="<%=request.getContextPath()%>/community/write">Write</a>
-										</c:if>
+										</div>
+									</c:if>
 								</div>
 
 								<div class="box-footer">

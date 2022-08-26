@@ -27,4 +27,9 @@ public interface CommunityMapper {
 	public Map<String, Object> selectFileInfo(Map<String, Object> map) throws Exception;
 	
 	public void updateFile(Map<String, Object> map) throws Exception;
+	
+	public List<CommunityVO> adminList(SearchCriteria scri) throws Exception;
+	
+	public int adminListCount(SearchCriteria scri) throws Exception;
+	
 }
