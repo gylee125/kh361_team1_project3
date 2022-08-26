@@ -148,10 +148,10 @@ span{
 			url : "<%=request.getContextPath()%>/checkUniqueEmail.do",
 			type : "get",
 			data : 'email=' + $('#email').val(),
-			datatype : 'json',
+			dataType : 'json',
 			success : function(result){
 				if(result == 0){
-					$("#emailCheckText").html('사용할 수 있는 이메일입니다.');
+					$("#emailCheckText").html('해당 이메일 사용가능합니다.');
 					$('#email').attr('readonly',true);
 					$('#emailSendBtn').attr('disabled',false);
 					$('#VerificationCode').attr('disabled',false);
@@ -167,11 +167,11 @@ span{
 		})
 	});
 	
-	$('#VerificationCode').click(function(){
+	$('#emailSendBtn').click(function(){
 		let email = $('#email').val();
 
 		$.ajax({
-			url : '/sendEmail?email='+email,
+			url : '<%=request.getContextPath()%>/sendEmail.do?email='+email,
 			type : 'get',			
 			success : function(data) {
 				console.log("data : " + data);
