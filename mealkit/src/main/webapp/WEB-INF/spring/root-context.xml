@@ -61,9 +61,9 @@
 		</property>
 	</bean>
 	<!-- scan -->
+	<mybatis-spring:scan base-package="com.mealkit.mapper" />
 	
 	<context:component-scan base-package="com.mealkit.util"></context:component-scan>
 	
-	<mybatis-spring:scan base-package="com.mealkit.mapper" />
 	
 </beans>

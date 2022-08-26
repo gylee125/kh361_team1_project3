@@ -147,56 +147,51 @@
 								</tbody>
 							</table>
 						</div>
-
-						<div class="row" id="paginationProduct">
-							<ul class="post-pagination">
-
-								<!-- href값을 페이지 번호로 대체하여 이를 자바스크립트에서 href값을 통해 form 태그 내 input hidden에 값을 대체하여 form으로 submit -->
-								<c:if test="${pageMaker.prev}">
-									<li class="paginate_button previous"><a
-										href="adminProduct${pageMaker.makeSearch(pageMaker.startPage - 1)}">
-											prev </a></li>
-								</c:if>
-
-								<c:forEach var="num" begin="${pageMaker.startPage}"
-									end="${pageMaker.endPage}">
-									<li
-										class="paginate_button ${pageMaker.cri.page == num ? 'active' :''}">
-										<a href="adminProduct${pageMaker.makeSearch(num)}">${num}</a>
-									</li>
-								</c:forEach>
-
-								<c:if test="${pageMaker.next && pageMaker.endPage > 0}">
-									<li class="paginate_button next"><a
-										href="adminProduct${pageMaker.makeSearch(pageMaker.endPage +1) }">
-											next </a></li>
-								</c:if>
-
-							</ul>
-
-
-							<form id='actionForm' action="/product/adminProduct" method='get'>
-								<input type='hidden' name='pageNum'
-									value='${pageMaker.cri.page}'> <input type='hidden'
-									name='amount' value='${pageMaker.cri.perPageNum}'>
-							</form>
-
-						</div>
-
-
-						<ul class="list-inline mt-10" id="productBtn">
-							<li><a href="<%=request.getContextPath()%>/product/register"
-								class="btn btn-main btn-medium btn-round">Register</a></li>
-							<li><a
-								href="<%=request.getContextPath()%>/product/listAdmin"
-								class="btn btn-main btn-medium btn-round">update / delete</a></li>
-						</ul>
-
-
-
 					</div>
 				</div>
 			</div>
+		</div>
+		<div>
+
+			<ul class="list-inline mt-10" id="productBtn">
+				<li><a href="<%=request.getContextPath()%>/product/register"
+					class="btn btn-main btn-medium btn-round">Register</a></li>
+				<li><a href="<%=request.getContextPath()%>/product/listAdmin"
+					class="btn btn-main btn-medium btn-round">update / delete</a></li>
+			</ul>
+
+		</div>
+
+		<div class="text-center">
+			<ul class="pagination post-pagination">
+				<c:if test="${pageMaker.prev}">
+					<li class="paginate_button previous"><a
+						href="adminProduct${pageMaker.makeSearch(pageMaker.startPage - 1)}">
+							prev </a></li>
+				</c:if>
+
+				<c:forEach var="num" begin="${pageMaker.startPage}"
+					end="${pageMaker.endPage}">
+					<li
+						class="paginate_button ${pageMaker.cri.page == num ? 'active' :''}">
+						<a href="adminProduct${pageMaker.makeSearch(num)}">${num}</a>
+					</li>
+				</c:forEach>
+
+				<c:if test="${pageMaker.next && pageMaker.endPage > 0}">
+					<li class="paginate_button next"><a
+						href="adminProduct${pageMaker.makeSearch(pageMaker.endPage +1) }">
+							next </a></li>
+				</c:if>
+			</ul>
+			<div>
+				<form id='actionForm' action="/product/adminProduct" method='get'>
+					<input type='hidden' name='pageNum' value='${pageMaker.cri.page}'>
+					<input type='hidden' name='amount'
+						value='${pageMaker.cri.perPageNum}'>
+				</form>
+			</div>
+
 		</div>
 	</section>
 

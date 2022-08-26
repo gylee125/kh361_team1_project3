@@ -1,5 +1,6 @@
 package com.mealkit.board;
 
+import java.net.http.HttpResponse;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -8,6 +9,7 @@ import javax.inject.Inject;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -28,12 +30,22 @@ public class CommentController {
 	
 
 	//create
+	@Transactional
 	@RequestMapping(value = "" , method = RequestMethod.POST)
 	public ResponseEntity<String> register(@RequestBody CommentVO vo){
 		ResponseEntity<String> entity = null;
 		
 		try {
 			commentMapper.create(vo);
+			
+			String[] files = vo.getFiles();
+			
+			if(files != null) {
+				for(String fileName: files) {
+					commentMapper.addAttach(fileName);
+				}
+			}
+			
 			entity = new ResponseEntity<String>("SUCCESS",HttpStatus.OK);
 		}catch(Exception e) {
 			e.printStackTrace();
@@ -43,7 +55,6 @@ public class CommentController {
 	}
 	
 	// pid mapping후 vo객체를 list화
-	//neverused
 	@RequestMapping(value = "/all/{pid}", method = RequestMethod.GET)
 	public ResponseEntity<List<CommentVO>> list(@PathVariable("pid") Integer pid){
 		ResponseEntity<List<CommentVO>> entity = null;
@@ -81,6 +92,7 @@ public class CommentController {
 		ResponseEntity<String> entity = null;
 		try {
 			commentMapper.delete(rno);
+			commentMapper.deleteAttach(rno);
 			entity = new ResponseEntity<String>("SUCCESS",HttpStatus.OK);
 		}catch(Exception e){
 			e.printStackTrace();
@@ -134,7 +146,6 @@ public class CommentController {
 	@ResponseBody
 	public List<String> getAttach(@PathVariable("rno") Integer rno)throws Exception{
 		return commentMapper.getAttach(rno);
-		
 	}
 	
 	

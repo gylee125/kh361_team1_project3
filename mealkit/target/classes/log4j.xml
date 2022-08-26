@@ -10,17 +10,6 @@
 		</layout>
 	</appender>
 	
-	<!-- Application Loggers -->
-	<logger name="com.mealkit.main">
-		<level value="info" />
-	</logger>
-	<logger name="com.mealkit.product">
-		<level value="info" />
-	</logger>
-	<logger name="com.mealkit.member">
-		<level value="info" />
-	</logger>
-	
 	<!-- 3rdparty Loggers -->
 	<logger name="org.springframework.core">
 		<level value="info" />
@@ -37,6 +26,17 @@
 	<logger name="org.springframework.web">
 		<level value="info" />
 	</logger>
+	<!-- Application Loggers -->
+	<logger name="com.mealkit.main">
+		<level value="info" />
+	</logger>
+	<logger name="com.mealkit.product">
+		<level value="info" />
+	</logger>
+	<logger name="com.mealkit.member">
+		<level value="info" />
+	</logger>
+	
 
 	<!-- Root Logger -->
 	<root>
