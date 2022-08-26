@@ -6,7 +6,7 @@
 
 
 
-	<resultMap type="com.mealkit.board.CommentVO" id="CommentVO">
+	<resultMap type="com.mealkit.board.CommentVO" id="commentvo">
 		<result column="rno" property="rno" />
 		<result column="pid" property="pid"	/>	
 		<result column="mId" property="mId" />
@@ -66,7 +66,7 @@
 	</select>
 	
 	<insert id="addAttach">
-	insert into filename_tbl(savedFileName,rno) values(#{savedFileName},#{rno})
+	insert into filename_tbl(savedFileName,rno) values(#{savedFileName},review_rno_seq.currval)
 	</insert>
 	
 	<select id="getAttach" resultType="string">

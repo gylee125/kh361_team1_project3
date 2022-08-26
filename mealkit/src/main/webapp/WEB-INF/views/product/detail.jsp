@@ -9,7 +9,30 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 
+<%@ page import="java.io.*"%>
+<style>
+input[type="file"] {
+	display: none;
+}
+
+.custom-file-upload {
+	position: relative;
+	left: auto;
+	border: 1px solid #ccc;
+	display: inline-block;
+	padding: 6px 12px;
+	cursor: pointer;
+}
+</style>
+<script
+	src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+<script
+	src="<%=request.getContextPath()%>/resources/plugins/bootstrap/js/bootstrap.min.js"></script>
+<script
+	src="<%=request.getContextPath()%>/resources/plugins/bootstrap-touchspin/dist/jquery.bootstrap-touchspin.min.js"></script>
+
 <%@ include file="../include/header.jspf"%>
+
 
 <c:if test="${not empty productOne}">
 	<section class="single-product">
@@ -101,6 +124,43 @@
 	}
 </script>
 
+<script>
+var mId = "admin";
+var pid = ${productOne.PId};
+var replyPage = 1;
+
+		$(document).ready(function() {
+
+			var formObj = $("form[role='form']");
+
+			console.log(formObj);
+
+			//static value for test
+			//
+
+			var template = Handlebars.compile($("#templateAttach").html());
+	
+			
+			
+			$.get("/mealkit/reviews/all/"+pid,function(){
+				alert("ok");
+			});
+			
+			function loadComment (){
+			//window.alert("reviewsdiv");
+
+			/* if ($(".timeline li").size() > 1) {
+				return;
+			} */
+			getPage("<%=request.getContextPath()%>/reviews/" + pid + "/1");
+			// 189 = pid
+		}
+			
+			
+	});
+		
+</script>
+
 			<div class="row">
 				<div class="col-xs-12">
 					<div class="tabCommon mt-20">
@@ -108,7 +168,7 @@
 							<li class="active"><a data-toggle="tab" href="#details"
 								aria-expanded="true">Details</a></li>
 							<li class=""><a data-toggle="tab" href="#reviews"
-								aria-expanded="false">Reviews</a></li>
+						id="reviewsDiv" aria-expanded="false">Reviews</a></li>
 						</ul>
 						<div class="tab-content patternbg">
 							<div id="details" class="tab-pane fade active in">
@@ -117,152 +177,383 @@
 
 
 							<div id="reviews" class="tab-pane fade">
+						<!-- comment section -->
+						<div>
+							<form id="submitform">
+								<c:if test="${member != null}"><!-- error strict-origin-when-cross-origin -->
+								<input type="text" readonly="readonly" value="${member.MId}" />
+								</c:if>
+								<input type="text" id="submitReviewWriter" name="reviews"
+									class="form-control" placeholder="Comment">
+								<div class="text-center">
+									<label for="fileupload" class="custom-file-upload"> <i
+										class="fa fa-cloud-upload"></i> Upload Image
+									</label> <input type='file' id='fileupload' name="fileupload[]"
+										multiple="multiple" accept=".png, .jpg, .jpeg" />
 
-								<!-- comment section -->
+									<div id="uploadedList" class='uploadedList'></div>
 
-								<form class="text-left clearfix"
-									action="<%=request.getContextPath()%>/comment.do?pId=${productOne.PId}"
-									method="post">
+									<button id="submitReview" type="submit"
+										class="btn btn-main text-center">submit Comment</button>
+								</div>
+							</form>
+						</div>
+						<div class="post-comments" id="post-comments"></div>
+						<div class='text-center'>
+							<ul id="pagination" class="pagination pagination-sm no-margin">
+							</ul>
+						</div>
+						<script src="https://cdnjs.cloudflare.com/ajax/libs/handlebars.js/3.0.1/handlebars.js"></script>
+<!-- 동적으로 생성된 영역을 selector로 참조하기위하여 고유값(rno)를id에부여 -->
+<script id="template" type="text/x-handlebars-template">
 
-									<div class="form-group">
-										<input type="text" name="reviews" class="form-control"
-											placeholder="Comment">
-										<div class="text-center">
+{{#each .}}
+<div id = targetdiv{{rno}}>
+<ui id="reviewreplyLi" class="replyLi" data-rno={{rno}}>
+ <div class="post-comments" >
+  <span class="time">
+    <i class="fa fa-clock-o">regdate:{{prettifyDate regDate}}</i>
+  </span>
+  <h4 class="comment-author"> <a href="https://www.google.com/search?q={{mid}}">{{mid}}</a></h4>
+  <div class="timeline-body">{{content}} </div>
+<span id = "targetspan{{rno}}">
+<img src onerror="imgonerrorfunction('{{rno}}')" >
+</span>
 
-											<button type="submit" class="btn btn-main text-center">submit
-												Comment</button>
-										</div>
-									</div>
-								</form>
-								<!-- comment section end -->
-								<%
-						if(session.getAttribute("member")!=null){
-						%>
-								<c:forEach var="review" items="${reviewPage.commentdto}">
-									<div class="post-comments">
-										<ul class="media-list comments-list m-bot-50 clearlist">
-											<div class="media-body">
-												<li class="media"><a class="pull-left" href="#!"> <img
-														class="media-object comment-avatar"
-														src="<%=request.getContextPath() %>/resource/images/blog/avater-1.jpg"
-														alt="" width="50" height="50" />
-												</a>
-													<div class="comment-info">
-														<h4 class="comment-author">
-															<a href="#!">${review.MId} </a>
-														</h4>
-														<a><fmt:formatDate value='${review.regDate}'
-																type='date' pattern='yy.MM.dd'></fmt:formatDate></a> <a
-															class="comment-button" href="#!"><i
-															class="tf-ion-chatbubbles"></i>Reply</a>
-														<%--   <c:set var = "eachmId" value = "${review.mId}"> --%>
-														<c:if test="${sessionScope.MId == review.MId}">
-															<a class="pull-right" style="cursor: pointer;"
-																<%-- href="#Update?rNo=${review.rNo}" --%>  data-toggle="collapse"
-																data-target="#commentupdate${review.rNo}"
-																onClick="hideReviewText(${review.rNo})"><i
-																class="tf-ion-chatbubbles"></i>Update</a>
-															<div id="commentupdate${review.rNo}" class="collapse">
-																<form class="text-left clearfix"
-																	action="<%=request.getContextPath()%>/update.do?rNo=${review.rNo}"
-																	method="post">
-																	<div class="form-group">
-																		<input type="text" name="contentmodify"
-																			class="form-control" value="${review.content}"
-																			placeholder="CommentUpdate">
-																		<div class="text-center">
-																			<button type="submit"
-																				class="btn btn-main text-center">Update
-																				Comment</button>
-																		</div>
-																	</div>
-																</form>
-															</div>
-															<br>
-															<a class="pull-right" style="cursor: pointer;"
-																onClick="deleteReview(${review.rNo})"<%-- 취소시에도 redirect될경우 user응답과 무관하게 삭제됨 href사용시 npe에러 // href="delete.test?rNo=${review.rNo}" onClick="deleteReview()" --%>><i
-																class="tf-ion-chatbubbles"></i>Delete</a>
-															<!-- rNo가null일경우에러 -->
-														</c:if>
-														<%-- <%
-								                if(request.getAttribute("mId").equals((CommentDTO)pageContext.getAttribute("review").getmId())){
-								                %>
-								                <a class="pull-right" href="#!"><i class="tf-ion-chatbubbles"></i>Comment</a>
-								                <%
-								                }
-								                %> --%>
-														<%-- </c:set> --%>
-													</div>
-													<p id="reviewContent${review.rNo}">${review.content}</p>
-											</div>
-											</li>
+<a id = "targetdelete{{rno}}" style="border:solid" class="pull-right" style="cursor:pointer;" onclick="deleteReview('{{rno}}')"><i
+		class="tf-ion-chatbubbles"></i>Delete</a>
+<a style="border:solid" class="pull-right" style="cursor:pointer;" data-toggle="collapse" data-target="#commentupdate${rno}"
+	onClick="hideReviewText(${rno})"><i class="tf-ion-chatbubbles"></i>Update</a>
+</br>
+<div id="commentupdate${rno}" class="collapse">
+	<form class="text-left clearfix" action="<%=request.getContextPath()%>/#" method="post">
+		<div class="form-group">
+			<input type="text" name="contentmodify" class="form-control" value="${content}" placeholder="CommentUpdate">
+			<div class="text-center">
+				<button type="submit" class="btn btn-main text-center">Update Comment</button>
+			</div>
+		</div>
+	</form>
+</div>
+<br>
 
-										</ul>
-									</div>
-									<script>
-//						var inputElement = document.createElement('input')
-	
+  </div>			
+</ui>
 
-							function deleteReview(rNo){
-							//alert(rNo);EL인식못함
-							//reviewrNo를 따로받아와야함
-							var ask = window.confirm("정말로 삭제하시겠습니까?");
-							if(ask){
-								window.alert("성공적으로 삭제되었습니다.");
-								window.location.href="delete.do?rNo="+rNo;
-							}
-						}
+</div>
+
+{{/each}}
+
+</script>
+
+<script>
+function getPage(pageInfo) {
+	$.getJSON(pageInfo, function(data) {
+		printData(data.list, $("#post-comments"), $('#template'));
+		printPaging(data.commentPageMaker, $(".pagination"));
+
+	});
+}
+
+var printData = function(reviewsArr, target, templateObject) {
+	var template = Handlebars.compile(templateObject.html());
+
+	var html = template(reviewsArr);
+	$(".replyLi").remove();
+	target.after(html);
+
+}
+
+
+var printPaging = function(commentPageMaker, target) {
+
+	var str = "";
+
+	if (commentPageMaker.prev) {
+		str += "<li><a href='" + (commentPageMaker.startPage - 1)
+				+ "'> << </a></li>";
+	}
+
+	for (var i = commentPageMaker.startPage, len = commentPageMaker.endPage; i <= len; i++) {
+		var strClass = commentPageMaker.cri.page == i ? 'class=active'
+				: '';
+		str += "<li "+strClass+"><a href='"+i+"'>" + i + "</a></li>";
+	}
+
+	if (commentPageMaker.next) {
+		str += "<li><a href='" + (commentPageMaker.endPage + 1)
+				+ "'> >> </a></li>";
+	}
+
+	target.html(str);
+};
+
+
+
+function deleteReview(rno){
+	var ask = window.confirm("삭제하시겠습니까?");
+	//file.delete() 
+	//Deletes the file or directory denoted by this abstract pathname. Ifthis pathname denotes a directory, then the directory must be empty inorder to be deleted. 
+		
+	if(ask){
+		
+		$.ajax({
+			type:'delete',
+			url:'<%=request.getContextPath() %>/reviews/'+rno,
+			headers: {"Content-Type": "application/json", "X-HTTP-Method-Override":"DELETE"},
+			dataType:'text',
+			success:function(result){
+					
+				var imgarr = [];
+				
+				if(result == 'SUCCESS'){
+		    		alert("성공적으로 삭제되었습니다.");
+		    		$("#targetspan"+rno+" a").each(function(index){
+						//a태그앞공백중요
+						imgarr.push($(this).attr("href"));
+						imgarr.push($(this).children("img").attr("src"));
 						
-							function hideReviewText(rNo){
-								
-								var temp = document.getElementById("reviewContent"+rNo);
-								
+						
+						//strict-origin-when-cross-origin
+						//$.post(mealkit/deleteAllFiles,{files:imgarr},function(){});
+						
+						$.ajax({
+							type: 'post',
+							url: '<%=request.getContextPath() %>/deleteAllFiles',
+							/* headers:{"Content-Type": "application/json",
+							      "X-HTTP-Method-Override": "POST" }, */
+							dataType:'text',
+							data:({files:imgarr}),
+							traditional : true,
+							success:function(){}	
+						});
+						
+						//console.log($(this).attr("href"));
+					});
+				}
+				getPage( "<%=request.getContextPath()%>/reviews/" + pid + "/" + replyPage);
+			}
+		});
+		
+	}};
 
-								if(temp.style.visibility == "hidden"){
-									temp.style=visibility = "visible";
-								}else{
-									temp.style.visibility = "hidden";	
-								}
-							}
-							/* https://www.tutorialspoint.com/How-to-hide-HTML-element-with-JavaScript */
-						</script>
-								</c:forEach>
-								<%
-						}else{
-						  %>
-								<c:forEach var="review" items="${reviewPage.commentdto}">
-									<div class="post-comments">
-										<ul class="media-list comments-list m-bot-50 clearlist">
-											<div class="media-body">
-												<!-- Comment Item start-->
-												<li class="media"><a class="pull-left" href="#!"> <img
-														class="media-object comment-avatar"
-														src="<%=request.getContextPath() %>/resource/images/blog/avater-1.jpg"
-														alt="" width="50" height="50" />
-												</a>
-													<div class="comment-info">
-														<h4 class="comment-author">
-															<a href="#!">${review.MId} </a>
-														</h4>
-														<a><fmt:formatDate value='${review.regDate}'
-																type='date' pattern='yy.MM.dd'></fmt:formatDate></a> <a
-															class="comment-button" href="#!"><i
-															class="tf-ion-chatbubbles"></i>Reply</a>
-													</div>
-													<p>${review.content}</p>
-											</div>
-											</li>
-										</ul>
-									</div>
-								</c:forEach>
-								<%
-						}
-						  %>
+
+//template의 추가사용없이 동적으로 이미지를 로드하기위하여 append로처리
+function imgonerrorfunction(rno){
+	$.getJSON('<%= request.getContextPath() %>/reviews/getAttach/'+rno,function(list){
+		$(list).each(function(){
+			
+			var imagetemplate = Handlebars.compile($("#template").html());
+			
+			var fileInfo = getFileInfo(this);
+			
+			var html = imagetemplate(fileInfo);
+			//console.log(fileInfo);
+			
+			var refinestr = "<a href="+fileInfo.getLink+"><img src="+fileInfo.imgsrc+" '/>"
+			
+			//console.log(refinestr);
+			//dynamical
+			$("#targetspan"+rno).append(refinestr);
+		});
+		
+		});
+	};
+	
+	function getFileInfo(fullName){
+		var fileName,imgsrc, getLink;
+		
+		var fileLink;
+		
+		    //staticvalue
+			imgsrc = "/mealkit/displayFile?fileName="+fullName;
+			fileLink = fullName.substr(14);
+			
+			var front = fullName.substr(0,12); // /2015/07/01/ 
+			var end = fullName.substr(14);
+			
+			getLink = "/mealkit/displayFile?fileName="+front + end;
+			
+		fileName = fileLink.substr(fileLink.indexOf("_")+1);
+		return  {fileName:fileName, imgsrc:imgsrc, getLink:getLink, fullName:fullName};
+		
+	}
+
+$("#reviewsDiv").on("click", function() {
+	//window.alert("reviewsdiv");
+
+	/* if ($(".timeline li").size() > 1) {
+		return;
+	} */
+	getPage("<%=request.getContextPath()%>/reviews/" + pid + "/1");
+	// 189 = pid
+
+});
+
+$(".pagination").on("click", "li a", function(event) {
+
+	window.alert("pagination");
+
+	event.preventDefault();
+
+	replyPage = $(this).attr("href");
+
+	getPage("<%=request.getContextPath() %>/reviews/"+pid+ "/" + replyPage);
+
+});
+
+ var formData = new FormData();
+ var filelist;
+ 
+ var storeimg = new Array();
+ 
+	$("#fileupload").on("change",function handleImgFileSelect(e) {
+
+		filelist = document.getElementById("fileupload").files || [];
+		
+       	var ufiles = e.target.files;
+        var filesArr = Array.prototype.slice.call(ufiles);
+ 
+        var reg = /(.*?)\/(jpg|jpeg|png|bmp)$/;
+        
+        var sel_file;
+        var fString = "";
+ 
+        filesArr.forEach(function(f) {
+            if (!f.type.match(reg)) {
+                alert("확장자는 이미지 확장자만 가능합니다.");
+                document.getElementById("fileupload").value = "";
+                return;
+            }
+
+			storeimg.push(f);
+			
+			console.log('foundfile=' + f.name);
+			
+            var reader = new FileReader();
+            
+            reader.readAsDataURL(f);
+                
+            reader.onload = function(e) {
+            	  var img = $('<img src="' + e.target.result + '"name="'+f.name+'" width="50px" height="50px" class="uploadedimg">');
+            	  var imgname = f.name;
+            	  var del = $('<small style="cursor: pointer">X</small>');
+            	  var spn = $('<span></span>').append(img).append(del)
+            	
+            	  $(".uploadedList").append(spn);
+            	  
+            	  del.click(function(event){
+            		var clicked = $(this);
+            		
+            		
+            		console.log(imgname);
+            		
+            		clicked.parent().remove()
+            		
+            		storeimg = storeimg.filter(function (el){
+            			return el.name != imgname;
+            		});
+            	  });
+      	  }
+        }); 
+		
+	});
+
+
+	
+ $("#submitReview").on("click", function(event) {
+	 event.preventDefault();
+	var vals = [];
+	//savefilename as string
+	var reviewtextObj = $("#submitReviewWriter");
+	var reviewtext = reviewtextObj.val();
+	
+	if(!reviewtext.trim()){
+		window.alert("reviewtext.val-ISEMPTY");
+		return;
+	}
+	
+	//testString
+	<%-- var mId = <%= session.getAttribute("mId") %>; --%>
+	for(var i = 0; i < storeimg.length ; i ++){
+/* 				var uuid = function uuidv4() {
+			  return ([1e7]+-1e3+-4e3+-8e3+-1e11).replace(/[018]/g, c =>
+			    (c ^ crypto.getRandomValues(new Uint8Array(1))[0] & 15 >> c / 4).toString(16)
+			  );
+			} */
+		
+		console.log('foundfile' + i + '=' + storeimg[i].name);
+		formData.append("fileupload[]",storeimg[i]);
+		//vals.push(storeimg[i].name);
+	}
+
+	var data = {
+			"contents" : $("#contents").val()
+	}
+	//neverused?
+	formData.append('key',new Blob([JSON.stringify(data)],{type:"application/json"}));
+	
+	//filename value를 받아사용하기 위하여 추가처리
+	$.ajax({
+		url: '<%=request.getContextPath()%>/uploadAjax',
+		data : formData,
+		processData: false,
+		contentType: false,
+		enctype: 'multipart/form-data',
+		async : false,
+		type: 'POST',
+		success: function(result){
+			console.log(result);
+			
+			//alert(result[0].filename);
+			
+			for(var i = 0 ; i < result.length ; i ++){
+				
+				vals.push(result[i].filename);
+				console.log(result[i].filename);
+				
+			}
+			
+			//$(".uploadedList").removeChild();
+			
+			document.getElementById("fileupload").value = "";
+
+			 $.ajax({
+					type:'post',
+					url:'<%=request.getContextPath()%>/reviews/',
+					headers: {
+						"Content-Type" : "application/json",
+						"X-HTTP-Method-Override" : "POST" },
+						
+						dataType:'text',
+						data: JSON.stringify({pid:pid,mid:mId,content:reviewtext,regdate: 'sysdate',files:vals}),
+						success:function(result){
+							
+							console.log("result: " + result);
+							
+							if(result == 'SUCCESS'){
+								//alert("posted");
+								replyPage = 1;
+								
+								getPage( "<%=request.getContextPath()%>/reviews/" + pid + "/" + replyPage);
+									reviewtextObj.val("");
+												}
+											}
+									});
+			
+			const mNode = document.getElementById("uploadedList");
+			mNode.textContent = '';
+			 formData = new FormData();
+			 storeimg = new Array();
+		 
+			 
+					 }				 
+			 });
+		});
+</script>
+
+							</div><!-- divend -->
 								<!--  testing code end, set switch-->
-							</div>
-
-
-
 
 						</div>
 					</div>
@@ -331,45 +622,5 @@
 				
 				</script>
 
-
-<!-- COMMENT-SCRIPT-SECTION -->
-<script id="reviews" class="tab-pane fade">				
-				{{#each .}}
-				<ul class="media-list comments-list m-bot-50 clearlist">
-				  <div class="media-body">
-				    <li class="media">
-				        <a class="pull-left" href="#!">
-				            <img class="media-object comment-avatar" src="<%=request.getContextPath() %>/resource/images/blog/avater-1.jpg" alt="" width="50" height="50" />
-				        </a>
-				            <div class="comment-info">
-				                <h4 class="comment-author">
-				                    <a href="#!">${review.MId} </a>
-				                </h4>
-				                <a><fmt:formatDate value='${review.regDate}' type='date' pattern='yy.MM.dd'></fmt:formatDate></a>
-				                <a class="comment-button" href="#!"><i class="tf-ion-chatbubbles"></i>Reply</a>
-				              <c:if test="${sessionScope.MId == review.MId}">
-				                <a class="pull-right" style="cursor:pointer;"  data-toggle="collapse" data-target="#commentupdate${review.rNo}" onClick="hideReviewText(${review.rNo})"><i class="tf-ion-chatbubbles"></i>Update</a>
-				                <div id="commentupdate${review.rNo}" class="collapse">
-				                <form class="text-left clearfix" action="<%=request.getContextPath()%>/update.do?rNo=${review.rNo}" method="post">
-								<div class="form-group">
-		    						<input type="text" name = "contentmodify" class="form-control" value="${review.content}"  placeholder="CommentUpdate">
-		           			    <div class="text-center">
-	  	    						<button type="submit" class="btn btn-main text-center">Update Comment</button>
-								</div>
-		   							</div>
-								</form>
-				                </div>
-				                  <br>
-				                  <a class="pull-right" style="cursor:pointer;" onClick="deleteReview(${review.rNo})" <%-- 취소시에도 redirect될경우 user응답과 무관하게 삭제됨 href사용시 npe에러 // href="delete.test?rNo=${review.rNo}" onClick="deleteReview()" --%>><i class="tf-ion-chatbubbles"></i>Delete</a>
-				              </c:if>
-				            </div>
-				            <p id="reviewContent${review.rNo}">
-				               ${review.content}
-				            </p>
-				        </div>
-				    </li>
-			</ul>
-			{{/each}}	
-				</script>
 
 <%@ include file="../include/footer.jspf"%>
