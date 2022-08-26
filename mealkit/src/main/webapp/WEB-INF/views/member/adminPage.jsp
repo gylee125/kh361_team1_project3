@@ -4,32 +4,12 @@
 <%@ include file="../include/header.jspf"%>
 
 <style>
-.h {
-	font-family: "Poppins", sans-serif;
-	color: #888783;
-	font-size: 14px;
-	letter-spacing: 2px;
-}
-.search-wrap {
-	margin-top: 35px;
-	margin-left: 375px;
-}
-.search-wrap input {
-	height: 25px;
-	width: 290px;
-}
-.search-wrap button {
-	height: 25px;
-	width: 25px;
+.search {
+	margin-top: 25px;
 }
 </style>
 
-</head>
-<body id="body">
-<script
-	src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
-	
-
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
 <script>
 	$(document).ready(function() {
 		
@@ -68,7 +48,7 @@
 					<li><a href="<%=request.getContextPath()%>/adminOrder.do">Order</a></li>
 					<li><a href="<%=request.getContextPath()%>/community/adminBoard.do">Board</a></li>
 				</ul>
-				<div class="search-wrap">
+				<div class="search text-center">
 					<select name="searchType">
 						<option value="n"
 							<c:out value="${cri.searchType == null?'selected':''}"/>>---</option>
@@ -77,7 +57,7 @@
 						<option value="n"
 							<c:out value="${cri.searchType eq 'n'?'selected':''}"/>>NAME</option>
 					</select> 
-					<input type="text" name='keyword' id="keywordInput" value='${cri.keyword }'>
+					<input type="search" name='keyword' id="keywordInput" value='${cri.keyword }'>
 					<button id='searchBtn'><i class="tf-ion-ios-search-strong"></i></button>
 				</div>
 				<div class="dashboard-wrapper user-dashboard">
@@ -179,7 +159,8 @@
 	let withdrawalButton = document.getElementById("withdrawalButton");
 	showMemberDetail.style.display = 'none';
 	
-	// alert("js 작동 테스트 57");
+
+	//alert("js 작동 테스트 57");
 	
 	function searchMember(inputId){	
 		
@@ -189,7 +170,7 @@
 			.then(response => response.json())		
 			.then((data) => 
 			{
-				console.log(data);
+				//console.log(data);
 				alert("회원 비밀번호가 노출됩니다. 보안에 주의하시기 바랍니다.");				
 				memberNo.innerHTML = data.mno;
 				memberId.innerHTML = data.mid;

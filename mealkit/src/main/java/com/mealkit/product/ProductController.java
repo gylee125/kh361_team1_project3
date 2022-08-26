@@ -62,19 +62,19 @@ public class ProductController {
 
 		List<ProductVO> productList = productService.selectByTypeCode(typeCode);
 
-		logger.info("// productList.toString()=" + productList.toString());
+		//logger.info("// productList.toString()=" + productList.toString());
 		model.addAttribute("productList", productList);
 	}
 
 	@RequestMapping(value = "/detail")
 	public void productDetail(Model model, @RequestParam(value = "pId") int pId, HttpServletRequest request)
 			throws Exception {
-		logger.info("/product/detail" + pId);
+		logger.info("/product/detail 상품번호: " + pId);
 
 		ProductDetailVO productOne = productService.selectProductDetail(pId);
 		List<ProductVO> relatedList = productService.selectRelatedList(pId);
 
-		logger.info("// productOne.toString()=" + productOne.toString());
+		//logger.info("// productOne.toString()=" + productOne.toString());
 		model.addAttribute("productOne", productOne);
 		model.addAttribute("relatedList", relatedList);
 
@@ -110,7 +110,7 @@ public class ProductController {
 		logger.info("// product.toString()=" + product.toString());
 
 		request.setAttribute("msg", "상품등록 완료");
-		request.setAttribute("url", "listAll");
+		request.setAttribute("url", "adminProduct");
 
 		return "alert";
 

@@ -88,6 +88,7 @@
 					<!--  시간이 된다면 검색 기능 넣기 -->
 					<div class="search-wrap">
 						<select name="searchType" >
+
 							<option value="i"
 								<c:out value="${cri.searchType eq 'i'?'selected':''}"/>>아이디</option>
 							<option value="n"

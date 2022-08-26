@@ -7,7 +7,7 @@ public class ProductCriteria {
 
 	public ProductCriteria() {
 		this.page = 1;
-		this.perPageNum = 12;
+		this.perPageNum = 9;
 	}
 
 	public void setPage(int page) {
