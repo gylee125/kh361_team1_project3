@@ -115,8 +115,6 @@ input[type="file"] {
 
 						</form>
 
-
-
 					</div>
 				</div>
 			</div>
@@ -137,31 +135,20 @@ var replyPage = 1;
 		$(document).ready(function() {
 			var formObj = $("form[role='form']");
 			console.log(formObj);
-			//static value for test
-			//
 			var template = Handlebars.compile($("#templateAttach").html());
-	
-			
 			
 			$.get("/mealkit/reviews/all/"+pid,function(){
 			});
 			
 			function loadComment (){
-			//window.alert("reviewsdiv");
 			/* if ($(".timeline li").size() > 1) {
 				return;
 			} */
 			getPage("<%=request.getContextPath()%>/reviews/" + pid + "/1");
-			// 189 = pid
 			}
-			
-			
-			
-			
 	});
 		
 </script>
-
 			<div class="row">
 				<div class="col-xs-12">
 					<div class="tabCommon mt-20">
@@ -177,7 +164,6 @@ var replyPage = 1;
 									src='<%=request.getContextPath()%>/product/display?fileName=${productOne.image}'
 									class="img-responsive">
 							</div>
-
 
 							<div id="reviews" class="tab-pane fade">
 								<!-- comment section -->
@@ -210,22 +196,12 @@ var replyPage = 1;
 									</ul>
 								</div>
 
-								<!-- testmodal -->
-
-
-
-
-
-
-
-
-
 								<script
 									src="https://cdnjs.cloudflare.com/ajax/libs/handlebars.js/3.0.1/handlebars.js"></script>
 								<!-- 동적으로 생성된 영역을 selector로 참조하기위하여 고유값(rno)를id에부여 -->
 								<!-- https://stackoverflow.com/questions/34252817/handlebarsjs-check-if-a-string-is-equal-to-a-value -->
 
-								<script id="template" type="text/x-handlebars-template">
+<script id="template" type="text/x-handlebars-template">
 
 {{#each .}}
 <div id = targetdiv{{rno}} ">
@@ -255,7 +231,7 @@ var replyPage = 1;
 
 <br>
 
-  </div>			
+</div>			
 </ui>
 
 </div>
@@ -264,7 +240,7 @@ var replyPage = 1;
 
 </script>
 
-								<script>
+<script>
 function getPage(pageInfo) {
 	$.getJSON(pageInfo, function(data) {
 		printData(data.list, $("#post-comments"), $('#template'));
@@ -272,14 +248,13 @@ function getPage(pageInfo) {
 	});
 }
 
-
-
 var printData = function(reviewsArr, target, templateObject) {
 	var template = Handlebars.compile(templateObject.html());
 	var html = template(reviewsArr);
 	$(".replyLi").remove();
 	target.after(html);
 }
+
 var printPaging = function(commentPageMaker, target) {
 	var str = "";
 	if (commentPageMaker.prev) {
@@ -297,6 +272,7 @@ var printPaging = function(commentPageMaker, target) {
 	}
 	target.html(str);
 };
+
 function deleteReview(rno){
 	
 	var mId = "${member.MId}";
@@ -386,6 +362,7 @@ function imgonerrorfunction(rno){
 		return  {fileName:fileName, imgsrc:imgsrc, getLink:getLink, fullName:fullName};
 		
 	}
+	
 $("#reviewsDiv").on("click", function() {
 	//window.alert("reviewsdiv");
 	/* if ($(".timeline li").size() > 1) {
@@ -400,9 +377,9 @@ $(".pagination").on("click", "li a", function(event) {
 	replyPage = $(this).attr("href");
 	getPage("<%=request.getContextPath()%>/reviews/"+pid+ "/" + replyPage);
 });
+
  var formData = new FormData();
  var filelist;
- 
  var storeimg = new Array();
  
 	$("#fileupload").on("change",function handleImgFileSelect(e) {
@@ -479,7 +456,6 @@ $(".pagination").on("click", "li a", function(event) {
 		return;
 	}
 	
-	//testString
 	for(var i = 0; i < storeimg.length ; i ++){
 /* 				var uuid = function uuidv4() {
 			  return ([1e7]+-1e3+-4e3+-8e3+-1e11).replace(/[018]/g, c =>
@@ -543,12 +519,10 @@ $(".pagination").on("click", "li a", function(event) {
 			mNode.textContent = '';
 			 formData = new FormData();
 			 storeimg = new Array();
-		 
 			 
 					 }				 
 			 });
 		});
- 
  
  var variablem = "";
  function modifyReview(rno,mid){
@@ -593,7 +567,6 @@ $(".pagination").on("click", "li a", function(event) {
 								}
 						});
 	
-	
 };
 	
 //helper없이제어불가
@@ -636,7 +609,6 @@ Handlebars.registerHelper('ifEquals',function(arg1,options){
 
 							</div>
 							<!-- divend -->
-
 						</div>
 					</div>
 				</div>
@@ -654,7 +626,6 @@ Handlebars.registerHelper('ifEquals',function(arg1,options){
 		</div>
 		<div class="row">
 
-
 			<c:forEach var="relatedList" items="${relatedList}">
 
 				<div class="col-md-3">
@@ -668,7 +639,6 @@ Handlebars.registerHelper('ifEquals',function(arg1,options){
 									<li><a
 										href="<%=request.getContextPath()%>/product/detail?pId=${relatedList.PId}"><i
 											class="tf-ion-ios-search"></i></a></li>
-
 									<li><a href="#!"><i class="tf-ion-android-cart"></i></a></li>
 								</ul>
 							</div>
@@ -682,13 +652,11 @@ Handlebars.registerHelper('ifEquals',function(arg1,options){
 						</div>
 					</div>
 				</div>
-
 			</c:forEach>
 
 		</div>
 	</div>
 </section>
-
 
 <script>
 				Handlebars.registerHelper("prettifyDate", function(timeValue) {
@@ -701,7 +669,7 @@ Handlebars.registerHelper('ifEquals',function(arg1,options){
 				//date type변환
 				
 				
-				</script>
+</script>
 
 
 <%@ include file="../include/footer.jspf"%>
