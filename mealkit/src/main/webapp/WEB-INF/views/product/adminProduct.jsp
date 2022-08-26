@@ -150,17 +150,18 @@
 					</div>
 				</div>
 			</div>
-		</div>
-		<div>
+			<div>
 
-			<ul class="list-inline mt-10" id="productBtn">
-				<li><a href="<%=request.getContextPath()%>/product/register"
-					class="btn btn-main btn-medium btn-round">Register</a></li>
-				<li><a href="<%=request.getContextPath()%>/product/listAdmin"
-					class="btn btn-main btn-medium btn-round">update / delete</a></li>
-			</ul>
-
+				<ul class="list-inline mt-10" id="productBtn">
+					<li><a href="<%=request.getContextPath()%>/product/register"
+						class="btn btn-main btn-medium btn-round">Register</a></li>
+					<li><a href="<%=request.getContextPath()%>/product/listAdmin"
+						class="btn btn-main btn-medium btn-round">update / delete</a></li>
+				</ul>
+	
+			</div>
 		</div>
+
 
 		<div class="text-center">
 			<ul class="pagination post-pagination">
