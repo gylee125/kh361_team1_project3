@@ -4,16 +4,18 @@ import java.util.List;
 
 import com.mealkit.order.CartVO;
 import com.mealkit.order.OrderCriteria;
-import com.mealkit.order.OrderListVO;
+import com.mealkit.order.OrderCriteriaUser;
 import com.mealkit.order.OrderVO;
 
 public interface OrderMapper {
 	
 	public void addOrder (String mId) throws Exception;
 	
+	public OrderVO orderDetail (int oId) throws Exception;
+	
 	public List<OrderVO> showOrderList (String mId) throws Exception;
 	
-	public OrderVO orderDetail (int oId) throws Exception;
+	public int countPageOrder (OrderCriteriaUser cri) throws Exception;
 	
 	
 	public void addCart (CartVO cart) throws Exception;

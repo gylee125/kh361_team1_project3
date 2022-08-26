@@ -32,21 +32,23 @@
 
 </head>
 <body id="body">
-<script
-	src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
-<script>
-	$(document).ready(
-			function() {
-				$('#searchBtn').on("click", function(event) {
-					location.href = "adminOrder.do"
-									+ '${pageMaker.makeQuery(1)}'
-									+ "&searchType="
-									+ $("select option:selected").val()
-									+ "&keyword=" + $('#keywordInput').val();
+	<script
+		src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+	<script>
+		$(document).ready(
+				function() {
+					$('#searchBtn').on(
+							"click",
+							function(event) {
+								location.href = "adminOrder.do"
+										+ '${pageMaker.makeQuery(1)}'
+										+ "&searchType="
+										+ $("select option:selected").val()
+										+ "&keyword="
+										+ $('#keywordInput').val();
+							});
 				});
-		});
-	
-</script>
+	</script>
 
 
 	<!-- 취합할 때 협의해서 해당 업무 폴더로 옮기기 -->
@@ -84,22 +86,22 @@
 						<li><a
 							href="<%=request.getContextPath()%>/community/adminBoard.do">Board</a></li>
 					</ul>
-					
+
 					<!--  시간이 된다면 검색 기능 넣기 -->
 					<div class="search-wrap">
-						<select name="searchType" >
+						<select name="searchType">
 
 							<option value="i"
 								<c:out value="${cri.searchType eq 'i'?'selected':''}"/>>아이디</option>
 							<option value="n"
 								<c:out value="${cri.searchType eq 'n'?'selected':''}"/>>주문번호</option>
-						</select>
-						<input type="text" name='keyword' id="keywordInput" value='${cri.keyword}'>
+						</select> <input type="text" name='keyword' id="keywordInput"
+							value='${cri.keyword }'>
 						<button id='searchBtn'>
 							<i class="tf-ion-ios-search-strong"></i>
 						</button>
 					</div>
-					
+
 					<div class="dashboard-wrapper user-dashboard">
 						<div class="table-responsive">
 							<table class="table">
@@ -116,28 +118,28 @@
 									</tr>
 								</thead>
 								<c:if test="${orderList.size() != 0}">
-								<tbody>
-									<c:forEach var="order" items="${orderList}" >
-										<tr>
-											<td>${order.oId}</td>
-											<td><fmt:formatDate value="${order.oDate}"
-													pattern="yyyy-MM-dd" /></td>
-											<td>${order.mId}</td>
-											<td>${order.pName}</td>
-											<td>${order.quantity}</td>
-											<td><fmt:formatNumber value="${order.price}"
-													pattern="###,####,###" />원</td>
-											<td><span class="label label-primary">${order.statusName}</span></td>
-											<td><a class="product-remove"
-												href="detailAdmin.do?oId=${order.oId}">수정</a></td>
-										</tr>
-									</c:forEach>
-								</tbody>
+									<tbody>
+										<c:forEach var="order" items="${orderList}">
+											<tr>
+												<td>${order.oId}</td>
+												<td><fmt:formatDate value="${order.oDate}"
+														pattern="yyyy-MM-dd" /></td>
+												<td>${order.mId}</td>
+												<td>${order.pName}</td>
+												<td>${order.quantity}</td>
+												<td><fmt:formatNumber value="${order.price}"
+														pattern="###,####,###" />원</td>
+												<td><span class="label label-primary">${order.statusName}</span></td>
+												<td><a class="product-remove"
+													href="detailAdmin.do?oId=${order.oId}">수정</a></td>
+											</tr>
+										</c:forEach>
+									</tbody>
 								</c:if>
 								<c:if test="${orderList.size() == 0}">
 									<tr>
 										<td colspan="6" align="center">
-												<h4>' ${cri.keyword} '로 조회된 결과가 없습니다.</h4>
+											<h4>조회된 결과가 없습니다.</h4>
 										</td>
 									</tr>
 								</c:if>
@@ -148,25 +150,33 @@
 			</div>
 		</div>
 		<div class="text-center">
-		<ul class="pagination post-pagination">
-			<c:if test="${pageMaker.prev}">
-				<li><a
-					href="adminOrder.do${pageMaker.makeQuery(pageMaker.startPage - 1)}">Prev</a></li>
-			</c:if>
-				<c:forEach begin="${pageMaker.startPage }"
-				end="${pageMaker.endPage }" var="idx">
-
+			<ul class="pagination post-pagination">
+				<c:if test="${pageMaker.prev}">
+					<li><a
+						href="adminOrder.do${pageMaker.makeSearch(pageMaker.startPage - 1)}">Prev</a></li>
+				</c:if>
 				
-				<li class="active"
-					<c:out value="${pageMaker.cri.page == idx?'class =active':''}"/>>
-					<a href="adminOrder.do${pageMaker.makeQuery(idx)}">${idx}</a>
-				</li>
-			</c:forEach>
-			<c:if test="${pageMaker.next && pageMaker.endPage > 0}">
-				<li><a href="listPage${pageMaker.makeQuery(pageMaker.endPage +1) }">Next</a></li>
-			</c:if>
-		</ul>
-	</div>
+				<c:forEach begin="${pageMaker.startPage}" end="${pageMaker.endPage}"
+					var="idx">
+					<li
+						<c:out value="${pageMaker.cri.page == idx?'class=active':''}"/>>
+						<a href="adminOrder.do${pageMaker.makeSearch(idx)}">${idx}</a>
+					</li>
+				</c:forEach>
+				
+				<c:if test="${pageMaker.next && pageMaker.endPage > 0}">
+					<li><a
+						href="adminOrder.do${pageMaker.makeSearch(pageMaker.endPage +1) }">Next</a></li>
+				</c:if>
+			</ul>
+
+			<form id='actionForm' action="/order/adminOrder" method='get'>
+				<input type='hidden' name='pageNum' value='${pageMaker.cri.page}'>
+				<input type='hidden' name='amount'
+					value='${pageMaker.cri.perPageNum}'>
+			</form>
+
+		</div>
 	</section>
 
 

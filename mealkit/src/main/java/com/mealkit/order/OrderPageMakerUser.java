@@ -3,7 +3,7 @@ package com.mealkit.order;
 import org.springframework.web.util.UriComponents;
 import org.springframework.web.util.UriComponentsBuilder;
 
-public class OrderPageMaker {
+public class OrderPageMakerUser {
 
 	private int totalCount;	
 	private int startPage;
@@ -13,9 +13,9 @@ public class OrderPageMaker {
 
 	private int displayPageNum = 10;
 
-	private OrderCriteria cri;
+	private OrderCriteriaUser cri;
 
-	public void setCri(OrderCriteria cri) {
+	public void setCri(OrderCriteriaUser cri) {
 		this.cri = cri;
 	}
 
@@ -67,7 +67,7 @@ public class OrderPageMaker {
 		return displayPageNum;
 	}
 
-	public OrderCriteria getCri() {
+	public OrderCriteriaUser getCri() {
 		return cri;
 	}
 
@@ -79,14 +79,12 @@ public class OrderPageMaker {
 		return uriComponents.toUriString();
 	}
 
-	public String makeSearch(int page) {
-		cri.setPerPageNum(10);
-		UriComponents uriComponents = UriComponentsBuilder.newInstance().queryParam("page", page)
-				.queryParam("page",page)
-				.queryParam("perPageNum", cri.getPerPageNum())
-				.queryParam("searchType", ((OrderCriteria) cri).getSearchType())
-				.queryParam("keyword", ((OrderCriteria) cri).getKeyword())
-				.build();
-		return uriComponents.toUriString();
-	}
+	/*
+	 * public String makeSearch(int page) { cri.setPerPageNum(10); UriComponents
+	 * uriComponents = UriComponentsBuilder.newInstance().queryParam("page", page)
+	 * .queryParam("page",page) .queryParam("perPageNum", cri.getPerPageNum())
+	 * .queryParam("searchType", ((OrderCriteria) cri).getSearchType())
+	 * .queryParam("keyword", ((OrderCriteria) cri).getKeyword()) .build(); return
+	 * uriComponents.toUriString(); }
+	 */
 }

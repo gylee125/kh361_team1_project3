@@ -9,16 +9,17 @@ import com.mealkit.mapper.OrderMapper;
 
 @Service
 public class OrderServiceImpl implements OrderService {
+	
 
 	@Autowired
 	private OrderMapper orderMapper;
 
-	
+	// 주문
 	@Override
 	public List<OrderVO> showOrderList (String mId) throws Exception {
-		return orderMapper.showOrderList(mId);
-	}
-
+	 return orderMapper.showOrderList(mId); 
+	 }
+	
 	@Override
 	public void addOrder(String mId) throws Exception {
 		orderMapper.addOrder(mId);
@@ -28,9 +29,14 @@ public class OrderServiceImpl implements OrderService {
 	public OrderVO orderDetail(int oId) throws Exception {
 		return orderMapper.orderDetail(oId);
 	}
+	
+	@Override
+	public int countPageOrder(OrderCriteriaUser cri) throws Exception {
+		return orderMapper.countPageOrder(cri);
+	}
 
 	
-	
+	// 장바구니
 	@Override
 	public void addCart(CartVO cart) throws Exception {
 		orderMapper.addCart(cart);
@@ -70,11 +76,11 @@ public class OrderServiceImpl implements OrderService {
 
 	
 	
+	// 관리자
 	@Override
 	public List<OrderVO> orderAdmin() throws Exception {
 		return orderMapper.orderAdmin();
 	}
-
 	
 	@Override
 	public void updateAdmin (int oId, int statusCode) throws Exception {
@@ -99,7 +105,6 @@ public class OrderServiceImpl implements OrderService {
 	public int countPage(OrderCriteria cri) throws Exception {
 		return orderMapper.countPage(cri);
 	}
-	
 	
 
 }
