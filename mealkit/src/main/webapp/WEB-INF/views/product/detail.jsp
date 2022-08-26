@@ -30,9 +30,16 @@ input[type="file"] {
 	src="<%=request.getContextPath()%>/resources/plugins/bootstrap/js/bootstrap.min.js"></script>
 <script
 	src="<%=request.getContextPath()%>/resources/plugins/bootstrap-touchspin/dist/jquery.bootstrap-touchspin.min.js"></script>
+<script
+	src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.6/umd/popper.min.js"
+	integrity="sha384-wHAiFfRlMFy6i5SRaxvfOCifBUQy1xHdJ/yoi7FRNXMRBu5WHdZYu1hA6ZOblgut"
+	crossorigin="anonymous"></script>
 
 <%@ include file="../include/header.jspf"%>
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+<link rel="stylesheet"
+	href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+
 
 <c:if test="${not empty productOne}">
 	<section class="single-product">
@@ -125,19 +132,13 @@ input[type="file"] {
 </script>
 
 <script>
-//var mId = "admin";
 var pid = ${productOne.PId};
 var replyPage = 1;
-
 		$(document).ready(function() {
-
 			var formObj = $("form[role='form']");
-
 			console.log(formObj);
-
 			//static value for test
 			//
-
 			var template = Handlebars.compile($("#templateAttach").html());
 	
 			
@@ -147,13 +148,14 @@ var replyPage = 1;
 			
 			function loadComment (){
 			//window.alert("reviewsdiv");
-
 			/* if ($(".timeline li").size() > 1) {
 				return;
 			} */
 			getPage("<%=request.getContextPath()%>/reviews/" + pid + "/1");
 			// 189 = pid
-		}
+			}
+			
+			
 			
 			
 	});
@@ -167,75 +169,90 @@ var replyPage = 1;
 							<li class="active"><a data-toggle="tab" href="#details"
 								aria-expanded="true">Details</a></li>
 							<li class=""><a data-toggle="tab" href="#reviews"
-						id="reviewsDiv" aria-expanded="false">Reviews</a></li>
+								id="reviewsDiv" aria-expanded="false">Reviews</a></li>
 						</ul>
 						<div class="tab-content patternbg">
 							<div id="details" class="tab-pane fade active in">
-								<img src='<%=request.getContextPath()%>/product/display?fileName=${productOne.image}' class="img-responsive">
+								<img
+									src='<%=request.getContextPath()%>/product/display?fileName=${productOne.image}'
+									class="img-responsive">
 							</div>
 
 
 							<div id="reviews" class="tab-pane fade">
-						<!-- comment section -->
-						<div>
-							<form id="submitform">
-								<c:if test="${member != null}"><!-- error strict-origin-when-cross-origin -->
-								<input type="text" readonly="readonly" value="${member.MId}" />
-								<br>
-								</c:if>
-								<input type="text" id="submitReviewWriter" name="reviews"
-									class="form-control" placeholder="Comment">
-								<div class="text-center">
-									<label for="fileupload" class="custom-file-upload"> <i
-										class="fa fa-cloud-upload"></i> Upload Image
-									</label> <input style="visibility:hidden;" type='file' id='fileupload' name="fileupload[]"
-										multiple="multiple" accept=".png, .jpg, .jpeg" />
+								<!-- comment section -->
+								<div>
+									<form id="submitform">
+										<c:if test="${member != null}">
+										<div style="margin-bottom:2px">
+											<input type="text" readonly="readonly" value="  ${member.MId}" />
+										</div>
+										</c:if>
+										<input type="text" id="submitReviewWriter" name="reviews"
+											class="form-control" placeholder="Comment" style="margin-bottom:10px">
+										<div class="text-center">
+											<label for="fileupload" class="custom-file-upload"> <i
+												class="fa fa-cloud-upload"></i> Upload Image
+											</label> <input style="visibility: hidden;" type='file'
+												id='fileupload' name="fileupload[]" multiple="multiple"
+												accept=".png, .jpg, .jpeg" />
 
-									<div id="uploadedList" class='uploadedList'></div>
+											<div id="uploadedList" class='uploadedList'></div>
 
-									<button id="submitReview" type="submit"
-										class="btn btn-main text-center">submit Comment</button>
+											<button id="submitReview" type="submit"
+												class="btn btn-main text-center">submit Comment</button>
+										</div>
+									</form>
 								</div>
-							</form>
-						</div>
-						<div class="post-comments" id="post-comments"></div>
-						<div class='text-center'>
-							<ul id="pagination" class="pagination pagination-sm no-margin">
-							</ul>
-						</div>
-						<script src="https://cdnjs.cloudflare.com/ajax/libs/handlebars.js/3.0.1/handlebars.js"></script>
-<!-- 동적으로 생성된 영역을 selector로 참조하기위하여 고유값(rno)를id에부여 -->
-<script id="template" type="text/x-handlebars-template">
+								<div class="post-comments" id="post-comments"></div>
+								<div class='text-center'>
+									<ul id="pagination" class="pagination pagination-sm no-margin">
+									</ul>
+								</div>
+
+								<!-- testmodal -->
+
+
+
+
+
+
+
+
+
+								<script
+									src="https://cdnjs.cloudflare.com/ajax/libs/handlebars.js/3.0.1/handlebars.js"></script>
+								<!-- 동적으로 생성된 영역을 selector로 참조하기위하여 고유값(rno)를id에부여 -->
+								<!-- https://stackoverflow.com/questions/34252817/handlebarsjs-check-if-a-string-is-equal-to-a-value -->
+
+								<script id="template" type="text/x-handlebars-template">
 
 {{#each .}}
-<div id = targetdiv{{rno}}>
+<div id = targetdiv{{rno}} ">
 <ui id="reviewreplyLi" class="replyLi" data-rno={{rno}}>
  <div class="post-comments" >
   <span class="time">
-    <i class="fa fa-clock-o">regdate:{{prettifyDate regDate}}</i>
+    <i class="fa fa-clock-o"> 등록일 : {{prettifyDate regDate}}</i>
   </span>
-  <h4 class="comment-author"> <a href="https://www.google.com/search?q={{mid}}">{{mid}}</a></h4>
-  <div class="timeline-body">{{content}} </div>
+  <h4 class="comment-author"> <a href="https://www.google.com/search?q={{mid}}"> 작성자 : {{mid}}</a></h4>
+
+
+{{#ifEquals mid}}
+<a id = "targetdelete{{rno}}" style="border:groove" class="pull-right" style="cursor:pointer;" onclick="deleteReview('{{rno}}')"><i
+		class="tf-ion-chatbubbles"></i>삭제</a>
+<a style="border:groove" class="pull-right" style="cursor:pointer;" onclick="modifyReview('{{rno}}','{{mid}}')" ><i class="tf-ion-chatbubbles"></i>수정</a>
+{{/ifEquals}}
+<div class="timeline-body" id="reviewsContent{{rno}}">{{content}} </div>
+<div>
+</div>
+
 <span id = "targetspan{{rno}}">
 <img src onerror="imgonerrorfunction('{{rno}}')" >
 </span>
 
 </br>
-<a id = "targetdelete{{rno}}" style="border:solid" class="pull-right" style="cursor:pointer;" onclick="deleteReview('{{rno}}')"><i
-		class="tf-ion-chatbubbles"></i>Delete</a>
-<%-- <a style="border:solid" class="pull-right" style="cursor:pointer;" data-toggle="collapse" data-target="#commentupdate${rno}"
-	onClick="hideReviewText(${rno})"><i class="tf-ion-chatbubbles"></i>Update</a>
-</br>
-<div id="commentupdate${rno}" class="collapse">
-	<form class="text-left clearfix" action="<%=request.getContextPath()%>/#" method="post">
-		<div class="form-group">
-			<input type="text" name="contentmodify" class="form-control" value="${content}" placeholder="CommentUpdate">
-			<div class="text-center">
-				<button type="submit" class="btn btn-main text-center">Update Comment</button>
-			</div>
-		</div>
-	</form>
-</div> --%>
+
+
 <br>
 
   </div>			
@@ -247,56 +264,45 @@ var replyPage = 1;
 
 </script>
 
-<script>
+								<script>
 function getPage(pageInfo) {
 	$.getJSON(pageInfo, function(data) {
 		printData(data.list, $("#post-comments"), $('#template'));
 		printPaging(data.commentPageMaker, $(".pagination"));
-
 	});
 }
 
+
+
 var printData = function(reviewsArr, target, templateObject) {
 	var template = Handlebars.compile(templateObject.html());
-
 	var html = template(reviewsArr);
 	$(".replyLi").remove();
 	target.after(html);
-
 }
-
-
 var printPaging = function(commentPageMaker, target) {
-
 	var str = "";
-
 	if (commentPageMaker.prev) {
 		str += "<li><a href='" + (commentPageMaker.startPage - 1)
 				+ "'> << </a></li>";
 	}
-
 	for (var i = commentPageMaker.startPage, len = commentPageMaker.endPage; i <= len; i++) {
 		var strClass = commentPageMaker.cri.page == i ? 'class=active'
 				: '';
 		str += "<li "+strClass+"><a href='"+i+"'>" + i + "</a></li>";
 	}
-
 	if (commentPageMaker.next) {
 		str += "<li><a href='" + (commentPageMaker.endPage + 1)
 				+ "'> >> </a></li>";
 	}
-
 	target.html(str);
 };
-
-
-
 function deleteReview(rno){
 	
 	var mId = "${member.MId}";
 	
 	if(mId == ""){
-		window.location.href= "<%=request.getContextPath() %>/login.do";
+		window.location.href= "<%=request.getContextPath()%>/login.do";
 	};
 	
 	var ask = window.confirm("삭제하시겠습니까?");
@@ -307,7 +313,7 @@ function deleteReview(rno){
 		
 		$.ajax({
 			type:'delete',
-			url:'<%=request.getContextPath() %>/reviews/'+rno,
+			url:'<%=request.getContextPath()%>/reviews/'+rno,
 			headers: {"Content-Type": "application/json", "X-HTTP-Method-Override":"DELETE"},
 			dataType:'text',
 			success:function(result){
@@ -321,13 +327,9 @@ function deleteReview(rno){
 						imgarr.push($(this).attr("href"));
 						imgarr.push($(this).children("img").attr("src"));
 						
-						
-						//strict-origin-when-cross-origin
-						//$.post(mealkit/deleteAllFiles,{files:imgarr},function(){});
-						
 						$.ajax({
 							type: 'post',
-							url: '<%=request.getContextPath() %>/deleteAllFiles',
+							url: '<%=request.getContextPath()%>/deleteAllFiles',
 							/* headers:{"Content-Type": "application/json",
 							      "X-HTTP-Method-Override": "POST" }, */
 							dataType:'text',
@@ -344,11 +346,9 @@ function deleteReview(rno){
 		});
 		
 	}};
-
-
 //template의 추가사용없이 동적으로 이미지를 로드하기위하여 append로처리
 function imgonerrorfunction(rno){
-	$.getJSON('<%= request.getContextPath() %>/reviews/getAttach/'+rno,function(list){
+	$.getJSON('<%=request.getContextPath()%>/reviews/getAttach/'+rno,function(list){
 		$(list).each(function(){
 			
 			var imagetemplate = Handlebars.compile($("#template").html());
@@ -386,37 +386,26 @@ function imgonerrorfunction(rno){
 		return  {fileName:fileName, imgsrc:imgsrc, getLink:getLink, fullName:fullName};
 		
 	}
-
 $("#reviewsDiv").on("click", function() {
 	//window.alert("reviewsdiv");
-
 	/* if ($(".timeline li").size() > 1) {
 		return;
 	} */
 	getPage("<%=request.getContextPath()%>/reviews/" + pid + "/1");
 	// 189 = pid
-
 });
-
 $(".pagination").on("click", "li a", function(event) {
-
 	//window.alert("pagination");
-
 	event.preventDefault();
-
 	replyPage = $(this).attr("href");
-
-	getPage("<%=request.getContextPath() %>/reviews/"+pid+ "/" + replyPage);
-
+	getPage("<%=request.getContextPath()%>/reviews/"+pid+ "/" + replyPage);
 });
-
  var formData = new FormData();
  var filelist;
  
  var storeimg = new Array();
  
 	$("#fileupload").on("change",function handleImgFileSelect(e) {
-
 		filelist = document.getElementById("fileupload").files || [];
 		
        	var ufiles = e.target.files;
@@ -433,7 +422,6 @@ $(".pagination").on("click", "li a", function(event) {
                 document.getElementById("fileupload").value = "";
                 return;
             }
-
 			storeimg.push(f);
 			
 			console.log('foundfile=' + f.name);
@@ -453,7 +441,6 @@ $(".pagination").on("click", "li a", function(event) {
             	  del.click(function(event){
             		var clicked = $(this);
             		
-            		
             		console.log(imgname);
             		
             		clicked.parent().remove()
@@ -462,12 +449,10 @@ $(".pagination").on("click", "li a", function(event) {
             			return el.name != imgname;
             		});
             	  });
-      	  }
+      		  }
         }); 
 		
 	});
-
-
 	
  $("#submitReview").on("click", function(event) {
 	 event.preventDefault();
@@ -475,12 +460,10 @@ $(".pagination").on("click", "li a", function(event) {
 	
 	console.log("memberidis : ${member.MId}");
 	
-	
-	
 	var mId = "${member.MId}";
 	
 	if(mId == ""){
-		window.location.href= "<%=request.getContextPath() %>/login.do";
+		window.location.href= "<%=request.getContextPath()%>/login.do";
 	};
 		<%-- <%
 		int timeout = session.getMaxInactiveInterval();
@@ -508,7 +491,6 @@ $(".pagination").on("click", "li a", function(event) {
 		formData.append("fileupload[]",storeimg[i]);
 		//vals.push(storeimg[i].name);
 	}
-
 	var data = {
 			"contents" : $("#contents").val()
 	}
@@ -521,13 +503,11 @@ $(".pagination").on("click", "li a", function(event) {
 		data : formData,
 		processData: false,
 		contentType: false,
-		enctype: 'multipart/form-data',
+		enctype: 'multipart/form-data',
 		async : false,
 		type: 'POST',
 		success: function(result){
 			console.log(result);
-			
-			//alert(result[0].filename);
 			
 			for(var i = 0 ; i < result.length ; i ++){
 				
@@ -536,10 +516,7 @@ $(".pagination").on("click", "li a", function(event) {
 				
 			}
 			
-			//$(".uploadedList").removeChild();
-			
 			document.getElementById("fileupload").value = "";
-
 			 $.ajax({
 					type:'post',
 					url:'<%=request.getContextPath()%>/reviews/',
@@ -554,7 +531,6 @@ $(".pagination").on("click", "li a", function(event) {
 							console.log("result: " + result);
 							
 							if(result == 'SUCCESS'){
-								//alert("posted");
 								replyPage = 1;
 								
 								getPage( "<%=request.getContextPath()%>/reviews/" + pid + "/" + replyPage);
@@ -572,10 +548,94 @@ $(".pagination").on("click", "li a", function(event) {
 					 }				 
 			 });
 		});
+ 
+ 
+ var variablem = "";
+ function modifyReview(rno,mid){
+		
+	 	var modifyModal = $('#cModifyModal');
+		
+	 	var placeholderObj = $("#reviewsContent"+rno).html();
+	 	modifyModal.modal('show');
+	 	modifyModal.find('.modal-body input').val(placeholderObj);
+		variablem=rno;
+	};
+	function modifyConfirm(){
+	
+	var modifytext = $("#ModifyReviewContent").val();
+	var mId = "${member.MId}"
+	if(!modifytext.trim()){
+		window.alert("작성한 내용이 없습니다.");
+		return;
+	}
+	$.ajax({
+		type:'put',
+		url:'<%=request.getContextPath()%>/reviews/'+variablem,
+		headers: {
+			"Content-Type" : "application/json",
+			"X-HTTP-Method-Override" : "PUT" },
+			
+			dataType:'text',
+			data: JSON.stringify({pid:pid,mid:mId,content:modifytext,regdate: 'sysdate'}),
+			success:function(result){
+				
+				console.log("result: " + result);
+				
+				if(result == 'SUCCESS'){
+					//alert("posted");
+					variablem="";
+					replyPage = 1;
+					
+					getPage( "<%=request.getContextPath()%>/reviews/" + pid + "/" + replyPage);
+						$('#cModifyModal').modal('hide');
+						$("#ModifyReviewContent").val("");
+									}
+								}
+						});
+	
+	
+};
+	
+//helper없이제어불가
+Handlebars.registerHelper('ifEquals',function(arg1,options){
+	
+	var a = "${member.MId}";
+	
+	return (arg1 == a) ? options.fn(this) : options.inverse(this);
+});
+
 </script>
 
-							</div><!-- divend -->
-								<!--  testing code end, set switch-->
+								<div class="modal fade" id="cModifyModal" tabindex="-1"
+									role="dialog" aria-labelledby="cModifyModal" aria-hidden="true">
+									<div class="modal-dialog" role="document">
+										<div class="modal-content">
+											<div class="modal-header">
+												<h5 class="modal-title" id="exampleModalLabel">ModifyComment</h5>
+												<button type="button" class="close" data-dismiss="modal"
+													aria-label="Close">
+													<span aria-hidden="true">&times;</span>
+												</button>
+											</div>
+											<div class="modal-body">
+
+												<input type="text" id="ModifyReviewContent"
+													name="ModifyReviewContent" class="form-control">
+
+											</div>
+
+											<div class="modal-footer">
+												<button type="button" class="btn btn-info" id="cModifyBtn"
+													onclick="modifyConfirm()">Confirm</button>
+												<button type="button" class="btn btn-default"
+													data-dismiss="modal">Cancel</button>
+											</div>
+										</div>
+									</div>
+								</div>
+
+							</div>
+							<!-- divend -->
 
 						</div>
 					</div>
@@ -583,7 +643,6 @@ $(".pagination").on("click", "li a", function(event) {
 			</div>
 		</div>
 	</section>
-
 </c:if>
 
 <section class="products related-products section">
