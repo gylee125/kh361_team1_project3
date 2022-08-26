@@ -169,7 +169,7 @@
 			.then(response => response.json())		
 			.then((data) => 
 			{
-				console.log(data);
+				//console.log(data);
 				alert("회원 비밀번호가 노출됩니다. 보안에 주의하시기 바랍니다.");				
 				memberNo.innerHTML = data.mno;
 				memberId.innerHTML = data.mid;

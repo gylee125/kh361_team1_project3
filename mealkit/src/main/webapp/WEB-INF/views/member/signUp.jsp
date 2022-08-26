@@ -93,7 +93,7 @@ span{
 	let checkUniqueEmail = false;
 	let checkEmail = false;
 	
-	//alert("js 테스트 04");
+	//alert("js 테스트 08");
 	
 	$('#mId').focusout(function(){
 		let mId = $('#mId').val();
@@ -117,7 +117,7 @@ span{
 			success : function(result){
 				//console.log(result);
 				if(result == 0){
-					$("#idCheckText").html('사용할 수 있는 ID입니다.');
+					$("#idCheckText").html('해당 ID 사용가능합니다.');
 					checkUniqueId = true;
 				}else{
 					$("#idCheckText").html('사용할 수 없는 ID입니다.');	
