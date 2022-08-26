@@ -125,7 +125,7 @@ input[type="file"] {
 </script>
 
 <script>
-var mId = "admin";
+//var mId = "admin";
 var pid = ${productOne.PId};
 var replyPage = 1;
 
@@ -181,14 +181,14 @@ var replyPage = 1;
 						<div>
 							<form id="submitform">
 								<c:if test="${member != null}"><!-- error strict-origin-when-cross-origin -->
-								<input type="text" readonly="readonly" value="${member.mId}" />
+								<input type="text" readonly="readonly" value="${member.MId}" />
 								</c:if>
 								<input type="text" id="submitReviewWriter" name="reviews"
 									class="form-control" placeholder="Comment">
 								<div class="text-center">
 									<label for="fileupload" class="custom-file-upload"> <i
 										class="fa fa-cloud-upload"></i> Upload Image
-									</label> <input type='file' id='fileupload' name="fileupload[]"
+									</label> <input style="visibility:hidden;" type='file' id='fileupload' name="fileupload[]"
 										multiple="multiple" accept=".png, .jpg, .jpeg" />
 
 									<div id="uploadedList" class='uploadedList'></div>
@@ -222,7 +222,7 @@ var replyPage = 1;
 
 <a id = "targetdelete{{rno}}" style="border:solid" class="pull-right" style="cursor:pointer;" onclick="deleteReview('{{rno}}')"><i
 		class="tf-ion-chatbubbles"></i>Delete</a>
-<a style="border:solid" class="pull-right" style="cursor:pointer;" data-toggle="collapse" data-target="#commentupdate${rno}"
+<%-- <a style="border:solid" class="pull-right" style="cursor:pointer;" data-toggle="collapse" data-target="#commentupdate${rno}"
 	onClick="hideReviewText(${rno})"><i class="tf-ion-chatbubbles"></i>Update</a>
 </br>
 <div id="commentupdate${rno}" class="collapse">
@@ -234,7 +234,7 @@ var replyPage = 1;
 			</div>
 		</div>
 	</form>
-</div>
+</div> --%>
 <br>
 
   </div>			
@@ -291,6 +291,13 @@ var printPaging = function(commentPageMaker, target) {
 
 
 function deleteReview(rno){
+	
+	var mId = "${member.MId}";
+	
+	if(mId == ""){
+		window.location.href= "<%=request.getContextPath() %>/login.do";
+	};
+	
 	var ask = window.confirm("삭제하시겠습니까?");
 	//file.delete() 
 	//Deletes the file or directory denoted by this abstract pathname. Ifthis pathname denotes a directory, then the directory must be empty inorder to be deleted. 
@@ -464,6 +471,21 @@ $(".pagination").on("click", "li a", function(event) {
  $("#submitReview").on("click", function(event) {
 	 event.preventDefault();
 	var vals = [];
+	
+	console.log("memberidis : ${member.MId}");
+	
+	
+	
+	var mId = "${member.MId}";
+	
+	if(mId == ""){
+		window.location.href= "<%=request.getContextPath() %>/login.do";
+	};
+		<%-- <%
+		int timeout = session.getMaxInactiveInterval();
+		response.setHeader("Refresh",timeout+"; url = request.getContextPath()/login.do ");
+		%> --%>
+	
 	//savefilename as string
 	var reviewtextObj = $("#submitReviewWriter");
 	var reviewtext = reviewtextObj.val();
@@ -474,7 +496,6 @@ $(".pagination").on("click", "li a", function(event) {
 	}
 	
 	//testString
-	<%-- var mId = <%= session.getAttribute("mId") %>; --%>
 	for(var i = 0; i < storeimg.length ; i ++){
 /* 				var uuid = function uuidv4() {
 			  return ([1e7]+-1e3+-4e3+-8e3+-1e11).replace(/[018]/g, c =>
