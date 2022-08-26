@@ -181,7 +181,7 @@ var replyPage = 1;
 						<div>
 							<form id="submitform">
 								<c:if test="${member != null}"><!-- error strict-origin-when-cross-origin -->
-								<input type="text" readonly="readonly" value="${member.mId}" />
+								<input type="text" readonly="readonly" value="${member.MId}" />
 								</c:if>
 								<input type="text" id="submitReviewWriter" name="reviews"
 									class="form-control" placeholder="Comment">
