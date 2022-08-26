@@ -220,6 +220,7 @@ var replyPage = 1;
 <img src onerror="imgonerrorfunction('{{rno}}')" >
 </span>
 
+</br>
 <a id = "targetdelete{{rno}}" style="border:solid" class="pull-right" style="cursor:pointer;" onclick="deleteReview('{{rno}}')"><i
 		class="tf-ion-chatbubbles"></i>Delete</a>
 <%-- <a style="border:solid" class="pull-right" style="cursor:pointer;" data-toggle="collapse" data-target="#commentupdate${rno}"
@@ -357,7 +358,7 @@ function imgonerrorfunction(rno){
 			var html = imagetemplate(fileInfo);
 			//console.log(fileInfo);
 			
-			var refinestr = "<a href="+fileInfo.getLink+"><img src="+fileInfo.imgsrc+" '/>"
+			var refinestr = "<a href="+fileInfo.getLink+"><img src="+fileInfo.imgsrc+" style='border: 2px double black;' '/>"
 			
 			//console.log(refinestr);
 			//dynamical
@@ -442,9 +443,9 @@ $(".pagination").on("click", "li a", function(event) {
             reader.readAsDataURL(f);
                 
             reader.onload = function(e) {
-            	  var img = $('<img src="' + e.target.result + '"name="'+f.name+'" width="50px" height="50px" class="uploadedimg">');
+            	  var img = $('<img src="' + e.target.result + '"name="'+f.name+'" width="50px" height="50px" class="uploadedimg" style="border: 2px double black;" >');
             	  var imgname = f.name;
-            	  var del = $('<small style="cursor: pointer">X</small>');
+            	  var del = $('<small style="cursor: pointer" style="font-weight: bolder;" >X</small>');
             	  var spn = $('<span></span>').append(img).append(del)
             	
             	  $(".uploadedList").append(spn);
