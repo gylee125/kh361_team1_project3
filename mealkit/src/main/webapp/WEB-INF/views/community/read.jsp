@@ -86,7 +86,7 @@
 				</div>
 				
 				<div class="box-footer">
-				<c:if test = "${sessionScope.member.MId == CommunityVO.MId}">
+				<c:if test = "${sessionScope.member.MId == CommunityVO.MId || sessionScope.member.MLevel == '2'}">
 					<button type="submit" class="btn btn-main" id="update">Modify</button>
 					<button type="submit" class="btn btn-main" id="delete">REMOVE</button>
 				</c:if>	

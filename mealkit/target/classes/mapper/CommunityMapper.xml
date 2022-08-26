@@ -123,6 +123,39 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
     	WHERE FILE_NO = #{FILE_NO}
     </update>
 	
+	<select id="adminList" resultType="com.mealkit.board.CommunityVO">
+
+		select cNo,
+		mId,
+		title,
+		content,
+		regDate
+		from (
+		select cNo,
+		mId,
+		title,
+		content,
+		regDate,
+		row_number() over(order by cNo desc) as rNum
+		from community
+		where 1=1
+
+		<include refid="search" />
+
+		) mp
+		where rNum between #{rowStart} and #{rowEnd}
+		order by cNo desc
+
+	</select>
+	
+	<select id="adminListCount" resultType="int">
+		SELECT COUNT(cNo)
+		FROM community
+		WHERE 1=1
+		<include refid="search" />
+
+		And cNo > 0
+	</select>
 	
 	<sql id="search">
 		<if test="searchType != null">

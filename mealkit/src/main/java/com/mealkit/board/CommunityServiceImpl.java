@@ -87,6 +87,16 @@ public class CommunityServiceImpl implements CommunityService {
 			}
 
 		}
-
 	}
+
+	@Override
+	public List<CommunityVO> adminList(SearchCriteria scri) throws Exception {
+		return communityMapper.adminList(scri);
+	}
+
+	@Override
+	public int adminListCount(SearchCriteria scri) throws Exception {
+		return communityMapper.adminListCount(scri);
+	}
+	
 }

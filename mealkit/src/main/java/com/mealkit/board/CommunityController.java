@@ -122,8 +122,18 @@ public class CommunityController {
 		response.getOutputStream().close();
 	}
 
-	@RequestMapping(value = "/adminBoard.do")
-	public String adminBoard() {
-		return "community/adminBoard";
+	@RequestMapping(value = "/adminBoard", method = RequestMethod.GET)
+	public void adminlist(Model model, @ModelAttribute("scri") SearchCriteria scri) throws Exception {
+
+		logger.info("show all list......................");
+
+		model.addAttribute("adminList", service.adminList(scri));
+
+		PageMaker pageMaker = new PageMaker();
+		pageMaker.setCri(scri);
+		pageMaker.setTotalCount(service.adminListCount(scri));
+
+		model.addAttribute("pageMaker", pageMaker);
 	}
+	
 }
