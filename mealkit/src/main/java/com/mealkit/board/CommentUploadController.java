@@ -63,6 +63,13 @@ public class CommentUploadController {
 	@RequestMapping(value = "/uploadAjax", method = RequestMethod.POST, produces = "application/json;charset=UTF-8")
 	public @ResponseBody ResponseEntity<List<JSONObject>> uploadAjax(@RequestParam("fileupload[]") List<MultipartFile> files) throws Exception {
 		
+		String upFolder = "C:\\uploadfiles\\upload";
+
+		File upFolderPath = new File(upFolder);
+		if(upFolderPath.exists() == false) {
+			upFolderPath.mkdirs();
+		}
+		
 		//value를 리턴하기위하여 jsonobject 사용(pom.xml에 jackson추가설치 및 jsonmapping 필요) 및 produce/header변경
 		List<JSONObject> entities = new ArrayList<JSONObject>();
 		
