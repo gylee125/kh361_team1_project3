@@ -24,4 +24,8 @@ public interface CommunityService {
   public Map<String, Object> selectFileInfo(Map<String, Object> map) throws Exception;
   
   public void update(CommunityVO community, String[] files, String[] fileNames, MultipartHttpServletRequest mpRequest) throws Exception;
+  
+  public List<CommunityVO> adminList(SearchCriteria scri) throws Exception;
+  
+  public int adminListCount(SearchCriteria scri) throws Exception;
 }

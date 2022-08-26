@@ -22,5 +22,12 @@ public interface CommentMapper {
 	
 	public int getPid(Integer rno) throws Exception;
 	
+	
+	//testcode
+	public void addAttach(String fullName)throws Exception;
+	
 	public List<String> getAttach(Integer rno) throws Exception;
+	
+	public void deleteAttach(Integer rno) throws Exception;
+	
 }
