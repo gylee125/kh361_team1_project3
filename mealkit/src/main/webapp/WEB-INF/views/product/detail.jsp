@@ -14,6 +14,7 @@
 input[type="file"] {
 	display: none;
 }
+
 .custom-file-upload {
 	position: relative;
 	left: auto;
@@ -130,8 +131,7 @@ input[type="file"] {
 	}
 </script>
 
-			<script>
-//var mId = "admin";
+<script>
 var pid = ${productOne.PId};
 var replyPage = 1;
 		$(document).ready(function() {
@@ -184,12 +184,12 @@ var replyPage = 1;
 								<div>
 									<form id="submitform">
 										<c:if test="${member != null}">
-											<!-- error strict-origin-when-cross-origin -->
-											<input type="text" readonly="readonly" value="${member.MId}" />
-											<br>
+										<div style="margin-bottom:2px">
+											<input type="text" readonly="readonly" value="  ${member.MId}" />
+										</div>
 										</c:if>
 										<input type="text" id="submitReviewWriter" name="reviews"
-											class="form-control" placeholder="Comment">
+											class="form-control" placeholder="Comment" style="margin-bottom:10px">
 										<div class="text-center">
 											<label for="fileupload" class="custom-file-upload"> <i
 												class="fa fa-cloud-upload"></i> Upload Image
@@ -223,29 +223,29 @@ var replyPage = 1;
 								<script
 									src="https://cdnjs.cloudflare.com/ajax/libs/handlebars.js/3.0.1/handlebars.js"></script>
 								<!-- 동적으로 생성된 영역을 selector로 참조하기위하여 고유값(rno)를id에부여 -->
-<!-- https://stackoverflow.com/questions/34252817/handlebarsjs-check-if-a-string-is-equal-to-a-value -->
+								<!-- https://stackoverflow.com/questions/34252817/handlebarsjs-check-if-a-string-is-equal-to-a-value -->
 
-<script id="template" type="text/x-handlebars-template">
+								<script id="template" type="text/x-handlebars-template">
 
 {{#each .}}
-<div id = targetdiv{{rno}}>
+<div id = targetdiv{{rno}} ">
 <ui id="reviewreplyLi" class="replyLi" data-rno={{rno}}>
  <div class="post-comments" >
   <span class="time">
-    <i class="fa fa-clock-o">regdate:{{prettifyDate regDate}}</i>
+    <i class="fa fa-clock-o"> 등록일 : {{prettifyDate regDate}}</i>
   </span>
-  <h4 class="comment-author"> <a href="https://www.google.com/search?q={{mid}}">{{mid}}</a></h4>
+  <h4 class="comment-author"> <a href="https://www.google.com/search?q={{mid}}"> 작성자 : {{mid}}</a></h4>
 
 
 {{#ifEquals mid}}
-<a id = "targetdelete{{rno}}" style="border:solid" class="pull-right" style="cursor:pointer;" onclick="deleteReview('{{rno}}')"><i
-		class="tf-ion-chatbubbles"></i>Delete</a>
-
-
-<a style="border:solid" class="pull-right" style="cursor:pointer;" onclick="modifyReview('{{rno}}','{{mid}}')" ><i class="tf-ion-chatbubbles"></i>Update</a>
+<a id = "targetdelete{{rno}}" style="border:groove" class="pull-right" style="cursor:pointer;" onclick="deleteReview('{{rno}}')"><i
+		class="tf-ion-chatbubbles"></i>삭제</a>
+<a style="border:groove" class="pull-right" style="cursor:pointer;" onclick="modifyReview('{{rno}}','{{mid}}')" ><i class="tf-ion-chatbubbles"></i>수정</a>
 {{/ifEquals}}
+<div class="timeline-body" id="reviewsContent{{rno}}">{{content}} </div>
+<div>
+</div>
 
-<div class="timeline-body">{{content}} </div>
 <span id = "targetspan{{rno}}">
 <img src onerror="imgonerrorfunction('{{rno}}')" >
 </span>
@@ -326,10 +326,6 @@ function deleteReview(rno){
 						//a태그앞공백중요
 						imgarr.push($(this).attr("href"));
 						imgarr.push($(this).children("img").attr("src"));
-						
-						
-						//strict-origin-when-cross-origin
-						//$.post(mealkit/deleteAllFiles,{files:imgarr},function(){});
 						
 						$.ajax({
 							type: 'post',
@@ -445,7 +441,6 @@ $(".pagination").on("click", "li a", function(event) {
             	  del.click(function(event){
             		var clicked = $(this);
             		
-            		
             		console.log(imgname);
             		
             		clicked.parent().remove()
@@ -454,7 +449,7 @@ $(".pagination").on("click", "li a", function(event) {
             			return el.name != imgname;
             		});
             	  });
-      	  }
+      		  }
         }); 
 		
 	});
@@ -464,8 +459,6 @@ $(".pagination").on("click", "li a", function(event) {
 	var vals = [];
 	
 	console.log("memberidis : ${member.MId}");
-	
-	
 	
 	var mId = "${member.MId}";
 	
@@ -516,16 +509,12 @@ $(".pagination").on("click", "li a", function(event) {
 		success: function(result){
 			console.log(result);
 			
-			//alert(result[0].filename);
-			
 			for(var i = 0 ; i < result.length ; i ++){
 				
 				vals.push(result[i].filename);
 				console.log(result[i].filename);
 				
 			}
-			
-			//$(".uploadedList").removeChild();
 			
 			document.getElementById("fileupload").value = "";
 			 $.ajax({
@@ -542,7 +531,6 @@ $(".pagination").on("click", "li a", function(event) {
 							console.log("result: " + result);
 							
 							if(result == 'SUCCESS'){
-								//alert("posted");
 								replyPage = 1;
 								
 								getPage( "<%=request.getContextPath()%>/reviews/" + pid + "/" + replyPage);
@@ -562,31 +550,53 @@ $(".pagination").on("click", "li a", function(event) {
 		});
  
  
- 
+ var variablem = "";
  function modifyReview(rno,mid){
 		
 	 	var modifyModal = $('#cModifyModal');
 		
-	 	//modifyModal.find('.modal-body').text(rno);
-	 	
-	 	$('#cModifyModal').modal('show');
-		
+	 	var placeholderObj = $("#reviewsContent"+rno).html();
+	 	modifyModal.modal('show');
+	 	modifyModal.find('.modal-body input').val(placeholderObj);
+		variablem=rno;
 	};
-function modifyConfirm(){
+	function modifyConfirm(){
 	
 	var modifytext = $("#ModifyReviewContent").val();
-	
+	var mId = "${member.MId}"
 	if(!modifytext.trim()){
 		window.alert("작성한 내용이 없습니다.");
 		return;
 	}
+	$.ajax({
+		type:'put',
+		url:'<%=request.getContextPath()%>/reviews/'+variablem,
+		headers: {
+			"Content-Type" : "application/json",
+			"X-HTTP-Method-Override" : "PUT" },
+			
+			dataType:'text',
+			data: JSON.stringify({pid:pid,mid:mId,content:modifytext,regdate: 'sysdate'}),
+			success:function(result){
+				
+				console.log("result: " + result);
+				
+				if(result == 'SUCCESS'){
+					//alert("posted");
+					variablem="";
+					replyPage = 1;
+					
+					getPage( "<%=request.getContextPath()%>/reviews/" + pid + "/" + replyPage);
+						$('#cModifyModal').modal('hide');
+						$("#ModifyReviewContent").val("");
+									}
+								}
+						});
 	
-	$('#cModifyModal').modal('hide');
-	
-	alert('hi2');
 	
 };
 	
+//helper없이제어불가
 Handlebars.registerHelper('ifEquals',function(arg1,options){
 	
 	var a = "${member.MId}";
@@ -608,26 +618,15 @@ Handlebars.registerHelper('ifEquals',function(arg1,options){
 												</button>
 											</div>
 											<div class="modal-body">
-											
-											
-									<form id="submitform">
-										<input type="text" id="ModifyReviewContent" name="ModifyReviewContent"
-											class="form-control" placeholder="modifyComment">
-										<div class="text-center">
-											<label for="fileupload" class="custom-file-upload"> <i
-												class="fa fa-cloud-upload"></i> Upload Image
-											</label> <input style="visibility: hidden;" type='file'
-												id='fileupload' name="fileupload[]" multiple="multiple"
-												accept=".png, .jpg, .jpeg" />
-											<div id="modifyuploadedList" class='modifyuploadedList'></div>
-										</div>
-									</form>
-											
-											
+
+												<input type="text" id="ModifyReviewContent"
+													name="ModifyReviewContent" class="form-control">
+
 											</div>
 
 											<div class="modal-footer">
-												<button type="button" class="btn btn-info" id="cModifyBtn" onclick="modifyConfirm()">Confirm</button>
+												<button type="button" class="btn btn-info" id="cModifyBtn"
+													onclick="modifyConfirm()">Confirm</button>
 												<button type="button" class="btn btn-default"
 													data-dismiss="modal">Cancel</button>
 											</div>
@@ -635,10 +634,8 @@ Handlebars.registerHelper('ifEquals',function(arg1,options){
 									</div>
 								</div>
 
-
 							</div>
 							<!-- divend -->
-							<!--  testing code end, set switch-->
 
 						</div>
 					</div>
