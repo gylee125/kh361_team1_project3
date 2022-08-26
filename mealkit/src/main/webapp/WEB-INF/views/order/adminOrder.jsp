@@ -7,8 +7,26 @@
 <title>밀슐랭 | 관리자 페이지</title>
 
 <style>
-.search {
-	margin-top: 25px;
+.h {
+	font-family: "Poppins", sans-serif;
+	color: #888783;
+	font-size: 14px;
+	letter-spacing: 2px;
+}
+
+.search-wrap {
+	margin-top: 35px;
+	margin-left: 375px;
+}
+
+.search-wrap #keywordInput {
+	height: 25px;
+	width: 290px;
+}
+
+.search-wrap button {
+	height: 25px;
+	width: 25px;
 }
 </style>
 
@@ -68,16 +86,15 @@
 					</ul>
 					
 					<!--  시간이 된다면 검색 기능 넣기 -->
-					<div class="search text-center">
+					<div class="search-wrap">
 						<select name="searchType" >
-							<option value="n"
-								<c:out value="${cri.searchType == null?'selected':''}"/>>---</option>
+
 							<option value="i"
 								<c:out value="${cri.searchType eq 'i'?'selected':''}"/>>아이디</option>
 							<option value="n"
 								<c:out value="${cri.searchType eq 'n'?'selected':''}"/>>주문번호</option>
 						</select>
-						<input type="search" name='keyword' id="keywordInput" value='${cri.keyword}'>
+						<input type="text" name='keyword' id="keywordInput" value='${cri.keyword}'>
 						<button id='searchBtn'>
 							<i class="tf-ion-ios-search-strong"></i>
 						</button>
@@ -98,9 +115,9 @@
 										<th>선택</th>
 									</tr>
 								</thead>
-								<c:if test="${memberlist.size() != 0}">
+								<c:if test="${orderList.size() != 0}">
 								<tbody>
-									<c:forEach var="order" items="${orderList}"  begin="${pageMaker.cri.pageStart - 1}" end="${pageMaker.cri.pageEnd - 1}">
+									<c:forEach var="order" items="${orderList}" >
 										<tr>
 											<td>${order.oId}</td>
 											<td><fmt:formatDate value="${order.oDate}"
@@ -117,10 +134,10 @@
 									</c:forEach>
 								</tbody>
 								</c:if>
-								<c:if test="${memberlist.size() == 0}">
+								<c:if test="${orderList.size() == 0}">
 									<tr>
 										<td colspan="6" align="center">
-												<h4>조회된 결과가 없습니다.</h4>
+												<h4>' ${cri.keyword} '로 조회된 결과가 없습니다.</h4>
 										</td>
 									</tr>
 								</c:if>
@@ -146,8 +163,7 @@
 				</li>
 			</c:forEach>
 			<c:if test="${pageMaker.next && pageMaker.endPage > 0}">
-				<li><a
-					href="listPage${pageMaker.makeQuery(pageMaker.endPage +1) }">Next</a></li>
+				<li><a href="listPage${pageMaker.makeQuery(pageMaker.endPage +1) }">Next</a></li>
 			</c:if>
 		</ul>
 	</div>
