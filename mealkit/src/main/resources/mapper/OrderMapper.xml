@@ -12,7 +12,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		where a.pId = b.pId
 		and a.mId = #{mId}
 	</insert>
-
+	
 	<select id="showOrderList"
 		resultType="com.mealkit.order.OrderVO">
 		select a.oId, a.mId, a.pId, a.quantity, a.odate, a.price, a.statusCode, b.pName, c.statusName
@@ -23,6 +23,27 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         order by oId desc
 	</select>
 	
+	<!-- <select id="showOrderList" resultType="com.mealkit.order.OrderVO">
+	<![CDATA[
+		select * from(
+		    	
+		    select rownum rn, oId, mId, pId, quantity, odate, price, statusCode, pname, statusName
+		    from ( select a.oId, a.mId, a.pId, a.quantity, a.odate, a.price, a.statusCode, b.pName, c.statusName
+		     	from userOrder a, product b, statusType c
+		        where a.mId = #{mId} and a.pid = b.pid and a.statusCode = c.statusCode 
+		        order by oId desc))
+ 	 where rn between #{pageStart} and #{pageEnd}
+	]]>
+	</select> -->
+
+	<select id="countPageOrder" resultType="int">
+	<![CDATA[
+		select count(*) from userOrder a
+		where a.mId=#{mId}
+	]]>
+	</select> 
+	
+	
 	<select id = "orderDetail" resultType="com.mealkit.order.OrderVO">
 		select a.oId, a.mId, a.pId, a.quantity, a.odate, a.price, a.statusCode, b.pName, c.statusName
         from userOrder a, product b, statusType c
@@ -30,7 +51,6 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         and a.statusCode = c.statusCode 
         and a.oId= #{oId}
 	</select>
-	
 	
 	<insert id="addCart">
 	INSERT INTO usercart(ucId, mId, pId, cquantity)
@@ -43,15 +63,6 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		where a.pId = b.pId
 		and a.mId=#{mId}
 	</select>
-	
-	<!-- <select id="checkProduct" resultType="com.mealkit.order.CartVO">
-		select * 
-		from usercart
-		where ucId=#{ucId} and
-		mId=#{mId} and
-		pId=#{pId} and
-		cquantity=#{cquantity}
-	</select> -->
 	
 	<update id="update">
 		update usercart set
@@ -69,15 +80,6 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	where mId=#{mId}
 	</delete>
 	
-	
-	<!-- <select id="orderAdmin"
-		resultType="com.mealkit.order.OrderVO">
-		select a.oId, a.mId, a.pId, a.quantity, a.odate, a.price, a.statusCode, b.pName, c.statusName
-        from userOrder a, product b, statusType c
-        where a.pid = b.pid 
-        and a.statusCode = c.statusCode 
-        order by oId desc
-	</select> -->
 	
 	<select id="orderAdmin"
 		resultType="com.mealkit.order.OrderVO">
@@ -143,7 +145,6 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	<![CDATA[
 		select count(*) from userOrder a
 		where oid>0 
-		
 	]]>
 		<include refid="search"></include>
 	</select>

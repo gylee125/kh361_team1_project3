@@ -5,6 +5,8 @@ import java.util.List;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -12,11 +14,6 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
-
-import com.mealkit.member.MemberController;
-
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 @Controller
 public class OrderController {
@@ -34,15 +31,29 @@ public class OrderController {
 		return "order/checkout";
 	}
 	
+	/*
+	 * @RequestMapping(value="/order.do") public String order(String mId,
+	 * HttpServletRequest request, HttpSession session) throws Exception {
+	 * List<OrderVO> orderList = orderService.showOrderList(mId);
+	 * 
+	 * if(!orderList.isEmpty()) { session.setAttribute("orderList", orderList); }
+	 * else { // request.setAttribute("msg", "장바구니가 비었습니다."); //
+	 * request.setAttribute("url", "emptyCart.do"); return "order/empty-order"; }
+	 * return "order/order"; }
+	 */
+	
 	@RequestMapping(value="/order.do")
-	public String order(String mId, HttpServletRequest request, HttpSession session) throws Exception {
+	public String order(String mId, Model model, OrderCriteria cri) throws Exception {
 		List<OrderVO> orderList = orderService.showOrderList(mId);
 		
+		OrderPageMaker pageMaker = new OrderPageMaker();
+		pageMaker.setCri(cri);
+		pageMaker.setTotalCount(orderService.countPage(cri));
+		model.addAttribute("pageMaker", pageMaker);
+    	
 		if(!orderList.isEmpty()) {
-			session.setAttribute("orderList", orderList);
+			model.addAttribute("orderList",orderList);
 		} else {
-			// request.setAttribute("msg", "장바구니가 비었습니다.");
-	        // request.setAttribute("url", "emptyCart.do"); 
 			return "order/empty-order";
 		}
 		return "order/order";

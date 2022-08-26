@@ -13,6 +13,8 @@ public interface OrderService {
 
 	public OrderVO orderDetail(int oId) throws Exception;
 	
+	public int countPageOrder (OrderCriteriaUser cri) throws Exception;
+	
 	
 	// 장바구니
 	public void addCart(CartVO cart) throws Exception;
