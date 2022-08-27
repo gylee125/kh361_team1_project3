@@ -173,7 +173,7 @@ public class ProductController {
 		logger.info("// productList.toString()=" + productOne.toString());
 
 		request.setAttribute("msg", "상품수정 완료");
-		request.setAttribute("url", "detail?pId=" + pId);
+		request.setAttribute("url", "adminProduct");
 
 		return "alert";
 	}
@@ -182,10 +182,10 @@ public class ProductController {
 	public String delete(HttpServletRequest request, @RequestParam(value = "pId") int pId) throws Exception {
 		logger.info("/product/delete pId=" + pId);
 
-		request.setAttribute("msg", "상품삭제 완료");
-		request.setAttribute("url", "listAdmin");
-
 		productService.delete(pId);
+		
+		request.setAttribute("msg", "상품삭제 완료");
+		request.setAttribute("url", "adminProduct");
 
 		return "alert";
 	}
