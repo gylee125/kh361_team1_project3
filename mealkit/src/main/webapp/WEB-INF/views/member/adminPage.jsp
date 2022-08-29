@@ -79,7 +79,7 @@
 									<tbody>
 										<c:forEach var="list" items="${memberlist}">
 											<tr onclick="searchMember('${list.MId}');" style="cursor:pointer;">
-												<td>${list.MNo}</td>
+												<td>${list.rn}</td>
 												<td>${list.MId}</td>
 												<td>${list.MName}</td>	
 												<td>  
@@ -137,19 +137,18 @@
 	<div class="text-center">
 		<ul class="pagination post-pagination">
 			<c:if test="${pageMaker.prev}">
-				<li><a href="adminPage.do${pageMaker.makeQuery(pageMaker.startPage - 1)}">Prev</a></li>
+				<li><a href="adminPage.do${pageMaker.makeSearch(pageMaker.startPage - 1)}">Prev</a></li>
 			</c:if>
-
 			<c:forEach begin="${pageMaker.startPage }" end="${pageMaker.endPage }" var="idx">
 				<li class="active"
 					<c:out value="${pageMaker.cri.page == idx?'class =active':''}"/>>
-					<a href="adminPage.do${pageMaker.makeQuery(idx)}">${idx}</a>
+					<a href="adminPage.do${pageMaker.makeSearch(idx)}">${idx}</a>
 				</li>
 			</c:forEach>
 			<c:if test="${pageMaker.next && pageMaker.endPage > 0}">
-				<li><a href="listPage${pageMaker.makeQuery(pageMaker.endPage +1) }">Next</a></li>
+				<li><a href="listPage${pageMaker.makeSearch(pageMaker.endPage +1) }">Next</a></li>
 			</c:if>
-		</ul>		
+		</ul>				
 	</div>
 </section>
 
