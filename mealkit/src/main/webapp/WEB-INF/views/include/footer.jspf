@@ -10,7 +10,7 @@ Start Call To Action
 	<div class="container">
 		<div class="row">
 			<div class="col-md-12">
-				<ul class="footer-menu text-uppercase">
+				<%-- <ul class="footer-menu text-uppercase">
 					<li>
 						<a href="<%=request.getContextPath()%>">CONTACT</a>
 					</li>
@@ -23,7 +23,7 @@ Start Call To Action
 					<li>
 						<a href="<%=request.getContextPath()%>">PRIVACY POLICY</a>
 					</li>
-				</ul>
+				</ul> --%>
 				<p class="copyright-text">Copyright &copy;2021, Designed &amp; Developed by <a href="https://themefisher.com/">Themefisher</a></p>
 				<a href="<%=request.getContextPath()%>/about"><p class="copyright-text">kh361 오후반 - Team1 PROJECT</p></a>
 
