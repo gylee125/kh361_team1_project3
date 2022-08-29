@@ -31,6 +31,11 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		select * from product
 		where typeCode=#{typeCode}
 	</select>
+	
+	<select id="selectTypeByTypeCode" resultType="ProductTypeVO">
+		select * from producttype
+		where typeCode=#{typeCode}
+	</select>
 
 	<insert id="insert" parameterType="ProductVO">
 		insert into product

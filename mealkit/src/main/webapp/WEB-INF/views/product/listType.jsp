@@ -14,7 +14,7 @@
 	<div class="container">
 		<div class="row">
 			<div class="title text-center">
-				<h2>Lists of foods</h2>
+				<h2>${productType.TNameEng} - Lists of foods</h2>
 			</div>
 		</div>
 		<div class="row">

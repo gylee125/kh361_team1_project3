@@ -68,9 +68,11 @@ public class ProductController {
 		logger.info("/product/listType" + typeCode);
 
 		List<ProductVO> productList = productService.selectByTypeCode(typeCode);
+		ProductTypeVO pType = productService.selectTypeByTypeCode(typeCode);
 
 		//logger.info("// productList.toString()=" + productList.toString());
 		model.addAttribute("productList", productList);
+		model.addAttribute("productType", pType);
 	}
 
 	@RequestMapping(value = "/detail")

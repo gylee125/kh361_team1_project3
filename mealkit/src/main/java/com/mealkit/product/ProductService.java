@@ -13,6 +13,8 @@ public interface ProductService {
 	
 	List<ProductVO> selectByTypeCode(String typeCode) throws Exception;
 	
+	ProductTypeVO selectTypeByTypeCode(String typeCode) throws Exception;
+	
 	void insert(ProductVO product) throws Exception;
 	
 	void updateProduct(ProductVO product) throws Exception;

@@ -310,17 +310,17 @@ FACEBOOK: https://www.facebook.com/themefisher
 
 										<ul class="dropdown-menu">
 											<li><a
-												href="<%=request.getContextPath()%>/index.do">Notice</a></li>
+												href="<%=request.getContextPath()%>">Notice</a></li>
 											<li><a
-												href="<%=request.getContextPath()%>/index.do">Q&A</a></li>
+												href="<%=request.getContextPath()%>">Q&A</a></li>
 											<li><a
-												href="<%=request.getContextPath()%>/index.do">Review</a></li>
+												href="<%=request.getContextPath()%>">Review</a></li>
 										</ul></li>
 									<!-- Board -->						
 									<!-- Notice -->
 									<!--
 									<li class="dropdown "><a
-										href="<%=request.getContextPath()%>/index.do">Notice</a>
+										href="<%=request.getContextPath()%>">Notice</a>
 									</li>
 									-->
 									<!-- / Notice -->

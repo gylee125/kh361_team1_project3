@@ -4,6 +4,7 @@ import java.util.List;
 
 import com.mealkit.product.ProductDetailVO;
 import com.mealkit.product.ProductSearchCriteria;
+import com.mealkit.product.ProductTypeVO;
 import com.mealkit.product.ProductVO;
 import com.mealkit.product.ProductCriteria;
 
@@ -18,6 +19,8 @@ public interface ProductMapper {
 	List<ProductVO> selectRelatedList(int pId) throws Exception;
 	
 	List<ProductVO> selectByTypeCode(String typeCode) throws Exception;
+	
+	ProductTypeVO selectTypeByTypeCode(String typeCode) throws Exception;
 	
 	List<ProductVO> selectListWithPaging(ProductCriteria cri) throws Exception;
 	

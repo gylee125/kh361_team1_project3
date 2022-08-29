@@ -43,6 +43,12 @@ public class ProductServiceImpl implements ProductService {
 	public List<ProductVO> selectByTypeCode(String typeCode) throws Exception {
 		return productMapper.selectByTypeCode(typeCode);
 	}
+	
+	@Override
+	@Transactional
+	public ProductTypeVO selectTypeByTypeCode(String typeCode) throws Exception {
+		return productMapper.selectTypeByTypeCode(typeCode);
+	};
 
 	@Override
 	@Transactional
