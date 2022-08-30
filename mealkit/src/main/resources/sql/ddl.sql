@@ -1,3 +1,8 @@
+-- 계정
+CREATE USER MEALKIT IDENTIFIED BY MEALKIT;
+GRANT CONNECT, RESOURCE TO MEALKIT;
+
+-- 스키마
 /* 상품 */
 CREATE TABLE Product (
 	pId NUMBER NOT NULL, /* 상품번호 */
@@ -688,7 +693,7 @@ ALTER TABLE Community_file
 
 
 
-/* 샘플 데이터 */
+/* 시퀀스, 트리거, 샘플 데이터 */
 --PRODUCTTYPE
 INSERT INTO PRODUCTTYPE VALUES('1', '한식', 'Korean food');
 INSERT INTO PRODUCTTYPE VALUES('2', '양식', 'Western Food');
